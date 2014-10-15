@@ -9,9 +9,8 @@ import SocketServer
 env.deploy_path = 'output'
 
 def clean():
-    if os.path.isdir(DEPLOY_PATH):
-        local('rm -rf {deploy_path}'.format(**env))
-        local('mkdir {deploy_path}'.format(**env))
+    local('rm -rf {deploy_path}'.format(**env))
+    local('mkdir {deploy_path}'.format(**env))
 
 def build():
     local('pelican -s pelicanconf.py')
