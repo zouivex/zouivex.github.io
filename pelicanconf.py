@@ -1,10 +1,10 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
 AUTHOR = u'九哥'
 SITENAME = u'九哥的部落'
-SITEURL = '/'
+SITEURL = ''
 
 PATH = 'content'
 
@@ -74,10 +74,14 @@ DISQUS_SITENAME = 'httpzouivexgithubio'
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 
 # Support PDF download
-PDF_PROCESSOR = True
+# PDF_PROCESSOR = True
 
 # Count of different font sizes in the tag cloud.
 TAG_CLOUD_STEPS = 4
 
 # Maximum number of tags in the cloud.
 TAG_CLOUD_MAX_ITEMS = 100
+
+# Feed configuration
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
