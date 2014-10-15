@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'九哥'
 SITENAME = u'九哥的部落'
+SITE_SUB_TITLE = u'技术、阅读、生活'
 SITEURL = 'http://blog.zouxu.com.cn'
 
 PATH = 'content'
@@ -40,10 +41,12 @@ DEFAULT_PAGINATION = 5
 STATIC_PATHS = [
     'images',
     'pdf',
-    'extra/CNAME'
+    'extra/CNAME',
+    'extra/favicon.png'
     ]
 
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},
+                       'extra/favicon.png': {'path': 'favicon.png'},}
 
 # Same as Octopress structure
 ARTICLE_URL = 'blog/{date:%Y}/{date:%m}/{date:%d}/{slug}/'
