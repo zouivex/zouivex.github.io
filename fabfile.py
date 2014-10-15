@@ -33,7 +33,7 @@ def rebuild():
 
 def gen_publish():
     clean
-    loca('pelican -s publishconf.py')
+    local('pelican -s publishconf.py')
 
 def regenerate():
     local('pelican -r -s pelicanconf.py')
