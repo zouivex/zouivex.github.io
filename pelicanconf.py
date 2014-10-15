@@ -41,10 +41,12 @@ DEFAULT_PAGINATION = 5
 STATIC_PATHS = [
     'images',
     'pdf',
-    'extra/CNAME'
+    'extra/CNAME',
+ 	'extra/favicon.png'
     ]
 
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},
+					   'extra/favicon.png': {'path': 'favicon.png'},}
 
 # Same as Octopress structure
 ARTICLE_URL = 'blog/{date:%Y}/{date:%m}/{date:%d}/{slug}/'
