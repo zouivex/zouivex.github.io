@@ -8,7 +8,12 @@
         {% if loop.index == 1 %}
 
         <article>
-            <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
+            <h1>
+                <a href="{{ SITEURL }}/{{ article.url }}">
+                    {{ article.title }}
+                </a>
+            </h1>
+            {% include 'metadata.inc.html' %}
             {{ article.content }}
         </article>
 

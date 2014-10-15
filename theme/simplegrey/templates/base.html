@@ -54,7 +54,7 @@
                 </a>
             </nav>
 
-            <a href="{{ SITEURL }}" class="title">
+            <a href="{{ SITEURL }}/index.html" class="title">
                 {{ SITENAME }}
             </a>
         </header>
@@ -66,7 +66,7 @@
 
             <div class="sidebar">
                 <nav>
-                    <h2>博客分类</h2>
+                    <h2>分类目录</h2>
                     <ul>
                         {% for cat, null in categories %}
                         <li {% if cat == category %} class="active" {% endif %}>
@@ -77,6 +77,36 @@
                         {% endfor %}
                     </ul>
                 </nav>
+                
+                <aside>
+                    {% if MONTH_ARCHIVE_SAVE_AS %}
+                        <h2>归档</h2>
+                        <ul>
+                        {% for year, date_year in dates|groupby( 'date.year' )|sort(reverse=True) %}
+                            {% for month, articles in date_year|groupby( 'date.month' )|sort(reverse=True) %}
+                            <li>
+                                <a href="/{{ MONTH_ARCHIVE_SAVE_AS.format(date=articles[0].date) }}">
+                                    {{ articles[0].date.strftime('%m') }}/{{ year }} ({{ articles|count }})
+                                </a>
+                            </li>
+                            {% endfor %}
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </aside>
+
+                <aside>
+                    <h2>标签</h2>
+                    <ul class="tagcloud">
+                        {% for tag in tag_cloud %}
+                        <li class="tag-{{ tag.1 }}">
+                            <a href="{{ SITEURL }}/{{ tag.0.url }}">
+                                {{ tag.0 }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </aside>
 
                 {% if SOCIAL %}
                 <aside>
@@ -94,19 +124,6 @@
                     </ul>
                 </aside>
                 {% endif %}
-
-                <aside>
-                    <h2>标签</h2>
-                    <ul class="tagcloud">
-                        {% for tag in tag_cloud %}
-                        <li class="tag-{{ tag.1 }}">
-                            <a href="{{ SITEURL }}/{{ tag.0.url }}">
-                                {{ tag.0 }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </aside>
 
                 {% if LINKS %}
                 <aside>
