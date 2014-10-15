@@ -1,20 +1,16 @@
 ﻿<div class="metadata">
-    <time datetime="{{ article.date.isoformat() }}" pubdate>
+    <time datetime="{{ article.date.isoformat() }}">
         {{ article.locale_date }}
     </time>
 
-    {% if article.author %}
-    <address class="vcard author">
-        作者：
-        <a class="url fn" href="{{ SITEURL }}/{{ article.author.url }}">
-            {{ article.author }}
+    {% if article.category %}
+    <p>
+        类别：
+        <a href="{{ SITEURL }}/{{ article.category.url }}">
+            {{ article.category }}
         </a>
-    </address>
+    </p>
     {% endif %}
-    类别：
-    <a href="{{ SITEURL }}/{{ article.category.url }}">
-        {{ article.category }}
-    </a>
 
     {% if article.tags %}
     <p class="tags">
@@ -30,7 +26,9 @@
 
     {% if PDF_PROCESSOR %}
     <p>
-        <a href="{{ SITEURL }}/pdf/{{ article.slug }}.pdf">下载PDF版本</a>
+        <a href="{{ SITEURL }}/pdf/{{ article.slug }}.pdf">
+            下载PDF版本
+        </a>
     </p>
     {% endif %}
 </div>
