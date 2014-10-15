@@ -1,1 +1,0 @@
-My blog baed on the Pelican engine.

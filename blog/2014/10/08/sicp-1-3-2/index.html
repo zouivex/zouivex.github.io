@@ -1,0 +1,228 @@
+﻿﻿<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>    sicp&nbsp;1.3.2 - 九哥的部落
+</title>
+    <meta name="author" content="九哥">
+
+    <meta name="description" content="练习1.34 采用替换模型进行分析: (define (f g) (g 2)) 如果需要求值: (f f) 采用替换模型替换为: (f 2) 进一步替换为: (2 2) 由于2不是一个可以调用的过程，最终求值(f f)会导致运行时错误。 练习1.35 (fixed-point (lambda(x) (+ 1 (/ 1 x))) 1.0) 练习1.36 (define (fixed-point f first-guest) (define (close-enough? v1 v2) (< (abs (- v1 v2)) tolerance ...">
+
+    <link rel="top" href="#" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/main.css" type="text/css" />
+
+
+    <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="九哥的部落 Atom Feed" />
+</head>
+
+<body>
+    
+    <div class="container">
+
+        <header role="banner">
+            <div class="feeds">
+                <a href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed" /></a>
+            </div>
+
+            
+
+            <nav class="pages">
+                <a href="http://blog.zouxu.com.cn/archives.html">
+                    所有博客
+                </a>
+            </nav>
+
+            <a href="http://blog.zouxu.com.cn" class="title">
+                九哥的部落
+            </a>
+        </header>
+
+        <div class="wrapper">
+            <div role="main" class="content">
+
+<article class="full">
+    <h1>sicp&nbsp;1.3.2</h1>
+
+﻿<div class="metadata">
+    <time datetime="2014-10-08T20:50:08" pubdate>
+        Wed 08 October 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+            sicp
+        </a>
+    </p>
+
+</div>
+    <ul>
+<li>练习1.34</li>
+</ul>
+<p>采用替换模型进行分析:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">f</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="n">g</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+
+<p>如果需要求值:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">f</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+
+<p>采用替换模型替换为:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">f</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>进一步替换为:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="mi">2</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>由于2不是一个可以调用的过程，最终求值(f&nbsp;f)会导致运行时错误。</p>
+<ul>
+<li>练习1.35</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">fixed</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="mi">1</span> <span class="p">(</span><span class="o">/</span> <span class="mi">1</span> <span class="n">x</span><span class="p">)))</span>
+             <span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.36</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fixed</span><span class="o">-</span><span class="n">point</span> <span class="n">f</span> <span class="n">first</span><span class="o">-</span><span class="n">guest</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">close</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">v1</span> <span class="n">v2</span><span class="p">)</span>
+    <span class="p">(</span><span class="o">&lt;</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="n">v1</span> <span class="n">v2</span><span class="p">))</span> <span class="n">tolerance</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">try</span> <span class="n">guess</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">display</span> <span class="n">guess</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">newline</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">next</span> <span class="p">(</span><span class="n">f</span> <span class="n">guess</span><span class="p">))</span>
+          <span class="p">)</span>
+      <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">close</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">guess</span> <span class="n">next</span><span class="p">)</span>
+          <span class="n">next</span>
+          <span class="p">(</span><span class="n">try</span> <span class="n">next</span><span class="p">))))</span>
+  <span class="p">(</span><span class="n">try</span> <span class="n">first</span><span class="o">-</span><span class="n">guest</span><span class="p">))</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.37</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">cont</span><span class="o">-</span><span class="n">frac</span> <span class="n">n</span> <span class="n">d</span> <span class="n">k</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">k</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="n">k</span><span class="p">)</span> <span class="p">(</span><span class="n">d</span> <span class="n">k</span><span class="p">))</span>
+      <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="n">k</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">d</span> <span class="n">k</span><span class="p">)</span> <span class="p">(</span><span class="n">cont</span><span class="o">-</span><span class="n">frac</span> <span class="n">n</span> <span class="n">d</span> <span class="p">(</span><span class="o">-</span> <span class="n">k</span> <span class="mi">1</span><span class="p">))))))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">cont</span><span class="o">-</span><span class="n">frac</span><span class="o">-</span><span class="n">iter</span> <span class="n">n</span> <span class="n">d</span> <span class="n">k</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">k</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">k</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">result</span>
+        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">-</span> <span class="n">k</span> <span class="mi">1</span><span class="p">)</span>
+              <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="n">k</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">d</span> <span class="n">k</span><span class="p">)</span> <span class="n">result</span><span class="p">)))))</span>
+  <span class="p">(</span><span class="n">iter</span> <span class="n">k</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</article>
+
+
+    <div class="comments">
+        <h2>评论 !</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_identifier = "blog/2014/10/08/sicp-1-3-2/";
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://httpzouivexgithubio.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </div>
+
+            </div>
+
+            <div class="sidebar">
+                <nav>
+                    <h2>博客分类</h2>
+                    <ul>
+                        <li  class="active" >
+                            <a href="http://blog.zouxu.com.cn/category/blog.html">
+                                blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <aside>
+                    <h2>社交账号</h2>
+                    <ul class="social">
+                        <li>
+                            <a href="https://github.com/zouivex">
+                                github
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://cn.linkedin.com/in/zouivex">
+                                linkedin
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://plus.google.com/u/0/104327320364152471669/">
+                                google plus
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                    </ul>
+                </aside>
+
+                <aside>
+                    <h2>标签</h2>
+                    <ul class="tagcloud">
+                        <li class="tag-0">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
+                            </a>
+                        </li>
+                        <li class="tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
+                            </a>
+                        </li>
+                        <li class="tag-2">
+                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+                                cpp
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+            </div>
+        </div>
+
+        <footer>
+            <p role="contentinfo">
+                © 2013 九哥 - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>

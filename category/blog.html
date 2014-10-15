@@ -1,0 +1,394 @@
+﻿﻿<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>blog - 九哥的部落</title>
+    <meta name="author" content="九哥">
+
+
+    <link rel="top" href="#" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/main.css" type="text/css" />
+
+
+    <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="九哥的部落 Atom Feed" />
+</head>
+
+<body>
+    
+    <div class="container">
+
+        <header role="banner">
+            <div class="feeds">
+                <a href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed" /></a>
+            </div>
+
+            
+
+            <nav class="pages">
+                <a href="http://blog.zouxu.com.cn/archives.html">
+                    所有博客
+                </a>
+            </nav>
+
+            <a href="http://blog.zouxu.com.cn" class="title">
+                九哥的部落
+            </a>
+        </header>
+
+        <div class="wrapper">
+            <div role="main" class="content">
+
+<h1>
+    分类： blog
+</h1>
+
+﻿<article class="summary">
+﻿<div class="metadata">
+    <time datetime="2014-10-09T23:07:31" pubdate>
+        Thu 09 October 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+            cpp
+        </a>
+,         <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+            unittest
+        </a>
+    </p>
+
+</div>  <div>
+      <h2>
+          <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/" rel="bookmark" title="Permalink to 例解C++测试驱动开发和单元测试">
+              例解C++测试驱动开发和单元测试
+          </a>
+      </h2>
+    <p><h1>声明</h1>
+<p>本文翻译自Alex Ott的博客：<a href="http://alexott.net/en/cpp/CppTestingIntro.html">Test-driven development and unit testing with examples in&nbsp;C++</a></p>
+<p>未经同意，请勿转载。</p>
+<h1>测试驱动开发基础</h1>
+<h2>测试驱动开发</h2>
+<p>测试驱动开发(<a href="http://en.wikipedia.org/wiki/Test-driven_development"><span class="caps">TDD</span></a>)是一种软件开发的流程。它依赖短开发周期的多次迭代：</p>
+<ul>
+<li>需要改进已有功能或者开发新功能时，开发人员首先编写测试案例（此刻测试案例运行失败）</li>
+<li>然后实现代码使测试案例运行通过</li>
+<li>最后重构代码使其符合标准</li>
+</ul>
+<p>测试驱动开发与<a href="http://en.wikipedia.org/wiki/Extreme_programming">极限编程</a>中的“测试先行(test-first)”概念相关，也经常与“敏捷开发”联系起来。单就测试驱动开发来说，有其<a href="http://en.wikipedia.org/wiki/Test-driven_development#Benefits">优点</a>，也有<a href="http://en.wikipedia.org/wiki/Test-driven_development#Vulnerabilities">缺点</a>。优缺点姑且不论，我们能在实际项目中采用这种方法提升代码质量。</p>
+<p><span class="caps">TDD</span>工作流可以描述为如下步骤的循环(参考下图)：</p>
+<ul>
+<li>确定实现哪些功能</li>
+<li>为每个功能添加单元测试案例</li>
+<li>编译运行测试案例，检查是否有错误</li>
+<li>实现代码以使测试通过</li>
+<li>重构 ...</li></ul></p>
+  </div>
+</article>﻿<article class="summary">
+﻿<div class="metadata">
+    <time datetime="2014-10-09T00:24:32" pubdate>
+        Thu 09 October 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+            cpp
+        </a>
+    </p>
+
+</div>  <div>
+      <h2>
+          <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-smart-pointers/" rel="bookmark" title="Permalink to c++智能指针详解">
+              c++智能指针详解
+          </a>
+      </h2>
+    <p><h1>说明</h1>
+<p>本文翻译自Herb&nbsp;Sutter的系列文章GotW(89-91):</p>
+<ul>
+<li><a href="http://herbsutter.com/2013/05/29/gotw-89-solution-smart-pointers/">gotw-89-solution-smart-pointers</a></li>
+<li><a href="http://herbsutter.com/2013/05/30/gotw-90-solution-factories/">gotw-90-solution-factories</a></li>
+<li><a href="http://herbsutter.com/2013/06/05/gotw-91-solution-smart-pointer-parameters/">gotw-91-solution-smart-pointer-parameters</a></li>
+</ul>
+<p>未经同意，请勿转载。</p>
+<h1>智能指针</h1>
+<h1>智能指针在Factory模式中的应用</h1>
+<h1>智能指针作为参数</h1></p>
+  </div>
+</article>﻿<article class="summary">
+﻿<div class="metadata">
+    <time datetime="2014-10-08T20:50:08" pubdate>
+        Wed 08 October 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+            sicp
+        </a>
+    </p>
+
+</div>  <div>
+      <h2>
+          <a href="http://blog.zouxu.com.cn/blog/2014/10/08/sicp-1-3-2/" rel="bookmark" title="Permalink to sicp&nbsp;1.3.2">
+              sicp&nbsp;1.3.2
+          </a>
+      </h2>
+    <p><ul>
+<li>练习1.34</li>
+</ul>
+<p>采用替换模型进行分析:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">f</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="n">g</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+
+<p>如果需要求值:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">f</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+
+<p>采用替换模型替换为:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">f</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>进一步替换为:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="mi">2</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>由于2不是一个可以调用的过程，最终求值(f&nbsp;f)会导致运行时错误。</p>
+<ul>
+<li>练习1.35</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">fixed</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="mi">1</span> <span class="p">(</span><span class="o">/</span> <span class="mi">1</span> <span class="n">x</span><span class="p">)))</span>
+             <span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.36</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fixed</span><span class="o">-</span><span class="n">point</span> <span class="n">f</span> <span class="n">first</span><span class="o">-</span><span class="n">guest</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">close</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">v1</span> <span class="n">v2</span><span class="p">)</span>
+    <span class="p">(</span><span class="o">&lt;</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="n">v1</span> <span class="n">v2</span><span class="p">))</span> <span class="n">tolerance ...</span></pre></div></p>
+  </div>
+</article>﻿<article class="summary">
+﻿<div class="metadata">
+    <time datetime="2014-09-23T22:21:05" pubdate>
+        Tue 23 September 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+            sicp
+        </a>
+    </p>
+
+</div>  <div>
+      <h2>
+          <a href="http://blog.zouxu.com.cn/blog/2014/09/23/sicp-1-3-1/" rel="bookmark" title="Permalink to sicp&nbsp;1.3.1">
+              sicp&nbsp;1.3.1
+          </a>
+      </h2>
+    <p><h1>导读</h1>
+<p>也许我们曾经在某个场合听说过这些术语：“函数式语言”、“函数式编程范式”、“纯函数式语言”。在阅读sicp之前我对这些术语也只是“不明觉厉”。</p>
+<p>一般而言，如果一种编程语言允许函数成为“第一等公民”(first class&nbsp;object)，我们就可以将这类语言归为“函数式语言”。本书介绍了函数作为“第一等公民”所拥有的特权：</p>
+<ul>
+<li>可以用变量命名</li>
+<li>可以作为参数传递</li>
+<li>可以作为函数返回值</li>
+<li>可以包含在数据结构中</li>
+</ul>
+<p>由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。</p>
+<h1>习题解答</h1>
+<ul>
+<li>练习1.29</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="mi">0</span>
+      <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span>
+         <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b ...</span></pre></div></p>
+  </div>
+</article>﻿<article class="summary">
+﻿<div class="metadata">
+    <time datetime="2014-09-21T20:37:33" pubdate>
+        Sun 21 September 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+            sicp
+        </a>
+    </p>
+
+</div>  <div>
+      <h2>
+          <a href="http://blog.zouxu.com.cn/blog/2014/09/21/sicp-1-2-2/" rel="bookmark" title="Permalink to sicp 1.2&nbsp;(2)">
+              sicp 1.2&nbsp;(2)
+          </a>
+      </h2>
+    <p><h1>导读</h1>
+<p>求解最大公约数的“欧几里得算法”非常适合通过递归过程描述。基于最大公约数算法我们可以进而实现素数检测的算法。本书介绍了一种基于概率的素数检测算法。素数检测算法在密码学方面具有相当的实用价值。目前广泛采用的非对称加密算法<span class="caps">RSA</span>就是基于大素数分解的。</p>
+<h1>习题解答</h1>
+<ul>
+<li>练习1.20</li>
+</ul>
+<p>由于scheme语言不是normal order的。我么只能通过手工通过代换模型展开计算(gcd 206&nbsp;40)的计算过程。</p>
+<p>我们可以trace打印出applicative order模式下计算(gcd 206&nbsp;40)的计算过程。</p>
+<div class="highlight"><pre><span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">206</span> <span class="mi">40</span><span class="p">)</span>
+<span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">40</span> <span class="mi">6</span><span class="p">)</span>
+<span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">6</span> <span class="mi">4</span><span class="p">)</span>
+<span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">4</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nl">trace:</span> <span class="mi">2</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.21 ...</li></ul></p>
+  </div>
+</article>
+﻿
+<div class="pagination">
+
+    页
+    1 / 2
+
+    <a href="http://blog.zouxu.com.cn/category/blog2.html">&raquo;</a>
+
+</div>
+
+            </div>
+
+            <div class="sidebar">
+                <nav>
+                    <h2>博客分类</h2>
+                    <ul>
+                        <li  class="active" >
+                            <a href="http://blog.zouxu.com.cn/category/blog.html">
+                                blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <aside>
+                    <h2>社交账号</h2>
+                    <ul class="social">
+                        <li>
+                            <a href="https://github.com/zouivex">
+                                github
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://cn.linkedin.com/in/zouivex">
+                                linkedin
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://plus.google.com/u/0/104327320364152471669/">
+                                google plus
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                    </ul>
+                </aside>
+
+                <aside>
+                    <h2>标签</h2>
+                    <ul class="tagcloud">
+                        <li class="tag-0">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
+                            </a>
+                        </li>
+                        <li class="tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
+                            </a>
+                        </li>
+                        <li class="tag-2">
+                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+                                cpp
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+            </div>
+        </div>
+
+        <footer>
+            <p role="contentinfo">
+                © 2013 九哥 - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>

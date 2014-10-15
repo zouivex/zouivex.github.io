@@ -1,0 +1,246 @@
+﻿﻿<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>    sicp&nbsp;1.1 - 九哥的部落
+</title>
+    <meta name="author" content="九哥">
+
+    <meta name="description" content="导读 Scheme语言是一种lisp方言。Scheme语言的特点就是语法非常简单，一般通过短期的学习都可以掌握基本语法和概念。相比较而言，目前的主流编程语言如C/C++, Java, Javascript都需要一本专著来介绍语法和基本概念。其实我们学习程序语言的目的无非是希望能够表达某种设计，通过语言编写出能够高效运行的程序。Scheme语言能让我们越过枯燥的语法学习阶段，直接开始编写算法和数据结构。随着本书的内容的推进，许多新的抽象和概念逐渐浮现，有时候我们需要借助很多在其他编程语言里已经存在功能来帮助我们更好地表达，怎么办？很简单，我们用Scheme语言从头实现。通过这种方式，不但能让我们更深入理解一些概念如面向对象、闭包、模式匹配等，还能让我们在实现这些功能的同时加深对Scheme语言的理解。真是一举两得！ 1.1小节主要介绍了Scheme语言的基本元素。我不会重复书里面已经介绍的内容。 本小节需要读者理解的概念: 代换模型 求值顺序(applicative order / normal order) 在此有必要介绍一下当前比较流行的Scheme版本。我个人比较推荐guile。guile是gnu/linux上的标配，所以比较容易获取。IDE的话推荐使用emacs，对于初学者我建议采用prelude配置，prelude已经预设配置好了scheme的开发环境。还要注意一点就是书上使用的Scheme的版本相对较老。所以在做练习的时候要注意对书上的代码做一些微调（如true改为#t, false改为#f ...">
+
+    <link rel="top" href="#" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/main.css" type="text/css" />
+
+
+    <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="九哥的部落 Atom Feed" />
+</head>
+
+<body>
+    
+    <div class="container">
+
+        <header role="banner">
+            <div class="feeds">
+                <a href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed" /></a>
+            </div>
+
+            
+
+            <nav class="pages">
+                <a href="http://blog.zouxu.com.cn/archives.html">
+                    所有博客
+                </a>
+            </nav>
+
+            <a href="http://blog.zouxu.com.cn" class="title">
+                九哥的部落
+            </a>
+        </header>
+
+        <div class="wrapper">
+            <div role="main" class="content">
+
+<article class="full">
+    <h1>sicp&nbsp;1.1</h1>
+
+﻿<div class="metadata">
+    <time datetime="2014-09-09T21:00:21" pubdate>
+        Tue 09 September 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+            sicp
+        </a>
+    </p>
+
+</div>
+    <h1>导读</h1>
+<p>Scheme语言是一种lisp方言。Scheme语言的特点就是语法非常简单，一般通过短期的学习都可以掌握基本语法和概念。相比较而言，目前的主流编程语言如C/C++, Java,&nbsp;Javascript都需要一本专著来介绍语法和基本概念。其实我们学习程序语言的目的无非是希望能够表达某种设计，通过语言编写出能够高效运行的程序。Scheme语言能让我们越过枯燥的语法学习阶段，直接开始编写算法和数据结构。随着本书的内容的推进，许多新的抽象和概念逐渐浮现，有时候我们需要借助很多在其他编程语言里已经存在功能来帮助我们更好地表达，怎么办？很简单，我们用Scheme语言从头实现。通过这种方式，不但能让我们更深入理解一些概念如面向对象、闭包、模式匹配等，还能让我们在实现这些功能的同时加深对Scheme语言的理解。真是一举两得！</p>
+<p>1.1小节主要介绍了Scheme语言的基本元素。我不会重复书里面已经介绍的内容。</p>
+<p>本小节需要读者理解的概念:</p>
+<ul>
+<li>代换模型</li>
+<li>求值顺序(applicative order / normal&nbsp;order)</li>
+</ul>
+<p>在此有必要介绍一下当前比较流行的Scheme版本。我个人比较推荐guile。guile是gnu/linux上的标配，所以比较容易获取。<span class="caps">IDE</span>的话推荐使用emacs，对于初学者我建议采用prelude配置，prelude已经预设配置好了scheme的开发环境。还要注意一点就是书上使用的Scheme的版本相对较老。所以在做练习的时候要注意对书上的代码做一些微调（如true改为#t, false改为#f,&nbsp;nil改为&#8217;()等）。详情可以参阅guile的帮助文档。</p>
+<h1>习题解答</h1>
+<ul>
+<li>练习1.2</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">+</span> <span class="mi">5</span> <span class="mi">4</span> <span class="p">(</span><span class="o">-</span> <span class="mi">2</span> <span class="p">(</span><span class="o">-</span> <span class="mi">3</span> <span class="p">(</span><span class="o">+</span> <span class="mi">6</span> <span class="p">(</span><span class="o">/</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)))))</span>
+   <span class="p">(</span><span class="o">*</span> <span class="mi">3</span> <span class="p">(</span><span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="mi">7</span><span class="p">)))</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.3</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">two</span><span class="o">-</span><span class="n">larger</span><span class="o">-</span><span class="n">nums</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="p">(</span><span class="n">a</span> <span class="n">c</span><span class="p">))</span> <span class="p">(</span><span class="n">sum</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">squares</span> <span class="n">b</span> <span class="n">c</span><span class="p">))</span>
+        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">sum</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">squares</span> <span class="n">a</span> <span class="p">(</span><span class="n">max</span> <span class="n">b</span> <span class="n">c</span><span class="p">)))))</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.4</li>
+</ul>
+<p>用自然语言描述该过程所表达的意思是：当b&gt;0时执行a +&nbsp;b，当b&lt;=0时执行a-b。其实就是a+|b|。</p>
+<ul>
+<li>练习1.5</li>
+</ul>
+<p>本题考察的是对求值顺序的理解。其中过程p定义为一个无穷递归的过程。如果解释器采用的是applicative order，那么无论if条件判断结果如何，解释器都会试图解释过程p，结果是stack over flow。如果解释器采用的是normal&nbsp;order，那么当if条件判断出该分支不需要求值时，解释器不会对该表达式求值。</p>
+<ul>
+<li>练习1.6</li>
+</ul>
+<p>解答本题需要理解&#8221;Special Form&#8221;和&#8221;Procedure&#8221;的区别。在Scheme语言中，所有的procedure都有一致的求值规则，special&nbsp;form则有自己特别的求值规则。按照Scheme语言的表达式求值规则，求值一个表达式，需要先求值其子表达式。对于if的求值规则是先求值判别式，如果为true则求值then子句，如果为false则求值else子句。如果按照题目中所说，将if实现为一个procedure，由于这是一个procedure，无论判别式值是什么，解释器都会求值then子句和else子句，该递归函数会进入一个死循环。</p>
+<ul>
+<li>练习1.7</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">square</span> <span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">x</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">average</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+  <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">improve</span> <span class="n">guess</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">average</span> <span class="n">guess</span> <span class="p">(</span><span class="o">/</span> <span class="n">x</span> <span class="n">guess</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">good</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">x</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span><span class="p">)</span>
+  <span class="p">(</span><span class="o">&lt;</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="n">x</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span><span class="p">))</span> <span class="mf">0.001</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sqrt</span><span class="o">-</span><span class="n">iter</span> <span class="n">guess</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span> <span class="p">(</span><span class="n">improve</span> <span class="n">guess</span> <span class="n">x</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">good</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">guess</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span><span class="p">)</span>
+      <span class="n">guess</span>
+      <span class="p">(</span><span class="n">sqrt</span><span class="o">-</span><span class="n">iter</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span> <span class="n">x</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sqrt</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">sqrt</span><span class="o">-</span><span class="n">iter</span> <span class="mf">1.0</span> <span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.8</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">square</span> <span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">x</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">improve</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+  <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">/</span> <span class="n">x</span> <span class="p">(</span><span class="n">square</span> <span class="n">y</span><span class="p">))</span> <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="n">y</span><span class="p">))</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">good</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">current</span><span class="o">-</span><span class="n">guess</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span><span class="p">)</span>
+  <span class="p">(</span><span class="o">&lt;</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="n">current</span><span class="o">-</span><span class="n">guess</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span><span class="p">))</span> <span class="mf">0.001</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">cube</span><span class="o">-</span><span class="n">iter</span> <span class="n">guess</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span> <span class="p">(</span><span class="n">improve</span> <span class="n">x</span> <span class="n">guess</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">good</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">guess</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span><span class="p">)</span>
+      <span class="n">guess</span>
+      <span class="p">(</span><span class="n">cube</span><span class="o">-</span><span class="n">iter</span> <span class="n">next</span><span class="o">-</span><span class="n">guess</span> <span class="n">x</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">cube</span><span class="o">-</span><span class="n">root</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">cube</span><span class="o">-</span><span class="n">iter</span> <span class="mf">1.0</span> <span class="n">x</span><span class="p">))</span>
+</pre></div>
+</article>
+
+
+    <div class="comments">
+        <h2>评论 !</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_identifier = "blog/2014/09/09/sicp-1-1/";
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://httpzouivexgithubio.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </div>
+
+            </div>
+
+            <div class="sidebar">
+                <nav>
+                    <h2>博客分类</h2>
+                    <ul>
+                        <li  class="active" >
+                            <a href="http://blog.zouxu.com.cn/category/blog.html">
+                                blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <aside>
+                    <h2>社交账号</h2>
+                    <ul class="social">
+                        <li>
+                            <a href="https://github.com/zouivex">
+                                github
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://cn.linkedin.com/in/zouivex">
+                                linkedin
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://plus.google.com/u/0/104327320364152471669/">
+                                google plus
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                    </ul>
+                </aside>
+
+                <aside>
+                    <h2>标签</h2>
+                    <ul class="tagcloud">
+                        <li class="tag-0">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
+                            </a>
+                        </li>
+                        <li class="tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
+                            </a>
+                        </li>
+                        <li class="tag-2">
+                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+                                cpp
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+            </div>
+        </div>
+
+        <footer>
+            <p role="contentinfo">
+                © 2013 九哥 - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>

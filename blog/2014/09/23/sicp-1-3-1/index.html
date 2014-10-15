@@ -1,0 +1,269 @@
+﻿﻿<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>    sicp&nbsp;1.3.1 - 九哥的部落
+</title>
+    <meta name="author" content="九哥">
+
+    <meta name="description" content="导读 也许我们曾经在某个场合听说过这些术语：“函数式语言”、“函数式编程范式”、“纯函数式语言”。在阅读sicp之前我对这些术语也只是“不明觉厉”。 一般而言，如果一种编程语言允许函数成为“第一等公民”(first class object)，我们就可以将这类语言归为“函数式语言”。本书介绍了函数作为“第一等公民”所拥有的特权： 可以用变量命名 可以作为参数传递 可以作为函数返回值 可以包含在数据结构中 由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。 习题解答 练习1.29 (define (sum term a next b) (if (> a b) 0 (+ (term a) (sum term (next a) next b ...">
+
+    <link rel="top" href="#" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/main.css" type="text/css" />
+
+
+    <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="九哥的部落 Atom Feed" />
+</head>
+
+<body>
+    
+    <div class="container">
+
+        <header role="banner">
+            <div class="feeds">
+                <a href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed" /></a>
+            </div>
+
+            
+
+            <nav class="pages">
+                <a href="http://blog.zouxu.com.cn/archives.html">
+                    所有博客
+                </a>
+            </nav>
+
+            <a href="http://blog.zouxu.com.cn" class="title">
+                九哥的部落
+            </a>
+        </header>
+
+        <div class="wrapper">
+            <div role="main" class="content">
+
+<article class="full">
+    <h1>sicp&nbsp;1.3.1</h1>
+
+﻿<div class="metadata">
+    <time datetime="2014-09-23T22:21:05" pubdate>
+        Tue 23 September 2014
+    </time>
+
+    <address class="vcard author">
+        作者：
+        <a class="url fn" href="http://blog.zouxu.com.cn/">
+            九哥
+        </a>
+    </address>
+    类别：
+    <a href="http://blog.zouxu.com.cn/category/blog.html">
+        blog
+    </a>
+
+    <p class="tags">
+        标签：
+        <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+            sicp
+        </a>
+    </p>
+
+</div>
+    <h1>导读</h1>
+<p>也许我们曾经在某个场合听说过这些术语：“函数式语言”、“函数式编程范式”、“纯函数式语言”。在阅读sicp之前我对这些术语也只是“不明觉厉”。</p>
+<p>一般而言，如果一种编程语言允许函数成为“第一等公民”(first class&nbsp;object)，我们就可以将这类语言归为“函数式语言”。本书介绍了函数作为“第一等公民”所拥有的特权：</p>
+<ul>
+<li>可以用变量命名</li>
+<li>可以作为参数传递</li>
+<li>可以作为函数返回值</li>
+<li>可以包含在数据结构中</li>
+</ul>
+<p>由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。</p>
+<h1>习题解答</h1>
+<ul>
+<li>练习1.29</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="mi">0</span>
+      <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span>
+         <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">integral</span> <span class="n">f</span> <span class="n">a</span> <span class="n">b</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">h</span> <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">-</span> <span class="n">b</span> <span class="n">a</span><span class="p">)</span> <span class="n">n</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">term</span> <span class="n">k</span><span class="p">)</span>
+      <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="p">(</span><span class="o">*</span> <span class="n">k</span> <span class="n">h</span><span class="p">)))</span>
+         <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">or</span> <span class="p">(</span><span class="o">=</span> <span class="mi">0</span> <span class="n">k</span><span class="p">)</span> <span class="p">(</span><span class="o">=</span> <span class="n">n</span> <span class="n">k</span><span class="p">))</span> <span class="mi">1</span><span class="p">)</span>
+               <span class="p">((</span><span class="n">odd</span><span class="o">?</span> <span class="n">k</span><span class="p">)</span> <span class="mi">4</span><span class="p">)</span>
+               <span class="p">(</span><span class="k">else</span> <span class="mi">2</span><span class="p">))))</span>
+    <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="o">/</span> <span class="n">h</span> <span class="mf">3.0</span><span class="p">)</span> <span class="p">(</span><span class="n">sum</span> <span class="n">simpson</span><span class="o">-</span><span class="n">term</span> <span class="mi">0</span> <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="mi">1</span><span class="p">))</span> <span class="n">n</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">integral</span> <span class="n">cube</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">100</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mf">0.25</span>
+<span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">integral</span> <span class="n">cube</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mf">0.25</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.30</li>
+</ul>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">result</span>
+        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span>
+              <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span> <span class="n">result</span><span class="p">))))</span>
+  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.31</li>
+</ul>
+<p>product过程的递归实现:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="mi">1</span>
+      <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span>
+         <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b</span><span class="p">))))</span>
+</pre></div>
+
+
+<p>用product定义factorial:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">factorial</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">product</span> <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">x</span><span class="p">)</span>
+           <span class="mi">1</span>
+           <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="mi">1</span><span class="p">))</span>
+           <span class="n">n</span><span class="p">))</span>
+</pre></div>
+
+
+<p>product过程的迭代实现:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">i</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">result</span>
+        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">next</span> <span class="n">i</span><span class="p">)</span>
+              <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">term</span> <span class="n">i</span><span class="p">)</span> <span class="n">result</span><span class="p">))))</span>
+  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+
+<ul>
+<li>练习1.32</li>
+</ul>
+<div class="highlight"><pre><span class="p">;</span><span class="err">递归版本</span>
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">accumulate</span> <span class="n">combiner</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="n">null</span><span class="o">-</span><span class="n">value</span>
+      <span class="p">(</span><span class="n">combiner</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">accumulate</span> <span class="n">combiner</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b</span><span class="p">))))</span>
+
+<span class="p">;</span><span class="err">迭代版本</span>
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">accumulate</span> <span class="n">combiner</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">result</span>
+        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span>
+              <span class="p">(</span><span class="n">combiner</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span>
+                        <span class="n">result</span><span class="p">))))</span>
+  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">accumulate</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">accumulate</span> <span class="o">*</span> <span class="mi">1</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</article>
+
+
+    <div class="comments">
+        <h2>评论 !</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_identifier = "blog/2014/09/23/sicp-1-3-1/";
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://httpzouivexgithubio.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </div>
+
+            </div>
+
+            <div class="sidebar">
+                <nav>
+                    <h2>博客分类</h2>
+                    <ul>
+                        <li  class="active" >
+                            <a href="http://blog.zouxu.com.cn/category/blog.html">
+                                blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <aside>
+                    <h2>社交账号</h2>
+                    <ul class="social">
+                        <li>
+                            <a href="https://github.com/zouivex">
+                                github
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://cn.linkedin.com/in/zouivex">
+                                linkedin
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                        <li>
+                            <a href="https://plus.google.com/u/0/104327320364152471669/">
+                                google plus
+                            </a>
+                            <i>
+                            </i>
+                        </li>
+                    </ul>
+                </aside>
+
+                <aside>
+                    <h2>标签</h2>
+                    <ul class="tagcloud">
+                        <li class="tag-0">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
+                            </a>
+                        </li>
+                        <li class="tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
+                            </a>
+                        </li>
+                        <li class="tag-2">
+                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+                                cpp
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+            </div>
+        </div>
+
+        <footer>
+            <p role="contentinfo">
+                © 2013 九哥 - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>
