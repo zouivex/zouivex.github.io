@@ -1,0 +1,5 @@
+output
+*.suo
+*.sln
+cache
+pelican_blog
