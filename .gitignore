@@ -1,5 +1,6 @@
-output
+output/
 *.suo
 *.sln
-cache
-pelican_blog
+*.pyc
+cache/
+pelican_blog/
