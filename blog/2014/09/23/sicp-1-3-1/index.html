@@ -9,8 +9,11 @@
     <meta name="description" content="导读 也许我们曾经在某个场合听说过这些术语：“函数式语言”、“函数式编程范式”、“纯函数式语言”。在阅读sicp之前我对这些术语也只是“不明觉厉”。 一般而言，如果一种编程语言允许函数成为“第一等公民”(first class object)，我们就可以将这类语言归为“函数式语言”。本书介绍了函数作为“第一等公民”所拥有的特权： 可以用变量命名 可以作为参数传递 可以作为函数返回值 可以包含在数据结构中 由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。 习题解答 练习1.29 (define (sum term a next b) (if (> a b) 0 (+ (term a) (sum term (next a) next b ...">
 
     <link rel="top" href="#" />
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
-    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/main.css" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' 
+          rel='stylesheet'
+          type='text/css'>
+    </link>
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
 
 
     <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="九哥的部落 Atom Feed" />
@@ -19,7 +22,6 @@
 <body>
     
     <div class="container">
-
         <header role="banner">
             <div class="feeds">
                 <a href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed" /></a>
@@ -242,14 +244,14 @@
                                 sicp
                             </a>
                         </li>
-                        <li class="tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                         <li class="tag-2">
                             <a href="http://blog.zouxu.com.cn/tag/cpp.html">
                                 cpp
+                            </a>
+                        </li>
+                        <li class="tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
                             </a>
                         </li>
                     </ul>
