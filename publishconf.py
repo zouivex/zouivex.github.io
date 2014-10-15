@@ -63,15 +63,13 @@ AUTHOR_URL = ''
 AUTHOR_SAVE_AS = ''
 
 #Theme configurations: foundation-default-colours
-THEME = 'theme/pelican-simplegrey'
+THEME = 'theme/simplegrey'
 
 # Plugins
 #PLUGIN_PATHS = ["plugins"]
 #PLUGINS = ["assets", "liquid_tags", "sitemap"]
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
-
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
 
 # Support PDF download
 # PDF_PROCESSOR = True
