@@ -19,10 +19,6 @@ def rebuild():
     clean()
     build()
 
-def gen_publish():
-    clean
-    local('pelican -s publishconf.py')
-
 def regenerate():
     local('pelican -r -s pelicanconf.py')
 
