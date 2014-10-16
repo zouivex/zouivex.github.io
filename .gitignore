@@ -1,7 +1,6 @@
-output/**/*
+output/**
 *.suo
-*.sln
 *.pyc
 cache/
 pelican_blog/
-content/images/Thumbs.db
+**/Thumbs.db
