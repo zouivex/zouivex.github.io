@@ -1,0 +1,34 @@
+﻿<div class="metadata">
+    <time datetime="{{ article.date.isoformat() }}">
+        {{ article.locale_date }}
+    </time>
+
+    {% if article.category %}
+    <p>
+        类别：
+        <a href="{{ SITEURL }}/{{ article.category.url }}">
+            {{ article.category }}
+        </a>
+    </p>
+    {% endif %}
+
+    {% if article.tags %}
+    <p class="tags">
+        标签：
+        {% for tag in article.tags %}
+        <a href="{{ SITEURL }}/{{ tag.url }}">
+            {{ tag }}
+        </a>
+        {% if not loop.last%}, {% endif %}
+        {% endfor %}
+    </p>
+    {% endif %}
+
+    {% if PDF_PROCESSOR %}
+    <p>
+        <a href="{{ SITEURL }}/pdf/{{ article.slug }}.pdf">
+            下载PDF版本
+        </a>
+    </p>
+    {% endif %}
+</div>
