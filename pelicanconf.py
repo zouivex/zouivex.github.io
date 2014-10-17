@@ -68,7 +68,7 @@ AUTHOR_URL = ''
 AUTHOR_SAVE_AS = ''
 
 #Theme configurations: foundation-default-colours
-THEME = 'theme/zengarden'
+THEME = 'theme/simplegrey'
 
 # Plugins
 #PLUGIN_PATHS = ["plugins"]
