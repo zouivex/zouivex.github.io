@@ -33,20 +33,26 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   line-height: 150%;
   text-align: left;
-  color: #4D4D4C;
+  color: #325050;
   padding: 0;
-  min-width: 740px;
+  min-width: 979px;
 }
 
 header {
-  background-color: #40403F;
-  height: 50px;
-  line-height: 50px;
+  background-color: #F80;
   padding: 0 1em;
+  height: 120px;
 }
+
+/*
+nav {
+    background: none repeat scroll 0 0 #4679bd;
+    height: 44px;
+}
+*/
 
 .wrapper {
   display: table;
@@ -77,54 +83,28 @@ footer {
 
 /* Header */
 
-header a {
-  color: #E5E5E3;
-  border-bottom: none;
+header>h1 {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  line-height: 110%;
+  color: white;
 }
 
-header a.title {  
-  font-size: 1.25em;
+header>h2 {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: 300;
+  line-height: 110%;
+  padding: 0 1em 0 0;
+  color: white;
 }
-
-header .feeds {
-  float: right;
-  text-align: right;
-  width: 25%;
-  height: 41px;
-  padding-top: 9px;
-}
-
-header .feeds a {
-  display: block;
-  float: right;
-  padding-right: 5px;
-  width: 40px;
-}
-
-header .feeds a:hover,
-header .feeds a:active {
-  border-bottom: none;
-}
-
-header .pages {
-  float: right;
-}
-
-header .pages a {
-  font-size: 1.1em;
-}
-
-
-/* Sidebar */
-
 
 /* Titles */
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Microsoft YaHei", sans-serif;
-    font-weight: 400;
-    text-shadow: 0.1em 0.1em 0.1em #EFEFEF;
-    line-height: 125%;
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  line-height: 125%;
+  color: #2e484c;
 }
 
 h1 {
