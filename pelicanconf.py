@@ -75,7 +75,7 @@ PLUGIN_PATHS = ["pelican-plugins"]
 
 # Depends on
 # rst2pdf
-PLUGINS = ["better_codeblock_line_numbering", "pdf"]
+PLUGINS = ["better_codeblock_line_numbering"]
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
 

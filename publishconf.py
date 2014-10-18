@@ -75,7 +75,7 @@ PLUGIN_PATHS = ["pelican-plugins"]
 
 # Depends on
 # rst2pdf
-PLUGINS = ["better_codeblock_line_numbering", "pdf"]
+PLUGINS = ["better_codeblock_line_numbering"]
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
 
@@ -98,3 +98,6 @@ MD_EXTENSIONS = [
     'extra',
     'toc'
     ]
+
+# Define the max number of recent posts. 
+MAX_RECENT_POST_ITEMS = 10
