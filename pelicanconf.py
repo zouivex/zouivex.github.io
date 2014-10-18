@@ -72,7 +72,10 @@ THEME = 'theme/simplegrey'
 
 # Plugins
 PLUGIN_PATHS = ["pelican-plugins"]
-PLUGINS = ["better_codeblock_line_numbering"]
+
+# Depends on
+# rst2pdf
+PLUGINS = ["better_codeblock_line_numbering", "pdf"]
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
 
