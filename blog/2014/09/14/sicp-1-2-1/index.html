@@ -59,6 +59,7 @@
     </p>
 
 </div>
+
     <h1>导读</h1>
 <p>要想真正理解Scheme语言，必须要深刻理解“递归”和“迭代”两个概念。目前国内的计算机专业都是采用c语言作为入门编程语言。学习c语言的时候，我们知道模块化编程的基本结构是“顺序”、“分支”和“循环”。甚至有人证明只需要用这3种结构就足以表达所有程序。在Scheme语言中则不然，通过本书的学习，我们可以得出结论：循环结构只是递归结构的一种”语法糖“。</p>
 <p>本节还需要理解的一个”尾递归“的概念。通过”尾递归“优化可以实现循环结构。Scheme的<span class="caps">IEEE</span>标准要求Scheme解释器必须实现”尾递归“，因此在Scheme语言中循环结构不是必须的。我们熟知的c语言就不是”尾递归“的，因此在c语言中特殊的循环结构（如for,&nbsp;while&#8230;）是必不可少的。</p>
@@ -67,80 +68,80 @@
 <li>练习1.9</li>
 </ul>
 <p>第一个过程是递归的。我们可以通过trace查看(plus 4&nbsp;5)的递归调用过程。</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">4</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">3</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">3</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="mi">2</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">2</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">1</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">0</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">5</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">6</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">6</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="mi">7</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">7</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">8</span>
-<span class="p">(</span><span class="n">inc</span> <span class="mi">8</span><span class="p">)</span>
-<span class="mi">9</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">4</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="mi">2</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">0</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">plus</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">5</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">6</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="mi">7</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">7</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">8</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">inc</span> <span class="mi">8</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">9</span></span>
 </pre></div>
 
 
 <p>第二个过程是迭代的。下面是(plus 4&nbsp;5)的迭代调用过程。</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">4</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">3</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">5</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">6</span>
-<span class="p">(</span><span class="n">plus</span> <span class="mi">3</span> <span class="mi">6</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">3</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">2</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">6</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">7</span>
-<span class="p">(</span><span class="n">plus</span> <span class="mi">2</span> <span class="mi">7</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">2</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">1</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">7</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">8</span>
-<span class="p">(</span><span class="n">plus</span> <span class="mi">1</span> <span class="mi">8</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">1</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">0</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">8</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mi">9</span>
-<span class="p">(</span><span class="n">plus</span> <span class="mi">0</span> <span class="mi">9</span><span class="p">)</span>
-<span class="mi">9</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">4</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">6</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">3</span> <span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">2</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">7</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">2</span> <span class="mi">7</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">7</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">8</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">1</span> <span class="mi">8</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">0</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">inc</span> <span class="mi">8</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mi">9</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">0</span> <span class="mi">9</span><span class="p">)</span></span>
+<span class="code-line"><span class="mi">9</span></span>
 </pre></div>
 
 
 <ul>
 <li>练习1.11</li>
 </ul>
-<div class="highlight"><pre><span class="p">;;</span><span class="err">递归过程</span>
-<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">f</span> <span class="n">n</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">3</span><span class="p">)</span>
-        <span class="n">n</span>
-        <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">-</span> <span class="n">n</span> <span class="mi">1</span><span class="p">))</span>
-           <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">-</span> <span class="n">n</span> <span class="mi">2</span><span class="p">)))</span>
-           <span class="p">(</span><span class="o">*</span> <span class="mi">3</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">-</span> <span class="n">n</span> <span class="mi">3</span><span class="p">))))))</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">;;</span><span class="err">递归过程</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">f</span> <span class="n">n</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">n</span></span>
+<span class="code-line">        <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">-</span> <span class="n">n</span> <span class="mi">1</span><span class="p">))</span></span>
+<span class="code-line">           <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">-</span> <span class="n">n</span> <span class="mi">2</span><span class="p">)))</span></span>
+<span class="code-line">           <span class="p">(</span><span class="o">*</span> <span class="mi">3</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">-</span> <span class="n">n</span> <span class="mi">3</span><span class="p">))))))</span></span>
 </pre></div>
 
 
 <ul>
 <li>练习1.12</li>
 </ul>
-<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span>
-  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="p">((</span><span class="o">=</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="p">((</span><span class="o">=</span> <span class="n">col</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="p">(</span><span class="k">else</span>
-          <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="p">(</span><span class="o">-</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="n">col</span><span class="p">)</span>
-             <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="p">(</span><span class="o">-</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span> <span class="n">col</span> <span class="mi">1</span><span class="p">))))))</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="n">col</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else</span></span>
+<span class="code-line">          <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="p">(</span><span class="o">-</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="n">col</span><span class="p">)</span></span>
+<span class="code-line">             <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="p">(</span><span class="o">-</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span> <span class="n">col</span> <span class="mi">1</span><span class="p">))))))</span></span>
 </pre></div>
 
 
@@ -152,45 +153,45 @@
 <p>在求值(sine&nbsp;12.15)时，p将被使用5次.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span class="p">(</span><span class="n">sine</span> <span class="mf">12.15</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">12.15</span><span class="p">)</span>
-<span class="o">|</span>  <span class="mf">12.15</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">4.05</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">4.05</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="mf">4.05</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">1.3499999999999999</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">1.3499999999999999</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">1.3499999999999999</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">0.44999999999999996</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">0.44999999999999996</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.44999999999999996</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">0.15</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">0.15</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.15</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">0.049999999999999996</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">0.049999999999999996</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.049999999999999996</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.049999999999999996</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.049999999999999996</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.049999999999999996</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">1.2499999999999998e-4</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.1495</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.1495</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.1495</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.003341362375</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.4351345505</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.4351345505</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.4351345505</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.08238927958303073</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.9758465331678772</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.9758465331678772</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.9758465331678772</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.9292756784936136</span>
-<span class="o">|</span>  <span class="o">-</span><span class="mf">0.7895631144708228</span>
-<span class="p">(</span><span class="n">p</span> <span class="o">-</span><span class="mf">0.7895631144708228</span><span class="p">)</span>
-<span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="o">-</span><span class="mf">0.7895631144708228</span><span class="p">)</span>
-<span class="o">|</span>  <span class="o">-</span><span class="mf">0.4922214714997821</span>
-<span class="o">-</span><span class="mf">0.39980345741334</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">sine</span> <span class="mf">12.15</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">12.15</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="mf">12.15</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">4.05</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">4.05</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="mf">4.05</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">1.3499999999999999</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">1.3499999999999999</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">1.3499999999999999</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">0.44999999999999996</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">0.44999999999999996</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.44999999999999996</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">0.15</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">0.15</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.15</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">sine</span> <span class="mf">0.049999999999999996</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">0.049999999999999996</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.049999999999999996</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.049999999999999996</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.049999999999999996</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.049999999999999996</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">1.2499999999999998e-4</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.1495</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.1495</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.1495</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.003341362375</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.4351345505</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.4351345505</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.4351345505</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.08238927958303073</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.9758465331678772</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">p</span> <span class="mf">0.9758465331678772</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="mf">0.9758465331678772</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">|</span>  <span class="mf">0.9292756784936136</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">-</span><span class="mf">0.7895631144708228</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">p</span> <span class="o">-</span><span class="mf">0.7895631144708228</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">cube</span> <span class="o">-</span><span class="mf">0.7895631144708228</span><span class="p">)</span></span>
+<span class="code-line"><span class="o">|</span>  <span class="o">-</span><span class="mf">0.4922214714997821</span></span>
+<span class="code-line"><span class="o">-</span><span class="mf">0.39980345741334</span></span>
 </pre></div>
 
 
@@ -202,62 +203,62 @@
 <p>练习1.16</p>
 </li>
 </ol>
-<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">expt</span><span class="o">-</span><span class="n">iter</span> <span class="n">b</span> <span class="n">n</span><span class="p">)</span>
-  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">a</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">a</span>
-        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">i</span><span class="p">)</span>
-            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">/</span> <span class="n">i</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">square</span> <span class="n">a</span><span class="p">))</span>
-            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">-</span> <span class="n">i</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="n">a</span><span class="p">)))))</span>
-  <span class="p">(</span><span class="n">iter</span> <span class="n">n</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">expt</span><span class="o">-</span><span class="n">iter</span> <span class="n">b</span> <span class="n">n</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">a</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">a</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">/</span> <span class="n">i</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">square</span> <span class="n">a</span><span class="p">))</span></span>
+<span class="code-line">            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">-</span> <span class="n">i</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="n">a</span><span class="p">)))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">iter</span> <span class="n">n</span> <span class="mi">1</span><span class="p">))</span></span>
 </pre></div>
 
 
 <ul>
 <li>练习1.17</li>
 </ul>
-<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">b</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="n">a</span>
-      <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">b</span><span class="p">)</span>
-          <span class="p">(</span><span class="kt">double</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="p">(</span><span class="n">halve</span> <span class="n">b</span><span class="p">)))</span>
-          <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="p">(</span><span class="n">faslt</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="p">(</span><span class="o">-</span> <span class="n">b</span> <span class="mi">1</span><span class="p">))))))</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">b</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">      <span class="n">a</span></span>
+<span class="code-line">      <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">          <span class="p">(</span><span class="kt">double</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="p">(</span><span class="n">halve</span> <span class="n">b</span><span class="p">)))</span></span>
+<span class="code-line">          <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="p">(</span><span class="n">faslt</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="p">(</span><span class="o">-</span> <span class="n">b</span> <span class="mi">1</span><span class="p">))))))</span></span>
 </pre></div>
 
 
 <ul>
 <li>练习1.18</li>
 </ul>
-<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>
-  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">result</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">result</span>
-        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">i</span><span class="p">)</span>
-            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">halve</span> <span class="n">i</span><span class="p">)</span> <span class="p">(</span><span class="kt">double</span> <span class="n">result</span><span class="p">))</span>
-            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">-</span> <span class="n">i</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="n">result</span><span class="p">)))))</span>
-  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="mi">0</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">result</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">result</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">halve</span> <span class="n">i</span><span class="p">)</span> <span class="p">(</span><span class="kt">double</span> <span class="n">result</span><span class="p">))</span></span>
+<span class="code-line">            <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">-</span> <span class="n">i</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="n">result</span><span class="p">)))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="mi">0</span><span class="p">))</span></span>
 </pre></div>
 
 
 <ul>
 <li>练习1.19</li>
 </ul>
-<div class="highlight"><pre><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span> <span class="n">b</span> <span class="n">p</span> <span class="n">q</span> <span class="n">count</span><span class="p">)</span>
-  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">count</span> <span class="mi">0</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span>
-        <span class="p">((</span><span class="n">even</span><span class="o">?</span> <span class="n">count</span><span class="p">)</span>
-         <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span>
-                   <span class="n">b</span>
-                   <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">p</span> <span class="n">p</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">q</span> <span class="n">q</span><span class="p">))</span>     <span class="p">;</span> <span class="n">p</span><span class="err">&#39;</span>
-                   <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="n">p</span> <span class="n">q</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">q</span> <span class="n">q</span><span class="p">))</span>   <span class="p">;</span> <span class="n">q</span><span class="err">&#39;</span>
-                   <span class="p">(</span><span class="o">/</span> <span class="n">count</span> <span class="mi">2</span><span class="p">)))</span>
-        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="n">q</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">a</span> <span class="n">q</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">a</span> <span class="n">p</span><span class="p">))</span>
-                        <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="n">p</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">a</span> <span class="n">q</span><span class="p">))</span>
-                        <span class="n">p</span>
-                        <span class="n">q</span>
-                        <span class="p">(</span><span class="o">-</span> <span class="n">count</span> <span class="mi">1</span><span class="p">)))))</span>
-
-<span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fib</span> <span class="n">n</span><span class="p">)</span>
-  <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="n">n</span><span class="p">))</span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span> <span class="n">b</span> <span class="n">p</span> <span class="n">q</span> <span class="n">count</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">count</span> <span class="mi">0</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="n">even</span><span class="o">?</span> <span class="n">count</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span></span>
+<span class="code-line">                   <span class="n">b</span></span>
+<span class="code-line">                   <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">p</span> <span class="n">p</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">q</span> <span class="n">q</span><span class="p">))</span>     <span class="p">;</span> <span class="n">p</span><span class="err">&#39;</span></span>
+<span class="code-line">                   <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="n">p</span> <span class="n">q</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">q</span> <span class="n">q</span><span class="p">))</span>   <span class="p">;</span> <span class="n">q</span><span class="err">&#39;</span></span>
+<span class="code-line">                   <span class="p">(</span><span class="o">/</span> <span class="n">count</span> <span class="mi">2</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="n">q</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">a</span> <span class="n">q</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">a</span> <span class="n">p</span><span class="p">))</span></span>
+<span class="code-line">                        <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="n">p</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">a</span> <span class="n">q</span><span class="p">))</span></span>
+<span class="code-line">                        <span class="n">p</span></span>
+<span class="code-line">                        <span class="n">q</span></span>
+<span class="code-line">                        <span class="p">(</span><span class="o">-</span> <span class="n">count</span> <span class="mi">1</span><span class="p">)))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fib</span> <span class="n">n</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="n">n</span><span class="p">))</span></span>
 </pre></div>
 </article>
 
@@ -309,14 +310,14 @@
                 <aside>
                     <h2>标签</h2>
                     <ul class="tagcloud">
-                        <li class="tag-0">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
                         <li class="tag-4">
                             <a href="http://blog.zouxu.com.cn/tag/unittest.html">
                                 unittest
+                            </a>
+                        </li>
+                        <li class="tag-0">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
                             </a>
                         </li>
                         <li class="tag-2">

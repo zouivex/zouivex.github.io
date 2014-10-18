@@ -64,11 +64,39 @@
         </a>
     </p>
 
-</div>            <h1>声明</h1>
+</div>            <div class="toc">
+<ul>
+<li><a href="#_1">声明</a></li>
+<li><a href="#_2">测试驱动开发基础</a><ul>
+<li><a href="#_3">测试驱动开发</a></li>
+<li><a href="#_4">单元测试及框架</a><ul>
+<li><a href="#_5">单元测试框架</a></li>
+<li><a href="#_6">如何组织单元测试案例</a></li>
+</ul>
+</li>
+<li><a href="#mocking">Mocking</a></li>
+</ul>
+</li>
+<li><a href="#c">C++单元测试</a><ul>
+<li><a href="#cboosttest">C++单元测试及Boost.Test</a></li>
+<li><a href="#_7">自动注册的测试案例</a></li>
+<li><a href="#_8">最简单的测试程序</a></li>
+<li><a href="#_9">使用测试套件</a></li>
+<li><a href="#_10">单元测试工具及检查器</a></li>
+<li><a href="#fixture">Fixture</a></li>
+<li><a href="#_11">输出结果</a></li>
+<li><a href="#_12">执行控制</a></li>
+</ul>
+</li>
+<li><a href="#cmocking">C++Mocking框架</a></li>
+<li><a href="#_13">更多资料</a></li>
+</ul>
+</div>
+<h1 id="_1">声明</h1>
 <p>本文翻译自Alex Ott的博客：<a href="http://alexott.net/en/cpp/CppTestingIntro.html">Test-driven development and unit testing with examples in&nbsp;C++</a></p>
 <p>未经同意，请勿转载。</p>
-<h1>测试驱动开发基础</h1>
-<h2>测试驱动开发</h2>
+<h1 id="_2">测试驱动开发基础</h1>
+<h2 id="_3">测试驱动开发</h2>
 <p>测试驱动开发(<a href="http://en.wikipedia.org/wiki/Test-driven_development"><span class="caps">TDD</span></a>)是一种软件开发的流程。它依赖短开发周期的多次迭代：</p>
 <ul>
 <li>需要改进已有功能或者开发新功能时，开发人员首先编写测试案例（此刻测试案例运行失败）</li>
@@ -88,7 +116,7 @@
 <li>实现下一个功能（重复以上步骤）</li>
 </ul>
 <p><img alt="测试驱动开发流程" src="http://blog.zouxu.com.cn/images/TDD.png" /></p>
-<h2>单元测试及框架</h2>
+<h2 id="_4">单元测试及框架</h2>
 <p>众所周知，软件测试的分类如下：</p>
 <ul>
 <li>单元测试</li>
@@ -105,7 +133,7 @@
 <li>简化集成，单元测试能够降低代码单元内部的不确定性，可以用在自底向上测试方法中。先测试程序的一部分，然后整体测试代码，这样使集成测试更加容易</li>
 <li>单元测试可以作为系统的活文档，开发人员可以通过查看单元测试代码了解程序代码的<span class="caps">API</span></li>
 </ul>
-<h3>单元测试框架</h3>
+<h3 id="_5">单元测试框架</h3>
 <p>通常采用单元测试框架来简化单元测试。单元测试框架应当提供如下功能：</p>
 <ul>
 <li>新手能够简单明了地编写单元测试</li>
@@ -125,7 +153,7 @@
 <li>Fixture，配置测试案例所需的数据和状态，并在执行完成后清理。这些框架支持测试案例级的Fixture、测试套件级的Fixture、以及全局的Fixture</li>
 <li>还有测试执行监控程序，用来控制测试案例的执行和收集测试案例的失败数据</li>
 </ul>
-<h3>如何组织单元测试案例</h3>
+<h3 id="_6">如何组织单元测试案例</h3>
 <p>一般来说，应当为所有公开暴露的函数编写单元测试，包括没有声明为static的自由函数、类的所有公有成员函数（包括公有构造函数和重载的操作符）。单元测试力求覆盖函数中的主要路径，例如不同的条件分支和循环等等。还要处理正常情况和边界情况、提供正确数据和随机数据，进而可以测试程序的错误处理逻辑。<a href="http://geosoft.no/development/unittesting.html">这些文章</a>提供更多关于如何组织单元测试的建议。</p>
 <p>测试案例通常按照某些标准组合成测试套件：共有的功能、相同功能的不同案例、共同的Fixture等等。Fixture负责配置和清除测试运行所需的数据，以使测试案例更加简短并且易于理解。</p>
 <p>推荐采用如下方法实现测试案例：</p>
@@ -148,7 +176,7 @@
 <li>尽力减少类暴露的公有<span class="caps">API</span>，编写不同的类完成不同的任务比编写一个类完成所有任务要好。</li>
 </ul>
 <p>在此<a href="http://googletesting.blogspot.com/2008/08/by-miko-hevery-so-you-decided-to.html">博客</a>中可以找到更多关于编写可测试代码的建议。</p>
-<h2>Mocking</h2>
+<h2 id="mocking">Mocking</h2>
 <p>单元测试中，Mock对象能模拟复杂、真实的对象的行为，在不可能将真实对象集成到单元测试的情况下非常有用。如果对象有下列一个特征，用Mock对象代替就非常有用：</p>
 <ul>
 <li>产生不确定的结果（如当前时间或者温度）</li>
@@ -169,9 +197,9 @@
 <li>获取代码运行的结果并检查是否与期望的返回值一致，通常由Mock框架在销毁Mock对象时完成</li>
 </ul>
 <p><a href="http://alexott.net/en/cpp/CppTestingIntro.html#gmock-example">这里</a>可以找到使用Google C++&nbsp;Mocking框架的例子。</p>
-<h1>C++单元测试</h1>
+<h1 id="c">C++单元测试</h1>
 <p>本节介绍C++中的单元测试和Mocking。</p>
-<h2>C++单元测试及Boost.Test</h2>
+<h2 id="cboosttest">C++单元测试及Boost.Test</h2>
 <p>C++有很多<a href="http://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#C.2B.2B">单元测试框架</a>。当前最广为使用的有Boost.Test和<a href="https://code.google.com/p/googletest/">Google C++测试框架</a>。它们的功能类似，由于作者在公司项目和个人项目中使用Boost.Test，因此本文只介绍Boost.Test。</p>
 <p>Boost.Test有这些功能：</p>
 <ul>
@@ -206,58 +234,58 @@
 <li>Fixture，负责配置和清除测试案例、测试套件、全局环境所需相关资源和数据</li>
 </ul>
 <p><a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/execution-monitor.html">Execution monitor</a>执行所有单元测试：控制单元测试的执行、处理错误、收集已执行或失败的单元测试的统计数据。开发者可以通过命令行选项、环境变量、源代码控制Execution&nbsp;monitor的行为。</p>
-<h2>自动注册的测试案例</h2>
+<h2 id="_7">自动注册的测试案例</h2>
 <p>对于简单单元测试，Boost.Test非常简单易用，只需包含必要的头文件，然后编写单元测试案例（或组织成测试套件），然后编译，将其与boost_unit_test_framework库链接（boost_unit_test_framework库包含负责配置和执行测试案例的main函数）。</p>
-<h2>最简单的测试程序</h2>
+<h2 id="_8">最简单的测试程序</h2>
 <p>这是一个最简单的测试程序，定义了一个测试案例：</p>
-<div class="highlight"><pre><span class="cp">#define BOOST_TEST_MODULE Simple testcases</span>
-<span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span>
-
-<span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">simple_test</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Simple testcases</span></span>
+<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">simple_test</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>第一行声明测试的名字，第二行包含必要的头文件，第4-6行定义测试案例（<code>BOOST_AUTO_TEST_CASE</code>宏定义一个名字为<code>simple_test</code>的测试案例，案例中包含一个断言：2+2=4，断言采用<code>BOOST_CHECK_EQUAL</code>进行检查）。</p>
 <p>编译执行该程序，屏幕上会打印如下内容（Boost.Test也可将结果输出为多种不同的格式，并且可以通过Execution&nbsp;Monitor的选项控制结果的详略程度）：</p>
-<div class="highlight"><pre><span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span>
-
-<span class="o">***</span> <span class="n">No</span> <span class="n">errors</span> <span class="n">detected</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">***</span> <span class="n">No</span> <span class="n">errors</span> <span class="n">detected</span></span>
 </pre></div>
 
 
 <p>如果出现错误，测试框架会在屏幕上打印如下信息：</p>
-<div class="highlight"><pre><span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span>
-<span class="n">test</span><span class="o">-</span><span class="n">simple</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;simple_test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="n">failed</span> <span class="p">[</span><span class="mi">4</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">]</span>
-
-<span class="o">***</span> <span class="mi">1</span> <span class="n">failure</span> <span class="n">detected</span> <span class="n">in</span> <span class="n">test</span> <span class="n">suite</span> <span class="s">&quot;Simple testcases&quot;</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span></span>
+<span class="code-line"><span class="n">test</span><span class="o">-</span><span class="n">simple</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;simple_test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="n">failed</span> <span class="p">[</span><span class="mi">4</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">]</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">***</span> <span class="mi">1</span> <span class="n">failure</span> <span class="n">detected</span> <span class="n">in</span> <span class="n">test</span> <span class="n">suite</span> <span class="s">&quot;Simple testcases&quot;</span></span>
 </pre></div>
 
 
 <p>以上错误信息指出了测试程序（Simple&nbsp;testcases）中失败案例的个数，并且指出了错误发生的位置（test-simple.cpp的第5行），同时还显示了错误的附加信息（视所采用的检查函数而定）。</p>
-<h2>使用测试套件</h2>
+<h2 id="_9">使用测试套件</h2>
 <p>当测试程序中包含大量的测试案例时，管理测试案例非常困难。Boost.Test支持将测试案例组合成测试套件，这样管理大量测试案例就非常容易了。测试套件同时还有其它优点，如为所有测试案例定义共同的Fixture，以及通过命令行选项选择执行部分测试案例。</p>
 <p>测试套件的用法非常简单，只需将测试套件的所有测试案例写在<code>BOOST_AUTO_TEST_SUITE</code>宏（以测试套件名为参数）和<code>BOOST_AUTO_TEST_SUITE_END</code>宏之间即可：</p>
-<div class="highlight"><pre><span class="cp">#define BOOST_TEST_MODULE Simple testcases 2</span>
-<span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span>
-
-<span class="n">BOOST_AUTO_TEST_SUITE</span><span class="p">(</span><span class="n">suite1</span><span class="p">)</span>
-
-<span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test2</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="n">BOOST_AUTO_TEST_SUITE_END</span><span class="p">()</span>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Simple testcases 2</span></span>
+<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_AUTO_TEST_SUITE</span><span class="p">(</span><span class="n">suite1</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test1</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test2</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_AUTO_TEST_SUITE_END</span><span class="p">()</span></span>
 </pre></div>
 
 
 <p>编译、运行测试套件的方法与测试案例一致。</p>
-<h2>单元测试工具及检查器</h2>
+<h2 id="_10">单元测试工具及检查器</h2>
 <p>Boost.Test提供大量的<a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/testing-tools.html">测试工具/检查器</a>。这些检查器几乎都有不同的检查级别（为了方便阅读，本文用<code>&lt;level&gt;</code>来代表实际的级别）：</p>
 <ul>
 <li>
@@ -281,29 +309,29 @@
 </ul>
 <p>检查器宏的基本形式是<code>BOOST_&lt;level&gt;[_check]</code>，只接受一个参数。唯一的例外是<code>BOOST_ERROR</code>宏和<code>BOOST_FAIL</code>宏，它们用来生成显式的错误。这是Bosst.Test检查器的<a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/testing-tools/reference.html">完整列表</a>。</p>
 <p>基本的宏（<code>BOOST_WARN</code>、<code>BOOST_CHECK</code>以及<code>BOOST_REQUIRE</code>）只接受一个参数，即所检查的表达式，例如：</p>
-<div class="highlight"><pre><span class="n">BOOST_WARN</span><span class="p">(</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">short</span><span class="p">)</span> <span class="p">);</span>
-<span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">);</span>
-<span class="n">BOOST_REQUIRE</span><span class="p">(</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">BOOST_WARN</span><span class="p">(</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">short</span><span class="p">)</span> <span class="p">);</span></span>
+<span class="code-line"><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">);</span></span>
+<span class="code-line"><span class="n">BOOST_REQUIRE</span><span class="p">(</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="p">);</span></span>
 </pre></div>
 
 
 <p>如果检查没有通过，Boost.Test会报告检查在源代码中的行数以及所给定的条件。用户也可用<code>BOOST_&lt;level&gt;_MESSAGE</code>宏报告自定义的消息。</p>
 <p>在需要进行比较时，最好使用特殊的宏，如<code>BOOST_&lt;level&gt;_EQUAL</code>，<code>BOOST_&lt;level&gt;_NE</code>，<code>BOOST_&lt;level&gt;_GT</code>，等等。这些特殊宏的好处是它们会同时显示期望值和实际值，而不是只显示一句简单的失败消息（此功能也适用于用<code>BOOST_&lt;level&gt;_PREDICATE</code>宏定义的比较函数）。以下面的代码为例：</p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-<span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="p">);</span>
-<span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="p">);</span>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="p">);</span></span>
+<span class="code-line"><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="p">);</span></span>
 </pre></div>
 
 
 <p>第一个检查只会报告说检查失败：</p>
-<div class="highlight"><pre><span class="n">test</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="n">failed</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">test</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="n">failed</span></span>
 </pre></div>
 
 
 <p>而第二个检查会报告为什么检查失败以及实际的值：</p>
-<div class="highlight"><pre><span class="n">test</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="n">failed</span> <span class="p">[</span><span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">test</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="n">failed</span> <span class="p">[</span><span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">]</span></span>
 </pre></div>
 
 
@@ -316,56 +344,102 @@
 <li><code>BOOST_TEST_CHECKPOINT</code>宏，创建命名的检查点，当错误发生时输出错误消息，这在检查循环中的表达式时非常有用</li>
 <li><code>BOOST_TEST_PASSPOINT</code>宏（无参数），创建匿名检查点，当错误发生时输出最后一个检查点所在的行号</li>
 </ul>
-<h2>Fixture</h2>
+<h2 id="fixture">Fixture</h2>
 <p>Fixture是一类特殊的对象，用以设置和清除单元测试执行所需的数据和资源。分离Fixture和实际的测试代码能够简化单元测试，使不同的测试案例和测试套件共用一份初始化代码。</p>
 <p>Boost.Test中的Fixture通常实现为一个类或者结构体，在其构造函数中初始化数据，在其析构函数函数中清理数据。例如：</p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">MyFixture</span> <span class="p">{</span>
-  <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="o">~</span> <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">delete</span> <span class="n">i</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">int</span><span class="o">*</span> <span class="n">i</span><span class="p">;</span>
-<span class="p">};</span>
+<div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">MyFixture</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">i</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">;</span></span>
+<span class="code-line">    <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="o">~</span> <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">delete</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="kt">int</span><span class="o">*</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
 <p>可以这样使用<code>MyFixture</code>类：</p>
-<div class="highlight"><pre><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_case1</span> <span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">MyFixture</span> <span class="n">f</span><span class="p">;</span>
-  <span class="c1">// do something with f.i</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_case1</span> <span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">  <span class="n">MyFixture</span> <span class="n">f</span><span class="p">;</span></span>
+<span class="code-line">  <span class="c1">// do something with f.i</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>Boost.Test同时提供了特殊的宏以简化Fixture的使用。配置测试案例可以使用<code>BOOST_FIXTURE_TEST_CASE</code>宏代替<code>BOOST_AUTO_TEST_CASE</code>宏，唯一的不同之处在于<code>BOOST_FIXTURE_TEST_CASE</code>宏有第二个参数（即Fixture对象），Fixture对象自动创建并传递给测试案例。使用宏比直接使用Fixture对象还有额外的优势，即用户能够直接访问Fixture对象的公有和保护成员，例如：</p>
-<div class="highlight"><pre><span class="cp">#define BOOST_TEST_MODULE Test-case fixture example</span>
-<span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span>
-
-<span class="k">struct</span> <span class="n">F</span> <span class="p">{</span>
-  <span class="n">F</span><span class="p">()</span> <span class="o">:</span> <span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{}</span>
-  <span class="o">~</span><span class="n">F</span><span class="p">()</span> <span class="p">{}</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">BOOST_FIXTURE_TEST_CASE</span><span class="p">(</span><span class="n">simple_test</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Test-case fixture example</span></span>
+<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">F</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="n">F</span><span class="p">()</span> <span class="o">:</span> <span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{}</span></span>
+<span class="code-line">  <span class="o">~</span><span class="n">F</span><span class="p">()</span> <span class="p">{}</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">BOOST_FIXTURE_TEST_CASE</span><span class="p">(</span><span class="n">simple_test</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>此例中，Fixture对象F持有一个成员变量i，它能在测试案例中直接访问。</p>
 <p>测试套件也有类似的功能，配置测试套件可以使用<code>BOOST_FIXTURE_TEST_SUITE</code>宏代替<code>BOOST_AUTO_TEST_SUITE</code>宏。<code>BOOST_FIXTURE_TEST_SUITE</code>宏以测试套件对象为第二个参数，且为测试套件中的每个测试案例分别生成一个Fixture对象。需要记住的是：对每个测试案例/测试套件，都会创建一个新的Fixture对象，测试案例中的Fxiture对象的状态改变不会改变其它测试案例。</p>
 <p>Boost.Test还支持第三种Fixture对象（即全局Fixture），用来进行全局数据的设置/清理。可以使用<code>BOOST_GLOBAL_FIXTURE</code>宏创建全局环境中的的Fixture，传入Fixture的名字作为参数。在第一个测试案例开始前创建Fixture，在最后一个测试案例执行之后销毁。</p>
-<h2>Output of&nbsp;results</h2>
-<h2>Execution&nbsp;control</h2>
-<h1>C++Mocking框架</h1>
-<h1>更多资料</h1>
+<h2 id="_11">输出结果</h2>
+<p>通常Boost.Test只是输出出错误和异常情况下的消息，但是用户可以使用不同的选项输出用户希望打印的消息。还可以通过编译期选项控制输出的消息，例如阀值。通常Boost.Test输出的结果是易于人工阅读的格式，但是也可输出为xml格式，以便于将结果存入数据库或者显示面板。</p>
+<p>Boost.Test还提供一种特殊的宏用来输出数据。BOOST_TEST_MESSAGE宏接收需要输出的消息作为参数，并将该消息与其它消息一同输出。</p>
+<h2 id="_12">执行控制</h2>
+<p>测试案例由<code>execution monitor</code>控制执行。用户将测试案例列表注册到<code>execution monitor</code>，<code>execution monitor</code>执行所注册的测试案例（如有需要，创建Fixture）并统计失败的测试案例。默认情况下，<code>execution monitor</code>会处理所有抛出的异常，包括系统异常（如内存访问异常）。但是该功能并非在所有情况下都有必要，有时候用户需要分析进程崩溃生成的转储文件。</p>
+<p>对于一些非必要的测试案例，在代码中注释掉并不是一个好的方法。所以Boost.Test提供了许多运行时选项用来控制<code>execution monitor</code>的行为，其中一些选项还可以在编译期指定。</p>
+<p>Boost.Test中有两种方法配置运行时选项：命令行选项以及环境变量。</p>
+<p>在测试程序初始化的时候，<code>execution monitor</code>分析命令行选项并排除那些不适用于本程序的选项。命令行选项格式为：<code>--&lt;option name&gt;=&lt;option value&gt;</code>（在选项名字和选项值之间不能有空格）。命令行和环境变量选项名字都是大小写敏感的。</p>
+<p>此处列出使用标准<code>execution monitor</code>的测试程序所能采用的最重要的选项（括号中为对应的环境变量）：</p>
+<ul>
+<li>
+<dl>
+<dt><code>--auto_start_dbg (BOOST_TEST_AUTO_START_DBG)</code></dt>
+<dd>（yes或no，默认为no）在系统异常发生时，Boost.Test是否尝试启动调试器</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt><code>--catch_system_errors (BOOST_TEST_CATCH_SYSTEM_ERRORS)</code></dt>
+<dd>（yes或no，默认为yes）Boost.Test是否处理系统异常</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt><code>--log_level (BOOST_TEST_LOG_LEVEL)</code></dt>
+<dd>（all, success, test_suite, message, warning, error, cpp_exception, system_error, fatal_error, nothing,&nbsp;默认为error）测试程序应该输出什么类型的消息。可使用此选项查看当前正在进行的测试及其相关消息</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt><code>--random (BOOST_TEST_RANDOM)</code></dt>
+<dd>允许随机执行测试案例（设置为0禁用随机执行功能）若值大于1，值将作为随机数的种子；若等于1，则系统时间作为随机数种子</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt><code>--run_test (BOOST_TEST_RUN_TEST)</code></dt>
+<dd>指定所需执行的测试案例。用户可以列出测试案例名字或者使用掩码。请参考文档查看细节和例子。</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt><code>--show_progress (BOOST_TEST_SHOW_PROGRESS)</code></dt>
+<dd>（yes或no，默认为no）是否显示测试案例的执行进度</dd>
+</dl>
+</li>
+</ul>
+<p>可以从Boost.Test文档中找到关于其它选项（如控制输出格式、显示附加信息等等）的描述信息。</p>
+<h1 id="cmocking">C++Mocking框架</h1>
+<h1 id="_13">更多资料</h1>
 <p>关于<span class="caps">TDD</span>的资料,包括书籍、课程、文章等等：</p>
 <ul>
 <li>书籍：</li>
@@ -534,14 +608,14 @@
                 <aside>
                     <h2>标签</h2>
                     <ul class="tagcloud">
-                        <li class="tag-0">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
                         <li class="tag-4">
                             <a href="http://blog.zouxu.com.cn/tag/unittest.html">
                                 unittest
+                            </a>
+                        </li>
+                        <li class="tag-0">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
                             </a>
                         </li>
                         <li class="tag-2">
