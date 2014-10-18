@@ -71,8 +71,8 @@ AUTHOR_SAVE_AS = ''
 THEME = 'theme/simplegrey'
 
 # Plugins
-#PLUGIN_PATHS = ["plugins"]
-#PLUGINS = ["assets", "liquid_tags", "sitemap"]
+PLUGIN_PATHS = ["pelican-plugins"]
+PLUGINS = ["better_codeblock_line_numbering"]
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
 
@@ -88,3 +88,9 @@ TAG_CLOUD_MAX_ITEMS = 100
 # Feed configuration
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
+
+# Extensions
+MD_EXTENSIONS = [
+    'codehilite(css_class=highlight,linenums=False)',
+    'extra'
+    ]
