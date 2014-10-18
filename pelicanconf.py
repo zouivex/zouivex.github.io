@@ -92,5 +92,6 @@ CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 # Extensions
 MD_EXTENSIONS = [
     'codehilite(css_class=highlight,linenums=False)',
-    'extra'
+    'extra',
+    'toc'
     ]

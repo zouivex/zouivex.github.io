@@ -5,6 +5,8 @@ Modified: 2014-10-09 23:07:31
 Category: blog
 Tags: cpp, unittest
 
+[TOC]
+
 #声明
 
 本文翻译自Alex Ott的博客：[Test-driven development and unit testing with examples in C++](http://alexott.net/en/cpp/CppTestingIntro.html)
