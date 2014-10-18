@@ -17,25 +17,7 @@
             {{ article.content }}
         </article>
 
-        <hr />
-
-        {% if loop.length  > 1 %}
-        <div>
-            <h3>最新文章</h3>
-            <ol class="archive">
         {% endif %}
-    
-        {% elif loop.index < 7 %}
-            <li>
-            {% include 'article_link.inc.html' %}
-            </li>
-        {% endif %}
-
     {% endfor %}
-
-    {% if articles|length > 1 %}
-            </ol>
-        </div>
-    {% endif %}
 
 {% endblock content %}

@@ -98,3 +98,6 @@ MD_EXTENSIONS = [
     'extra',
     'toc'
     ]
+
+# Define the max number of recent posts. 
+MAX_RECENT_POST_ITEMS = 10
