@@ -369,9 +369,38 @@ BOOST_FIXTURE_TEST_CASE(simple_test, F) {
 
 Boost.Test还支持第三种Fixture对象（即全局Fixture），用来进行全局数据的设置/清理。可以使用`BOOST_GLOBAL_FIXTURE`宏创建全局环境中的的Fixture，传入Fixture的名字作为参数。在第一个测试案例开始前创建Fixture，在最后一个测试案例执行之后销毁。
 
-##Output of results
+##输出结果
 
-##Execution control
+通常Boost.Test只是输出出错误和异常情况下的消息，但是用户可以使用不同的选项输出用户希望打印的消息。还可以通过编译期选项控制输出的消息，例如阀值。通常Boost.Test输出的结果是易于人工阅读的格式，但是也可输出为xml格式，以便于将结果存入数据库或者显示面板。
+
+Boost.Test还提供一种特殊的宏用来输出数据。BOOST_TEST_MESSAGE宏接收需要输出的消息作为参数，并将该消息与其它消息一同输出。
+
+##执行控制
+
+测试案例由`execution monitor`控制执行。用户将测试案例列表注册到`execution monitor`，`execution monitor`执行所注册的测试案例（如有需要，创建Fixture）并统计失败的测试案例。默认情况下，`execution monitor`会处理所有抛出的异常，包括系统异常（如内存访问异常）。但是该功能并非在所有情况下都有必要，有时候用户需要分析进程崩溃生成的转储文件。
+
+对于一些非必要的测试案例，在代码中注释掉并不是一个好的方法。所以Boost.Test提供了许多运行时选项用来控制`execution monitor`的行为，其中一些选项还可以在编译期指定。
+
+Boost.Test中有两种方法配置运行时选项：命令行选项以及环境变量。
+
+在测试程序初始化的时候，`execution monitor`分析命令行选项并排除那些不适用于本程序的选项。命令行选项格式为：`--<option name>=<option value>`（在选项名字和选项值之间不能有空格）。命令行和环境变量选项名字都是大小写敏感的。
+
+此处列出使用标准`execution monitor`的测试程序所能采用的最重要的选项（括号中为对应的环境变量）：
+
+* `--auto_start_dbg (BOOST_TEST_AUTO_START_DBG)`
+:    （yes或no，默认为no）在系统异常发生时，Boost.Test是否尝试启动调试器
+* `--catch_system_errors (BOOST_TEST_CATCH_SYSTEM_ERRORS)`
+:    （yes或no，默认为yes）Boost.Test是否处理系统异常
+* `--log_level (BOOST_TEST_LOG_LEVEL)`
+:    （all, success, test_suite, message, warning, error, cpp_exception, system_error, fatal_error, nothing, 默认为error）测试程序应该输出什么类型的消息。可使用此选项查看当前正在进行的测试及其相关消息
+* `--random (BOOST_TEST_RANDOM)`
+:    允许随机执行测试案例（设置为0禁用随机执行功能）若值大于1，值将作为随机数的种子；若等于1，则系统时间作为随机数种子
+* `--run_test (BOOST_TEST_RUN_TEST)`
+:    指定所需执行的测试案例。用户可以列出测试案例名字或者使用掩码。请参考文档查看细节和例子。
+* `--show_progress (BOOST_TEST_SHOW_PROGRESS)`
+:    （yes或no，默认为no）是否显示测试案例的执行进度
+
+可以从Boost.Test文档中找到关于其它选项（如控制输出格式、显示附加信息等等）的描述信息。
 
 #C++Mocking框架
 
