@@ -525,17 +525,7 @@
 &lt;li&gt;&lt;a href="http://googletesting.blogspot.com/"&gt;Google Testing&amp;nbsp;Blog&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wiki at &lt;a href="http://c2.com/cgi/wiki?UnitTest"&gt;c2.com&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.lenholgate.com/blog/2004/05/practical-testing.html"&gt;Practical Testing&lt;/a&gt; —&amp;nbsp;测试主题系列博客&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="cpp"></category><category term="unittest"></category></entry><entry><title>c++智能指针详解</title><link href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-smart-pointers/" rel="alternate"></link><updated>2014-10-09T00:24:32+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-09:blog/2014/10/09/cpp-smart-pointers/</id><summary type="html">&lt;h1&gt;说明&lt;/h1&gt;
-&lt;p&gt;本文翻译自Herb&amp;nbsp;Sutter的系列文章GotW(89-91):&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://herbsutter.com/2013/05/29/gotw-89-solution-smart-pointers/"&gt;gotw-89-solution-smart-pointers&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://herbsutter.com/2013/05/30/gotw-90-solution-factories/"&gt;gotw-90-solution-factories&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://herbsutter.com/2013/06/05/gotw-91-solution-smart-pointer-parameters/"&gt;gotw-91-solution-smart-pointer-parameters&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;未经同意，请勿转载。&lt;/p&gt;
-&lt;h1&gt;智能指针&lt;/h1&gt;
-&lt;h1&gt;智能指针在Factory模式中的应用&lt;/h1&gt;
-&lt;h1&gt;智能指针作为参数&lt;/h1&gt;</summary><category term="cpp"></category></entry><entry><title>sicp 1.3.2</title><link href="http://blog.zouxu.com.cn/blog/2014/10/08/sicp-1-3-2/" rel="alternate"></link><updated>2014-10-08T20:50:08+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-08:blog/2014/10/08/sicp-1-3-2/</id><summary type="html">&lt;ul&gt;
+&lt;/ul&gt;</summary><category term="cpp"></category><category term="unittest"></category></entry><entry><title>sicp 1.3.2</title><link href="http://blog.zouxu.com.cn/blog/2014/10/08/sicp-1-3-2/" rel="alternate"></link><updated>2014-10-08T20:50:08+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-08:blog/2014/10/08/sicp-1-3-2/</id><summary type="html">&lt;ul&gt;
 &lt;li&gt;练习1.34&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;采用替换模型进行分析:&lt;/p&gt;
