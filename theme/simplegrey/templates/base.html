@@ -39,16 +39,18 @@
             </h2>   
         </header>
 
-        {% if PAGES %}
-        <nav class="pages">
+        <nav>
+            <ul>
+            <li> <a href="{{ SITEURL }}/index.html">首页</a> </li>
+            <li> <a href="{{ SITEURL }}/archives.html">所有文章</a> </li>
+
             {% if PAGES %}
                 {% for p in PAGES %}
-                <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                {% if not loop.last %}-{% endif %}
+                <li><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
                 {% endfor %}
             {% endif %}
+            </ul>
         </nav> 
-        {% endif %}
 
         <div class="wrapper">
             <div role="main" class="content">
