@@ -406,8 +406,140 @@ Boost.Test中有两种方法配置运行时选项：命令行选项以及环境�
 
 #C++Mocking框架
 
+C++语言中有几种Mocking框架：[Google C++ mocking framework]()，[HippoMocks]()，[AMOP]()，[Turtle]()等等。`Google mocking`框架是当前最先进、最活跃支持的框架，所以本文以此为例，其它框架的功能类似。
+
+`Google mocking`框架有相当好的文档，可以以wiki的方式阅读，包括[教程]()、[Cookbook]()、[CheatSheet]()以及[FAQ]()。本节主要集中介绍框架的高层概观，同时提供了小例子介绍框架如何使用。本文假设机器上已经安装`Google mocking`框架。
+
+`Google mocking`框架进行Mocking的标准流程：
+
+* 创建类的Mock对象，可以使用框架提供的宏来声明Mock函数，还可以使用工具自动从源代码生成Mock定义。
+* 创建测试案例使用上面定义的Mock类：
+    * 创建Mock对象并设置期望的结果，可以使用框架提供的宏和函数设置各种情况
+    * 调用测试函数，传入Mock对象作为参数（或者创建一个对象，将Mock对象作为成员对象，由成员函数使用）
+    * Mock对象销毁的时候，`Google mocking`库检查期望值和实际值，如果不相等，则抛出异常并输出哪些期望失败。
+
+让我们来看看实际例子。使用Mock测试，需要包含头文件`gmock/gmock.h`：
+
+``` C++
+
+#include <gmock/gmock.h>
+#include <string>
+
+#define BOOST_TEST_MODULE Mock example
+#include <boost/test/unit_test.hpp>
+
+```
+
+编写需Mock的虚拟类，使`Google Mock`框架能重载虚拟类：
+
+``` C++
+
+class PropHolder {
+public:
+    PropHolder()  { }
+    virtual ~PropHolder() { }
+
+    virtual void SetProperty(const std::string& name, int value) = 0;
+    virtual int GetProperty(const std::string& name) = 0;
+};
+
+```
+
+`PropHolder`类被其它类的函数使用，一般采用存储基类对象的引用的方式：
+
+``` C++
+class TestClass {
+public:
+    TestClass(PropHolder& ph) : fPropHolder(ph) { }
+    void doCalc() {
+        if (fPropHolder.GetProperty(std::string("test")) > 100) {
+            fPropHolder.SetProperty("test2", 555);
+        } else
+            fPropHolder.SetProperty("test2", 785);
+    }
+private:
+    PropHolder& fPropHolder;
+};
+```
+
+然后创建Mock类，继承自`PropHolder`，使用宏实现相应的“桩”。`Google mock`提供了几个宏（`MOCK_METHODN`，`MOCK_CONST_METHODN`)，这些宏名字最后那个`N`应该与Mock函数的参数个数匹配。这些宏的第一个参数是需要Mock的函数的名字，第二个参数是函数的签名：
+
+``` C++
+class MockPropHolder : public PropHolder {
+public:
+    MockPropHolder() { }
+    virtual ~MockPropHolder() { }
+
+    MOCK_METHOD2(SetProperty, void(const std::string& name, int value));
+    MOCK_METHOD1(GetProperty, int(const std::string& name));
+};
+```
+
+现在我们可以在我们的测试程序中使用`Mock`类了。先创建`Mock`类的一个实例`mholder`，并设置期望。第一个期望是：函数`GetProperty`以参数`"test"`调用一次，`Mock`对象的函数应该返回101。第二个期望是：函数`SetProperty`以参数`"test2"`和`555`调用。设置好以上期望之后，我们创建`TestClass`的实例，将`Mock`对象作为参数传入。最后一行的函数`doCalc`调用`PropHolder`类的成员函数：
+
+``` C++
+BOOST_AUTO_TEST_CASE(test_gmock) {
+    using ::testing::Return;
+
+    MockPropHolder mholder;
+    EXPECT_CALL(mholder, GetProperty(std::string("test"))).Times(1).WillOnce(Return(101));
+    EXPECT_CALL(mholder, SetProperty(std::string("test2"),555));
+
+    TestClass t(mholder);
+    t.doCalc();
+}
+```
+
+`Google Mock`不光可以和`Google C++ Testing framework`配合使用，也可以和其它框架配合使用，所以我们需要增加代码以使它和`Boost.Test`正确配合。我们可以使用全局的`Fixture`对象完成这个任务：
+
+``` C++
+struct InitGMock {
+    InitGMock() {
+        ::testing::GTEST_FLAG(throw_on_failure) = true;
+        ::testing::InitGoogleMock(&boost::unit_test::framework::master_test_suite().argc,
+                                  boost::unit_test::framework::master_test_suite().argv);
+    }
+    ~InitGMock() { }
+};
+BOOST_GLOBAL_FIXTURE(InitGMock);
+```
+
+正确编译上面的代码还需要链接另外的库：`gmock`和`gtest`。然后我们可以运行测试程序、获取测试结果。如果一切工作正常，并且结果与预期一致，那么我们会看到如下消息：
+
+```
+  Running 1 test case...
+
+  *** No errors detected
+```
+
+要是我们忘记调用`t.doCalc()`或者调用方式不正确，会输出如下消息：
+
+```
+  Running 1 test case...
+  test-mock.cpp:62: Failure
+  Actual function call count doesn't match this expectation.
+         Expected: to be called once
+           Actual: never called - unsatisfied and active
+  test-mock.cpp:63: Failure
+  Actual function call count doesn't match this expectation.
+         Expected: to be called once
+           Actual: never called - unsatisfied and active
+  terminate called after throwing an instance of 'testing::GoogleTestFailureException'
+    what():  /home/ott/projects/lang-exp/cpp/testing/test-mock.cpp:63: Failure
+  Actual function call count doesn't match this expectation.
+         Expected: to be called once
+           Actual: never called - unsatisfied and active
+  unknown location(0): fatal error in "test_gmock": signal: SIGABRT (application abort requested)
+  test-mock.cpp(65): last checkpoint
+
+  *** 1 failure detected in test suite "Mock example"
+```
+
+以上就是Mocking的全部内容，您可以从`Google Mock Framework`的在线文档获取更多信息，以及更多关于如何使用的例子。
+
 #更多资料
-关于TDD的资料,包括书籍、课程、文章等等：
+
+更多关于TDD的资料,包括书籍、课程、文章等等：
 
 * 书籍：
   * Kent Beck. [Test-driven development: By example](http://www.amazon.com/gp/product/0321146530?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321146530)
