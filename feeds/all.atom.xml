@@ -374,8 +374,126 @@
 &lt;/ul&gt;
 &lt;p&gt;可以从Boost.Test文档中找到关于其它选项（如控制输出格式、显示附加信息等等）的描述信息。&lt;/p&gt;
 &lt;h1 id="cmocking"&gt;C++Mocking框架&lt;/h1&gt;
+&lt;p&gt;C++语言中有几种Mocking框架：&lt;a href=""&gt;Google C++ mocking framework&lt;/a&gt;，&lt;a href=""&gt;HippoMocks&lt;/a&gt;，&lt;a href=""&gt;&lt;span class="caps"&gt;AMOP&lt;/span&gt;&lt;/a&gt;，&lt;a href=""&gt;Turtle&lt;/a&gt;等等。&lt;code&gt;Google mocking&lt;/code&gt;框架是当前最先进、最活跃支持的框架，所以本文以此为例，其它框架的功能类似。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Google mocking&lt;/code&gt;框架有相当好的文档，可以以wiki的方式阅读，包括&lt;a href=""&gt;教程&lt;/a&gt;、&lt;a href=""&gt;Cookbook&lt;/a&gt;、&lt;a href=""&gt;CheatSheet&lt;/a&gt;以及&lt;a href=""&gt;&lt;span class="caps"&gt;FAQ&lt;/span&gt;&lt;/a&gt;。本节主要集中介绍框架的高层概观，同时提供了小例子介绍框架如何使用。本文假设机器上已经安装&lt;code&gt;Google mocking&lt;/code&gt;框架。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Google mocking&lt;/code&gt;框架进行Mocking的标准流程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建类的Mock对象，可以使用框架提供的宏来声明Mock函数，还可以使用工具自动从源代码生成Mock定义。&lt;/li&gt;
+&lt;li&gt;创建测试案例使用上面定义的Mock类：&lt;ul&gt;
+&lt;li&gt;创建Mock对象并设置期望的结果，可以使用框架提供的宏和函数设置各种情况&lt;/li&gt;
+&lt;li&gt;调用测试函数，传入Mock对象作为参数（或者创建一个对象，将Mock对象作为成员对象，由成员函数使用）&lt;/li&gt;
+&lt;li&gt;Mock对象销毁的时候，&lt;code&gt;Google mocking&lt;/code&gt;库检查期望值和实际值，如果不相等，则抛出异常并输出哪些期望失败。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;让我们来看看实际例子。使用Mock测试，需要包含头文件&lt;code&gt;gmock/gmock.h&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c"&gt;#include &amp;lt;gmock/gmock.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c"&gt;#include &amp;lt;string&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c"&gt;#define BOOST_TEST_MODULE Mock example&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c"&gt;#include &amp;lt;boost/test/unit_test.hpp&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;编写需Mock的虚拟类，使&lt;code&gt;Google Mock&lt;/code&gt;框架能重载虚拟类：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;PropHolder&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nl"&gt;public:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;PropHolder&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;PropHolder&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;SetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;PropHolder&lt;/code&gt;类被其它类的函数使用，一般采用存储基类对象的引用的方式：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;TestClass&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nl"&gt;public:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;TestClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PropHolder&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;ph&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;fPropHolder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ph&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;doCalc&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fPropHolder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;test&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;            &lt;span class="n"&gt;fPropHolder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;test2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;555&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;            &lt;span class="n"&gt;fPropHolder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;test2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;785&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nl"&gt;private:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;PropHolder&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;fPropHolder&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后创建Mock类，继承自&lt;code&gt;PropHolder&lt;/code&gt;，使用宏实现相应的“桩”。&lt;code&gt;Google mock&lt;/code&gt;提供了几个宏（&lt;code&gt;MOCK_METHODN&lt;/code&gt;，&lt;code&gt;MOCK_CONST_METHODN&lt;/code&gt;)，这些宏名字最后那个&lt;code&gt;N&lt;/code&gt;应该与Mock函数的参数个数匹配。这些宏的第一个参数是需要Mock的函数的名字，第二个参数是函数的签名：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;MockPropHolder&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;PropHolder&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nl"&gt;public:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;MockPropHolder&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;MockPropHolder&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;MOCK_METHOD2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SetProperty&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;MOCK_METHOD1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;现在我们可以在我们的测试程序中使用&lt;code&gt;Mock&lt;/code&gt;类了。先创建&lt;code&gt;Mock&lt;/code&gt;类的一个实例&lt;code&gt;mholder&lt;/code&gt;，并设置期望。第一个期望是：函数&lt;code&gt;GetProperty&lt;/code&gt;以参数&lt;code&gt;"test"&lt;/code&gt;调用一次，&lt;code&gt;Mock&lt;/code&gt;对象的函数应该返回101。第二个期望是：函数&lt;code&gt;SetProperty&lt;/code&gt;以参数&lt;code&gt;"test2"&lt;/code&gt;和&lt;code&gt;555&lt;/code&gt;调用。设置好以上期望之后，我们创建&lt;code&gt;TestClass&lt;/code&gt;的实例，将&lt;code&gt;Mock&lt;/code&gt;对象作为参数传入。最后一行的函数&lt;code&gt;doCalc&lt;/code&gt;调用&lt;code&gt;PropHolder&lt;/code&gt;类的成员函数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;BOOST_AUTO_TEST_CASE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;test_gmock&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;testing&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;MockPropHolder&lt;/span&gt; &lt;span class="n"&gt;mholder&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;EXPECT_CALL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mholder&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;test&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))).&lt;/span&gt;&lt;span class="n"&gt;Times&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;WillOnce&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;EXPECT_CALL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mholder&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;test2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="mi"&gt;555&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;TestClass&lt;/span&gt; &lt;span class="nf"&gt;t&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mholder&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;doCalc&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;Google Mock&lt;/code&gt;不光可以和&lt;code&gt;Google C++ Testing framework&lt;/code&gt;配合使用，也可以和其它框架配合使用，所以我们需要增加代码以使它和&lt;code&gt;Boost.Test&lt;/code&gt;正确配合。我们可以使用全局的&lt;code&gt;Fixture&lt;/code&gt;对象完成这个任务：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;InitGMock&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;InitGMock&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;testing&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;GTEST_FLAG&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;throw_on_failure&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;testing&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;InitGoogleMock&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;boost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;unit_test&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;master_test_suite&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                                  &lt;span class="n"&gt;boost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;unit_test&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;framework&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;master_test_suite&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;InitGMock&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;BOOST_GLOBAL_FIXTURE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;InitGMock&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;正确编译上面的代码还需要链接另外的库：&lt;code&gt;gmock&lt;/code&gt;和&lt;code&gt;gtest&lt;/code&gt;。然后我们可以运行测试程序、获取测试结果。如果一切工作正常，并且结果与预期一致，那么我们会看到如下消息：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;  &lt;span class="n"&gt;Running&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="k"&gt;case&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="o"&gt;***&lt;/span&gt; &lt;span class="n"&gt;No&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt; &lt;span class="n"&gt;detected&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;要是我们忘记调用&lt;code&gt;t.doCalc()&lt;/code&gt;或者调用方式不正确，会输出如下消息：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;Running&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="nx"&gt;test&lt;/span&gt; &lt;span class="k"&gt;case&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;mock&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;cpp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;62&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;Failure&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;Actual&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;call&lt;/span&gt; &lt;span class="nx"&gt;count&lt;/span&gt; &lt;span class="nx"&gt;doesn&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;t match this expectation.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="s1"&gt;         Expected: to be called once&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="s1"&gt;           Actual: never called - unsatisfied and active&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="s1"&gt;  test-mock.cpp:63: Failure&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="s1"&gt;  Actual function call count doesn&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="nx"&gt;match&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt; &lt;span class="nx"&gt;expectation&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="nx"&gt;Expected&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="nx"&gt;be&lt;/span&gt; &lt;span class="nx"&gt;called&lt;/span&gt; &lt;span class="nx"&gt;once&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;           &lt;span class="nx"&gt;Actual&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;never&lt;/span&gt; &lt;span class="nx"&gt;called&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;unsatisfied&lt;/span&gt; &lt;span class="nx"&gt;and&lt;/span&gt; &lt;span class="nx"&gt;active&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;terminate&lt;/span&gt; &lt;span class="nx"&gt;called&lt;/span&gt; &lt;span class="nx"&gt;after&lt;/span&gt; &lt;span class="nx"&gt;throwing&lt;/span&gt; &lt;span class="nx"&gt;an&lt;/span&gt; &lt;span class="nx"&gt;instance&lt;/span&gt; &lt;span class="nx"&gt;of&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;testing::GoogleTestFailureException&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;what&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  &lt;span class="err"&gt;/home/ott/projects/lang-exp/cpp/testing/test-mock.cpp:63: Failure&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;Actual&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;call&lt;/span&gt; &lt;span class="nx"&gt;count&lt;/span&gt; &lt;span class="nx"&gt;doesn&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="nx"&gt;match&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt; &lt;span class="nx"&gt;expectation&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;         &lt;span class="nx"&gt;Expected&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="nx"&gt;be&lt;/span&gt; &lt;span class="nx"&gt;called&lt;/span&gt; &lt;span class="nx"&gt;once&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;           &lt;span class="nx"&gt;Actual&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;never&lt;/span&gt; &lt;span class="nx"&gt;called&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;unsatisfied&lt;/span&gt; &lt;span class="nx"&gt;and&lt;/span&gt; &lt;span class="nx"&gt;active&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;unknown&lt;/span&gt; &lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;fatal&lt;/span&gt; &lt;span class="nx"&gt;error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;test_gmock&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;signal&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;SIGABRT&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt; &lt;span class="nx"&gt;abort&lt;/span&gt; &lt;span class="nx"&gt;requested&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;test&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;mock&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;cpp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;65&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;last&lt;/span&gt; &lt;span class="nx"&gt;checkpoint&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="o"&gt;***&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="nx"&gt;failure&lt;/span&gt; &lt;span class="nx"&gt;detected&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;test&lt;/span&gt; &lt;span class="nx"&gt;suite&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Mock example&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上就是Mocking的全部内容，您可以从&lt;code&gt;Google Mock Framework&lt;/code&gt;的在线文档获取更多信息，以及更多关于如何使用的例子。&lt;/p&gt;
 &lt;h1 id="_13"&gt;更多资料&lt;/h1&gt;
-&lt;p&gt;关于&lt;span class="caps"&gt;TDD&lt;/span&gt;的资料,包括书籍、课程、文章等等：&lt;/p&gt;
+&lt;p&gt;更多关于&lt;span class="caps"&gt;TDD&lt;/span&gt;的资料,包括书籍、课程、文章等等：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;书籍：&lt;/li&gt;
 &lt;li&gt;Kent Beck. &lt;a href="http://www.amazon.com/gp/product/0321146530?ie=UTF8&amp;amp;tag=aleottshompag-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=0321146530"&gt;Test-driven development: By&amp;nbsp;example&lt;/a&gt;&lt;/li&gt;
