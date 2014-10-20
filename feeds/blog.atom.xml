@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>九哥的部落</title><link href="http://blog.zouxu.com.cn/" rel="alternate"></link><link href="http://blog.zouxu.com.cn/feeds/blog.atom.xml" rel="self"></link><id>http://blog.zouxu.com.cn/</id><updated>2014-10-09T23:07:31+08:00</updated><entry><title>例解C++测试驱动开发和单元测试</title><link href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/" rel="alternate"></link><updated>2014-10-09T23:07:31+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-09:blog/2014/10/09/cpp-tdd-unittest/</id><summary type="html">&lt;div class="toc"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>九哥的部落</title><link href="http://blog.zouxu.com.cn/" rel="alternate"></link><link href="http://blog.zouxu.com.cn/feeds/blog.atom.xml" rel="self"></link><id>http://blog.zouxu.com.cn/</id><updated>2014-10-20T21:46:00+08:00</updated><entry><title>sicp 1.3.4</title><link href="http://blog.zouxu.com.cn/blog/2014/10/20/sicp-1-3-4/" rel="alternate"></link><updated>2014-10-20T21:46:00+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-20:blog/2014/10/20/sicp-1-3-4/</id><summary type="html">&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
+&lt;p&gt;本节先介绍了在&lt;code&gt;Scheme&lt;/code&gt;中过程如何作为返回值使用以获得丰富的表达力。然后介绍“牛顿法”求方程的解。最后详细说明了函数式语言中，过程是如何作为第一等对象的。&lt;/p&gt;
+&lt;h1 id="_2"&gt;习题解答&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;练习1.40&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本题的解答很直接，将方程用&lt;code&gt;Scheme&lt;/code&gt;语言描述出来即可：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cubic&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;练习1.41&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;double&lt;/code&gt;的定义如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;(((double (double double)) inc) 5)&lt;/code&gt;的求值结果为&lt;code&gt;21&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;练习1.42&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;compose&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;练习1.43&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repeated&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;result&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;compose&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;练习1.44&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;平滑函数定义如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;smooth&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;dx&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;       &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;采用前例中实现的&lt;code&gt;repeated&lt;/code&gt;函数实现给定函数的&lt;code&gt;n&lt;/code&gt;次平滑函数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nth&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;smooth&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;repeated&lt;/span&gt; &lt;span class="n"&gt;smooth&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry><entry><title>例解C++测试驱动开发和单元测试</title><link href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/" rel="alternate"></link><updated>2014-10-09T23:07:31+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-09:blog/2014/10/09/cpp-tdd-unittest/</id><summary type="html">&lt;div class="toc"&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="#_1"&gt;声明&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#_2"&gt;测试驱动开发基础&lt;/a&gt;&lt;ul&gt;
@@ -525,7 +583,7 @@
 &lt;li&gt;&lt;a href="http://googletesting.blogspot.com/"&gt;Google Testing&amp;nbsp;Blog&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wiki at &lt;a href="http://c2.com/cgi/wiki?UnitTest"&gt;c2.com&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.lenholgate.com/blog/2004/05/practical-testing.html"&gt;Practical Testing&lt;/a&gt; —&amp;nbsp;测试主题系列博客&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="cpp"></category><category term="unittest"></category></entry><entry><title>sicp 1.3.2</title><link href="http://blog.zouxu.com.cn/blog/2014/10/08/sicp-1-3-2/" rel="alternate"></link><updated>2014-10-08T20:50:08+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-08:blog/2014/10/08/sicp-1-3-2/</id><summary type="html">&lt;ul&gt;
+&lt;/ul&gt;</summary><category term="cpp"></category><category term="unittest"></category></entry><entry><title>sicp 1.3.2 - 1.3.3</title><link href="http://blog.zouxu.com.cn/blog/2014/10/08/sicp-1-3-2/" rel="alternate"></link><updated>2014-10-08T20:50:08+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-08:blog/2014/10/08/sicp-1-3-2/</id><summary type="html">&lt;ul&gt;
 &lt;li&gt;练习1.34&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;采用替换模型进行分析:&lt;/p&gt;
@@ -578,19 +636,56 @@
 &lt;ul&gt;
 &lt;li&gt;练习1.37&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cont&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cont&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))))))&lt;/span&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;;;&lt;/span&gt; &lt;span class="n"&gt;Recursive&lt;/span&gt; &lt;span class="nf"&gt;version&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cont&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))))))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;;;&lt;/span&gt; &lt;span class="n"&gt;Iterative&lt;/span&gt; &lt;span class="n"&gt;version&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cont&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;        &lt;span class="n"&gt;result&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
-&lt;span class="code-line"&gt;              &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;              &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)))))&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category></entry><entry><title>sicp 1.3.1</title><link href="http://blog.zouxu.com.cn/blog/2014/09/23/sicp-1-3-1/" rel="alternate"></link><updated>2014-09-23T22:21:05+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-23:blog/2014/09/23/sicp-1-3-1/</id><summary type="html">&lt;h1&gt;导读&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;练习1.38&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本题需要使用到上题实现的&lt;code&gt;cont-frac&lt;/code&gt;函数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;remainder&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mf"&gt;2.0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="mf"&gt;1.0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cont&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;frac&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lambda&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mf"&gt;1.0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                       &lt;span class="n"&gt;D&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                       &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;练习1.39&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tan&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cf&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tan&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;recursive&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;square&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;           &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;square&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;           &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tan&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;recursive&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))))))&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tan&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;recursive&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry><entry><title>sicp 1.3.1</title><link href="http://blog.zouxu.com.cn/blog/2014/09/23/sicp-1-3-1/" rel="alternate"></link><updated>2014-09-23T22:21:05+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-23:blog/2014/09/23/sicp-1-3-1/</id><summary type="html">&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
 &lt;p&gt;也许我们曾经在某个场合听说过这些术语：“函数式语言”、“函数式编程范式”、“纯函数式语言”。在阅读sicp之前我对这些术语也只是“不明觉厉”。&lt;/p&gt;
 &lt;p&gt;一般而言，如果一种编程语言允许函数成为“第一等公民”(first class&amp;nbsp;object)，我们就可以将这类语言归为“函数式语言”。本书介绍了函数作为“第一等公民”所拥有的特权：&lt;/p&gt;
 &lt;ul&gt;
@@ -600,7 +695,7 @@
 &lt;li&gt;可以包含在数据结构中&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。&lt;/p&gt;
-&lt;h1&gt;习题解答&lt;/h1&gt;
+&lt;h1 id="_2"&gt;习题解答&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;练习1.29&lt;/li&gt;
 &lt;/ul&gt;
@@ -696,9 +791,9 @@
 &lt;span class="code-line"&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;product&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;accumulate&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category></entry><entry><title>sicp 1.2 (2)</title><link href="http://blog.zouxu.com.cn/blog/2014/09/21/sicp-1-2-2/" rel="alternate"></link><updated>2014-09-21T20:37:33+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-21:blog/2014/09/21/sicp-1-2-2/</id><summary type="html">&lt;h1&gt;导读&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry><entry><title>sicp 1.2 (2)</title><link href="http://blog.zouxu.com.cn/blog/2014/09/21/sicp-1-2-2/" rel="alternate"></link><updated>2014-09-21T20:37:33+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-21:blog/2014/09/21/sicp-1-2-2/</id><summary type="html">&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
 &lt;p&gt;求解最大公约数的“欧几里得算法”非常适合通过递归过程描述。基于最大公约数算法我们可以进而实现素数检测的算法。本书介绍了一种基于概率的素数检测算法。素数检测算法在密码学方面具有相当的实用价值。目前广泛采用的非对称加密算法&lt;span class="caps"&gt;RSA&lt;/span&gt;就是基于大素数分解的。&lt;/p&gt;
-&lt;h1&gt;习题解答&lt;/h1&gt;
+&lt;h1 id="_2"&gt;习题解答&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;练习1.20&lt;/li&gt;
 &lt;/ul&gt;
@@ -856,10 +951,10 @@
 &lt;span class="code-line"&gt;&lt;span class="nl"&gt;trace:&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="mi"&gt;4&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="nl"&gt;trace:&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="mi"&gt;4&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="nl"&gt;trace:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category></entry><entry><title>sicp 1.2 (1)</title><link href="http://blog.zouxu.com.cn/blog/2014/09/14/sicp-1-2-1/" rel="alternate"></link><updated>2014-09-14T10:51:40+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-14:blog/2014/09/14/sicp-1-2-1/</id><summary type="html">&lt;h1&gt;导读&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry><entry><title>sicp 1.2 (1)</title><link href="http://blog.zouxu.com.cn/blog/2014/09/14/sicp-1-2-1/" rel="alternate"></link><updated>2014-09-14T10:51:40+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-14:blog/2014/09/14/sicp-1-2-1/</id><summary type="html">&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
 &lt;p&gt;要想真正理解Scheme语言，必须要深刻理解“递归”和“迭代”两个概念。目前国内的计算机专业都是采用c语言作为入门编程语言。学习c语言的时候，我们知道模块化编程的基本结构是“顺序”、“分支”和“循环”。甚至有人证明只需要用这3种结构就足以表达所有程序。在Scheme语言中则不然，通过本书的学习，我们可以得出结论：循环结构只是递归结构的一种”语法糖“。&lt;/p&gt;
 &lt;p&gt;本节还需要理解的一个”尾递归“的概念。通过”尾递归“优化可以实现循环结构。Scheme的&lt;span class="caps"&gt;IEEE&lt;/span&gt;标准要求Scheme解释器必须实现”尾递归“，因此在Scheme语言中循环结构不是必须的。我们熟知的c语言就不是”尾递归“的，因此在c语言中特殊的循环结构（如for,&amp;nbsp;while&amp;#8230;）是必不可少的。&lt;/p&gt;
-&lt;h1&gt;习题解答&lt;/h1&gt;
+&lt;h1 id="_2"&gt;习题解答&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;练习1.9&lt;/li&gt;
 &lt;/ul&gt;
@@ -1055,7 +1150,7 @@
 &lt;span class="code-line"&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fib&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fib&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category></entry><entry><title>sicp 1.1</title><link href="http://blog.zouxu.com.cn/blog/2014/09/09/sicp-1-1/" rel="alternate"></link><updated>2014-09-09T21:00:21+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-09:blog/2014/09/09/sicp-1-1/</id><summary type="html">&lt;h1&gt;导读&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry><entry><title>sicp 1.1</title><link href="http://blog.zouxu.com.cn/blog/2014/09/09/sicp-1-1/" rel="alternate"></link><updated>2014-09-09T21:00:21+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-09:blog/2014/09/09/sicp-1-1/</id><summary type="html">&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
 &lt;p&gt;Scheme语言是一种lisp方言。Scheme语言的特点就是语法非常简单，一般通过短期的学习都可以掌握基本语法和概念。相比较而言，目前的主流编程语言如C/C++, Java,&amp;nbsp;Javascript都需要一本专著来介绍语法和基本概念。其实我们学习程序语言的目的无非是希望能够表达某种设计，通过语言编写出能够高效运行的程序。Scheme语言能让我们越过枯燥的语法学习阶段，直接开始编写算法和数据结构。随着本书的内容的推进，许多新的抽象和概念逐渐浮现，有时候我们需要借助很多在其他编程语言里已经存在功能来帮助我们更好地表达，怎么办？很简单，我们用Scheme语言从头实现。通过这种方式，不但能让我们更深入理解一些概念如面向对象、闭包、模式匹配等，还能让我们在实现这些功能的同时加深对Scheme语言的理解。真是一举两得！&lt;/p&gt;
 &lt;p&gt;1.1小节主要介绍了Scheme语言的基本元素。我不会重复书里面已经介绍的内容。&lt;/p&gt;
 &lt;p&gt;本小节需要读者理解的概念:&lt;/p&gt;
@@ -1064,7 +1159,7 @@
 &lt;li&gt;求值顺序(applicative order / normal&amp;nbsp;order)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;在此有必要介绍一下当前比较流行的Scheme版本。我个人比较推荐guile。guile是gnu/linux上的标配，所以比较容易获取。&lt;span class="caps"&gt;IDE&lt;/span&gt;的话推荐使用emacs，对于初学者我建议采用prelude配置，prelude已经预设配置好了scheme的开发环境。还要注意一点就是书上使用的Scheme的版本相对较老。所以在做练习的时候要注意对书上的代码做一些微调（如true改为#t, false改为#f,&amp;nbsp;nil改为&amp;#8217;()等）。详情可以参阅guile的帮助文档。&lt;/p&gt;
-&lt;h1&gt;习题解答&lt;/h1&gt;
+&lt;h1 id="_2"&gt;习题解答&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;练习1.2&lt;/li&gt;
 &lt;/ul&gt;
@@ -1138,6 +1233,6 @@
 &lt;span class="code-line"&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cube&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cube&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iter&lt;/span&gt; &lt;span class="mf"&gt;1.0&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category></entry><entry><title>sicp读书笔记</title><link href="http://blog.zouxu.com.cn/blog/2014/09/08/introduction-to-sicp-reading-note/" rel="alternate"></link><updated>2014-09-08T21:11:38+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-08:blog/2014/09/08/introduction-to-sicp-reading-note/</id><summary type="html">&lt;p&gt;《计算机程序的构造与解释》是一本神奇的书。它于1984年出版第一版，于1996年出版第二版，此后该书一直没有再版&amp;nbsp;。在计算机科学领域，新技术、新概念层出不穷，但是本书30年内容并没有多大的变化，30年后的今天我再次阅读还是会为作者对计算机技术的真知灼见所震惊。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry><entry><title>sicp读书笔记</title><link href="http://blog.zouxu.com.cn/blog/2014/09/08/introduction-to-sicp-reading-note/" rel="alternate"></link><updated>2014-09-08T21:11:38+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-09-08:blog/2014/09/08/introduction-to-sicp-reading-note/</id><summary type="html">&lt;p&gt;《计算机程序的构造与解释》是一本神奇的书。它于1984年出版第一版，于1996年出版第二版，此后该书一直没有再版&amp;nbsp;。在计算机科学领域，新技术、新概念层出不穷，但是本书30年内容并没有多大的变化，30年后的今天我再次阅读还是会为作者对计算机技术的真知灼见所震惊。&lt;/p&gt;
 &lt;p&gt;本书的英文版在amazon上的书评非常由意思。赞誉者称之为“武林绝学”，贬之者把它贬得不值一文。但是推崇它的阵营里面有Paul Graham, Peter&amp;nbsp;Norvig等世界级的大牛，由此我们可以看出此书的分量。&lt;/p&gt;
-&lt;p&gt;想要学习这么一本好书，必然要花大量的时间和精力。为了自我监督，我打算将学习的进度和所领悟的知识写成一个博客系列。希望本博客系列能够帮助我打通“任督二脉”。&lt;/p&gt;</summary><category term="sicp"></category></entry></feed>
+&lt;p&gt;想要学习这么一本好书，必然要花大量的时间和精力。为了自我监督，我打算将学习的进度和所领悟的知识写成一个博客系列。希望本博客系列能够帮助我打通“任督二脉”。&lt;/p&gt;</summary><category term="sicp"></category><category term="lisp"></category></entry></feed>
