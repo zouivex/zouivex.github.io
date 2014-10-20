@@ -3,7 +3,7 @@ Slug: sicp-1-2-1
 Date: 2014-09-14 10:51:40
 Modified: 2014-09-14 10:51:40
 Category: blog
-Tags: sicp
+Tags: sicp, lisp
 
 # 导读
 
