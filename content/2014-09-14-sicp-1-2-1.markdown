@@ -13,7 +13,7 @@ Tags: sicp, lisp
 
 # 习题解答
 
-* 练习1.9
+## 练习1.9
 
 第一个过程是递归的。我们可以通过trace查看(plus 4 5)的递归调用过程。
 
@@ -69,7 +69,7 @@ Tags: sicp, lisp
 9
 ```
 
-* 练习1.11
+## 练习1.11
 
 ``` Scheme
 ;;递归过程
@@ -81,7 +81,7 @@ Tags: sicp, lisp
 		   (* 3 (f (- n 3))))))
 ```
 
-* 练习1.12
+## 练习1.12
 
 ``` Scheme
 (define (pascal-triangle row col)
@@ -93,7 +93,7 @@ Tags: sicp, lisp
              (pascal-triangle (- row 1) (- col 1))))))
 ```
 
-* 练习1.15
+## 练习1.15
 
 1. 在求值(sine 12.15)时，p将被使用5次.
 ``` Scheme
@@ -140,7 +140,7 @@ Tags: sicp, lisp
 
 2. 求值(sine a)时，空间增长的阶为O(n)，计算时间增长的阶为O(log(n)).
 
-* 练习1.16
+## 练习1.16
 
 ``` Scheme
 (define (fast-expt-iter b n)
@@ -153,7 +153,7 @@ Tags: sicp, lisp
   (iter n 1))
 ```
 
-* 练习1.17
+## 练习1.17
 
 ``` Scheme
 (define (fast-product a b)
@@ -164,7 +164,7 @@ Tags: sicp, lisp
           (+ a (faslt-product a (- b 1))))))
 ```
 
-* 练习1.18
+## 练习1.18
 
 ``` Scheme
 (define (fast-product-iter a b)
@@ -177,7 +177,7 @@ Tags: sicp, lisp
   (iter a 0))
 ```
 
-* 练习1.19
+## 练习1.19
 
 ``` Scheme
 (define (fib-iter a b p q count)

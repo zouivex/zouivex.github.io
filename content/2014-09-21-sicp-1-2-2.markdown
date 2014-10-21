@@ -11,7 +11,7 @@ Tags: sicp, lisp
 
 #习题解答
 
-* 练习1.20
+## 练习1.20
 
 由于scheme语言不是normal order的。我么只能通过手工通过代换模型展开计算(gcd 206 40)的计算过程。
 
@@ -26,7 +26,7 @@ trace: (gcd 2 0)
 trace: 2
 ```
 
-* 练习1.21
+## 练习1.21
 
 ``` Scheme
 (smallest-divisor 199)
@@ -37,7 +37,7 @@ trace: 2
 => 7
 ```
 
-* 练习1.22
+## 练习1.22
 
 ``` Scheme
 (define (search-for-primes a  b)
@@ -49,7 +49,7 @@ trace: 2
 		   (search-for-primes (+ a 1) b))
 ```
 
-* 练习1.23
+## 练习1.23
 
 ``` Scheme
 (define (divides? a b) (= (remainder b a) 0))
@@ -67,11 +67,11 @@ trace: 2
 (define (smallest-divisor n) (find-divisor n 2))
 ```
 
-* 练习1.25
+## 练习1.25
 
 (expmod base exp m)计算的是base取exp次幂，然后再对m求模。Alyssa建议的算法是先求出base的exp次幂，然后求模。这种方法的正确性取决于scheme解释器的实现方式。如果scheme解释器没有实现大整数处理，那么就有可能导致整数溢出，从而计算出错误的结果。就算是scheme解释器实现了大整数处理，这种方法也会比作者提供的算法效率低。
 
-* 练习1.26
+## 练习1.26
 
 Louis Reasoner的实现:
 

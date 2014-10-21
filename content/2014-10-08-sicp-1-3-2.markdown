@@ -5,7 +5,9 @@ Modified: 2014-10-08 20:50:08
 Category: blog
 Tags: sicp, lisp
 
-* 练习1.34
+# 习题解答
+
+## 练习1.34
 
 采用替换模型进行分析:
 ``` Scheme
@@ -25,14 +27,14 @@ Tags: sicp, lisp
 ```
 由于2不是一个可以调用的过程，最终求值(f f)会导致运行时错误。
 
-* 练习1.35
+## 练习1.35
 
 ``` Scheme
 (fixed-point (lambda(x) (+ 1 (/ 1 x)))
              1.0)
 ```
 
-* 练习1.36
+## 练习1.36
 
 ``` Scheme
 (define (fixed-point f first-guest)
@@ -49,7 +51,7 @@ Tags: sicp, lisp
   (try first-guest))
 ```
 
-* 练习1.37
+## 练习1.37
 
 ``` Scheme
 ;; Recursive version
@@ -70,7 +72,7 @@ Tags: sicp, lisp
   (iter k 0))
 ```
 
-* 练习1.38
+## 练习1.38
 
 本题需要使用到上题实现的`cont-frac`函数：
 
@@ -86,7 +88,7 @@ Tags: sicp, lisp
                        1000)))
 ```
 
-* 练习1.39
+## 练习1.39
 
 ``` Scheme
 (define (d k)

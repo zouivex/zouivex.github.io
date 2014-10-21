@@ -11,7 +11,7 @@ Tags: sicp, lisp
 
 #习题解答
 
-* 练习1.40
+## 练习1.40
 
 本题的解答很直接，将方程用`Scheme`语言描述出来即可：
 
@@ -21,7 +21,7 @@ Tags: sicp, lisp
     (+ (* x x x) (* a x x) (* b x) c)))
 ```
 
-* 练习1.41
+## 练习1.41
 
 `double`的定义如下：
 ``` Scheme
@@ -30,7 +30,7 @@ Tags: sicp, lisp
 ```
 `(((double (double double)) inc) 5)`的求值结果为`21`。
 
-* 练习1.42
+## 练习1.42
 
 ``` Scheme
 (define (compose f g)
@@ -38,7 +38,7 @@ Tags: sicp, lisp
     (f (g x))))
 ```
 
-* 练习1.43
+## 练习1.43
 
 ``` Scheme
 (define (repeated f n)
@@ -49,7 +49,7 @@ Tags: sicp, lisp
   (iter 1 f))
 ```
 
-* 练习1.44
+## 练习1.44
 
 平滑函数定义如下：
 ``` Scheme
