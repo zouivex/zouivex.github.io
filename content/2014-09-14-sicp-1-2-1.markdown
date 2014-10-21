@@ -72,7 +72,6 @@ Tags: sicp, lisp
 ## 练习1.11
 
 ``` Scheme
-;;递归过程
 (define (f n)
 	(if (< n 3)
 		n
