@@ -74,9 +74,7 @@
 </div>            <h1 id="_1">导读</h1>
 <p>本节先介绍了在<code>Scheme</code>中过程如何作为返回值使用以获得丰富的表达力。然后介绍“牛顿法”求方程的解。最后详细说明了函数式语言中，过程是如何作为第一等对象的。</p>
 <h1 id="_2">习题解答</h1>
-<ul>
-<li>练习1.40</li>
-</ul>
+<h2 id="140">练习1.40</h2>
 <p>本题的解答很直接，将方程用<code>Scheme</code>语言描述出来即可：</p>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">cubic</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></span>
@@ -84,9 +82,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.41</li>
-</ul>
+<h2 id="141">练习1.41</h2>
 <p><code>double</code>的定义如下：</p>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="kt">double</span> <span class="n">g</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">g</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">))</span> <span class="p">))</span></span>
@@ -94,18 +90,14 @@
 
 
 <p><code>(((double (double double)) inc) 5)</code>的求值结果为<code>21</code>。</p>
-<ul>
-<li>练习1.42</li>
-</ul>
+<h2 id="142">练习1.42</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">compose</span> <span class="n">f</span> <span class="n">g</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">))))</span></span>
 </pre></div>
 
 
-<ul>
-<li>练习1.43</li>
-</ul>
+<h2 id="143">练习1.43</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">repeated</span> <span class="n">f</span> <span class="n">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="n">n</span><span class="p">)</span></span>
@@ -115,9 +107,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.44</li>
-</ul>
+<h2 id="144">练习1.44</h2>
 <p>平滑函数定义如下：</p>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">smooth</span> <span class="n">f</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></span>

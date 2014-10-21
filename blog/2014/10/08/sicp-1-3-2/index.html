@@ -6,7 +6,7 @@
 </title>
     <meta name="author" content="九哥">
 
-    <meta name="description" content="练习1.34 采用替换模型进行分析: (define (f g) (g 2)) 如果需要求值: (f f) 采用替换模型替换为: (f 2) 进一步替换为: (2 2) 由于2不是一个可以调用的过程，最终求值(f f)会导致运行时错误。 练习1.35 (fixed-point (lambda(x) (+ 1 (/ 1 x))) 1.0) 练习1.36 (define (fixed-point f first-guest) (define (close-enough? v1 v2) (< (abs (- v1 v2)) tolerance ...">
+    <meta name="description" content="习题解答 练习1.34 采用替换模型进行分析: (define (f g) (g 2)) 如果需要求值: (f f) 采用替换模型替换为: (f 2) 进一步替换为: (2 2) 由于2不是一个可以调用的过程，最终求值(f f)会导致运行时错误。 练习1.35 (fixed-point (lambda(x) (+ 1 (/ 1 x))) 1.0) 练习1.36 (define (fixed-point f first-guest) (define (close-enough? v1 v2) (< (abs (- v1 v2 ...">
 
     <link rel="top" href="#" />
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -70,9 +70,8 @@
 
 </div>
 
-    <ul>
-<li>练习1.34</li>
-</ul>
+    <h1 id="_1">习题解答</h1>
+<h2 id="134">练习1.34</h2>
 <p>采用替换模型进行分析:</p>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">f</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="n">g</span> <span class="mi">2</span><span class="p">))</span></span>
 </pre></div>
@@ -94,17 +93,13 @@
 
 
 <p>由于2不是一个可以调用的过程，最终求值(f&nbsp;f)会导致运行时错误。</p>
-<ul>
-<li>练习1.35</li>
-</ul>
+<h2 id="135">练习1.35</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">fixed</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="mi">1</span> <span class="p">(</span><span class="o">/</span> <span class="mi">1</span> <span class="n">x</span><span class="p">)))</span></span>
 <span class="code-line">             <span class="mf">1.0</span><span class="p">)</span></span>
 </pre></div>
 
 
-<ul>
-<li>练习1.36</li>
-</ul>
+<h2 id="136">练习1.36</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fixed</span><span class="o">-</span><span class="n">point</span> <span class="n">f</span> <span class="n">first</span><span class="o">-</span><span class="n">guest</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">close</span><span class="o">-</span><span class="n">enough</span><span class="o">?</span> <span class="n">v1</span> <span class="n">v2</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="o">&lt;</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="n">v1</span> <span class="n">v2</span><span class="p">))</span> <span class="n">tolerance</span><span class="p">))</span></span>
@@ -120,9 +115,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.37</li>
-</ul>
+<h2 id="137">练习1.37</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">;;</span> <span class="n">Recursive</span> <span class="nf">version</span></span>
 <span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">cont</span><span class="o">-</span><span class="n">frac</span> <span class="n">n</span> <span class="n">d</span> <span class="n">k</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">frac</span> <span class="n">i</span><span class="p">)</span></span>
@@ -142,9 +135,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.38</li>
-</ul>
+<h2 id="138">练习1.38</h2>
 <p>本题需要使用到上题实现的<code>cont-frac</code>函数：</p>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">D</span> <span class="n">i</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="mi">0</span> <span class="p">(</span><span class="n">remainder</span> <span class="p">(</span><span class="o">+</span> <span class="n">i</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span><span class="p">))</span></span>
@@ -158,9 +149,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.39</li>
-</ul>
+<h2 id="139">练习1.39</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">d</span> <span class="n">k</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="o">-</span> <span class="p">(</span><span class="o">*</span> <span class="n">k</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span><span class="p">))</span></span>
 <span class="code-line"></span>

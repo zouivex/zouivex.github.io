@@ -74,9 +74,7 @@
 <p>要想真正理解Scheme语言，必须要深刻理解“递归”和“迭代”两个概念。目前国内的计算机专业都是采用c语言作为入门编程语言。学习c语言的时候，我们知道模块化编程的基本结构是“顺序”、“分支”和“循环”。甚至有人证明只需要用这3种结构就足以表达所有程序。在Scheme语言中则不然，通过本书的学习，我们可以得出结论：循环结构只是递归结构的一种”语法糖“。</p>
 <p>本节还需要理解的一个”尾递归“的概念。通过”尾递归“优化可以实现循环结构。Scheme的<span class="caps">IEEE</span>标准要求Scheme解释器必须实现”尾递归“，因此在Scheme语言中循环结构不是必须的。我们熟知的c语言就不是”尾递归“的，因此在c语言中特殊的循环结构（如for,&nbsp;while&#8230;）是必不可少的。</p>
 <h1 id="_2">习题解答</h1>
-<ul>
-<li>练习1.9</li>
-</ul>
+<h2 id="19">练习1.9</h2>
 <p>第一个过程是递归的。我们可以通过trace查看(plus 4&nbsp;5)的递归调用过程。</p>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
 <span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">dec</span> <span class="mi">4</span><span class="p">)</span></span>
@@ -129,9 +127,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.11</li>
-</ul>
+<h2 id="111">练习1.11</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">;;</span><span class="err">递归过程</span></span>
 <span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">f</span> <span class="n">n</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">3</span><span class="p">)</span></span>
@@ -142,9 +138,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.12</li>
-</ul>
+<h2 id="112">练习1.12</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">pascal</span><span class="o">-</span><span class="n">triangle</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">row</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
@@ -155,14 +149,10 @@
 </pre></div>
 
 
-<ul>
-<li>
-<p>练习1.15</p>
-</li>
-<li>
-<p>在求值(sine&nbsp;12.15)时，p将被使用5次.</p>
-</li>
-</ul>
+<h2 id="115">练习1.15</h2>
+<ol>
+<li>在求值(sine&nbsp;12.15)时，p将被使用5次.</li>
+</ol>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">sine</span> <span class="mf">12.15</span><span class="p">)</span></span>
 <span class="code-line"><span class="o">|</span>  <span class="p">(</span><span class="n">abs</span> <span class="mf">12.15</span><span class="p">)</span></span>
 <span class="code-line"><span class="o">|</span>  <span class="mf">12.15</span></span>
@@ -206,13 +196,9 @@
 
 
 <ol>
-<li>
-<p>求值(sine&nbsp;a)时，空间增长的阶为O(n)，计算时间增长的阶为O(log(n)).</p>
-</li>
-<li>
-<p>练习1.16</p>
-</li>
+<li>求值(sine&nbsp;a)时，空间增长的阶为O(n)，计算时间增长的阶为O(log(n)).</li>
 </ol>
+<h2 id="116">练习1.16</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">expt</span><span class="o">-</span><span class="n">iter</span> <span class="n">b</span> <span class="n">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">a</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="mi">0</span><span class="p">)</span></span>
@@ -224,9 +210,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.17</li>
-</ul>
+<h2 id="117">练习1.17</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">b</span> <span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">      <span class="n">a</span></span>
@@ -236,9 +220,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.18</li>
-</ul>
+<h2 id="118">练习1.18</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fast</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">i</span> <span class="mi">0</span><span class="p">)</span></span>
@@ -250,9 +232,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.19</li>
-</ul>
+<h2 id="119">练习1.19</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">fib</span><span class="o">-</span><span class="n">iter</span> <span class="n">a</span> <span class="n">b</span> <span class="n">p</span> <span class="n">q</span> <span class="n">count</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">count</span> <span class="mi">0</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="n">even</span><span class="o">?</span> <span class="n">count</span><span class="p">)</span></span>

@@ -80,38 +80,26 @@
 </ul>
 <p>在此有必要介绍一下当前比较流行的Scheme版本。我个人比较推荐guile。guile是gnu/linux上的标配，所以比较容易获取。<span class="caps">IDE</span>的话推荐使用emacs，对于初学者我建议采用prelude配置，prelude已经预设配置好了scheme的开发环境。还要注意一点就是书上使用的Scheme的版本相对较老。所以在做练习的时候要注意对书上的代码做一些微调（如true改为#t, false改为#f,&nbsp;nil改为&#8217;()等）。详情可以参阅guile的帮助文档。</p>
 <h1 id="_2">习题解答</h1>
-<ul>
-<li>练习1.2</li>
-</ul>
+<h2 id="12">练习1.2</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">+</span> <span class="mi">5</span> <span class="mi">4</span> <span class="p">(</span><span class="o">-</span> <span class="mi">2</span> <span class="p">(</span><span class="o">-</span> <span class="mi">3</span> <span class="p">(</span><span class="o">+</span> <span class="mi">6</span> <span class="p">(</span><span class="o">/</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)))))</span></span>
 <span class="code-line">   <span class="p">(</span><span class="o">*</span> <span class="mi">3</span> <span class="p">(</span><span class="o">-</span> <span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="mi">7</span><span class="p">)))</span></span>
 </pre></div>
 
 
-<ul>
-<li>练习1.3</li>
-</ul>
+<h2 id="13">练习1.3</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">two</span><span class="o">-</span><span class="n">larger</span><span class="o">-</span><span class="n">nums</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="p">(</span><span class="n">a</span> <span class="n">c</span><span class="p">))</span> <span class="p">(</span><span class="n">sum</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">squares</span> <span class="n">b</span> <span class="n">c</span><span class="p">))</span></span>
 <span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">sum</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">squares</span> <span class="n">a</span> <span class="p">(</span><span class="n">max</span> <span class="n">b</span> <span class="n">c</span><span class="p">)))))</span></span>
 </pre></div>
 
 
-<ul>
-<li>练习1.4</li>
-</ul>
+<h2 id="14">练习1.4</h2>
 <p>用自然语言描述该过程所表达的意思是：当b&gt;0时执行a +&nbsp;b，当b&lt;=0时执行a-b。其实就是a+|b|。</p>
-<ul>
-<li>练习1.5</li>
-</ul>
+<h2 id="15">练习1.5</h2>
 <p>本题考察的是对求值顺序的理解。其中过程p定义为一个无穷递归的过程。如果解释器采用的是applicative order，那么无论if条件判断结果如何，解释器都会试图解释过程p，结果是stack over flow。如果解释器采用的是normal&nbsp;order，那么当if条件判断出该分支不需要求值时，解释器不会对该表达式求值。</p>
-<ul>
-<li>练习1.6</li>
-</ul>
+<h2 id="16">练习1.6</h2>
 <p>解答本题需要理解&#8221;Special Form&#8221;和&#8221;Procedure&#8221;的区别。在Scheme语言中，所有的procedure都有一致的求值规则，special&nbsp;form则有自己特别的求值规则。按照Scheme语言的表达式求值规则，求值一个表达式，需要先求值其子表达式。对于if的求值规则是先求值判别式，如果为true则求值then子句，如果为false则求值else子句。如果按照题目中所说，将if实现为一个procedure，由于这是一个procedure，无论判别式值是什么，解释器都会求值then子句和else子句，该递归函数会进入一个死循环。</p>
-<ul>
-<li>练习1.7</li>
-</ul>
+<h2 id="17">练习1.7</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">square</span> <span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">x</span> <span class="n">x</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">average</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
@@ -134,9 +122,7 @@
 </pre></div>
 
 
-<ul>
-<li>练习1.8</li>
-</ul>
+<h2 id="18">练习1.8</h2>
 <div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">square</span> <span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span> <span class="n">x</span> <span class="n">x</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">improve</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
