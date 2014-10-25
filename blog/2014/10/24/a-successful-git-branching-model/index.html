@@ -2,9 +2,11 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>九哥的部落</title>
+    <title>    一种成功的git分支模型 - 九哥的部落
+</title>
     <meta name="author" content="九哥">
 
+    <meta name="description" content="为何使用git? 物理去中心化，逻辑中心化 主要分支 辅助分支 功能分支 创建功能分支 功能完成后集成回develop分支 发布分支 创建发布分支 完成发布分支 热修复分支 创建热修复分支 完成热修复分支 总结 翻译说明 本文展示了一种开发模型，此模型从一年前就开始在我所有项目（工作项目和私人项目）中非常成功地采用。我早就想写一篇介绍文章，但是直到现在才抽出时间从头到尾写出本文。本文不会深入描述具体项目的细节，仅仅介绍分支策略和发布管理。 下面集中介绍如何采用Git作为源代码的版本管理工具。 为何使用git? Git和那些集中式源代码管理系统相比其优势和劣势请参看此网页。关于这个问题有很多论战。作为开发人员，我认为当前Git比其它工具都要优秀。Git确确实实改变了开发人员合并和分支的思考方式。在之前CVS/Subversion的时代，合并/分支一直以来都被认为是件可怕的事情（“前方合并冲突伤人，请勿靠近！”）因此需要节制进行。 相反，在Git中合并/分支非常廉价和简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。例如，在此CVS/Subversion书籍 ...">
 
     <link rel="top" href="#" />
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -41,14 +43,9 @@
         <div class="wrapper">
             <div role="main" class="content">
 
+<article class="full">
+    <h1>一种成功的git分支模型</h1>
 
-
-        <article class="full">
-            <h1>
-                <a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">
-                    一种成功的git分支模型
-                </a>
-            </h1>
 ﻿<div class="metadata">
     <time datetime="2014-10-24T22:14:17">
         Fri 24 October 2014
@@ -71,7 +68,9 @@
         </a>
     </p>
 
-</div>            <div class="toc">
+</div>
+
+    <div class="toc">
 <ul>
 <li><a href="#git">为何使用git?</a></li>
 <li><a href="#_1">物理去中心化，逻辑中心化</a></li>
@@ -325,16 +324,22 @@
 <p><a href="http://nvie.com/files/Git-branching-model.pdf">此处</a>提供有高质量的<span class="caps">PDF</span>版本，请将其打印出来并挂在公司的墙壁上以便时时参考。</p>
 <h1 id="_13">翻译说明</h1>
 <p>本文为翻译文章，此为<a href="http://nvie.com/posts/a-successful-git-branching-model">原文链接</a>。</p>
-        </article>
+</article>
 
-
-
-
-
-
-
-
-
+    <div class="comments">
+        <h2>读者评论：</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_identifier = "blog/2014/10/24/a-successful-git-branching-model/";
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://httpzouivexgithubio.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </div>
 
             </div>
 
