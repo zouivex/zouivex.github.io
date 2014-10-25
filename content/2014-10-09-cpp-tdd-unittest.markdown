@@ -2,7 +2,7 @@ Title: 例解C++测试驱动开发和单元测试
 Slug: cpp-tdd-unittest
 Date: 2014-10-09 23:07:31
 Modified: 2014-10-09 23:07:31
-Category: blog
+Category: 译文
 Tags: cpp, unittest
 
 [TOC]
