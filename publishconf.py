@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'九哥'
 SITENAME = u'九哥的部落'
 SITE_SUB_TITLE = u'技术、阅读、生活'
-SITEURL = 'http://blog.zouxu.com.cn'
+SITEURL = 'http://blog.zouxu.com.cn/'
 
 PATH = 'content'
 
