@@ -15,6 +15,10 @@ DEFAULT_LANG = u'zh'
 HTML_LANG = u'zh'
 
 # Feed generation is usually not desired when developing
+# Feed configuration
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
+
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
@@ -74,10 +78,6 @@ DISQUS_SITENAME = 'httpzouivexgithubio'
 
 # Support PDF download
 # PDF_PROCESSOR = True
-
-# Feed configuration
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
-CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 
 # Extensions
 MD_EXTENSIONS = [
