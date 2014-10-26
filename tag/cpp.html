@@ -1,192 +1,242 @@
-﻿﻿<!doctype html>
-<html lang="zh">
+<!DOCTYPE html>
+<html lang="zh"
+>
 <head>
-    <meta charset="utf-8" />
     <title>cpp - 九哥的部落</title>
-    <meta name="author" content="九哥">
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link rel="top" href="#" />
-    <link rel="icon" type="image/png" href="/favicon.png">
-
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/main.css" type="text/css" />
+    <link href="http://blog.zouxu.com.cn/favicon.png" rel="icon">
 
 
-    <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="九哥的部落 Atom Feed" />
+    <meta name="author" content="九哥" />
+    <meta name="keywords" content="cpp" />
+
+    <!-- Enable latex plugin -->
+
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="九哥的部落" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="九哥的部落"/>
+        <meta property="og:url" content="http://blog.zouxu.com.cn"/>
+        <meta property="og:description" content="九哥的部落"/>
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.zouxu.com.cn/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.zouxu.com.cn/theme/css/pygments/native.css" rel="stylesheet">
+        <link href="http://blog.zouxu.com.cn/theme/css/typogrify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/style.css" type="text/css"/>
+
+        <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="九哥的部落 ATOM Feed"/>
+
+
+
 </head>
-
 <body>
-    
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <header class="banner">
-            <h1>
-                <a href="http://blog.zouxu.com.cn/index.html"> 
-                    九哥的部落
-                </a>
-            </h1>
-            <h2>
-                技术、阅读、生活
-            </h2>   
-        </header>
-
-        <nav>
-            <ul>
-            <li> <a href="http://blog.zouxu.com.cn/index.html">首页</a> </li>
-            <li> <a href="http://blog.zouxu.com.cn/archives.html">所有文章</a> </li>
-
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.zouxu.com.cn/" class="navbar-brand">
+九哥的部落            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
             </ul>
-        </nav> 
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://blog.zouxu.com.cn/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">文章存档</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
 
-        <div class="wrapper">
-            <div role="main" class="content">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
 
-<h1>标签：cpp</h1>
-
-﻿<article class="summary">
-﻿<div class="metadata">
-    <time datetime="2014-10-09T23:07:31">
-        Thu 09 October 2014
-    </time>
-
-    <p>
-        类别：
-        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-            译文
-        </a>
-    </p>
-
-    <p class="tags">
-        标签：
-        <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-            cpp
-        </a>
-,         <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-            unittest
-        </a>
-    </p>
-
-</div>  <div>
-      <h2>
-          <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/" rel="bookmark" title="Permalink to 例解C++测试驱动开发和单元测试">
-              例解C++测试驱动开发和单元测试
-          </a>
-      </h2>
-  </div>
-</article>
-﻿
-<div class="pagination">
-
-    页
-    1 / 1
-
-
+            <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">例解C++测试驱动开发和单元测试</a></h2>
+                <div class="summary"><div class="toc">
+<ul>
+<li><a href="#_1">声明</a></li>
+<li><a href="#_2">测试驱动开发基础</a><ul>
+<li><a href="#_3">测试驱动开发</a></li>
+<li><a href="#_4">单元测试及框架</a><ul>
+<li><a href="#_5">单元测试框架</a></li>
+<li><a href="#_6">如何组织单元测试案例</a></li>
+</ul>
+</li>
+<li><a href="#mocking">Mocking</a></li>
+</ul>
+</li>
+<li><a href="#c">C++单元测试</a><ul>
+<li><a href="#cboosttest">C++单元测试及Boost.Test</a></li>
+<li><a href="#_7">自动注册的测试案例</a></li>
+<li><a href="#_8">最简单的测试程序</a></li>
+<li><a href="#_9">使用测试套件</a></li>
+<li><a href="#_10">单元测试工具及检查器</a></li>
+<li><a href="#fixture">Fixture</a></li>
+<li><a href="#_11">输出结果</a></li>
+<li><a href="#_12">执行控制</a></li>
+</ul>
+</li>
+<li><a href="#cmocking">C++Mocking框架</a></li>
+<li><a href="#_13">更多资料</a></li>
+</ul>
 </div>
+<h1 id="_1">声明</h1>
+<p>本文翻译自Alex Ott的博客：<a href="http://alexott.net/en/cpp/CppTestingIntro.html">Test-driven development and unit testing with examples in&nbsp;C++</a></p>
+<p>未经同意，请勿转载。</p>
+<h1 id="_2">测试驱动开发基础</h1>
+<h2 id="_3">测试驱动开发</h2>
+<p>测试驱动开发(<a href="http://en.wikipedia.org/wiki/Test-driven_development"><span class="caps">TDD</span></a>)是一种软件开发的流程。它依赖短开发周期的多次迭代：</p>
+<ul>
+<li>改进已有功能或者开发新功能时，开发人员首先编写测试案例（此刻测试案例运行失败）</li>
+<li>然后实现代码使测试案例运行通过</li>
+<li>最后重构代码使其符合标准</li>
+</ul>
+<p>测试驱动开发与<a href="http://en.wikipedia.org/wiki/Extreme_programming">极限编程</a>中的 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
 
-            </div>
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
 
-            <div class="sidebar">
-                <aside>
-                    <h2>近期文章</h2>
-                    <p class="recentposts">
-                        <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">
-                            例解C++测试驱动开发和单元测试
-                        </a>
-                    </p>
-                </aside>
-                
-                <aside>
-                    <h2>归档</h2>
-                    <ul>
-                        <li>
-                            <a href="/posts/2014/Oct/index.html">
-                                10/2014 (1)
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+            
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
+                    <ul class="list-group" id="recentposts">
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">
+                                例解C++测试驱动开发和单元测试
                             </a>
                         </li>
                     </ul>
-                </aside>
+                </li>
 
-                <aside>
-                    <h2>标签</h2>
-                    <ul class="tagcloud">
-                        <li class="tag-4">
+                <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">分类</span></h4></a>
+                    <ul class="list-group" id="categories">
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/category/blog.html">
+                                <i class="fa fa-folder-open fa-lg"></i> blog
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
+                                <i class="fa fa-folder-open fa-lg"></i> 译文
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
+                    <ul class="list-group list-inline tagcloud" id="tags">
+                        <li class="list-group-item tag-4">
                             <a href="http://blog.zouxu.com.cn/tag/cpp.html">
                                 cpp
                             </a>
                         </li>
-                        <li class="tag-4">
+                        <li class="list-group-item tag-4">
                             <a href="http://blog.zouxu.com.cn/tag/git.html">
                                 git
                             </a>
                         </li>
-                        <li class="tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
-                        <li class="tag-1">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/lisp.html">
                                 lisp
                             </a>
                         </li>
-                    </ul>
-                </aside>
-
-                <aside>
-                    <h2>社交网络</h2>
-                    <ul class="social">
-                        <li>
-                            <a href="https://github.com/zouivex">
-                                github
+                        <li class="list-group-item tag-1">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
                             </a>
-                            <i>
-                            </i>
                         </li>
-                        <li>
-                            <a href="https://cn.linkedin.com/in/zouivex">
-                                linkedin
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
+                                tools
                             </a>
-                            <i>
-                            </i>
                         </li>
-                        <li>
-                            <a href="https://plus.google.com/u/0/104327320364152471669/">
-                                google plus
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
                             </a>
-                            <i>
-                            </i>
                         </li>
                     </ul>
-                </aside>
+                </li>    
+            
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">社交网络</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://github.com/zouivex"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                    <li class="list-group-item"><a href="https://cn.linkedin.com/in/zouivex"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                    <li class="list-group-item"><a href="https://plus.google.com/u/0/104327320364152471669/"><i class="fa fa-google-plus-square fa-lg"></i> google plus</a></li>
+                    <li class="list-group-item"><a href="http://blog.zouxu.com.cn/feeds/all.atom.xml"><i class="fa fa-rss-square fa-lg"></i> rss</a></li>
+                  </ul>
+                </li>
 
 
-                <aside>
-                    <h2>订阅本站</h2>
-                    <ul class="social">
-                        <li>
-                            <a href="http://blog.zouxu.com.cn/feeds/all.atom.xml"> RSS </a>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
-        </div>
+        </ul>
+    </section>
 
-        <footer>
-            <p role="contentinfo">
-                © 2014 九哥 - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>.
-            </p>
-        </footer>
+</aside>        </div>
     </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 九哥
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/true/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/true/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/true/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.zouxu.com.cn/theme/js/jquery.min.js"></script>
 
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.zouxu.com.cn/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.zouxu.com.cn/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
 </body>
 </html>
