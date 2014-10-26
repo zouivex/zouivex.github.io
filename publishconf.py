@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'九哥'
 SITENAME = u'九哥的部落'
 SITE_SUB_TITLE = u'技术、阅读、生活'
-SITEURL = 'http://blog.zouxu.com.cn/'
+SITEURL = 'http://blog.zouxu.com.cn'
 
 PATH = 'content'
 
@@ -32,7 +32,7 @@ TRANSLATION_FEED_ATOM = None
 SOCIAL = (('github', 'https://github.com/zouivex'),
           ('linkedin', 'https://cn.linkedin.com/in/zouivex'),
           ('google plus', 'https://plus.google.com/u/0/104327320364152471669/'),
-          ('rss', SITEURL + FEED_ALL_ATOM),)
+          ('rss', SITEURL + '/' + FEED_ALL_ATOM),)
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
