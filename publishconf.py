@@ -14,10 +14,7 @@ TIMEZONE = 'Asia/Chongqing'
 DEFAULT_LANG = u'zh'
 HTML_LANG = u'zh'
 
-DISPLAY_PAGES_ON_MENU = True
-
 # Feed generation is usually not desired when developing
-#FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
@@ -30,9 +27,8 @@ TRANSLATION_FEED_ATOM = None
 # Social widget
 SOCIAL = (('github', 'https://github.com/zouivex'),
           ('linkedin', 'https://cn.linkedin.com/in/zouivex'),
-          ('google plus', 'https://plus.google.com/u/0/104327320364152471669/'),)
-
-DEFAULT_PAGINATION = 5
+          ('google plus', 'https://plus.google.com/u/0/104327320364152471669/'),
+          ('rss', SITEURL + FEED_ALL_ATOM),)
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
@@ -60,33 +56,24 @@ FILENAME_METADATA = '(?P<date>\d{4}-\d{2}-\d{2})_(?P<slug>.*)'
 # Use totally new generated files each time
 DELETE_OUTPUT_DIRECTORY = True
 
-# Make blog more beautiful
-TYPOGRIFY = True
-
 # This is a single author site
 AUTHOR_URL = ''
 AUTHOR_SAVE_AS = ''
 
 #Theme configurations: foundation-default-colours
-THEME = 'theme/simplegrey'
+#THEME = 'theme/simplegrey'
+THEME = 'theme/pelican-bootstrap3'
 
 # Plugins
 PLUGIN_PATHS = ["pelican-plugins"]
 
 # Depends on
-# rst2pdf
 PLUGINS = ["better_codeblock_line_numbering"]
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
 
 # Support PDF download
 # PDF_PROCESSOR = True
-
-# Count of different font sizes in the tag cloud.
-TAG_CLOUD_STEPS = 4
-
-# Maximum number of tags in the cloud.
-TAG_CLOUD_MAX_ITEMS = 100
 
 # Feed configuration
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
@@ -98,6 +85,16 @@ MD_EXTENSIONS = [
     'extra',
     'toc'
     ]
+#
+# Configuration for theme pelican-bootstrap3
+#
+FAVICON = 'favicon.png'
+TYPOGRIFY = True
+CC_LICENSE = True
 
-# Define the max number of recent posts. 
-MAX_RECENT_POST_ITEMS = 10
+DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
+DISPLAY_CATEGORIES_ON_SIDEBAR = True
+DISPLAY_TAGS_ON_SIDEBAR = True
+DISPLAY_TAGS_INLINE = True
+DISPLAY_CATEGORIES_ON_MENU = False
+SHOW_ARTICLE_CATEGORY = True
