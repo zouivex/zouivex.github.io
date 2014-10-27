@@ -2,8 +2,8 @@ Title: sicp 1.2 (2)
 Slug: sicp-1-2-2
 Date: 2014-09-21 20:37:33
 Modified: 2014-09-21 20:37:33
-Category: blog
-Tags: sicp, lisp
+Category: sicp
+Tags: scheme
 
 #导读
 

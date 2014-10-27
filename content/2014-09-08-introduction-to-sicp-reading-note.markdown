@@ -2,8 +2,8 @@ Title: sicp读书笔记
 Slug: introduction-to-sicp-reading-note
 Date: 2014-09-08 21:11:38 
 Modified: 2014-09-08 21:11:38 
-Category: blog
-Tags: sicp, lisp
+Category: sicp
+Tags: scheme
 
 《计算机程序的构造与解释》是一本神奇的书。它于1984年出版第一版，于1996年出版第二版，此后该书一直没有再版 。在计算机科学领域，新技术、新概念层出不穷，但是本书30年内容并没有多大的变化，30年后的今天我再次阅读还是会为作者对计算机技术的真知灼见所震惊。
 
