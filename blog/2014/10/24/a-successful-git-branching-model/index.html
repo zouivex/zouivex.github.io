@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="git,tools" />
-        <meta name="description" content="为何使用git? 物理去中心化，逻辑中心化 主要分支 辅助分支 功能分支 创建功能分支 功能完成后集成回develop分支 发布分支 创建发布分支 完成发布分支 热修复分支 创建热修复分支 完成热修复分支 总结 翻译说明 本文展示了一种开发模型，此模型从一年前就开始在我所有项目（工作项目和私人项目）中非常成功地采用。我早就想写一篇介绍文章，但是直到现在才抽出时间从头到尾写出本文。本文不会深入描述具体项目的细节，仅仅介绍分支策略和发布管理。 下面集中介绍如何采用Git作为源代码的版本管理工具。 为何使用git? Git和那些集中式源代码管理系统相比其优势和劣势请参看此网页。关于这个问题有很多论战。作为开发人员，我认为当前Git比其它工具都要优秀。Git确确实实改变了开发人员合并和分支的思考方式。在之前CVS/Subversion的时代，合并/分支一直以来都被认为是件可怕的事情（“前方合并冲突伤人，请勿靠近！”）因此需要节制进行。 相反，在Git中合并/分支非常廉价和简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。例如，在此CVS/Subversion书籍 ..." />
+        <meta name="description" content="为何使用git? 物理去中心化，逻辑中心化 主要分支 辅助分支 功能分支 创建功能分支 功能完成后集成回develop分支 发布分支 创建发布分支 完成发布分支 热修复分支 创建热修复分支 完成热修复分支 总结 翻译说明 本文展示了一种开发模型，此模型从一年前就开始在我所有项目（工作项目和私人项目）中非常成功地采用。我早就想写一篇介绍文章，但是直到现在才抽出时间从头到尾写出本文。本文不会深入描述具体项目的细节，仅仅介绍分支策略和发布管理。 下面集中介绍如何采用Git作为源代码的版本管理工具。 为何使用git? Git和那些集中式源代码管理系统相比其优势和劣势请参看此网页。关于这个问题有很多论战。作为开发人员，我认为当前Git比其它工具都要优秀。Git确确实实改变了开发人员合并和分支的思考方式。在之前CVS/Subversion的时代，合并/分支一直以来都被认为是件可怕的事情（“前方合并冲突伤人，请勿靠近！”）因此需要节制进行。 相反，在Git中合并/分支非常廉价和简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。例如，在CVS/Subversion书籍 ..." />
 
     <!-- Enable latex plugin -->
 
@@ -128,26 +128,26 @@
 <p>下面集中介绍如何采用Git作为源代码的版本管理工具。</p>
 <h1 id="git">为何使用git?</h1>
 <p>Git和那些集中式源代码管理系统相比其优势和劣势请参看此<a href="http://git.or.cz/gitwiki/GitSvnComparsion">网页</a>。关于这个问题有很多论战。作为开发人员，我认为当前Git比其它工具都要优秀。Git确确实实改变了开发人员合并和分支的思考方式。在之前<span class="caps">CVS</span>/Subversion的时代，合并/分支一直以来都被认为是件可怕的事情（“前方合并冲突伤人，请勿靠近！”）因此需要节制进行。</p>
-<p>相反，在Git中合并/分支非常廉价和简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。例如，在此<span class="caps">CVS</span>/Subversion<a href="http://svnbook.red-bean.com/">书籍</a>中，分支和合并在后面的章节介绍（面向高级用户），但是在此Git<a href="http://pragprog.com/titles/tsgit/pragmatic-version-control-using-git">书籍</a>中，在第三章就开始介绍分支和合并（被认为是基础功能）。</p>
+<p>相反，在Git中合并/分支非常廉价和简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。例如，在<span class="caps">CVS</span>/Subversion<a href="http://svnbook.red-bean.com/">书籍</a>中，分支和合并在后面的章节介绍（面向高级用户），但是在此Git<a href="http://pragprog.com/titles/tsgit/pragmatic-version-control-using-git">书籍</a>中，在第三章就开始介绍分支和合并（被认为是基础功能）。</p>
 <p>由于分支和合并非常简单并且可以重复进行，因此再也不像以前那样令人害怕。版本控制工具应当比其它工具更能帮助开发者进行分支/合并操作。</p>
 <p>对工具进行介绍之后，让我们开始介绍开发模型。下面要介绍的模型不过是项目组所有成员进行软件开发过程管理所采取的工作流程的集合。</p>
 <h1 id="_1">物理去中心化，逻辑中心化</h1>
-<p>我们在例子中使用的与分支模型工作良好的源码库包含一个名为truth的中央库。注意，此中央库只不过是（逻辑上）被看作中央库（由于Git是一个分布式版本管理系统，因此从技术上来说不存在中央库这个概念）。由于<code>origin</code>这个名字对于所有Git用户来说都很熟悉，此后我们称逻辑中央库为<code>origin</code>。</p>
+<p>我们在本文中使用的源码库包含一个名为truth的中央库。注意，此中央库只不过在（逻辑上）被看作中央库（由于Git是一个分布式版本管理系统，因此从技术上来说不存在中央库这个概念）。由于<code>origin</code>这个名字对于所有Git用户来说都很熟悉，此后我们称逻辑中央库为<code>origin</code>。</p>
 <p><img alt="center-decenter" src="http://blog.zouxu.com.cn/images/center-decenter.png" /></p>
-<p>开发者一般情况下对<code>origin</code>库进行pull和push操作。但是在需要非中心化的操作时，开发者可以从其它开发者处pull修改后的代码，这样构成开发子小组。例如，有时候需要和2个以上的开发人员配合工作以完成一个较大的功能，等开发成熟之后再将代码push到<code>origin</code>库。上面的流程图中，Alice和Bob、Alice和David、Clair和David分别组成开发子小组。</p>
-<p>技术上讲，是Alice定义一个名为bob的Git远程库以指向Bob的本地库，反之亦然。</p>
+<p>开发者一般情况下是对<code>origin</code>库进行pull和push操作。但是在需要非中心化的操作时，开发者可以从其它开发者处pull修改后的代码，这样构成开发子小组。例如，有时候需要和2个以上的开发人员配合工作以完成一个较大的功能，等开发成熟之后再将代码push到<code>origin</code>库。上面的流程图中，Alice和Bob、Alice和David、Clair和David分别组成开发子小组。</p>
+<p>在技术层面上，就是Alice定义一个名为bob的Git远程库以指向Bob的本地库，反之亦然。</p>
 <h1 id="_2">主要分支</h1>
-<p>开发模型的核心受现有模型的启发。中心代码库有两个永久保存的分支：</p>
+<p>本文的开发模型的核心受现有模型的启发。中心代码库有两个永久保存的分支：</p>
 <ul>
 <li><code>master</code></li>
 <li><code>develop</code></li>
 </ul>
-<p>Git用户对<code>origin</code>库的<code>master</code>分支很熟悉，同时还有一个<code>develop</code>分支与<code>master</code>分支同时存在于<code>origin</code>库中。</p>
+<p><code>origin</code>库的<code>master</code>分支对于Git用户来说非常熟悉，除此之外<code>origin</code>库还有一个<code>develop</code>分支。</p>
 <p><img alt="main-branches" src="http://blog.zouxu.com.cn/images/main-branches.png" /></p>
 <p><code>origin/master</code>分支是源代码库的主分支，其<span class="caps">HEAD</span>版本总是反映源代码可以发布的状态。</p>
 <p><code>origin/develop</code>分支作为源代码的开发分支，其<span class="caps">HEAD</span>反映的是最新的可提交到下一版本的代码修改的状态，所以我们称之为“集成分支”。每日自动构建总是在此分支进行。</p>
 <p>当<code>develop</code>分支中的代码达到稳定状态并且准备好发布的时候，其中的所有修改都应该合并回<code>master</code>分支，并且标记一个发布版本号。具体操作在之后会进行讨论。</p>
-<p>因此，每次代码修改合并回<code>master</code>分支时，从定义上来说就是一个新的版本。我们倾向于严谨执行合并回<code>master</code>分支的操作，因此理论上来说每次提交代码到<code>master</code>分支时，我们都可以使用Git&nbsp;hook脚本自动构建并且部署新版本到生产服务器。</p>
+<p>因此，每次代码修改合并回<code>master</code>分支时，从定义上来说就是一个新的版本。我们倾向于严谨执行合并回<code>master</code>分支的操作，因此理论上来说每次提交代码到<code>master</code>分支时，我们都可以使用Git&nbsp;hook脚本自动构建并且发布新版本。</p>
 <h1 id="_3">辅助分支</h1>
 <p>除了主要分支<code>master</code>和<code>develop</code>之外，我们的开发模型还使用辅助分支来支持成员之间的并行开发、跟踪开发的功能、准备版本发布以及帮助快速修复生产环境中的问题。与主要分支不同，辅助分支的生命周期比较短，因为它们最终会被删除。</p>
 <p>我们有以下不同种类的辅助分支可以使用：</p>
@@ -157,7 +157,7 @@
 <li>热修复分支</li>
 </ul>
 <p>以上的不同分支都有其特定的用途，关于哪些分支是源分支、哪些是合并分支有其严格的规则。之后我们会详细介绍这些规则。</p>
-<p>但是从技术层面来说，这些分支都没有什么特别的，对它们如何分类是基于我们如何使用它们。本质上它们都不过是简单的Git分支。</p>
+<p>但是在技术层面上，这些分支都没有什么特别的，对它们的分类是基于我们如何使用它们，本质上它们都不过是简单的Git分支。</p>
 <h2 id="_4">功能分支</h2>
 <ul>
 <li>
@@ -180,7 +180,7 @@
 </li>
 </ul>
 <p><img alt="feature-branches" src="http://blog.zouxu.com.cn/images/feature-branches.png" /></p>
-<p>功能分支（也称为主题分支）用于开发即将发布或者将来发布的版本中的功能。当开始开发新功能时，要集成此功能的目标发布版本还未知。功能分支的精髓在于：只要功能还未开发完成，功能分支就一直存在，但是最终要么被合并回<code>develop</code>分支（此时为下一个发布版本添加新功能），要么被丢弃（试验结果不令人满意）。</p>
+<p>功能分支（也称为主题分支）用于开发下一版本或者将来版本中的功能。开始在功能分支中开发新功能时，集成此新功能的目标发布版本还未知。功能分支的精髓在于：只要功能还未开发完成，功能分支就一直存在，但是最终要么被合并回<code>develop</code>分支（此时为下一个发布版本添加新功能），要么被丢弃（试验结果不令人满意）。</p>
 <p>功能分支通常只存在于开发库，而不存在于<code>origin</code>库。</p>
 <h3 id="_5">创建功能分支</h3>
 <p>当开始开发新功能时，从<code>develop</code>分支创建新的功能分支：</p>
@@ -202,9 +202,9 @@
 </pre></div>
 
 
-<p><code>--no-ff</code>选项的意思是在合并分支时总是创建新的提交对象，即使此时可以只通过<code>fast-forward</code>合并就能完成。这样可以避免丢失该功能分支存在的历史信息，同时将此功能相关所有提交组合起来。请参看下图的比较：</p>
+<p><code>--no-ff</code>选项的意思是在合并分支时总是创建新的提交对象，即使此时可以只通过<code>fast-forward</code>合并就能完成。这样可以避免丢失该功能分支存在的历史信息，同时将此功能相关所的有提交组合起来。请参看下图的比较：</p>
 <p><img alt="merge-without-ff" src="http://blog.zouxu.com.cn/images/merge-without-ff.png" /></p>
-<p>上图的后一种情况下，不可能从Git历史日志中看出哪些提交对象实现了某个功能，必须人工阅读所有的Git日志才行。如果想要回滚某个功能（包含一组提交），用后一种方法真的不容易完成，而用<code>--no-ff</code>选项非常容易完成。</p>
+<p>上图的后一种情况下，不可能从Git历史日志中看出哪些提交对象实现了某个功能，必须人工阅读所有的Git日志才行。如果想要回滚某个功能（包含多个提交对象），用后一种方法实在不容易完成，而用<code>--no-ff</code>选项则非常容易完成。</p>
 <p>确实，这样会创建一些空提交对象，但是所得的回报比付出要大得多。</p>
 <p>不幸的是，我还没有发现能够将<code>--no-ff</code>设置为<code>git merge</code>的默认选项的方法，但是<code>--no-ff</code>确实应该设置为默认选项。</p>
 <h2 id="_6">发布分支</h2>
@@ -228,9 +228,9 @@
 </dl>
 </li>
 </ul>
-<p>发布分支用于支持新版本的发布准备，它允许最后时刻的小修改。此外还允许修复小bug以及准备新版本的元数据（版本号、构建时间、等等）。所有的工作都在发布版本中完成，此时<code>develop</code>分支不再允许提交与下一个大版本的新功能相关的代码。</p>
-<p>从<code>develop</code>分支创建发布分支的关键点是：<code>develop</code>分支需要（几乎）达到了下一个版本所期望的状态。此刻，即将发布的版本所包含的所有功能都必须合并回<code>develop</code>分支。而将来才发布的版本中的功能不用合并回<code>develop</code>分支，因为它们必须等到发布分支创建之后。</p>
-<p>在发布分支创建之时才能决定下一个版本的版本号。此时<code>develop</code>分支反映下一个版本中的所有修改，但是依然还不清除下一个版本最终会是0.3还是0.1。在创建发布分支时，根据项目的版本号分配规则决定下一个版本号。</p>
+<p>发布分支用于支持新版本的发布准备，它允许最后时刻的小修改。此外还允许修复小bug以及准备新版本的元数据（版本号、构建时间、等等）。所有的工作都在发布版本中完成，此时不再允许提交下一版本功能相关的代码到<code>develop</code>分支。</p>
+<p>从<code>develop</code>分支创建发布分支的关键点是：<code>develop</code>分支需要（几乎）达到了下一个版本所期望的状态。此刻，即将发布的版本所包含的所有功能都必须合并回<code>develop</code>分支。而未来版本中的功能不用合并回<code>develop</code>分支，因为必须等到发布分支创建之后才能合并。</p>
+<p>在发布分支创建之时才能决定下一个版本的版本号。此时<code>develop</code>分支反映下一个版本中的所有修改，但是依然还不清楚下一个版本最终会是0.3还是0.1。在创建发布分支时，根据项目的版本号分配规则决定下一个版本号。</p>
 <h3 id="_7">创建发布分支</h3>
 <p>发布分支从<code>develop</code>分支创建而来。例如，当前生产版本为1.1.5，马上就有一个大的版本发布。<code>develop</code>分支为下一个版本的所有修改已经完成，我们决定下一个版本号为1.2（不是1.1.6或2.0）。所以我们创建一个发布分支并且命名为下一个即将发布的版本号：</p>
 <div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span> <span class="n">develop</span></span>
@@ -267,8 +267,8 @@
 </pre></div>
 
 
-<p>此时产生合并冲突没有什么大问题（只是有可能产生冲突，因为我们修改了版本号）。如果产生冲突，解决冲突并提交。</p>
-<p>现在真的完成新版本的发布，此时发布分支功成身退，因为我们不再需要它们了：</p>
+<p>此时进行合并发生冲突还可以接受（只是有可能产生冲突，因为我们修改了版本号）。如果发生冲突，解决冲突并提交。</p>
+<p>现在新版本的发布真的完成了，发布分支功成身退，因为我们不再需要它们了：</p>
 <div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span></span>
 <span class="code-line"><span class="n">Deleted</span> <span class="n">branch</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span> <span class="p">(</span><span class="n">was</span> <span class="n">ff452fe</span><span class="p">).</span></span>
 </pre></div>
@@ -338,7 +338,7 @@
 </pre></div>
 
 
-<p>也有一个例外，当存在发布分支时，热修复分支中的修改需要合并回发布分支而不是<code>develop</code>分支。将代码修改合并回发布分支，这样在发布分支完成之后代码修改最终会被合并回<code>develop</code>分支。如果<code>develop</code>分支急切需要这些修改，等不到发布分支完成，也可以同时安全地合并这些代码修改到<code>develop</code>分支。</p>
+<p>也有一个例外，当存在发布分支时，热修复分支中的修改需要合并回发布分支而不是<code>develop</code>分支。将代码修改合并回发布分支，这样在发布分支完成之后代码修改最终会被自然合并回<code>develop</code>分支。如果<code>develop</code>分支急切需要这些修改，等不到发布分支完成，也可以同时安全地合并这些代码修改到<code>develop</code>分支。</p>
 <p>最后，删除临时的热修复分支：</p>
 <div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span></span>
 <span class="code-line"><span class="n">Deleted</span> <span class="n">branch</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span> <span class="p">(</span><span class="n">was</span> <span class="n">abbe5d6</span><span class="p">).</span></span>
@@ -346,8 +346,8 @@
 
 
 <h1 id="_12">总结</h1>
-<p>虽然与本文描述的分支模型相比没有太多新的内容，本文开始处的&#8221;大图&#8221;在我们的项目中非常有用。它形成了一种优美的心智模型，非常易于理解，并且让项目组成员之间对分支和发布流程有共同的理解。</p>
-<p><a href="http://nvie.com/files/Git-branching-model.pdf">此处</a>提供有高质量的<span class="caps">PDF</span>版本，请将其打印出来并挂在公司的墙壁上以便时时参考。</p>
+<p>本文开始处引用的&#8221;大图&#8221;虽然与本文描述的分支模型相比没有太多新的内容，但是它在我们的项目中非常有用。此图构成了一种优美的心智模型，非常易于理解，并且让项目组成员之间对分支和发布流程产生共同的理解。</p>
+<p><a href="http://nvie.com/files/Git-branching-model.pdf">此处</a>提供有高质量的<span class="caps">PDF</span>版本，请将其打印出来并挂到公司的墙壁上以便时时参考。</p>
 <h1 id="_13">翻译说明</h1>
 <p>本文为翻译文章，此为<a href="http://nvie.com/posts/a-successful-git-branching-model">原文链接</a>。</p>
             </div>
