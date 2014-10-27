@@ -14,7 +14,7 @@
 <link rel="canonical" href="http://blog.zouxu.com.cn/blog/2014/09/23/sicp-1-3-1/">
 
         <meta name="author" content="九哥" />
-        <meta name="keywords" content="sicp,lisp" />
+        <meta name="keywords" content="scheme" />
         <meta name="description" content="导读 也许我们曾经在某个场合听说过这些术语：“函数式语言”、“函数式编程范式”、“纯函数式语言”。在阅读sicp之前我对这些术语也只是“不明觉厉”。 一般而言，如果一种编程语言允许函数成为“第一等公民”(first class object)，我们就可以将这类语言归为“函数式语言”。本书介绍了函数作为“第一等公民”所拥有的特权： 可以用变量命名 可以作为参数传递 可以作为函数返回值 可以包含在数据结构中 由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。 习题解答 练习1.29 (define (sum term a next b) (if (&gt; a b) 0 (+ (term a) (sum term (next a) next b ..." />
 
     <!-- Enable latex plugin -->
@@ -86,13 +86,11 @@
     </span>
 
         <span class="label label-default">分类</span>
-        <a href="http://blog.zouxu.com.cn/category/blog.html">blog</a>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
 
 
 <span class="label label-default">标签</span>
-	<a href="http://blog.zouxu.com.cn/tag/sicp.html">sicp</a>
-        /
-	<a href="http://blog.zouxu.com.cn/tag/lisp.html">lisp</a>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">scheme</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -269,8 +267,8 @@
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">分类</span></h4></a>
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/category/blog.html">
-                                <i class="fa fa-folder-open fa-lg"></i> blog
+                            <a href="http://blog.zouxu.com.cn/category/sicp.html">
+                                <i class="fa fa-folder-open fa-lg"></i> sicp
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -294,13 +292,8 @@
                             </a>
                         </li>
                         <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/lisp.html">
-                                lisp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
+                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
+                                scheme
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
