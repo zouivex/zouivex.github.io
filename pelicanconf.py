@@ -72,7 +72,7 @@ THEME = 'theme/pelican-bootstrap3'
 PLUGIN_PATHS = ["pelican-plugins"]
 
 # Depends on
-PLUGINS = ["better_codeblock_line_numbering"]
+PLUGINS = []
 
 DISQUS_SITENAME = 'httpzouivexgithubio'
 
