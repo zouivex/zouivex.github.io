@@ -69,6 +69,53 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/">sicp&nbsp;2.1.1</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-10-28T21:48:20"> Tue 28 October 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><h1 id="_1">导读</h1>
+<p>在开始之前我们先来熟悉两个概念：</p>
+<ul>
+<li>
+<dl>
+<dt>基本数据对象</dt>
+<dd>程序设计语言原生支持的数据对象，比如整数、浮点数、字符串等等。</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>复合数据对象</dt>
+<dd>通过对基本数据对象进行封装、组合构成的新的数据对象。</dd>
+</dl>
+</li>
+</ul>
+<p>我们熟悉的面向对象语言中有”类“的概念，“类”就是数据抽象的一种方式。通过构成一种抽象级别更高的对象，能够帮助我们更深入地进行设计，而不用纠结于底层的基本数据对象的组织方式。这是编程语言逐渐由低级语言向高级语言进化的必然结果。</p>
+<p>本章将介绍在<code>Scheme</code>语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过<code>cons</code>，<code>car</code>，<code>cdr</code>操作构造复合数据对象。</p>
+<h1 id="_2">习题解答</h1>
+<h2 id="21">练习2.1</h2>
+<div class="highlight"><pre><span class="code-line"> <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">gcd</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">y</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">       <span class="n">x</span></span>
+<span class="code-line">       <span class="p">(</span><span class="n">gcd</span> <span class="n">y</span> <span class="p">(</span><span class="n">remainder</span> <span class="n">x</span> <span class="n">y</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"> <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">rat</span> <span class="n">n ...</span></span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">一种成功的git分支模型</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -449,6 +496,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/">
+                                sicp&nbsp;2.1.1
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">
                                 一种成功的git分支模型
                             </a>
@@ -466,11 +518,6 @@
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/10/08/sicp-1-3-2/">
                                 sicp 1.3.2 -&nbsp;1.3.3
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/09/23/sicp-1-3-1/">
-                                sicp&nbsp;1.3.1
                             </a>
                         </li>
                     </ul>

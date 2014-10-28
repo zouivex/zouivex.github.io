@@ -2,7 +2,7 @@
 <html lang="zh"
 >
 <head>
-    <title>Authors - 九哥的部落</title>
+    <title>sicp 2.1.1 - 九哥的部落</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,18 +11,15 @@
 
     <link href="http://blog.zouxu.com.cn/favicon.png" rel="icon">
 
+<link rel="canonical" href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/">
 
         <meta name="author" content="九哥" />
+        <meta name="keywords" content="scheme" />
+        <meta name="description" content="导读 在开始之前我们先来熟悉两个概念： 基本数据对象 程序设计语言原生支持的数据对象，比如整数、浮点数、字符串等等。 复合数据对象 通过对基本数据对象进行封装、组合构成的新的数据对象。 我们熟悉的面向对象语言中有”类“的概念，“类”就是数据抽象的一种方式。通过构成一种抽象级别更高的对象，能够帮助我们更深入地进行设计，而不用纠结于底层的基本数据对象的组织方式。这是编程语言逐渐由低级语言向高级语言进化的必然结果。 本章将介绍在Scheme语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过cons，car，cdr操作构造复合数据对象。 习题解答 练习2.1 (define (gcd x y) (if (= y 0) x (gcd y (remainder x y)))) (define (make-rat n ..." />
 
     <!-- Enable latex plugin -->
 
 
-    <!-- Open Graph tags -->
-        <meta property="og:site_name" content="九哥的部落" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="九哥的部落"/>
-        <meta property="og:url" content="http://blog.zouxu.com.cn"/>
-        <meta property="og:description" content="九哥的部落"/>
 
 
     <!-- Bootstrap -->
@@ -68,8 +65,101 @@
     <div class="row">
         <div class="col-sm-9">
 
-    <h1>Authors on 九哥的部落</h1>
-        <li><a href="http://blog.zouxu.com.cn/">九哥</a> (10)</li>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/"
+                       rel="bookmark"
+                       title="Permalink to sicp 2.1.1">
+                        sicp&nbsp;2.1.1
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-10-28T21:48:20"> Tue 28 October 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h1 id="_1">导读</h1>
+<p>在开始之前我们先来熟悉两个概念：</p>
+<ul>
+<li>
+<dl>
+<dt>基本数据对象</dt>
+<dd>程序设计语言原生支持的数据对象，比如整数、浮点数、字符串等等。</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>复合数据对象</dt>
+<dd>通过对基本数据对象进行封装、组合构成的新的数据对象。</dd>
+</dl>
+</li>
+</ul>
+<p>我们熟悉的面向对象语言中有”类“的概念，“类”就是数据抽象的一种方式。通过构成一种抽象级别更高的对象，能够帮助我们更深入地进行设计，而不用纠结于底层的基本数据对象的组织方式。这是编程语言逐渐由低级语言向高级语言进化的必然结果。</p>
+<p>本章将介绍在<code>Scheme</code>语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过<code>cons</code>，<code>car</code>，<code>cdr</code>操作构造复合数据对象。</p>
+<h1 id="_2">习题解答</h1>
+<h2 id="21">练习2.1</h2>
+<div class="highlight"><pre><span class="code-line"> <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">gcd</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">y</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">       <span class="n">x</span></span>
+<span class="code-line">       <span class="p">(</span><span class="n">gcd</span> <span class="n">y</span> <span class="p">(</span><span class="n">remainder</span> <span class="n">x</span> <span class="n">y</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"> <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">rat</span> <span class="n">n</span> <span class="n">d</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">g</span> <span class="p">(</span><span class="n">gcd</span> <span class="n">n</span> <span class="n">d</span><span class="p">)))</span></span>
+<span class="code-line">     <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">))</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">))))</span></span>
+<span class="code-line">           <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">)))</span></span>
+<span class="code-line">           <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="n">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="o">-</span> <span class="mi">0</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">)))</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">))))</span></span>
+<span class="code-line">            <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">))))))</span></span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>评论</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'sicp-2.1.1';
+                var disqus_url = 'http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/';
+
+            var disqus_config = function () {
+                this.language = "zh";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+        </article>
+    </section>
+
         </div>
         <div class="col-sm-3 well well-sm" id="sidebar">
 
