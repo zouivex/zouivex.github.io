@@ -1,0 +1,63 @@
+Title: sicp 2.1.2
+Slug: sicp-2-1-2
+Date: 2014-10-29 22:02:21
+Modified: 2014-10-29 22:02:21
+Category: sicp
+Tags: shceme
+
+# 习题解答
+
+## 练习2.2
+
+实现方式非常直接，按照题目中的描述写出`Scheme`代码即可：
+
+``` Scheme
+(define (make-point x y)
+  (cons x y))
+
+(define (x-point p)
+  (car p))
+
+(define (y-point p)
+  (cdr p))
+
+(define (make-segement x y)
+  (cons x y))
+
+(define (start-segement s)
+  (car s))
+
+(define (end-segement s)
+  (cdr s))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (midpoint-segment s)
+  (make-point (average (x-point (start-segement s)) (x-point (end-segement s)))
+              (average (y-point (start-segement s)) (y-point (end-segement s)))))
+```
+
+## 练习2.3
+
+第一种方式，可以采用`height`和`width`序对表示矩形， `height`和`width`分别可以用练习2.2中实现的线段来表示：
+
+``` Scheme
+(define (make-rect w h)
+  (cons w h))
+
+(define (width rect)
+  (car rect))
+
+(define (height rect)
+  (cdr rect))
+
+(define (area rect)
+  (* (width rect)
+     (height rect)))
+
+(define (perimeter rect)
+  (+ (* 2 (width rect))
+     (* 2 (height rect))))
+```
+第二种方式，可以用矩形的四个顶点来表示，代码很类似。
