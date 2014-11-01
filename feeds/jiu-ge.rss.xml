@@ -5,7 +5,7 @@
 &lt;li&gt;什么时候使用&lt;code&gt;shared_ptr&lt;/code&gt;，什么时候使用&lt;code&gt;unique_ptr&lt;/code&gt;？给出尽量多的理由。&lt;/li&gt;
 &lt;li&gt;为什么几乎总是应该使用&lt;code&gt;make_shared&lt;/code&gt;创建&lt;code&gt;shared_ptr&lt;/code&gt;？请解释。&lt;/li&gt;
 &lt;li&gt;为什么几乎总是应该使用&lt;code&gt;make_unique&lt;/code&gt;创建&lt;code&gt;unique_ptr&lt;/code&gt;？请解释。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些问题？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些需要注意的问题？&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id="_2"&gt;解答&lt;/h1&gt;
 &lt;h2 id="shared_ptrunique_ptr"&gt;什么时候使用&lt;code&gt;shared_ptr&lt;/code&gt;，什么时候使用&lt;code&gt;unique_ptr&lt;/code&gt;？&lt;/h2&gt;
@@ -80,7 +80,7 @@
 
 &lt;p&gt;异常安全问题在GotW&amp;nbsp;#56中有完整介绍。&lt;/p&gt;
 &lt;p&gt;准则：分配对象时，首选使用&lt;code&gt;make_unique&lt;/code&gt;，如果对象有共享的生命期，那么使用&lt;code&gt;make_shared&lt;/code&gt;。&lt;/p&gt;
-&lt;h2 id="auto_ptr"&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些问题？&lt;/h2&gt;
+&lt;h2 id="auto_ptr"&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些需要注意的问题？&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;auto_ptr&lt;/code&gt;被认为是在C++没有move语义的时代尝试实现&lt;code&gt;unique_ptr&lt;/code&gt;的勇敢的尝试。&lt;code&gt;auto_ptr&lt;/code&gt;现在已经被弃用了，不要再在新代码中使用它。&lt;/p&gt;
 &lt;p&gt;如果在现有代码使用了&lt;code&gt;auto_ptr&lt;/code&gt;，那么找个机会在所有代码中查找替换所有的&lt;code&gt;auto_ptr&lt;/code&gt;为&lt;code&gt;unique_ptr&lt;/code&gt;。它们的大部分使用方式是一样的，有可能通过编译错误的方式暴露出或者默默修复几个之前没有发现的bug。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">九哥</dc:creator><pubDate>Thu, 30 Oct 2014 21:22:04 +0800</pubDate><guid>tag:blog.zouxu.com.cn,2014-10-30:blog/2014/10/30/smart-pointers/</guid><category>cpp</category></item><item><title>sicp 2.1.2</title><link>http://blog.zouxu.com.cn/blog/2014/10/29/sicp-2-1-2/</link><description>&lt;h1 id="_1"&gt;习题解答&lt;/h1&gt;
 &lt;h2 id="22"&gt;练习2.2&lt;/h2&gt;
