@@ -70,6 +70,40 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">GotW-89&nbsp;智能指针</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-10-30T21:22:04"> Thu 30 October 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">译文</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/cpp.html">cpp</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>C++智能指针真是让人爱不释手，尤其是<code>unique_ptr</code>。</p>
+<h1 id="_1">问题</h1>
+<ol>
+<li>什么时候使用<code>shared_ptr</code>，什么时候使用<code>unique_ptr</code>？给出尽量多的理由。</li>
+<li>为什么几乎总是应该使用<code>make_shared</code>创建<code>shared_ptr</code>？请解释。</li>
+<li>为什么几乎总是应该使用<code>make_unique</code>创建<code>unique_ptr</code>？请解释。</li>
+<li><code>auto_ptr</code>都有哪些问题？</li>
+</ol>
+<h1 id="_2">解答</h1>
+<h2 id="shared_ptrunique_ptr">什么时候使用<code>shared_ptr</code>，什么时候使用<code>unique_ptr</code>？</h2>
+<p>如果拿不准该使用哪种智能指针时，那么就使用<code>unique_ptr</code>，将来确有需要时总是可以<code>move-convert</code>为<code>shared_ptr</code>。如果从一开始就清楚需要共享所有权，那么就直接使用<code>make_shared</code>函数创建<code>shared_ptr</code>（在第二节详细介绍）.</p>
+<p>我们说“拿不准时，使用<code>unique_ptr</code>”，有三个主要的原因。</p>
+<p>第一，最简单的语义就足够满足需求，使用正确的智能指针可以直接表达意图和（当前的）需求 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">例解C++测试驱动开发和单元测试</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -143,6 +177,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">
+                                GotW-89&nbsp;智能指针
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">
                                 例解C++测试驱动开发和单元测试
                             </a>
@@ -154,12 +193,12 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (9)
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-                                <i class="fa fa-folder-open fa-lg"></i> 译文
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (3)
                             </a>
                         </li>
                     </ul>
@@ -167,7 +206,7 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-4">
+                        <li class="list-group-item tag-3">
                             <a href="http://blog.zouxu.com.cn/tag/cpp.html">
                                 cpp
                             </a>
@@ -180,11 +219,6 @@
                         <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/shceme.html">
-                                shceme
                             </a>
                         </li>
                         <li class="list-group-item tag-4">

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh"
+>
+<head>
+    <title>GotW-89 智能指针 - 九哥的部落</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="http://blog.zouxu.com.cn/favicon.png" rel="icon">
+
+<link rel="canonical" href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">
+
+        <meta name="author" content="九哥" />
+        <meta name="keywords" content="cpp" />
+        <meta name="description" content="C++智能指针真是让人爱不释手，尤其是unique_ptr。 问题 什么时候使用shared_ptr，什么时候使用unique_ptr？给出尽量多的理由。 为什么几乎总是应该使用make_shared创建shared_ptr？请解释。 为什么几乎总是应该使用make_unique创建unique_ptr？请解释。 auto_ptr都有哪些问题？ 解答 什么时候使用shared_ptr，什么时候使用unique_ptr？ 如果拿不准该使用哪种智能指针时，那么就使用unique_ptr，将来确有需要时总是可以move-convert为shared_ptr。如果从一开始就清楚需要共享所有权，那么就直接使用make_shared函数创建shared_ptr（在第二节详细介绍）. 我们说“拿不准时，使用unique_ptr”，有三个主要的原因。 第一，最简单的语义就足够满足需求，使用正确的智能指针可以直接表达意图和（当前的）需求 ..." />
+
+    <!-- Enable latex plugin -->
+
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.zouxu.com.cn/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.zouxu.com.cn/theme/css/pygments/vs.css" rel="stylesheet">
+        <link href="http://blog.zouxu.com.cn/theme/css/typogrify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/style.css" type="text/css"/>
+
+        <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="九哥的部落 ATOM Feed"/>
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.zouxu.com.cn/" class="navbar-brand">
+九哥的部落            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://blog.zouxu.com.cn/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">文章存档</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/"
+                       rel="bookmark"
+                       title="Permalink to GotW-89 智能指针">
+                        GotW-89&nbsp;智能指针
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-10-30T21:22:04"> Thu 30 October 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">译文</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/cpp.html">cpp</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>C++智能指针真是让人爱不释手，尤其是<code>unique_ptr</code>。</p>
+<h1 id="_1">问题</h1>
+<ol>
+<li>什么时候使用<code>shared_ptr</code>，什么时候使用<code>unique_ptr</code>？给出尽量多的理由。</li>
+<li>为什么几乎总是应该使用<code>make_shared</code>创建<code>shared_ptr</code>？请解释。</li>
+<li>为什么几乎总是应该使用<code>make_unique</code>创建<code>unique_ptr</code>？请解释。</li>
+<li><code>auto_ptr</code>都有哪些问题？</li>
+</ol>
+<h1 id="_2">解答</h1>
+<h2 id="shared_ptrunique_ptr">什么时候使用<code>shared_ptr</code>，什么时候使用<code>unique_ptr</code>？</h2>
+<p>如果拿不准该使用哪种智能指针时，那么就使用<code>unique_ptr</code>，将来确有需要时总是可以<code>move-convert</code>为<code>shared_ptr</code>。如果从一开始就清楚需要共享所有权，那么就直接使用<code>make_shared</code>函数创建<code>shared_ptr</code>（在第二节详细介绍）.</p>
+<p>我们说“拿不准时，使用<code>unique_ptr</code>”，有三个主要的原因。</p>
+<p>第一，最简单的语义就足够满足需求，使用正确的智能指针可以直接表达意图和（当前的）需求。如果对于新创建的对象，不清楚最终是否需要共享所有权，那么使用<code>unique_ptr</code>表达单一的所有权。<code>unique_ptr</code>仍然可以存入容器（例如，<code>vector&lt;unique_ptr&lt;widget&gt;&gt;</code>，以及执行大部分裸指针可以完成的操作，只会比裸指针更安全。将来需要共享所有权时，<code>unique_ptr</code>总是可以<code>move-convert</code>为<code>shared_ptr</code>。</p>
+<p>第二，<code>unique_ptr</code>比<code>shared_ptr</code>效率更高。<code>unique_ptr</code>不需要维护引用计数信息和底层的控制块，它就是设计来像裸指针那样高效地移动和使用的。如果当前功能足够使用，就不要要求更多的功能，这样不用付出额外的不必要的开销。</p>
+<p>第三，<code>unique_ptr</code>可扩展性更强，以后可选择的余地更多。如果当前使用的是<code>unique_ptr</code>，将来总是可以通过<code>move</code>转换为<code>shared_ptr</code>，或者调用<code>.get()</code>或者<code>.release()</code>转换为用户自定义的智能指针（甚至裸指针）。</p>
+<p>准则：最好使用标准的智能指针，一般情况下使用<code>unique_ptr</code>，需要共享所有权时使用<code>shared_ptr</code>。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的<code>deleters</code>和<code>allocators</code>不能满足用户自定义的要求时，才考虑使用其它智能指针，</p>
+<h2 id="make_sharedshared_ptr">为什么几乎总是应该使用<code>make_shared</code>创建<code>shared_ptr</code>？请解释。</h2>
+<p>注意：在少数情况下，需要使用自定义分配器来创建对象，此时可以使用<code>allocate_shared</code>。即使名字不同，<code>allocate_shared</code>可以看作是<code>make_shared</code>的可以指定分配器的特殊版本。所以本文将它们都称为<code>make_shared</code>，而不分别介绍了。</p>
+<p>在以下两种情况不能使用<code>make_shared</code>创建由<code>shared_ptr</code>管理的对象：</p>
+<ul>
+<li>需要自定义<code>deleter</code>时。例如需要使用<code>shared_ptr</code>管理非内存的资源，或者从非内存区域分配而来的对象。因为<code>make_shared</code>不支持用户指定<code>deleter</code>。</li>
+<li>使用从其它代码（通常是遗留代码）中传递过来的裸指针时，必须从裸指针直接构造<code>shared_ptr</code>。</li>
+</ul>
+<p>准则：使用<code>make_shared</code>（如果需要自定义分配器，使用<code>allocate_shared</code>）创建由<code>shared_ptr</code>管理的对象，除非需要使用自定义的<code>deleter</code>或者需要处理从别处传递而来的裸指针。</p>
+<p>那么，为什么几乎所有场合都应该使用<code>make_shared</code>呢？主要有两个原因：简单、效率。</p>
+<p>第一，<code>make_shared</code>使代码更简单。代码应该以清晰和正确为上。</p>
+<p>第二，<code>make_shared</code>更有效率。<code>shared_ptr</code>的实现中，需要在内部控制块维护管理信息，这些管理信息被所有指向同一对象的<code>shared_ptr</code>和<code>weak_ptr</code>所共享。尤其注意，管理信息必须包含两个引用计数：</p>
+<ul>
+<li>“强引用计数”，用来跟踪当前指向共享对象的<code>shared_ptr</code>的个数。共享对象在最后一个强引用释放之后被销毁（有可能此时内存被回收）。</li>
+<li>“弱引用计数”，用来跟踪当前正在观察共享对象的<code>weak_ptr</code>的个数。存放管理信息的控制块在最后一个弱引用释放之后被销毁并回收内存，如果共享对象的内存尚未回收，那么回收内存。</li>
+</ul>
+<p>如果使用<code>new</code>表达式独立分配对象，然后将其传递给<code>shared_ptr</code>，那么<code>shared_ptr</code>的实现没有其它选择，只能独立分配控制块。参见下面例子和例图：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2(a): Separate allocation</span></span>
+<span class="code-line"><span class="n">auto</span> <span class="n">sp1</span> <span class="o">=</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span> <span class="k">new</span> <span class="n">widget</span><span class="p">{}</span> <span class="p">};</span></span>
+<span class="code-line"><span class="n">auto</span> <span class="n">sp2</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span></span>
+</pre></div>
+
+
+<p><img alt="Approximate memory layout for Example 2(a)" src="{filename}/images/" /></p>
+<p>在此最好避免对象和控制块单独分配。如果使用<code>make_shared</code>一次性分配对象和<code>shared_ptr</code>本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：</p>
+<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2(b): Single allocation</span></span>
+<span class="code-line"><span class="n">auto</span> <span class="n">sp1</span> <span class="o">=</span> <span class="n">make_shared</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">();</span></span>
+<span class="code-line"><span class="n">auto</span> <span class="n">sp2</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span></span>
+</pre></div>
+
+
+<p><img alt="Approximate memory layout for Example 2(b)" src="{filename}/images/" /></p>
+<p>将对象和控制块合并分配有两个好处：</p>
+<ul>
+<li>降低内存分配的开销，减少内存碎片。首先，降低内存开销最明显的方式是减少内存分配的请求次数，因为内存分配请求的开销很大。这还可以帮助减少分配器的多线程竞争，因为某些分配器的扩展性很差。其次，使用一次内存分配而不是两次，能够降低单次内存分配的开销。任何时候向系统申请一块内存，系统返回的字节数必须至少满足要求，由于系统使用固定大小的内存池或以每次分配为单位跟踪内存管理信息，系统通常都会返回额外的字节。因此，使用单个内存块，能够降低总的内存开销。最后，这种方法自然而然地降低了内存块之间间隔的无用内存，从而避免了内存碎片。</li>
+<li>增强程序的局部性。引用计数和共享的对象一起被频繁地访问，对于小的对象，它们极有可能位于同一个cache行中，因此能够提升cache访问的性能。</li>
+</ul>
+<p>通过一个函数调用表达你的意图，系统计算出效率更高的方法的机会就更大。将100个元素插入vector时，调用一次<code>.insert(first, last)</code>插入100个元素，比调用100次<code>.insert(value)</code>每次插入一个元素效率要高。同样的道理，调用一次<code>make_shared</code>比分别调用<code>new widget()</code>和<code>shared_ptr(widget*)</code>效率高。</p>
+<p>此外<code>make_shared</code>还有两个好处：<code>make_shared</code>避免了直接调用<code>new</code>表达式，也免了异常安全的问题。这两个好处也适用于<code>make_unique</code>函数，在下一节中我们详细介绍。</p>
+<h2 id="make_uniqueunique_ptr">为什么几乎总是应该使用<code>make_unique</code>创建<code>unique_ptr</code>？请解释。</h2>
+<p>和<code>make_shared</code>一样，两种情况下不能使用<code>make_unique</code>创建由<code>unique_ptr</code>管理的对象：需要使用自定义的<code>deleter</code>时，需要操作裸指针时。除此之外的任何情况请使用<code>make_unique</code>。</p>
+<p>准则：除非需要使用自定义的deleter或者需要操作从别处传入的裸指针，一般情况下推荐使用<code>make_unique</code>创建无需共享所有者的对象。</p>
+<p>除了与<code>make_shared</code>相应的优点以外，<code>make_unique</code>还有其它优点。第一，和功能更强的<code>unique_ptr&lt;T&gt;{ new T{} }</code>相比，优先使用<code>make_unique&lt;T&gt;()</code>。通常应该避免直接使用new操作符。</p>
+<p>准则：&nbsp;不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。</p>
+<p>第二，可以避免使用new操作符导致的众所周知的异常安全问题，参见以下的例子：</p>
+<div class="highlight"><pre><span class="code-line"><span class="bp">void</span> <span class="nx">sink</span><span class="p">(</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">gadget</span><span class="o">&gt;</span> <span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">sink</span><span class="p">(</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span><span class="p">{</span><span class="nb">new</span> <span class="nx">widget</span><span class="p">{}},</span></span>
+<span class="code-line">      <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">gadget</span><span class="o">&gt;</span><span class="p">{</span><span class="nb">new</span> <span class="nx">gadget</span><span class="p">{}}</span> <span class="p">);</span> <span class="c1">// Q1: do you see the problem?</span></span>
+</pre></div>
+
+
+<p>简单来说，如果先分配和构造widget对象，在分配和构造时抛出一个异常，那么widget对象发生内存泄漏。你或许会这样想：“用<code>make_unique&lt;widget&gt;()</code>替换<code>new widget{}</code>，可以解决这个问题，是吗？”。请参考下面的代码：</p>
+<div class="highlight"><pre><span class="code-line"><span class="nx">sink</span><span class="p">(</span> <span class="nx">make_unique</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span><span class="p">(),</span></span>
+<span class="code-line">      <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">gadget</span><span class="o">&gt;</span><span class="p">{</span><span class="nb">new</span> <span class="nx">gadget</span><span class="p">{}}</span> <span class="p">);</span> <span class="c1">// Q2: is this better?</span></span>
+</pre></div>
+
+
+<p>不对，因为C++对于函数参数的求值顺序是未定义的，所以先创建widget对象和先创建gadget对象都有可能。如果先创建gadget对象，然后执行<code>make_unique&lt;widget&gt;</code>时抛出异常，那么同样有内存泄漏问题发生。</p>
+<p>但是只是修改其中一个参数使用<code>make_unique</code>并不能解决问题，如果将两个参数都修改为<code>make_unique</code>能够完整地解决这个问题：</p>
+<div class="highlight"><pre><span class="code-line"><span class="nx">sink</span><span class="p">(</span> <span class="nx">make_unique</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span><span class="p">(),</span> <span class="nx">make_unique</span><span class="o">&lt;</span><span class="nx">gadget</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span> <span class="c1">// exception-safe</span></span>
+</pre></div>
+
+
+<p>异常安全问题在GotW&nbsp;#56中有完整介绍。</p>
+<p>准则：分配对象时，首选使用<code>make_unique</code>，如果对象有共享的生命期，那么使用<code>make_shared</code>。</p>
+<h2 id="auto_ptr"><code>auto_ptr</code>都有哪些问题？</h2>
+<p><code>auto_ptr</code>被认为是在C++没有move语义的时代尝试实现<code>unique_ptr</code>的勇敢的尝试。<code>auto_ptr</code>现在已经被弃用了，不要再在新代码中使用它。</p>
+<p>如果在现有代码使用了<code>auto_ptr</code>，那么找个机会在所有代码中查找替换所有的<code>auto_ptr</code>为<code>unique_ptr</code>。它们的大部分使用方式是一样的，有可能通过编译错误的方式暴露出或者默默修复几个之前没有发现的bug。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>评论</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'smart-pointers';
+                var disqus_url = 'http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/';
+
+            var disqus_config = function () {
+                this.language = "zh";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+            
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
+                    <ul class="list-group" id="recentposts">
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">
+                                GotW-89&nbsp;智能指针
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/29/sicp-2-1-2/">
+                                sicp&nbsp;2.1.2
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/">
+                                sicp&nbsp;2.1.1
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">
+                                一种成功的git分支模型
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/10/20/sicp-1-3-4/">
+                                sicp&nbsp;1.3.4
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">分类</span></h4></a>
+                    <ul class="list-group" id="categories">
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/category/sicp.html">
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (9)
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (3)
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
+                    <ul class="list-group list-inline tagcloud" id="tags">
+                        <li class="list-group-item tag-3">
+                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+                                cpp
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/git.html">
+                                git
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-1">
+                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
+                                scheme
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
+                                tools
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
+                            </a>
+                        </li>
+                    </ul>
+                </li>    
+            
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">社交网络</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://github.com/zouivex"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                    <li class="list-group-item"><a href="https://cn.linkedin.com/in/zouivex"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                    <li class="list-group-item"><a href="https://plus.google.com/u/0/104327320364152471669/"><i class="fa fa-google-plus-square fa-lg"></i> google plus</a></li>
+                    <li class="list-group-item"><a href="http://blog.zouxu.com.cn/feeds/all.atom.xml"><i class="fa fa-rss-square fa-lg"></i> rss</a></li>
+                  </ul>
+                </li>
+
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 九哥
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/true/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/true/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/true/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.zouxu.com.cn/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.zouxu.com.cn/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.zouxu.com.cn/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+</body>
+</html>

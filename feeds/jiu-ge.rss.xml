@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>九哥的部落</title><link>http://blog.zouxu.com.cn/</link><description></description><atom:link href="http://blog.zouxu.com.cn/feeds/jiu-ge.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 29 Oct 2014 22:02:21 +0800</lastBuildDate><item><title>sicp 2.1.2</title><link>http://blog.zouxu.com.cn/blog/2014/10/29/sicp-2-1-2/</link><description>&lt;h1 id="_1"&gt;习题解答&lt;/h1&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>九哥的部落</title><link>http://blog.zouxu.com.cn/</link><description></description><atom:link href="http://blog.zouxu.com.cn/feeds/jiu-ge.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 30 Oct 2014 21:22:04 +0800</lastBuildDate><item><title>GotW-89 智能指针</title><link>http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/</link><description>&lt;p&gt;C++智能指针真是让人爱不释手，尤其是&lt;code&gt;unique_ptr&lt;/code&gt;。&lt;/p&gt;
+&lt;h1 id="_1"&gt;问题&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;什么时候使用&lt;code&gt;shared_ptr&lt;/code&gt;，什么时候使用&lt;code&gt;unique_ptr&lt;/code&gt;？给出尽量多的理由。&lt;/li&gt;
+&lt;li&gt;为什么几乎总是应该使用&lt;code&gt;make_shared&lt;/code&gt;创建&lt;code&gt;shared_ptr&lt;/code&gt;？请解释。&lt;/li&gt;
+&lt;li&gt;为什么几乎总是应该使用&lt;code&gt;make_unique&lt;/code&gt;创建&lt;code&gt;unique_ptr&lt;/code&gt;？请解释。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些问题？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id="_2"&gt;解答&lt;/h1&gt;
+&lt;h2 id="shared_ptrunique_ptr"&gt;什么时候使用&lt;code&gt;shared_ptr&lt;/code&gt;，什么时候使用&lt;code&gt;unique_ptr&lt;/code&gt;？&lt;/h2&gt;
+&lt;p&gt;如果拿不准该使用哪种智能指针时，那么就使用&lt;code&gt;unique_ptr&lt;/code&gt;，将来确有需要时总是可以&lt;code&gt;move-convert&lt;/code&gt;为&lt;code&gt;shared_ptr&lt;/code&gt;。如果从一开始就清楚需要共享所有权，那么就直接使用&lt;code&gt;make_shared&lt;/code&gt;函数创建&lt;code&gt;shared_ptr&lt;/code&gt;（在第二节详细介绍）.&lt;/p&gt;
+&lt;p&gt;我们说“拿不准时，使用&lt;code&gt;unique_ptr&lt;/code&gt;”，有三个主要的原因。&lt;/p&gt;
+&lt;p&gt;第一，最简单的语义就足够满足需求，使用正确的智能指针可以直接表达意图和（当前的）需求。如果对于新创建的对象，不清楚最终是否需要共享所有权，那么使用&lt;code&gt;unique_ptr&lt;/code&gt;表达单一的所有权。&lt;code&gt;unique_ptr&lt;/code&gt;仍然可以存入容器（例如，&lt;code&gt;vector&amp;lt;unique_ptr&amp;lt;widget&amp;gt;&amp;gt;&lt;/code&gt;，以及执行大部分裸指针可以完成的操作，只会比裸指针更安全。将来需要共享所有权时，&lt;code&gt;unique_ptr&lt;/code&gt;总是可以&lt;code&gt;move-convert&lt;/code&gt;为&lt;code&gt;shared_ptr&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;第二，&lt;code&gt;unique_ptr&lt;/code&gt;比&lt;code&gt;shared_ptr&lt;/code&gt;效率更高。&lt;code&gt;unique_ptr&lt;/code&gt;不需要维护引用计数信息和底层的控制块，它就是设计来像裸指针那样高效地移动和使用的。如果当前功能足够使用，就不要要求更多的功能，这样不用付出额外的不必要的开销。&lt;/p&gt;
+&lt;p&gt;第三，&lt;code&gt;unique_ptr&lt;/code&gt;可扩展性更强，以后可选择的余地更多。如果当前使用的是&lt;code&gt;unique_ptr&lt;/code&gt;，将来总是可以通过&lt;code&gt;move&lt;/code&gt;转换为&lt;code&gt;shared_ptr&lt;/code&gt;，或者调用&lt;code&gt;.get()&lt;/code&gt;或者&lt;code&gt;.release()&lt;/code&gt;转换为用户自定义的智能指针（甚至裸指针）。&lt;/p&gt;
+&lt;p&gt;准则：最好使用标准的智能指针，一般情况下使用&lt;code&gt;unique_ptr&lt;/code&gt;，需要共享所有权时使用&lt;code&gt;shared_ptr&lt;/code&gt;。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的&lt;code&gt;deleters&lt;/code&gt;和&lt;code&gt;allocators&lt;/code&gt;不能满足用户自定义的要求时，才考虑使用其它智能指针，&lt;/p&gt;
+&lt;h2 id="make_sharedshared_ptr"&gt;为什么几乎总是应该使用&lt;code&gt;make_shared&lt;/code&gt;创建&lt;code&gt;shared_ptr&lt;/code&gt;？请解释。&lt;/h2&gt;
+&lt;p&gt;注意：在少数情况下，需要使用自定义分配器来创建对象，此时可以使用&lt;code&gt;allocate_shared&lt;/code&gt;。即使名字不同，&lt;code&gt;allocate_shared&lt;/code&gt;可以看作是&lt;code&gt;make_shared&lt;/code&gt;的可以指定分配器的特殊版本。所以本文将它们都称为&lt;code&gt;make_shared&lt;/code&gt;，而不分别介绍了。&lt;/p&gt;
+&lt;p&gt;在以下两种情况不能使用&lt;code&gt;make_shared&lt;/code&gt;创建由&lt;code&gt;shared_ptr&lt;/code&gt;管理的对象：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;需要自定义&lt;code&gt;deleter&lt;/code&gt;时。例如需要使用&lt;code&gt;shared_ptr&lt;/code&gt;管理非内存的资源，或者从非内存区域分配而来的对象。因为&lt;code&gt;make_shared&lt;/code&gt;不支持用户指定&lt;code&gt;deleter&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;使用从其它代码（通常是遗留代码）中传递过来的裸指针时，必须从裸指针直接构造&lt;code&gt;shared_ptr&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;准则：使用&lt;code&gt;make_shared&lt;/code&gt;（如果需要自定义分配器，使用&lt;code&gt;allocate_shared&lt;/code&gt;）创建由&lt;code&gt;shared_ptr&lt;/code&gt;管理的对象，除非需要使用自定义的&lt;code&gt;deleter&lt;/code&gt;或者需要处理从别处传递而来的裸指针。&lt;/p&gt;
+&lt;p&gt;那么，为什么几乎所有场合都应该使用&lt;code&gt;make_shared&lt;/code&gt;呢？主要有两个原因：简单、效率。&lt;/p&gt;
+&lt;p&gt;第一，&lt;code&gt;make_shared&lt;/code&gt;使代码更简单。代码应该以清晰和正确为上。&lt;/p&gt;
+&lt;p&gt;第二，&lt;code&gt;make_shared&lt;/code&gt;更有效率。&lt;code&gt;shared_ptr&lt;/code&gt;的实现中，需要在内部控制块维护管理信息，这些管理信息被所有指向同一对象的&lt;code&gt;shared_ptr&lt;/code&gt;和&lt;code&gt;weak_ptr&lt;/code&gt;所共享。尤其注意，管理信息必须包含两个引用计数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“强引用计数”，用来跟踪当前指向共享对象的&lt;code&gt;shared_ptr&lt;/code&gt;的个数。共享对象在最后一个强引用释放之后被销毁（有可能此时内存被回收）。&lt;/li&gt;
+&lt;li&gt;“弱引用计数”，用来跟踪当前正在观察共享对象的&lt;code&gt;weak_ptr&lt;/code&gt;的个数。存放管理信息的控制块在最后一个弱引用释放之后被销毁并回收内存，如果共享对象的内存尚未回收，那么回收内存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果使用&lt;code&gt;new&lt;/code&gt;表达式独立分配对象，然后将其传递给&lt;code&gt;shared_ptr&lt;/code&gt;，那么&lt;code&gt;shared_ptr&lt;/code&gt;的实现没有其它选择，只能独立分配控制块。参见下面例子和例图：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 2(a): Separate allocation&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;sp1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;sp2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sp1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="Approximate memory layout for Example 2(a)" src="{filename}/images/" /&gt;&lt;/p&gt;
+&lt;p&gt;在此最好避免对象和控制块单独分配。如果使用&lt;code&gt;make_shared&lt;/code&gt;一次性分配对象和&lt;code&gt;shared_ptr&lt;/code&gt;本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 2(b): Single allocation&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;sp1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;make_shared&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;sp2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sp1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="Approximate memory layout for Example 2(b)" src="{filename}/images/" /&gt;&lt;/p&gt;
+&lt;p&gt;将对象和控制块合并分配有两个好处：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;降低内存分配的开销，减少内存碎片。首先，降低内存开销最明显的方式是减少内存分配的请求次数，因为内存分配请求的开销很大。这还可以帮助减少分配器的多线程竞争，因为某些分配器的扩展性很差。其次，使用一次内存分配而不是两次，能够降低单次内存分配的开销。任何时候向系统申请一块内存，系统返回的字节数必须至少满足要求，由于系统使用固定大小的内存池或以每次分配为单位跟踪内存管理信息，系统通常都会返回额外的字节。因此，使用单个内存块，能够降低总的内存开销。最后，这种方法自然而然地降低了内存块之间间隔的无用内存，从而避免了内存碎片。&lt;/li&gt;
+&lt;li&gt;增强程序的局部性。引用计数和共享的对象一起被频繁地访问，对于小的对象，它们极有可能位于同一个cache行中，因此能够提升cache访问的性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过一个函数调用表达你的意图，系统计算出效率更高的方法的机会就更大。将100个元素插入vector时，调用一次&lt;code&gt;.insert(first, last)&lt;/code&gt;插入100个元素，比调用100次&lt;code&gt;.insert(value)&lt;/code&gt;每次插入一个元素效率要高。同样的道理，调用一次&lt;code&gt;make_shared&lt;/code&gt;比分别调用&lt;code&gt;new widget()&lt;/code&gt;和&lt;code&gt;shared_ptr(widget*)&lt;/code&gt;效率高。&lt;/p&gt;
+&lt;p&gt;此外&lt;code&gt;make_shared&lt;/code&gt;还有两个好处：&lt;code&gt;make_shared&lt;/code&gt;避免了直接调用&lt;code&gt;new&lt;/code&gt;表达式，也免了异常安全的问题。这两个好处也适用于&lt;code&gt;make_unique&lt;/code&gt;函数，在下一节中我们详细介绍。&lt;/p&gt;
+&lt;h2 id="make_uniqueunique_ptr"&gt;为什么几乎总是应该使用&lt;code&gt;make_unique&lt;/code&gt;创建&lt;code&gt;unique_ptr&lt;/code&gt;？请解释。&lt;/h2&gt;
+&lt;p&gt;和&lt;code&gt;make_shared&lt;/code&gt;一样，两种情况下不能使用&lt;code&gt;make_unique&lt;/code&gt;创建由&lt;code&gt;unique_ptr&lt;/code&gt;管理的对象：需要使用自定义的&lt;code&gt;deleter&lt;/code&gt;时，需要操作裸指针时。除此之外的任何情况请使用&lt;code&gt;make_unique&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;准则：除非需要使用自定义的deleter或者需要操作从别处传入的裸指针，一般情况下推荐使用&lt;code&gt;make_unique&lt;/code&gt;创建无需共享所有者的对象。&lt;/p&gt;
+&lt;p&gt;除了与&lt;code&gt;make_shared&lt;/code&gt;相应的优点以外，&lt;code&gt;make_unique&lt;/code&gt;还有其它优点。第一，和功能更强的&lt;code&gt;unique_ptr&amp;lt;T&amp;gt;{ new T{} }&lt;/code&gt;相比，优先使用&lt;code&gt;make_unique&amp;lt;T&amp;gt;()&lt;/code&gt;。通常应该避免直接使用new操作符。&lt;/p&gt;
+&lt;p&gt;准则：&amp;nbsp;不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。&lt;/p&gt;
+&lt;p&gt;第二，可以避免使用new操作符导致的众所周知的异常安全问题，参见以下的例子：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="bp"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;sink&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nx"&gt;sink&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;{}},&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="p"&gt;{}}&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// Q1: do you see the problem?&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;简单来说，如果先分配和构造widget对象，在分配和构造时抛出一个异常，那么widget对象发生内存泄漏。你或许会这样想：“用&lt;code&gt;make_unique&amp;lt;widget&amp;gt;()&lt;/code&gt;替换&lt;code&gt;new widget{}&lt;/code&gt;，可以解决这个问题，是吗？”。请参考下面的代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nx"&gt;sink&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;make_unique&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="p"&gt;{}}&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// Q2: is this better?&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不对，因为C++对于函数参数的求值顺序是未定义的，所以先创建widget对象和先创建gadget对象都有可能。如果先创建gadget对象，然后执行&lt;code&gt;make_unique&amp;lt;widget&amp;gt;&lt;/code&gt;时抛出异常，那么同样有内存泄漏问题发生。&lt;/p&gt;
+&lt;p&gt;但是只是修改其中一个参数使用&lt;code&gt;make_unique&lt;/code&gt;并不能解决问题，如果将两个参数都修改为&lt;code&gt;make_unique&lt;/code&gt;能够完整地解决这个问题：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nx"&gt;sink&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;make_unique&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="nx"&gt;make_unique&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// exception-safe&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;异常安全问题在GotW&amp;nbsp;#56中有完整介绍。&lt;/p&gt;
+&lt;p&gt;准则：分配对象时，首选使用&lt;code&gt;make_unique&lt;/code&gt;，如果对象有共享的生命期，那么使用&lt;code&gt;make_shared&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id="auto_ptr"&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些问题？&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;auto_ptr&lt;/code&gt;被认为是在C++没有move语义的时代尝试实现&lt;code&gt;unique_ptr&lt;/code&gt;的勇敢的尝试。&lt;code&gt;auto_ptr&lt;/code&gt;现在已经被弃用了，不要再在新代码中使用它。&lt;/p&gt;
+&lt;p&gt;如果在现有代码使用了&lt;code&gt;auto_ptr&lt;/code&gt;，那么找个机会在所有代码中查找替换所有的&lt;code&gt;auto_ptr&lt;/code&gt;为&lt;code&gt;unique_ptr&lt;/code&gt;。它们的大部分使用方式是一样的，有可能通过编译错误的方式暴露出或者默默修复几个之前没有发现的bug。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">九哥</dc:creator><pubDate>Thu, 30 Oct 2014 21:22:04 +0800</pubDate><guid>tag:blog.zouxu.com.cn,2014-10-30:blog/2014/10/30/smart-pointers/</guid><category>cpp</category></item><item><title>sicp 2.1.2</title><link>http://blog.zouxu.com.cn/blog/2014/10/29/sicp-2-1-2/</link><description>&lt;h1 id="_1"&gt;习题解答&lt;/h1&gt;
 &lt;h2 id="22"&gt;练习2.2&lt;/h2&gt;
 &lt;p&gt;实现方式非常直接，按照题目中的描述写出&lt;code&gt;Scheme&lt;/code&gt;代码即可：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;make&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;point&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
@@ -50,7 +133,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;第二种方式，可以用矩形的四个顶点来表示，代码很类似。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">九哥</dc:creator><pubDate>Wed, 29 Oct 2014 22:02:21 +0800</pubDate><guid>tag:blog.zouxu.com.cn,2014-10-29:blog/2014/10/29/sicp-2-1-2/</guid><category>shceme</category></item><item><title>sicp 2.1.1</title><link>http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/</link><description>&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
+&lt;p&gt;第二种方式，可以用矩形的四个顶点来表示，代码很类似。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">九哥</dc:creator><pubDate>Wed, 29 Oct 2014 22:02:21 +0800</pubDate><guid>tag:blog.zouxu.com.cn,2014-10-29:blog/2014/10/29/sicp-2-1-2/</guid><category>scheme</category></item><item><title>sicp 2.1.1</title><link>http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/</link><description>&lt;h1 id="_1"&gt;导读&lt;/h1&gt;
 &lt;p&gt;在开始之前我们先来熟悉两个概念：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
