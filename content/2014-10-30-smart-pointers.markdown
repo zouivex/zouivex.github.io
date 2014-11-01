@@ -12,7 +12,7 @@ C++智能指针真是让人爱不释手，尤其是`unique_ptr`。
 1. 什么时候使用`shared_ptr`，什么时候使用`unique_ptr`？给出尽量多的理由。
 2. 为什么几乎总是应该使用`make_shared`创建`shared_ptr`？请解释。
 3. 为什么几乎总是应该使用`make_unique`创建`unique_ptr`？请解释。
-4. `auto_ptr`都有哪些问题？
+4. `auto_ptr`都有哪些需要注意的问题？
 
 # 解答
 ## 什么时候使用`shared_ptr`，什么时候使用`unique_ptr`？
@@ -114,7 +114,7 @@ sink( make_unique<widget>(), make_unique<gadget>() ); // exception-safe
 
 准则：分配对象时，首选使用`make_unique`，如果对象有共享的生命期，那么使用`make_shared`。
 
-## `auto_ptr`都有哪些问题？
+## `auto_ptr`都有哪些需要注意的问题？
 
 `auto_ptr`被认为是在C++没有move语义的时代尝试实现`unique_ptr`的勇敢的尝试。`auto_ptr`现在已经被弃用了，不要再在新代码中使用它。
 
