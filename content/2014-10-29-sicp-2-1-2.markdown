@@ -3,7 +3,7 @@ Slug: sicp-2-1-2
 Date: 2014-10-29 22:02:21
 Modified: 2014-10-29 22:02:21
 Category: sicp
-Tags: shceme
+Tags: scheme
 
 # 习题解答
 
