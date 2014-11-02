@@ -27,7 +27,7 @@ C++智能指针真是让人爱不释手，尤其是`unique_ptr`。
 
 第三，`unique_ptr`可扩展性更强，以后可选择的余地更多。如果当前使用的是`unique_ptr`，将来总是可以通过`move`转换为`shared_ptr`，或者调用`.get()`或者`.release()`转换为用户自定义的智能指针（甚至裸指针）。
 
-准则：最好使用标准的智能指针，一般情况下使用`unique_ptr`，需要共享所有权时使用`shared_ptr`。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的`deleters`和`allocators`不能满足用户自定义的要求时，才考虑使用其它智能指针，
+> 准则：最好使用标准的智能指针，一般情况下使用`unique_ptr`，需要共享所有权时使用`shared_ptr`。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的`deleters`和`allocators`不能满足用户自定义的要求时，才考虑使用其它智能指针。
 
 ## 为什么几乎总是应该使用`make_shared`创建`shared_ptr`？请解释。
 
@@ -38,7 +38,7 @@ C++智能指针真是让人爱不释手，尤其是`unique_ptr`。
 * 需要自定义`deleter`时。例如需要使用`shared_ptr`管理非内存的资源，或者从非内存区域分配而来的对象。因为`make_shared`不支持用户指定`deleter`。
 * 使用从其它代码（通常是遗留代码）中传递过来的裸指针时，必须从裸指针直接构造`shared_ptr`。
 
-准则：使用`make_shared`（如果需要自定义分配器，使用`allocate_shared`）创建由`shared_ptr`管理的对象，除非需要使用自定义的`deleter`或者需要处理从别处传递而来的裸指针。
+> 准则：使用`make_shared`（如果需要自定义分配器，使用`allocate_shared`）创建由`shared_ptr`管理的对象，除非需要使用自定义的`deleter`或者需要处理从别处传递而来的裸指针。
 
 那么，为什么几乎所有场合都应该使用`make_shared`呢？主要有两个原因：简单、效率。
 
@@ -80,11 +80,11 @@ auto sp2 = sp1;
 
 和`make_shared`一样，两种情况下不能使用`make_unique`创建由`unique_ptr`管理的对象：需要使用自定义的`deleter`时，需要操作裸指针时。除此之外的任何情况请使用`make_unique`。
 
-准则：除非需要使用自定义的deleter或者需要操作从别处传入的裸指针，一般情况下推荐使用`make_unique`创建无需共享所有者的对象。
+> 准则：除非需要使用自定义的deleter或者需要操作从别处传入的裸指针，一般情况下推荐使用`make_unique`创建无需共享所有者的对象。
 
 除了与`make_shared`相应的优点以外，`make_unique`还有其它优点。第一，和功能更强的`unique_ptr<T>{ new T{} }`相比，优先使用`make_unique<T>()`。通常应该避免直接使用new操作符。
 
-准则： 不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。
+> 准则： 不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。
 
 第二，可以避免使用new操作符导致的众所周知的异常安全问题，参见以下的例子：
 
@@ -112,10 +112,10 @@ sink( make_unique<widget>(), make_unique<gadget>() ); // exception-safe
 
 异常安全问题在GotW #56中有完整介绍。
 
-准则：分配对象时，首选使用`make_unique`，如果对象有共享的生命期，那么使用`make_shared`。
+> 准则：分配对象时，首选使用`make_unique`，如果对象有共享的生命期，那么使用`make_shared`。
 
 ## `auto_ptr`都有哪些需要注意的问题？
 
-`auto_ptr`被认为是在C++没有move语义的时代尝试实现`unique_ptr`的勇敢的尝试。`auto_ptr`现在已经被弃用了，不要再在新代码中使用它。
+`auto_ptr`被认为是在C++没有move语义的时代实现`unique_ptr`的勇敢的尝试。`auto_ptr`现在已经被弃用了，不要再在新代码中使用它。
 
 如果在现有代码使用了`auto_ptr`，那么找个机会在所有代码中查找替换所有的`auto_ptr`为`unique_ptr`。它们的大部分使用方式是一样的，有可能通过编译错误的方式暴露出或者默默修复几个之前没有发现的bug。
