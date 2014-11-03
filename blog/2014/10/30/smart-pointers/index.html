@@ -109,7 +109,9 @@
 <p>第一，最简单的语义就足够满足需求，使用正确的智能指针可以直接表达意图和（当前的）需求。如果对于新创建的对象，不清楚最终是否需要共享所有权，那么使用<code>unique_ptr</code>表达单一的所有权。<code>unique_ptr</code>仍然可以存入容器（例如，<code>vector&lt;unique_ptr&lt;widget&gt;&gt;</code>，以及执行大部分裸指针可以完成的操作，只会比裸指针更安全。将来需要共享所有权时，<code>unique_ptr</code>总是可以<code>move-convert</code>为<code>shared_ptr</code>。</p>
 <p>第二，<code>unique_ptr</code>比<code>shared_ptr</code>效率更高。<code>unique_ptr</code>不需要维护引用计数信息和底层的控制块，它就是设计来像裸指针那样高效地移动和使用的。如果当前功能足够使用，就不要要求更多的功能，这样不用付出额外的不必要的开销。</p>
 <p>第三，<code>unique_ptr</code>可扩展性更强，以后可选择的余地更多。如果当前使用的是<code>unique_ptr</code>，将来总是可以通过<code>move</code>转换为<code>shared_ptr</code>，或者调用<code>.get()</code>或者<code>.release()</code>转换为用户自定义的智能指针（甚至裸指针）。</p>
-<p>准则：最好使用标准的智能指针，一般情况下使用<code>unique_ptr</code>，需要共享所有权时使用<code>shared_ptr</code>。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的<code>deleters</code>和<code>allocators</code>不能满足用户自定义的要求时，才考虑使用其它智能指针，</p>
+<blockquote>
+<p>准则：最好使用标准的智能指针，一般情况下使用<code>unique_ptr</code>，需要共享所有权时使用<code>shared_ptr</code>。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的<code>deleters</code>和<code>allocators</code>不能满足用户自定义的要求时，才考虑使用其它智能指针。</p>
+</blockquote>
 <h2 id="make_sharedshared_ptr">为什么几乎总是应该使用<code>make_shared</code>创建<code>shared_ptr</code>？请解释。</h2>
 <p>注意：在少数情况下，需要使用自定义分配器来创建对象，此时可以使用<code>allocate_shared</code>。即使名字不同，<code>allocate_shared</code>可以看作是<code>make_shared</code>的可以指定分配器的特殊版本。所以本文将它们都称为<code>make_shared</code>，而不分别介绍了。</p>
 <p>在以下两种情况不能使用<code>make_shared</code>创建由<code>shared_ptr</code>管理的对象：</p>
@@ -117,7 +119,9 @@
 <li>需要自定义<code>deleter</code>时。例如需要使用<code>shared_ptr</code>管理非内存的资源，或者从非内存区域分配而来的对象。因为<code>make_shared</code>不支持用户指定<code>deleter</code>。</li>
 <li>使用从其它代码（通常是遗留代码）中传递过来的裸指针时，必须从裸指针直接构造<code>shared_ptr</code>。</li>
 </ul>
+<blockquote>
 <p>准则：使用<code>make_shared</code>（如果需要自定义分配器，使用<code>allocate_shared</code>）创建由<code>shared_ptr</code>管理的对象，除非需要使用自定义的<code>deleter</code>或者需要处理从别处传递而来的裸指针。</p>
+</blockquote>
 <p>那么，为什么几乎所有场合都应该使用<code>make_shared</code>呢？主要有两个原因：简单、效率。</p>
 <p>第一，<code>make_shared</code>使代码更简单。代码应该以清晰和正确为上。</p>
 <p>第二，<code>make_shared</code>更有效率。<code>shared_ptr</code>的实现中，需要在内部控制块维护管理信息，这些管理信息被所有指向同一对象的<code>shared_ptr</code>和<code>weak_ptr</code>所共享。尤其注意，管理信息必须包含两个引用计数：</p>
@@ -150,9 +154,13 @@
 <p>此外<code>make_shared</code>还有两个好处：<code>make_shared</code>避免了直接调用<code>new</code>表达式，也免了异常安全的问题。这两个好处也适用于<code>make_unique</code>函数，在下一节中我们详细介绍。</p>
 <h2 id="make_uniqueunique_ptr">为什么几乎总是应该使用<code>make_unique</code>创建<code>unique_ptr</code>？请解释。</h2>
 <p>和<code>make_shared</code>一样，两种情况下不能使用<code>make_unique</code>创建由<code>unique_ptr</code>管理的对象：需要使用自定义的<code>deleter</code>时，需要操作裸指针时。除此之外的任何情况请使用<code>make_unique</code>。</p>
+<blockquote>
 <p>准则：除非需要使用自定义的deleter或者需要操作从别处传入的裸指针，一般情况下推荐使用<code>make_unique</code>创建无需共享所有者的对象。</p>
+</blockquote>
 <p>除了与<code>make_shared</code>相应的优点以外，<code>make_unique</code>还有其它优点。第一，和功能更强的<code>unique_ptr&lt;T&gt;{ new T{} }</code>相比，优先使用<code>make_unique&lt;T&gt;()</code>。通常应该避免直接使用new操作符。</p>
+<blockquote>
 <p>准则：&nbsp;不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。</p>
+</blockquote>
 <p>第二，可以避免使用new操作符导致的众所周知的异常安全问题，参见以下的例子：</p>
 <div class="highlight"><pre><span class="code-line"><span class="bp">void</span> <span class="nx">sink</span><span class="p">(</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">gadget</span><span class="o">&gt;</span> <span class="p">);</span></span>
 <span class="code-line"></span>
@@ -174,9 +182,11 @@
 
 
 <p>异常安全问题在GotW&nbsp;#56中有完整介绍。</p>
+<blockquote>
 <p>准则：分配对象时，首选使用<code>make_unique</code>，如果对象有共享的生命期，那么使用<code>make_shared</code>。</p>
+</blockquote>
 <h2 id="auto_ptr"><code>auto_ptr</code>都有哪些需要注意的问题？</h2>
-<p><code>auto_ptr</code>被认为是在C++没有move语义的时代尝试实现<code>unique_ptr</code>的勇敢的尝试。<code>auto_ptr</code>现在已经被弃用了，不要再在新代码中使用它。</p>
+<p><code>auto_ptr</code>被认为是在C++没有move语义的时代实现<code>unique_ptr</code>的勇敢的尝试。<code>auto_ptr</code>现在已经被弃用了，不要再在新代码中使用它。</p>
 <p>如果在现有代码使用了<code>auto_ptr</code>，那么找个机会在所有代码中查找替换所有的<code>auto_ptr</code>为<code>unique_ptr</code>。它们的大部分使用方式是一样的，有可能通过编译错误的方式暴露出或者默默修复几个之前没有发现的bug。</p>
             </div>
             <!-- /.entry-content -->
@@ -222,6 +232,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">
+                                GotW-90&nbsp;智能指针在工厂模式中的使用
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">
                                 GotW-89&nbsp;智能指针
                             </a>
@@ -241,11 +256,6 @@
                                 一种成功的git分支模型
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/10/20/sicp-1-3-4/">
-                                sicp&nbsp;1.3.4
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -258,7 +268,7 @@
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-                                <i class="fa fa-folder-open fa-lg"></i> 译文 (3)
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (4)
                             </a>
                         </li>
                     </ul>
@@ -266,7 +276,7 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-3">
+                        <li class="list-group-item tag-2">
                             <a href="http://blog.zouxu.com.cn/tag/cpp.html">
                                 cpp
                             </a>

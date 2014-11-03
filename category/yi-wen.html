@@ -70,6 +70,45 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">GotW-90&nbsp;智能指针在工厂模式中的使用</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47"> Sun 02 November 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">译文</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/cpp.html">cpp</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>工厂函数该返回什么类型的值，为什么？</p>
+<h1 id="_1">问题</h1>
+<p>你最近开始参与一个新项目，在浏览代码库时，发现工厂函数的声明如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
+</pre></div>
+
+
+<ol>
+<li>此返回值有什么问题？</li>
+<li>假设<code>widget</code>是多态类型，推荐的返回类型是什么？解释你的答案，以及其利弊。</li>
+<li>你决定按照上面的建议修改返回类型，但是一开始你担心这样会破坏与既有的调用代码的兼容性，如果只是重新编译调用代码还可以忍受，但是如果不得不全部修改调用代码则是万万不能忍受的。然后你突然灵光一现，意识到这是一个全新的项目，并且调用代码使用了现代C++惯用法，然后你大胆地继续修改返回类型，因为你知道现有的调用代码不需要任何修改。为什么你会如此自信？</li>
+<li>如果<code>widget</code>不是多态类型，那么推荐的返回类型是什么？请解释。</li>
+</ol>
+<h1 id="_2">解答</h1>
+<h2 id="_3">此返回值有什么问题？</h2>
+<p>首先，上面简短的问题描述传达了什么信息？</p>
+<p>题目告诉我们<code>load_widget</code>是一个工厂函数，它通过某种方式导入并创建新对象然后将对象返回给调用函数。由于返回类型是一个指针，那么返回值有可能为空。</p>
+<p>调用函数对工厂函数创建的对象的使用方式，要么通过返回的指针调用成员函数，要么将指针作为参数传递给其它函数，或者其它的方式。直接使用返回的裸指针是不安全的，除非调用函数拥有返回的对象 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">GotW-89&nbsp;智能指针</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -233,6 +272,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">
+                                GotW-90&nbsp;智能指针在工厂模式中的使用
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">
                                 GotW-89&nbsp;智能指针
                             </a>
@@ -259,7 +303,7 @@
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-                                <i class="fa fa-folder-open fa-lg"></i> 译文 (3)
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (4)
                             </a>
                         </li>
                     </ul>
@@ -267,7 +311,7 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-3">
+                        <li class="list-group-item tag-2">
                             <a href="http://blog.zouxu.com.cn/tag/cpp.html">
                                 cpp
                             </a>

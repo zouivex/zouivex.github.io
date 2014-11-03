@@ -1,5 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>九哥的部落</title><link href="http://blog.zouxu.com.cn/" rel="alternate"></link><link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="self"></link><id>http://blog.zouxu.com.cn/</id><updated>2014-10-30T21:22:04+08:00</updated><entry><title>GotW-89 智能指针</title><link href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/" rel="alternate"></link><updated>2014-10-30T21:22:04+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-30:blog/2014/10/30/smart-pointers/</id><summary type="html">&lt;p&gt;C++智能指针真是让人爱不释手，尤其是&lt;code&gt;unique_ptr&lt;/code&gt;。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>九哥的部落</title><link href="http://blog.zouxu.com.cn/" rel="alternate"></link><link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" rel="self"></link><id>http://blog.zouxu.com.cn/</id><updated>2014-11-02T12:06:47+08:00</updated><entry><title>GotW-90 智能指针在工厂模式中的使用</title><link href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/" rel="alternate"></link><updated>2014-11-02T12:06:47+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-11-02:blog/2014/11/02/factories/</id><summary type="html">&lt;p&gt;工厂函数该返回什么类型的值，为什么？&lt;/p&gt;
+&lt;h1 id="_1"&gt;问题&lt;/h1&gt;
+&lt;p&gt;你最近开始参与一个新项目，在浏览代码库时，发现工厂函数的声明如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="nf"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="n"&gt;desired&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;此返回值有什么问题？&lt;/li&gt;
+&lt;li&gt;假设&lt;code&gt;widget&lt;/code&gt;是多态类型，推荐的返回类型是什么？解释你的答案，以及其利弊。&lt;/li&gt;
+&lt;li&gt;你决定按照上面的建议修改返回类型，但是一开始你担心这样会破坏与既有的调用代码的兼容性，如果只是重新编译调用代码还可以忍受，但是如果不得不全部修改调用代码则是万万不能忍受的。然后你突然灵光一现，意识到这是一个全新的项目，并且调用代码使用了现代C++惯用法，然后你大胆地继续修改返回类型，因为你知道现有的调用代码不需要任何修改。为什么你会如此自信？&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;widget&lt;/code&gt;不是多态类型，那么推荐的返回类型是什么？请解释。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id="_2"&gt;解答&lt;/h1&gt;
+&lt;h2 id="_3"&gt;此返回值有什么问题？&lt;/h2&gt;
+&lt;p&gt;首先，上面简短的问题描述传达了什么信息？&lt;/p&gt;
+&lt;p&gt;题目告诉我们&lt;code&gt;load_widget&lt;/code&gt;是一个工厂函数，它通过某种方式导入并创建新对象然后将对象返回给调用函数。由于返回类型是一个指针，那么返回值有可能为空。&lt;/p&gt;
+&lt;p&gt;调用函数对工厂函数创建的对象的使用方式，要么通过返回的指针调用成员函数，要么将指针作为参数传递给其它函数，或者其它的方式。直接使用返回的裸指针是不安全的，除非调用函数拥有返回的对象：要么调用函数独享对象，要么工厂函数在内部维护对象的强引用或弱引用信息。&lt;/p&gt;
+&lt;p&gt;由于调用函数独享或者共享所有权，它必须在对象不再需要时执行一些操作。如果是独享所有权的情况，调用函数必须负责销毁对象，如果是共享所有权的情况，调用函数必须负责递减引用计数。&lt;/p&gt;
+&lt;p&gt;不幸的是，返回&lt;code&gt;widget*&lt;/code&gt;指针有两个大问题。&lt;/p&gt;
+&lt;p&gt;第一，返回裸指针在默认情况下是不安全的，因为函数的默认行为是泄漏widget对象：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 1: Leak by default. Really, this is just so 20th-century...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="n"&gt;desired&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="o"&gt;:::&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;some_id&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// oops&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的代码能够成功编译，成功运行，然后widget对象发生泄漏（译注：即没有释放申请的内存）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;准则：不要直接使用&lt;code&gt;new&lt;/code&gt;，&lt;code&gt;delete&lt;/code&gt;操作符，不要直接使用裸指针，除非特殊情况下代码位于封装的数据结构的底层。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;第二，函数签名没有提供关于返回类型的更多的有用的信息。函数的文档可能会说明调用代码如何拥有对象，但是函数的声明并没有任何说明，调用代码只知道该对象要么是独享所有权，要么是共享所有权，但是不清楚具体是哪种。这种情况下，需要阅读并记住函数的文档，因为函数的声明没有提供任何相关信息。函数签名本身甚至没有说明调用代码是否共享所有权。&lt;/p&gt;
+&lt;h2 id="widget"&gt;假设&lt;code&gt;widget&lt;/code&gt;是多态类型，推荐的返回类型是什么？解释你的答案，以及其中的权衡。&lt;/h2&gt;
+&lt;p&gt;如果widget类型是一个多态类型，调用函数通过持有其指针或引用的方式使用，那么工厂函数应该返回&lt;code&gt;unique_ptr&lt;/code&gt;（转移所有权到调用代码）或&lt;code&gt;shared_ptr&lt;/code&gt;（通过在内部数据结构中持有强引用的方式共享所有权）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;准则：对于返回引用类型的工厂函数，首选返回&lt;code&gt;unique_ptr&lt;/code&gt;，需要共享所有权时返回&lt;code&gt;shared_ptr&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这样解决了两个问题：安全性，自说明的文档。&lt;/p&gt;
+&lt;p&gt;首先，看看这样如何解决上面代码中的安全问题：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 2: Clean up by default. Much better...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="n"&gt;desired&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="o"&gt;:::&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;some_id&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// cleans up&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面例子中的代码能够成功编译、成功运行、并且高高兴兴地自动清除widget对象。它不光在一般情况下是安全的，这种代码从结构上能保证安全性，因为用户根本没有犯错误导致发生内存泄漏的机会。&lt;/p&gt;
+&lt;p&gt;一些人或许会问“我们不还是可以写&lt;code&gt;load_widget(some_id).release()&lt;/code&gt;这样的代码吗？”。当然可以这样用，但是这样就有点钻牛角尖了。正确的回答是“不要这样用”。记住，我们的目标是避免Murphy定律，而不是解决成心造出的bug和错误，也没法对付故意写出的奇奇怪怪的代码（那种钻牛角尖式的代码就归为这一类）。这种用法就像C#语言在using代码块中提前销毁对象，java语言在try-with-resources代码块中提前close一样，没有违反类型安全性但是代码是错误的。&lt;/p&gt;
+&lt;p&gt;要是清除资源的代码不能简单使用delete调用完成呢？很简单，使用自定义deleter。最精妙之处在于，工厂函数知道调用哪个deleter，并且在构建对象的时候就明确指出，从而调用函数不必操心deleter的事情，特别是使用auto声明返回值的时候。&lt;/p&gt;
+&lt;p&gt;其次，这样的代码能够自动说明其意图，返回一个&lt;code&gt;unique_ptr&lt;/code&gt;的函数清楚表明该函数是一个纯source函数，而返回一个&lt;code&gt;shared_ptr&lt;/code&gt;的函数则清楚表明函数共享对象的所有权或者拥有观察者。&lt;/p&gt;
+&lt;p&gt;最后，为什么在不需要共享所有权时首选使用&lt;code&gt;unique_ptr&lt;/code&gt;？因为使用&lt;code&gt;unique_ptr&lt;/code&gt;对于性能和正确性来说都是正确的做法，在GotW89中还提到这样还给了调用函数选用其它智能指针的自由。&lt;/p&gt;
+&lt;p&gt;返回&lt;code&gt;unique_ptr&lt;/code&gt;表达了返回单一所有权的意图，这是标准的纯&amp;#8221;source&amp;#8221;工厂函数。&lt;code&gt;unique_ptr&lt;/code&gt;在性能方面无与伦比，因为move一个对象的开销就和move/copy裸指针差不多。如果调用函数希望能够通过&lt;code&gt;shared_ptr&lt;/code&gt;管理对象的生命期，可以很容易地将&lt;code&gt;unique_ptr&lt;/code&gt;通过move操作转换为&lt;code&gt;shared_ptr&lt;/code&gt;。在此没有必要使用&lt;code&gt;std::move&lt;/code&gt;，因为编译器已经知道返回值是一个临时对象。如果调用函数使用其它任意的方法来管理对象生命期，可以简单地通过调用&lt;code&gt;.release()&lt;/code&gt;将其转换为自定义的智能指针或者其它的对象生命期管理方法。这个特性非常有用，但是&lt;code&gt;shared_ptr&lt;/code&gt;不可能做到。下面是具体的代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 2, continued&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Accept as a unique_ptr (by default)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Accept as a shared_ptr (if desired)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;sp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;shared_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Accept as your own smart pointer (if desired)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;msp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;my&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;smart_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;load_widget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="k"&gt;release&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果工厂函数需要保持共享引用或者观察引用（通过内部的&lt;code&gt;shared_ptr&lt;/code&gt;或者&lt;code&gt;weak_ptr&lt;/code&gt;）那么就返回&lt;code&gt;shared_ptr&lt;/code&gt;。此时调用函数强制将返回值继续作为&lt;code&gt;shared_ptr&lt;/code&gt;使用，只不过此时使用&lt;code&gt;shared_ptr&lt;/code&gt;是合理的。&lt;/p&gt;
+&lt;h2 id="unique_ptr"&gt;为什么能自信地将裸指针替换为&lt;code&gt;unique_ptr&lt;/code&gt;？&lt;/h2&gt;
+&lt;p&gt;现代的可扩展C++代码广泛使用&lt;code&gt;unique_ptr&lt;/code&gt;，&lt;code&gt;shared_ptr&lt;/code&gt;以及&lt;code&gt;auto&lt;/code&gt;。如果返回&lt;code&gt;unique_ptr&lt;/code&gt;则可以配合使用这3种对象，如果返回&lt;code&gt;shared_ptr&lt;/code&gt;则只能配合使用后面两种对象。&lt;/p&gt;
+&lt;p&gt;如果调用代码用auto捕捉返回变量，如&lt;code&gt;auto w = load_widget(whatever);&lt;/code&gt;，那么返回变量的类型自动是正确的，解引用操作也能正常工作，唯一可能导致代码改动的是显式调用delete操作符（此时delete所在的代码行可以被安全地删掉）或者试图将变量存入其它类型的对象中。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;准则：请使用&lt;code&gt;auto&lt;/code&gt;声明变量。使用&lt;code&gt;auto&lt;/code&gt;使代码更简短，并且能将你的代码和不必要的的代码变动隔离开。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果调用代码没有使用&lt;code&gt;auto&lt;/code&gt;，那么极有可能将返回值初始化为&lt;code&gt;unique_ptr&lt;/code&gt;或者&lt;code&gt;shared_ptr&lt;/code&gt;，因为现代C++代码一般情况不直接使用裸指针。无论是&lt;code&gt;unique_ptr&lt;/code&gt;还是&lt;code&gt;shared_ptr&lt;/code&gt;，返回&lt;code&gt;unique_ptr&lt;/code&gt;都能正常工作：&lt;code&gt;unique_ptr&lt;/code&gt;可以无缝地移动到&lt;code&gt;unique_ptr&lt;/code&gt;和&lt;code&gt;shared_ptr&lt;/code&gt;，如果返回值表达的是共享所有权的语义，那么调用函数一般使用&lt;code&gt;shared_ptr&lt;/code&gt;，此时使用&lt;code&gt;auto&lt;/code&gt;依然能够工作（只会比显式指定变量类型更好，其原因是，为了返回裸指针，返回类型可能被强制跳过了&lt;code&gt;enable_shared_from_this&lt;/code&gt;循环，如果直接返回&lt;code&gt;shared_ptr&lt;/code&gt;并不需要此循环）。&lt;/p&gt;
+&lt;h2 id="widget_1"&gt;如果&lt;code&gt;widget&lt;/code&gt;不是多态类型，那么推荐的返回类型是什么？请解释。&lt;/h2&gt;
+&lt;p&gt;如果widget不是多态类型，通常意味着这是一个可以复制的值对象或者是只能移动的对象，此时工厂函数应该按值返回widget对象。到底返回什么样类型的值呢？&lt;/p&gt;
+&lt;p&gt;在C++98中，程序员往往以返回指针的方式返回一个大的对象以避免复制对象造成的开销：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 4(a): Obsolete convention: return a * just to avoid a copy&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="cm"&gt;/*BAD*/&lt;/span&gt; &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;*&lt;/span&gt; &lt;span class="n"&gt;load_gadgets&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;*&lt;/span&gt; &lt;span class="n"&gt;ret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// ... populate *ret ...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Obsolete calling code (note: NOT exception-safe)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;*&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;load_gadgets&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的代码有我们第一条中讨论过的所有使用上和安全上的问题。在现代C++种，一般情况下应该直接返回对象，因为将对象传递到调用函数只不过会触发一个移动操作，而不会触发深拷贝。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 4(b): Default recommendation: return the value&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;load_gadgets&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// ... populate ret ...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Calling code (exception-safe)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;load_gadgets&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;大部分情况下，可以按值返回可移动的对象。如果返回指针的唯一目的是避免复制的话，那么按值返回对象才是正确的做法。&lt;/p&gt;
+&lt;p&gt;可能还有一种情况，函数返回指针，那就是用空指针表示创建对象失败。一般情况下，载入widget对象失败时抛出异常要更好一些。然而，如果载入widget对象失败被看作是一种正常的情况的话，则返回&lt;code&gt;optional&amp;lt;widget&amp;gt;&lt;/code&gt;对象，如果没有其它类型的错误，所有错误都可以用空&lt;code&gt;optional&amp;lt;widget&amp;gt;&lt;/code&gt;对象表达时，将工厂函数声明为&lt;code&gt;noexcept&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Example 4(c): Alternative if not returning an object is normal&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;//&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;optional&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;load_gadgets&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;noexcept&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="c1"&gt;// ... populate ret ...&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;            &lt;span class="c1"&gt;// return vector (might be empty)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;move&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// note: move() here to avoid a silent copy&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;else&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;           &lt;span class="c1"&gt;// not returning anything&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="c1"&gt;// Calling code (exception-safe)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;load_gadgets&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;准则：如果工厂函数创建非引用类型的对象，那么应该默认按值返回对象，当创建对象出错时抛出异常。如果对象创建失败是一种正常情况的话，那么就返回&lt;code&gt;optional&amp;lt;&amp;gt;&lt;/code&gt;对象。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id="_4"&gt;尾声&lt;/h1&gt;
+&lt;p&gt;注意到上面代码最后一行的&lt;code&gt;if(v)&lt;/code&gt;测试没有？它调用了&lt;code&gt;optional&amp;lt;T&amp;gt;&lt;/code&gt;对象的一个功能强大的&lt;code&gt;bool&lt;/code&gt;操作符函数。为什么&lt;code&gt;bool&lt;/code&gt;操作符功能这么强大？其中一个原因是它应用了很多C++的功能。下面的代码就是它的声明，请思考它能让我们安全地实现什么功能（包括编译期）？&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nx"&gt;constexpr&lt;/span&gt; &lt;span class="nx"&gt;explicit&lt;/span&gt; &lt;span class="nx"&gt;optional&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="nl"&gt;operator&lt;/span&gt; &lt;span class="nx"&gt;bool&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="nx"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;noexcept&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="cpp"></category></entry><entry><title>GotW-89 智能指针</title><link href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/" rel="alternate"></link><updated>2014-10-30T21:22:04+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-30:blog/2014/10/30/smart-pointers/</id><summary type="html">&lt;p&gt;C++智能指针真是让人爱不释手，尤其是&lt;code&gt;unique_ptr&lt;/code&gt;。&lt;/p&gt;
 &lt;h1 id="_1"&gt;问题&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;什么时候使用&lt;code&gt;shared_ptr&lt;/code&gt;，什么时候使用&lt;code&gt;unique_ptr&lt;/code&gt;？给出尽量多的理由。&lt;/li&gt;
@@ -14,7 +153,9 @@
 &lt;p&gt;第一，最简单的语义就足够满足需求，使用正确的智能指针可以直接表达意图和（当前的）需求。如果对于新创建的对象，不清楚最终是否需要共享所有权，那么使用&lt;code&gt;unique_ptr&lt;/code&gt;表达单一的所有权。&lt;code&gt;unique_ptr&lt;/code&gt;仍然可以存入容器（例如，&lt;code&gt;vector&amp;lt;unique_ptr&amp;lt;widget&amp;gt;&amp;gt;&lt;/code&gt;，以及执行大部分裸指针可以完成的操作，只会比裸指针更安全。将来需要共享所有权时，&lt;code&gt;unique_ptr&lt;/code&gt;总是可以&lt;code&gt;move-convert&lt;/code&gt;为&lt;code&gt;shared_ptr&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;第二，&lt;code&gt;unique_ptr&lt;/code&gt;比&lt;code&gt;shared_ptr&lt;/code&gt;效率更高。&lt;code&gt;unique_ptr&lt;/code&gt;不需要维护引用计数信息和底层的控制块，它就是设计来像裸指针那样高效地移动和使用的。如果当前功能足够使用，就不要要求更多的功能，这样不用付出额外的不必要的开销。&lt;/p&gt;
 &lt;p&gt;第三，&lt;code&gt;unique_ptr&lt;/code&gt;可扩展性更强，以后可选择的余地更多。如果当前使用的是&lt;code&gt;unique_ptr&lt;/code&gt;，将来总是可以通过&lt;code&gt;move&lt;/code&gt;转换为&lt;code&gt;shared_ptr&lt;/code&gt;，或者调用&lt;code&gt;.get()&lt;/code&gt;或者&lt;code&gt;.release()&lt;/code&gt;转换为用户自定义的智能指针（甚至裸指针）。&lt;/p&gt;
-&lt;p&gt;准则：最好使用标准的智能指针，一般情况下使用&lt;code&gt;unique_ptr&lt;/code&gt;，需要共享所有权时使用&lt;code&gt;shared_ptr&lt;/code&gt;。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的&lt;code&gt;deleters&lt;/code&gt;和&lt;code&gt;allocators&lt;/code&gt;不能满足用户自定义的要求时，才考虑使用其它智能指针，&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;准则：最好使用标准的智能指针，一般情况下使用&lt;code&gt;unique_ptr&lt;/code&gt;，需要共享所有权时使用&lt;code&gt;shared_ptr&lt;/code&gt;。所有的C++库都支持这两种标准智能指针。只有在需要和其它库交互时，或者标准的智能指针提供的&lt;code&gt;deleters&lt;/code&gt;和&lt;code&gt;allocators&lt;/code&gt;不能满足用户自定义的要求时，才考虑使用其它智能指针。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="make_sharedshared_ptr"&gt;为什么几乎总是应该使用&lt;code&gt;make_shared&lt;/code&gt;创建&lt;code&gt;shared_ptr&lt;/code&gt;？请解释。&lt;/h2&gt;
 &lt;p&gt;注意：在少数情况下，需要使用自定义分配器来创建对象，此时可以使用&lt;code&gt;allocate_shared&lt;/code&gt;。即使名字不同，&lt;code&gt;allocate_shared&lt;/code&gt;可以看作是&lt;code&gt;make_shared&lt;/code&gt;的可以指定分配器的特殊版本。所以本文将它们都称为&lt;code&gt;make_shared&lt;/code&gt;，而不分别介绍了。&lt;/p&gt;
 &lt;p&gt;在以下两种情况不能使用&lt;code&gt;make_shared&lt;/code&gt;创建由&lt;code&gt;shared_ptr&lt;/code&gt;管理的对象：&lt;/p&gt;
@@ -22,7 +163,9 @@
 &lt;li&gt;需要自定义&lt;code&gt;deleter&lt;/code&gt;时。例如需要使用&lt;code&gt;shared_ptr&lt;/code&gt;管理非内存的资源，或者从非内存区域分配而来的对象。因为&lt;code&gt;make_shared&lt;/code&gt;不支持用户指定&lt;code&gt;deleter&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;使用从其它代码（通常是遗留代码）中传递过来的裸指针时，必须从裸指针直接构造&lt;code&gt;shared_ptr&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;blockquote&gt;
 &lt;p&gt;准则：使用&lt;code&gt;make_shared&lt;/code&gt;（如果需要自定义分配器，使用&lt;code&gt;allocate_shared&lt;/code&gt;）创建由&lt;code&gt;shared_ptr&lt;/code&gt;管理的对象，除非需要使用自定义的&lt;code&gt;deleter&lt;/code&gt;或者需要处理从别处传递而来的裸指针。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;那么，为什么几乎所有场合都应该使用&lt;code&gt;make_shared&lt;/code&gt;呢？主要有两个原因：简单、效率。&lt;/p&gt;
 &lt;p&gt;第一，&lt;code&gt;make_shared&lt;/code&gt;使代码更简单。代码应该以清晰和正确为上。&lt;/p&gt;
 &lt;p&gt;第二，&lt;code&gt;make_shared&lt;/code&gt;更有效率。&lt;code&gt;shared_ptr&lt;/code&gt;的实现中，需要在内部控制块维护管理信息，这些管理信息被所有指向同一对象的&lt;code&gt;shared_ptr&lt;/code&gt;和&lt;code&gt;weak_ptr&lt;/code&gt;所共享。尤其注意，管理信息必须包含两个引用计数：&lt;/p&gt;
@@ -55,9 +198,13 @@
 &lt;p&gt;此外&lt;code&gt;make_shared&lt;/code&gt;还有两个好处：&lt;code&gt;make_shared&lt;/code&gt;避免了直接调用&lt;code&gt;new&lt;/code&gt;表达式，也免了异常安全的问题。这两个好处也适用于&lt;code&gt;make_unique&lt;/code&gt;函数，在下一节中我们详细介绍。&lt;/p&gt;
 &lt;h2 id="make_uniqueunique_ptr"&gt;为什么几乎总是应该使用&lt;code&gt;make_unique&lt;/code&gt;创建&lt;code&gt;unique_ptr&lt;/code&gt;？请解释。&lt;/h2&gt;
 &lt;p&gt;和&lt;code&gt;make_shared&lt;/code&gt;一样，两种情况下不能使用&lt;code&gt;make_unique&lt;/code&gt;创建由&lt;code&gt;unique_ptr&lt;/code&gt;管理的对象：需要使用自定义的&lt;code&gt;deleter&lt;/code&gt;时，需要操作裸指针时。除此之外的任何情况请使用&lt;code&gt;make_unique&lt;/code&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;准则：除非需要使用自定义的deleter或者需要操作从别处传入的裸指针，一般情况下推荐使用&lt;code&gt;make_unique&lt;/code&gt;创建无需共享所有者的对象。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;除了与&lt;code&gt;make_shared&lt;/code&gt;相应的优点以外，&lt;code&gt;make_unique&lt;/code&gt;还有其它优点。第一，和功能更强的&lt;code&gt;unique_ptr&amp;lt;T&amp;gt;{ new T{} }&lt;/code&gt;相比，优先使用&lt;code&gt;make_unique&amp;lt;T&amp;gt;()&lt;/code&gt;。通常应该避免直接使用new操作符。&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;准则：&amp;nbsp;不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;第二，可以避免使用new操作符导致的众所周知的异常安全问题，参见以下的例子：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="bp"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;sink&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;gadget&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
 &lt;span class="code-line"&gt;&lt;/span&gt;
@@ -79,9 +226,11 @@
 
 
 &lt;p&gt;异常安全问题在GotW&amp;nbsp;#56中有完整介绍。&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;准则：分配对象时，首选使用&lt;code&gt;make_unique&lt;/code&gt;，如果对象有共享的生命期，那么使用&lt;code&gt;make_shared&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="auto_ptr"&gt;&lt;code&gt;auto_ptr&lt;/code&gt;都有哪些需要注意的问题？&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;auto_ptr&lt;/code&gt;被认为是在C++没有move语义的时代尝试实现&lt;code&gt;unique_ptr&lt;/code&gt;的勇敢的尝试。&lt;code&gt;auto_ptr&lt;/code&gt;现在已经被弃用了，不要再在新代码中使用它。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;auto_ptr&lt;/code&gt;被认为是在C++没有move语义的时代实现&lt;code&gt;unique_ptr&lt;/code&gt;的勇敢的尝试。&lt;code&gt;auto_ptr&lt;/code&gt;现在已经被弃用了，不要再在新代码中使用它。&lt;/p&gt;
 &lt;p&gt;如果在现有代码使用了&lt;code&gt;auto_ptr&lt;/code&gt;，那么找个机会在所有代码中查找替换所有的&lt;code&gt;auto_ptr&lt;/code&gt;为&lt;code&gt;unique_ptr&lt;/code&gt;。它们的大部分使用方式是一样的，有可能通过编译错误的方式暴露出或者默默修复几个之前没有发现的bug。&lt;/p&gt;</summary><category term="cpp"></category></entry><entry><title>sicp 2.1.2</title><link href="http://blog.zouxu.com.cn/blog/2014/10/29/sicp-2-1-2/" rel="alternate"></link><updated>2014-10-29T22:02:21+08:00</updated><author><name>九哥</name></author><id>tag:blog.zouxu.com.cn,2014-10-29:blog/2014/10/29/sicp-2-1-2/</id><summary type="html">&lt;h1 id="_1"&gt;习题解答&lt;/h1&gt;
 &lt;h2 id="22"&gt;练习2.2&lt;/h2&gt;
 &lt;p&gt;实现方式非常直接，按照题目中的描述写出&lt;code&gt;Scheme&lt;/code&gt;代码即可：&lt;/p&gt;
