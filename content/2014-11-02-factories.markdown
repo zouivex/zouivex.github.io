@@ -102,19 +102,19 @@ auto msp = my::smart_ptr<widget>{ load_widget(3).release() };
 
 ## 为什么能自信地将裸指针替换为`unique_ptr`？
 
-现代的可扩展C++代码广泛使用unique_ptr，shared_ptr以及auto。如果返回unique_ptr则可以配合使用它们仨，如果返回shared_ptr则只能配合使用后面两种。
+现代的可扩展C++代码广泛使用`unique_ptr`，`shared_ptr`以及`auto`。如果返回`unique_ptr`则可以配合使用它们仨，如果返回`shared_ptr`则只能配合使用后面两种。
 
-If the caller accepts the return value in an auto variables, such as `auto w = load_widget(whatever);`, then the type will just naturally be correct, normal dereferencing will just work, and the only source ripple will be if the caller tries to explicitly delete (if so, the delete line can rather appropriately be deleted) or tries to store into a non-local object of a different type.
+如果调用代码用auto捕捉返回变量，如`auto w = load_widget(whatever);`，那么返回变量的类型自然而然是正确的，解引用操作正常工作，唯一可能导致代码修改连带效应的是显式使用delete操作符（如果是这种情况那么delete所在的代码行可以被安全地删掉）或者试图将其存入其它类型的对象中。
 
-> Guideline: Prefer declaring variables using auto. It’s shorter, and helps to insulate your code from needless source ripples due to minor type changes.
+> 准则：使用`auto`声明变量。使用auto使代码更简短，并且能将你的代码和不必要的的代码变动隔离开。
 
-Otherwise, if the caller isn’t using auto, then it’s likely already using the result to initialize a unique_ptr or shared_ptr because modern C++ calling code does not traffick in raw pointers for non-parameter variables (more on this next time). In either case, returning a unique_ptr just works: A unique_ptr can be seamlessly moved into either of those types, and if the semantics are to return shared ownership and then the caller should already be using a shared_ptr and things will again work just fine (only probably better than before, because for the original return by raw pointer to work correctly the return type was probably forced to jump through the enable_shared_from_this hoop, which isn’t needed if we just return a shared_ptr explicitly).
+要是调用代码不使用auto，那么极有可能将返回值初始化为`unique_ptr`或者`shared_ptr`，因为现代C++代码一般情况不直接使用裸指针。无论是`unique_ptr`还是`shared_ptr`，返回`unique_ptr`都能工作：`unique_ptr`可以无缝地移动到`unique_ptr`和'shared_ptr'，如果返回值表达共享所有权的语义，那么调用函数将使用`shared_ptr`，此时使用auto依然能够工作（只会比（显式指定变量类型）更好，其原因是，为了返回裸指针，返回类型可能被强制跳过了`enable_shared_from_this`循环，如果直接返回`shared_ptr`并不需要此循环）。
 
 ## 如果`widget`不是多态类型，那么推荐的返回类型是什么？请解释。
 
-If widget is not a polymorphic type, which typically means it’s a copyable value type or a move-only type, the factory should return a widget by value. But what kind of value?
+如果widget不是多态类型，通常意味着这是一个可以复制的值对象或者只能移动的对象，此时工厂函数应该按值返回widget对象。到底是什么样的值呢？
 
-In C++98, programmers would often resort to returning a large object by pointer just to avoid the penalty of copying its state:
+在C++98中，程序员往往以返回指针的方式返回一个大的对象以避免复制对象造成的开销：
 
 ``` C++
 // Example 4(a): Obsolete convention: return a * just to avoid a copy
@@ -131,7 +131,7 @@ if(p) use(*p);
 delete p;
 ```
 
-This has all of the usability and fragility problems discussed in #1. Today, normally we should just return by value, because we will incur only a cheap move operation, not a deep copy, to hand the result to the caller:
+这样的代码暴露在我们第一条中讨论过的所有使用上的问题和安全问题下。今天，正常情况下应该直接返回对象，因为将对象传递到调用函数只不过会引发一个移动操作，而不会触发深拷贝。
 
 ``` C++
 // Example 4(b): Default recommendation: return the value
@@ -147,9 +147,9 @@ auto v = load_gadgets();
 use(v);
 ```
 
-Most of the time, return movable objects by value. That’s all there is to it, if the only reason for the pointer on the return type was to avoid the copy.
+大部分情况下，按值返回可移动的对象。如果返回指针的唯一目的是避免复制的话，那么按值返回对象才是正确的做法。
 
-There could be one additional reason the function might have returned a pointer, namely to return nullptr to indicate failure to produce an object. Normally it’s better throw an exception to report an error if we fail to load the widget. However, if not being able to load the widget is normal operation and should not be considered an error, return an optional<widget>, and probably make the factory noexcept if no other kinds of errors need to be reported than are communicated well by returning an empty optional<widget>.
+可能还有一种情况，函数返回指针，那就是用空指针表示创建对象失败。一般情况下，载入widget对象失败时抛出异常要更好一些。然而，如果载入widget对象失败被看作是一种正常的情况的话，返回`optional<widget>`对象，如果没有其它类型的错误，所有错误都可以用空`optional<widget>`对象表达时，将工厂函数声明为noexcept，
 
 ``` C++
 // Example 4(c): Alternative if not returning an object is normal
@@ -168,14 +168,12 @@ auto v = load_gadgets();
 if(v) use(*v);
 ```
 
-> Guideline: A factory that produces a non-reference type should return a value by default, and throw an exception if it fails to create the object. If not creating the object can be a normal result, return an optional<> value.
+> 准则：如果工厂函数创建的是非引用类型，那么应该默认按值返回对象，当创建对象出错时抛出异常。如果对象创建失败是一种正常情况的话，那么就返回`optional<>`类型。
 
-# Coda
-By the way, see that test for if(v) in the last line of Example 4(c)? It calls a cool function of optional<T>, namely operator bool. What makes bool so cool? In part because of how many C++ features it exercises. Here is its declaration… just think of what this lets you safely do, including at compile time! Enjoy.
+# 尾声
+
+看到上面代码最后一行的`if(v)`测试吗？它调用了`optional<T>`对象的一个函数，即`bool`操作符。为什么`bool`操作符这么cool？其中一个原因是它应用了很多C++的功能。下面的代码就是它的声明，思考思考它能让我们安全地实现什么（包括编译期）？
 
 ``` C++
 constexpr explicit optional<T>::operator bool() const noexcept;
 ```
-
-Acknowledgments
-Thanks in particular to the following for their feedback to improve this article: Johannes Schaub, Leo, Vincent Jacquet.
