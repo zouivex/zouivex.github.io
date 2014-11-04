@@ -56,16 +56,16 @@ C++智能指针真是让人爱不释手，尤其是`unique_ptr`。
 auto sp1 = shared_ptr<widget>{ new widget{} };
 auto sp2 = sp1;
 ```
-![Approximate memory layout for Example 2(a)]({filename}/images/)
+![shared_ptr_memory_layout1]({filename}/images/shared_ptr_memory_layout1.png)
 
-在此最好避免对象和控制块单独分配。如果使用`make_shared`一次性分配对象和`shared_ptr`本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：
+在此最好避免分别分配对象和控制块。如果使用`make_shared`一次性分配对象和`shared_ptr`本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：
 
 ``` C++
 // Example 2(b): Single allocation
 auto sp1 = make_shared<widget>();
 auto sp2 = sp1;
 ```
-![Approximate memory layout for Example 2(b)]({filename}/images/)
+![shared_ptr_memory_layout2]({filename}/images/shared_ptr_memory_layout2.png)
 
 将对象和控制块合并分配有两个好处：
 
