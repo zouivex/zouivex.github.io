@@ -136,15 +136,15 @@
 </pre></div>
 
 
-<p><img alt="Approximate memory layout for Example 2(a)" src="{filename}/images/" /></p>
-<p>在此最好避免对象和控制块单独分配。如果使用<code>make_shared</code>一次性分配对象和<code>shared_ptr</code>本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：</p>
+<p><img alt="shared_ptr_memory_layout1" src="http://blog.zouxu.com.cn/images/shared_ptr_memory_layout1.png" /></p>
+<p>在此最好避免分别分配对象和控制块。如果使用<code>make_shared</code>一次性分配对象和<code>shared_ptr</code>本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2(b): Single allocation</span></span>
 <span class="code-line"><span class="n">auto</span> <span class="n">sp1</span> <span class="o">=</span> <span class="n">make_shared</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">();</span></span>
 <span class="code-line"><span class="n">auto</span> <span class="n">sp2</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span></span>
 </pre></div>
 
 
-<p><img alt="Approximate memory layout for Example 2(b)" src="{filename}/images/" /></p>
+<p><img alt="shared_ptr_memory_layout2" src="http://blog.zouxu.com.cn/images/shared_ptr_memory_layout2.png" /></p>
 <p>将对象和控制块合并分配有两个好处：</p>
 <ul>
 <li>降低内存分配的开销，减少内存碎片。首先，降低内存开销最明显的方式是减少内存分配的请求次数，因为内存分配请求的开销很大。这还可以帮助减少分配器的多线程竞争，因为某些分配器的扩展性很差。其次，使用一次内存分配而不是两次，能够降低单次内存分配的开销。任何时候向系统申请一块内存，系统返回的字节数必须至少满足要求，由于系统使用固定大小的内存池或以每次分配为单位跟踪内存管理信息，系统通常都会返回额外的字节。因此，使用单个内存块，能够降低总的内存开销。最后，这种方法自然而然地降低了内存块之间间隔的无用内存，从而避免了内存碎片。</li>
