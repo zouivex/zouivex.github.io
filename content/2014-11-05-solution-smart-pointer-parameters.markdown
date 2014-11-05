@@ -42,11 +42,11 @@ A shared_ptr stores strong and weak reference counts (see GotW #89). When you pa
 
 When you enter the function, the shared_ptr is copy-constructed, and this requires incrementing the strong reference count. (Yes, if the caller passes a temporary shared_ptr, you move-construct and so don’t have to update the count. But: (a) it’s quite rare to get a temporary shared_ptr in normal code, other than taking one function’s return value and immediately passing that to a second function; and (b) besides as we’ll see most of the expense is on the destruction of the parameter anyway.)
 
-在进入函数的时候，`shared_ptr`通过拷贝进行构造，同时递增强引用计数。（如果调用函数传入的是一个临时的`shared_ptr`，只需进行移动构造从而无需修改引用计数。但是，其一，在一般代码中使用临时shared_ptr的情况很少，一般都是将函数的返回值立即传递给另一个函数；其二，我们看到函数的开销集中于参数销毁上。）
+在函数入口处，对参数`shared_ptr`进行拷贝构造，同时递增强引用计数。（是的，如果调用函数传入的是一个临时的`shared_ptr`，只需进行移动构造从而无需修改引用计数。但是，其一，在一般代码中使用临时shared_ptr的情况很少，一般都是将函数的返回值立即传递给另一个函数；其二，我们知道函数的性能开销主要耗费在参数的销毁上。）
 
 When exiting the function, the shared_ptr is destroyed, and this requires decrementing its internal reference count.
 
-当退出函数调用时，shared_ptr参数即被销毁，此时需要递减内部的引用计数。
+在函数的出口处，shared_ptr参数被销毁，此时需要递减内部的引用计数。
 
 What’s so bad about a “shared reference count increment and decrement?” Two things, one related to the “shared reference count” and one related to the “increment and decrement.” It’s good to be aware of how this can incur performance costs for two reasons: one major and common, and one less likely in well-designed code and so probably more minor.
 
