@@ -1,4 +1,4 @@
-Title: GotW-90 智能指针在工厂模式中的使用
+Title: GotW-90 智能指针在工厂模式中的应用
 Slug: factories
 Date: 2014-11-02 12:06:47
 Modified: 2014-11-02 12:06:47
