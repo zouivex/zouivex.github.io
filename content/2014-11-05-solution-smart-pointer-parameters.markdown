@@ -1,5 +1,5 @@
 Title: GotW-91 智能指针参数
-Slug: solution-smart-pointer-parameters
+Slug: smart-pointer-parameters
 Date: 2014-11-05 20:21:31
 Modified: 2014-11-05 20:21:31
 Category: 译文
