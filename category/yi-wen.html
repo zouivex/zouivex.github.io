@@ -70,7 +70,55 @@
         <div class="col-sm-9">
 
             <article>
-                <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">GotW-90&nbsp;智能指针在工厂模式中的使用</a></h2>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/05/smart-pointer-parameters/">GotW-91&nbsp;智能指针参数</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-11-05T20:21:31"> Wed 05 November 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">译文</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/cpp.html">cpp</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>如何将智能指针作为参数传递？为什么？</p>
+<h1 id="_1">问题</h1>
+<ol>
+<li>下面函数声明的性能如何？请解释。</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">shared_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>上面的函数声明的正确性如何？请举例解释你的答案。</p>
+</li>
+<li>
+<p>你的同事写了一个函数使用<code>widget</code>类型作为输入参数，他有以下几种基本的参数选择（此处忽略<code>const</code>）：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="nx">a</span><span class="p">)</span></span>
+<span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">widget</span><span class="o">&amp;</span> <span class="p">);</span>              <span class="p">(</span><span class="nx">b</span><span class="p">)</span></span>
+<span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="nx">c</span><span class="p">)</span></span>
+<span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="nb">d</span><span class="p">)</span></span>
+<span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">shared_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="nx">e</span><span class="p">)</span></span>
+<span class="code-line"><span class="bp">void</span> <span class="nb">f</span><span class="p">(</span> <span class="nx">shared_ptr</span><span class="o">&lt;</span><span class="nx">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="nb">f</span><span class="p">)</span></span>
+</pre></div>
+
+
+<p>它们都适合在什么情况下使用？解释你的答案，同时解释是否应该为参数类型加上<code>const</code>。其实还有其它的参数传递方式 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/11/05/smart-pointer-parameters/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">GotW-90&nbsp;智能指针在工厂模式中的应用</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">日期</span>
@@ -272,8 +320,13 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/11/05/smart-pointer-parameters/">
+                                GotW-91&nbsp;智能指针参数
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/11/02/factories/">
-                                GotW-90&nbsp;智能指针在工厂模式中的使用
+                                GotW-90&nbsp;智能指针在工厂模式中的应用
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -303,7 +356,7 @@
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-                                <i class="fa fa-folder-open fa-lg"></i> 译文 (4)
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (5)
                             </a>
                         </li>
                     </ul>
