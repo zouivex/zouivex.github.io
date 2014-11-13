@@ -1,5 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>九哥的部落</title><link>http://blog.zouxu.com.cn/</link><description></description><atom:link href="http://blog.zouxu.com.cn/feeds/jiu-ge.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 10 Nov 2014 20:36:21 +0800</lastBuildDate><item><title>sicp 2.1.3</title><link>http://blog.zouxu.com.cn/blog/2014/11/10/sicp-2-1-3/</link><description>&lt;h1 id="_1"&gt;习题解答&lt;/h1&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>九哥的部落</title><link>http://blog.zouxu.com.cn/</link><description></description><atom:link href="http://blog.zouxu.com.cn/feeds/jiu-ge.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 11 Nov 2014 21:35:40 +0800</lastBuildDate><item><title>完美传递和通用引用</title><link>http://blog.zouxu.com.cn/blog/2014/11/11/perfect-forwarding-and-universal-references/</link><description>&lt;p&gt;C++11的许多新功能的目的是为了提升性能，容器类中的&lt;code&gt;emplace&lt;/code&gt;系列方法就是其中之一。例如&lt;code&gt;std::vector&lt;/code&gt;就有与&lt;code&gt;push_back&lt;/code&gt;方法类似的&lt;code&gt;emplace_back&lt;/code&gt;方法，以及与&lt;code&gt;insert&lt;/code&gt;方法类似的&lt;code&gt;emplace&lt;/code&gt;方法。&lt;/p&gt;
+&lt;p&gt;下面简单地展示这些新方法带来的好处：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nb"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MyKlass&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;MyKlass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nx"&gt;ii_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;float&lt;/span&gt; &lt;span class="nx"&gt;ff_&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;...&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;...&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nx"&gt;some&lt;/span&gt; &lt;span class="nx"&gt;function&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;std&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="nl"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;MyKlass&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;v.push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;MyKlass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.14&lt;/span&gt;&lt;span class="nb"&gt;f&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="nx"&gt;v.emplace_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.14&lt;/span&gt;&lt;span class="nb"&gt;f&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;跟踪&lt;code&gt;MyKlass&lt;/code&gt;类构造函数和析构函数的执行过程，可以看到&lt;code&gt;push_back&lt;/code&gt;方法的执行顺序如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行&lt;code&gt;MyKlass&lt;/code&gt;临时对象的构造函数&lt;/li&gt;
+&lt;li&gt;对实际插入到&lt;code&gt;vector&lt;/code&gt;中的对象调用move构造函数&lt;/li&gt;
+&lt;li&gt;执行临时对象的析构函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这确实需要执行很多操作。但是很多操作并不是必须的，很明显传递给&lt;code&gt;push_back&lt;/code&gt;方法的对象是一个右值，在语句执行完毕之后就不再存在，所以没有理由在此构建一个临时对象（为什么不直接在&lt;code&gt;vector&lt;/code&gt;中构建呢）？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;emplace_back&lt;/code&gt;方法就是这样实现的。对于上面的&lt;code&gt;v.emplace_back(2, 3.14f)&lt;/code&gt;调用，全部开销就是一次构造函数调用。对象直接在&lt;code&gt;vector&lt;/code&gt;中构造，所以不需要创建临时对象。&lt;/p&gt;
+&lt;p&gt;其工作原理是直接调用&lt;code&gt;emplace_back&lt;/code&gt;进行构造，然后将参数传递到&lt;code&gt;MyKlass&lt;/code&gt;的构造函数中。这需要依靠C++11的两个新功能：可变参数模板和完美传递。本文将介绍完美传递的工作原理以及使用方法。&lt;/p&gt;
+&lt;h1 id="_1"&gt;完美传递问题&lt;/h1&gt;
+&lt;p&gt;令函数&lt;code&gt;func(E1, E2, ..., En)&lt;/code&gt;使用泛型参数&lt;code&gt;E1，E2，...，En&lt;/code&gt;，我们需要实现一个wrapper函数&lt;code&gt;wrapper(E1, E2, ..., En)&lt;/code&gt;使其与&lt;code&gt;func(E1, E2, ..., En)&lt;/code&gt;等价。也就是说，实现一个函数使其泛型参数完美地传递到其他函数。&lt;/p&gt;
+&lt;p&gt;上面讨论过的&lt;code&gt;emplace_back&lt;/code&gt;方法就是此问题的一个实际例子。&lt;code&gt;vector&amp;lt;T&amp;gt;::emplace_back&lt;/code&gt;将其参数传递到类型T的构造函数，而不关心T的具体类型是什么。&lt;/p&gt;
+&lt;p&gt;下面，我将展示一些代码实例，介绍如何在C++11之前的标准中实现此功能。为了简单起见，在此先不讨论可变参数模板，并且假设我们需要传递两个参数。&lt;/p&gt;
+&lt;p&gt;第一感，我们可以这样实现：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T1&lt;/span&gt; &lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;很明显，上面的代码在&lt;code&gt;func&lt;/code&gt;函数传递引用参数时有问题，因为wrapper函数是按值传递参数的。如果func修改了其引用参数，此修改并不能传达到wrapper的调用函数中（参数修改只影响wrapper函数的一份拷贝）。&lt;/p&gt;
+&lt;p&gt;那好，我们可以修改wrapper使其也传递引用参数。这样不会对func函数按值传递参数造成影响，因为此时在wrpper中调用func函数会对传入的参数进行复制。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;但是这种方式有其他问题。因为右值不能绑定到引用参数上，因此下面的代码虽然合理，却会编译失败：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.14f&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;                  &lt;span class="c1"&gt;// error: invalid initialization of&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                                     &lt;span class="c1"&gt;//        non-const reference from&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;                                     &lt;span class="c1"&gt;//        an rvalue&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;foo_returning_float&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;   &lt;span class="c1"&gt;// same error&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;并且将引用参数限定为&lt;code&gt;const&lt;/code&gt;也不能解决问题，因为对func函数传入非&lt;code&gt;const&lt;/code&gt;的引用参数是很正当的要求。&lt;/p&gt;
+&lt;p&gt;剩下的唯一解决方案就是一些库所采用的暴力方法了：即为&lt;code&gt;const&lt;/code&gt;和非&lt;code&gt;const&lt;/code&gt;引用参数分别实现重载函数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;    &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样的重载函数是指数级增长的。可以想象当函数参数稍微增加几个时，需要实现多少个重载函数。何况C++11还多增加了右值引用类型，对此类型我们也希望能正确地传递，上面的解决方法明显不可扩展。&lt;/p&gt;
+&lt;h1 id="_2"&gt;引用折叠及右值引用的类型推导&lt;/h1&gt;
+&lt;p&gt;在解释C++11如何解决完美传递问题之前，我们需要先解释C++中两条新增加的规则。&lt;/p&gt;
+&lt;p&gt;其中引用折叠规则比较容易解释，所以先介绍它。在之前的C++中取引用的引用是非法的。但是，在模板和类型推导中时常需要用到此规则：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;baz&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果我们这样调用函数会发生什么事情？&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ii&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;baz&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ii&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在模板具现化时，T被显式设置为&lt;code&gt;int&amp;amp;&lt;/code&gt;。那么内部的k的类型是什么呢？编译器看到的类型是&lt;code&gt;int&amp;amp; &amp;amp;&lt;/code&gt;，但是这种形式程序员在代码中并不能直接写出来，所以编译器简单地将其推导为引用类型。事实上，在C++11之前，此行为并没有标准化，但是许多编译器支持这种行为，因为这样的代码在模板元编程中时常出现。C++11加入了右值引用类型，那么对引用累加的情况进行定义就非常重要了（比如，&lt;code&gt;int&amp;amp;&amp;amp; &amp;amp;&lt;/code&gt;表示什么类型？）。&lt;/p&gt;
+&lt;p&gt;这就是引用折叠规则。规则非常简单，即永远以&amp;amp;为准。所以&amp;amp; &amp;amp;折叠为&amp;amp;，&amp;amp;&amp;amp; &amp;amp;以及&amp;amp; &amp;amp;&amp;amp;也折叠为&amp;amp;。折叠为&amp;amp;&amp;amp;的唯一的情况是&amp;amp;&amp;amp;&amp;nbsp;&amp;amp;&amp;amp;。可以将此规则想象成逻辑或的关系，&amp;amp;为1，&amp;amp;&amp;amp;为0。 &lt;/p&gt;
+&lt;p&gt;另一个新加进C++11中的与本文相关规则是对于右值引用的类型推导规则&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;。例如下面这个模板函数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不要被T&amp;amp;&amp;amp;迷惑，t并不是右值引用&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt;。在有类型推导场合，T&amp;amp;&amp;amp;表示特殊的语义。当func具现化时，类型T由传入func的参数是左值还是右值决定。如果传入的参数是类型为U的左值，那么T即推导为U&amp;amp;，如果传入的参数是右值，那么T被推导为U：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;            &lt;span class="c1"&gt;// 4 is an rvalue: T deduced to int&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.14&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;            &lt;span class="c1"&gt;// d is an lvalue; T deduced to double&amp;amp;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;float&lt;/span&gt; &lt;span class="nf"&gt;f&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{...}&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;          &lt;span class="c1"&gt;// f() is an rvalue; T deduced to float&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;          &lt;span class="c1"&gt;// i is an lvalue; T deduced to int&amp;amp;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;你可能觉得这个规则很奇葩，因为它就是那么奇葩。但是想想这个规则是用来解决完美传递问题的，就开始有那么点意思了。&lt;/p&gt;
+&lt;h1 id="stdforward"&gt;使用&lt;code&gt;std::forward&lt;/code&gt;解决完美传递问题&lt;/h1&gt;
+&lt;p&gt;让我们回到wrapper模板函数吧。在C++11中应该这样实现：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nx"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;typename&lt;/span&gt; &lt;span class="nx"&gt;T1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;typename&lt;/span&gt; &lt;span class="nx"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="bp"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;forward&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;T1&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nb"&gt;forward&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;T2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e2&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;下面是&lt;code&gt;forward&lt;/code&gt;的实现&lt;sup id="fnref:3"&gt;&lt;a class="footnote-ref" href="#fn:3" rel="footnote"&gt;3&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;class&lt;/span&gt; &lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;forward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;typename&lt;/span&gt; &lt;span class="nx"&gt;std&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="nl"&gt;remove_reference&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="nl"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nx"&gt;noexcept&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;static_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;t&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;假设我们这样调用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ii&lt;/span&gt; &lt;span class="p"&gt;...;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kt"&gt;float&lt;/span&gt; &lt;span class="n"&gt;ff&lt;/span&gt; &lt;span class="p"&gt;...;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ii&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ff&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;我们来分析第一个参数是怎么传递的（第二个参数也类似）：ii是一个左值，根据推导规则，T1被推导为&lt;code&gt;int&amp;amp;&lt;/code&gt;，此时函数调用为&lt;code&gt;func(forward&amp;lt;int&amp;amp;&amp;gt;(e1), ...)&lt;/code&gt;，从而，&lt;code&gt;forward&lt;/code&gt;函数使用&lt;code&gt;int&amp;amp;&lt;/code&gt;具现化，那么具现化后的函数为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;forward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;noexcept&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;static_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后应用引用折叠规则：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;forward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;noexcept&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;static_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;也就是说，参数是以传引用方式传入func函数，与我们对左值参数的预期一致。&lt;/p&gt;
+&lt;p&gt;再来考虑另外一种情况：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="n"&gt;wrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.14f&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;此时参数为右值，所以T1推导为&lt;code&gt;int&lt;/code&gt;，具体的函数调用为&lt;code&gt;func(forward&amp;lt;int&amp;gt;(e1), ...)&lt;/code&gt;，因此&lt;code&gt;forward&lt;/code&gt;函数以&lt;code&gt;int&lt;/code&gt;进行具现化，最终的函数为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;forward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;noexcept&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;static_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;此时引用参数被转换为右值引用，与我们的预期一致。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;forward&lt;/code&gt;函数是&lt;code&gt;static_cast&amp;lt;T&amp;amp;&amp;amp;&amp;gt;(t)&lt;/code&gt;表达式的简单封装，根据wrapper的参数类型为左值或者右值，T被推导为U&amp;amp;或者U&amp;amp;&amp;amp;。使用一个wrapper模板函数可以清晰地处理所有类型的参数传递。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;forward&lt;/code&gt;模板函数已经加入到C++11中，位于&lt;code&gt;&amp;lt;utility&amp;gt;&lt;/code&gt;头文件中，模板函数名为&lt;code&gt;std::forward&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;此外&lt;code&gt;std::remove_reference&amp;lt;T&amp;gt;&lt;/code&gt;也有必要介绍一下。事实上，仔细想想，&lt;code&gt;forward&lt;/code&gt;函数不需要它也能正常工作。引用折叠规则已经达到了&lt;code&gt;std::remove_reference&lt;/code&gt;的效果，所以此处&lt;code&gt;std::remove_reference&amp;lt;T&amp;gt;&lt;/code&gt;是多余的。它的功能是将&lt;code&gt;T&amp;amp; t&lt;/code&gt;导入一个没有类型推导的语境中（参考C++标准，14.8.2.5节），从而强制要求程序员在调用&lt;code&gt;std::forward&lt;/code&gt;时显式指定模板参数。&lt;/p&gt;
+&lt;h1 id="4"&gt;通用引用&lt;sup id="fnref:4"&gt;&lt;a class="footnote-ref" href="#fn:4" rel="footnote"&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/h1&gt;
+&lt;p&gt;Scott Myers在他的演讲、博客和专著中将这种在类型推导语境中使用的右值引用称为“通用引用”。到底这个助记符有没有用取决于具体的人。对于我个人而言，当我第一次阅读&amp;#8221;Effectve Modern&amp;nbsp;C++&amp;#8221;的相关章节时，我被这个主题弄糊涂了。直到我逐渐理解了底层工作机制（即引用折叠和特殊推导规则）之后，相关主题才变得清晰起来。&lt;/p&gt;
+&lt;p&gt;使用“通用引用”这个名字确实比“类型推导语境中的右值引用”更简练更好，但是如果需要真正理解某些代码而不是简单的依样画葫芦的话，还是需要弄清楚这个概念的完整定义。&lt;/p&gt;
+&lt;h1 id="_3"&gt;完美传递的实际例子&lt;/h1&gt;
+&lt;p&gt;完美传递非常有用，因为它打开了一扇通往高阶函数编程的大门。那些需要以函数作为参数或者返回值的函数称为高阶函数。如果没有完美传递这个特性，高阶函数的实现就非常累赘，因为缺少一种向封装的函数传递参数的便捷方式。此处我们提到的“函数”其实也包括类，因为类的构造函数也是一种函数。&lt;/p&gt;
+&lt;p&gt;在本文的开始，我介绍了容器类的&lt;code&gt;emplace_back&lt;/code&gt;方法。此外还有一个使用完美传递的函数就是&lt;code&gt;make_unique&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="nx"&gt;template&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;typename&lt;/span&gt; &lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;typename...&lt;/span&gt; &lt;span class="nx"&gt;Args&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;make_unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;Args&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;...&lt;/span&gt; &lt;span class="nx"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;unique_ptr&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;new&lt;/span&gt; &lt;span class="nb"&gt;T&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;std&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="nl"&gt;forward&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;Args&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nx"&gt;...&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;之前我略过了对奇怪的&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;语法的介绍，集中介绍可变参数模板，但是在本文中我们可以毫无压力地理解这段代码了。完美传递和可变参数模板通常配合使用，因为我们通常并不知道函数或构造函数的参数个数是多少。&lt;/p&gt;
+&lt;h1 id="_4"&gt;相关资源链接&lt;/h1&gt;
+&lt;p&gt;我在写本文时发现这些资源非常有帮助：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;《The C++ Programming Language》第4版，Bjarne&amp;nbsp;Stroustrup&lt;/li&gt;
+&lt;li&gt;《Effective Modern C++》，Scott&amp;nbsp;Myers详细介绍了“通用引用”这个概念，事实上，全书超过1/5的内容都在讨论这个主题！&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm"&gt;n1385: &amp;#8220;The forwarding problem:&amp;nbsp;Arguments&amp;#8221;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://thbecker.net/articles/rvalue_references/section_01.html"&gt;C++ Rvalue references explained&lt;/a&gt;写得非常好，也非常有用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;此规则也适用于其它情况，如&lt;code&gt;auto&lt;/code&gt;和&lt;code&gt;decltype&lt;/code&gt;。在此之介绍模板的情况。&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;我认为C++委员会应该为这种情况选用不同的语法，从而与&amp;amp;&amp;amp;语法区分开来。注意到这种语法并不常用，所以为此修改语言的语法并不值得（C++委员会一贯尽量避免这种修改），但是窃以为现在的情况太混乱了。即使如Scott Myers这种大牛也在演讲和博客评论中承认，即使已经过了3年，这些材料依然还太复杂。Bjarne Stroustrup在《The C++ Programming Language》一书中介绍&lt;code&gt;std::forward&lt;/code&gt;时也犯了一个错误：调用&lt;code&gt;std::forward&lt;/code&gt;时忘记显式提供模板参数。这有点太复杂了！&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:3"&gt;
+&lt;p&gt;这是C++11中的std::forward函数的一个简化版本。&amp;#160;&lt;a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:4"&gt;
+&lt;p&gt;在其它地方也称为“传递引用”&amp;#160;&lt;a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">九哥</dc:creator><pubDate>Tue, 11 Nov 2014 21:35:40 +0800</pubDate><guid>tag:blog.zouxu.com.cn,2014-11-11:blog/2014/11/11/perfect-forwarding-and-universal-references/</guid><category>cpp</category></item><item><title>sicp 2.1.3</title><link>http://blog.zouxu.com.cn/blog/2014/11/10/sicp-2-1-3/</link><description>&lt;h1 id="_1"&gt;习题解答&lt;/h1&gt;
 &lt;h2 id="24"&gt;练习2.4&lt;/h2&gt;
 &lt;p&gt;cdr应该这样定义:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cdr&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;

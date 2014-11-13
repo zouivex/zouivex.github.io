@@ -70,6 +70,47 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/11/perfect-forwarding-and-universal-references/">完美传递和通用引用</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-11-11T21:35:40"> Tue 11 November 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">译文</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/cpp.html">cpp</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>C++11的许多新功能的目的是为了提升性能，容器类中的<code>emplace</code>系列方法就是其中之一。例如<code>std::vector</code>就有与<code>push_back</code>方法类似的<code>emplace_back</code>方法，以及与<code>insert</code>方法类似的<code>emplace</code>方法。</p>
+<p>下面简单地展示这些新方法带来的好处：</p>
+<div class="highlight"><pre><span class="code-line"><span class="nb">class</span> <span class="nx">MyKlass</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="p">:</span></span>
+<span class="code-line">  <span class="nx">MyKlass</span><span class="p">(</span><span class="nx">int</span> <span class="nx">ii_</span><span class="p">,</span> <span class="nx">float</span> <span class="nx">ff_</span><span class="p">)</span> <span class="p">{</span><span class="nx">...</span><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">private</span><span class="p">:</span></span>
+<span class="code-line">  <span class="p">{</span><span class="nx">...</span><span class="p">}</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nx">some</span> <span class="nx">function</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="nx">std</span><span class="p">::</span><span class="nl">vector</span><span class="o">&lt;</span><span class="nx">MyKlass</span><span class="o">&gt;</span> <span class="nx">v</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="nx">v.push_back</span><span class="p">(</span><span class="nx">MyKlass</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="nb">f</span><span class="p">));</span></span>
+<span class="code-line">  <span class="nx">v.emplace_back</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="nb">f</span><span class="p">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>跟踪<code>MyKlass</code>类构造函数和析构函数的执行过程 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/11/11/perfect-forwarding-and-universal-references/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/05/smart-pointer-parameters/">GotW-91&nbsp;智能指针参数</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -320,6 +361,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/11/11/perfect-forwarding-and-universal-references/">
+                                完美传递和通用引用
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/11/05/smart-pointer-parameters/">
                                 GotW-91&nbsp;智能指针参数
                             </a>
@@ -339,11 +385,6 @@
                                 一种成功的git分支模型
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/10/09/cpp-tdd-unittest/">
-                                例解C++测试驱动开发和单元测试
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -356,7 +397,7 @@
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-                                <i class="fa fa-folder-open fa-lg"></i> 译文 (5)
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (6)
                             </a>
                         </li>
                     </ul>
@@ -364,7 +405,7 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/cpp.html">
                                 cpp
                             </a>
