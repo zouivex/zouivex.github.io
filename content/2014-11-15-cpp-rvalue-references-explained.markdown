@@ -267,7 +267,7 @@ X& X::operator=(X&& rhs)
 }
 ```
 
-# 那么右值引用本身是右值吗？
+# 右值引用本身是右值吗？
 
 同样，假设类X重载了拷贝构造函数和拷贝赋值运算符，实现了移动语义。我们看下面的代码：
 
@@ -311,17 +311,13 @@ X anotherX = x;
 // x is still in scope!
 ```
 
-would be dangerously confusing and error-prone because the thing from which we just moved, that is, the thing that we just pilfered, is still accessible on subsequent lines of code. But the whole point of move semantics was to apply it only where it "doesn't matter," in the sense that the thing from which we move dies and goes away right after the moving. Hence the rule, "If it has a name, then it's an lvalue."
+将使代码难以理解，并且非常容易出错，因为我们移动的对象，也就是刚被偷走的对象，在此后的代码中仍然可以访问。但是对于移动语义，将变量所绑定的对象移动之后立即释放此变量，用户"并不在意"时才可以使用。 所以，规则就是，”如果有名字，那么就是左值”。
 
-将使代码难以理解，并且非常容易出错，因为我们移动的对象，也就是刚被偷走的对象，在后面的代码中仍然可以访问到。But the whole point of move semantics was to apply it only where it "doesn't matter," in the sense that the thing from which we move dies and goes away right after the moving. 所以，规则就是，”如果有名字，那么就是左值”。
-
-So then what about the other part, "If it does not have a name, then it's an rvalue?" Looking at the goo example above, it is technically possible, though not very likely, that the expression goo() in the second line of the example refers to something that is still accessible after it has been moved from. But recall from the previous section: sometimes that's what we want! We want to be able to force move semantics on lvalues at our discretion, and it is precisely the rule, "If it does not have a name, then it's an rvalue" that allows us to achieve that in a controlled manner. That's how the function std::move works. Although it is still too early to show you the exact implementation, we just got a step closer to understanding std::move. It passes its argument right through by reference, doing nothing with it at all, and its result type is rvalue reference. So the expression
+那么对于规则的后半句，“如果没有名字那么就是右值”该怎么理解呢？以上面的goo类为例，虽然可能性不大，但是理论上第二行的表达式goo()指向的对象有可能在移动之后仍然可以访问。但是按照之前章节的介绍可知，有时候我们期望的就是这种行为！我们期望能够谨慎地对左值执行强制移动语义，“如果没有名字那么就是右值”这条规则恰好让我们达到这个目的。这就是std::move函数的工作原理。虽然现在还不是时候深入讨论std::move函数的具体实现，但是我们对它的理解已经进了一步。std::move的传入参数为引用类型，函数中没有其它任何操作，仅仅返回其参数的右值引用。所以此表达式：
 
 ``` C++
 std::move(x)
 ```
-
-is declared as an rvalue reference and does not have a name. Hence, it is an rvalue. Thus, std::move "turns its argument into an rvalue even if it isn't," and it achieves that by "hiding the name."
 
 声明为右值引用，并且没有名字，所以是右值。也就是说，std::move将传入的参数转换为右值，实现方式就是“隐藏变量的名字”。
 
@@ -364,8 +360,7 @@ Derived(Derived&& rhs)
 
 # 移动语义和编译器优化
 
-Consider the following function definition:
-
+考虑下面的函数定义：
 ``` C++
 X foo()
 {
@@ -375,7 +370,7 @@ X foo()
 }
 ```
 
-Now suppose that as before, X is a class for which we have overloaded the copy constructor and copy assignment operator to implement move semantics. If you take the function definition above at face value, you may be tempted to say, wait a minute, there is a value copy happening here from x to the location of foo's return value. Let me make sure we're using move semantics instead:
+和前面一样，我们假设X类重载了拷贝构造函数和拷贝赋值运算符，实现了移动语义。如果仅仅从代码表面上看，可能会认为此时返回x对象会触发一次拷贝操作。那么我们强制执行移动语义：
 
 ``` C++
 X foo()
@@ -386,12 +381,13 @@ X foo()
 }
 ```
 
-Unfortunately, that would make things worse rather than better. Any modern compiler will apply return value optimization to the original function definition. In other words, rather than constructing an X locally and then copying it out, the compiler would construct the X object directly at the location of foo's return value. Rather obviously, that's even better than move semantics.
-So as you can see, in order to really use rvalue references and move semantics in an optimal way, you need to fully understand and take into account today's compilers' "special effects" such as return value optimization and copy elision. Dave Abrahams has written an excellent series of articles on this subject on his blog. The details get pretty subtle, but hey, we chose C++ as our language of choice for a reason, right? We made our beds, so now let's lie in them. 
+很不幸，这样不但不会提升性能，还有可能降低性能。所有的现代C++编译器对于这种情况都会进行返回值优化。即是说，编译器不是先在函数体中构造一个x对象然后将对象拷贝出去，而是直接对foo函数的返回值进行构造。很明显，这比使用移动语义还要好。
+
+从这里可以看出，如果想要有效地使用右值引用和移动语义，需要深入了解当前的编译器的“特殊优化”，比如说返回值优化技术，以及拷贝消除技术。可以阅读Dave Abrahams关于这个主题的一系列[博客文章]()。个中细节相当繁杂，但是我们既然选择C++语言，自然有我们的道理，是不是？我们自己选择的路，跪着也要走完。
 
 # 完美传递：问题定义
 
-The other problem besides move semantics that rvalue references were designed to solve is the perfect forwarding problem. Consider the following simple factory function:
+右值引用还用来解决完美传递问题。请看下面的简单工厂函数：
 
 ``` C++
 template<typename T, typename Arg> 
@@ -401,9 +397,9 @@ shared_ptr<T> factory(Arg arg)
 } 
 ```
 
-Obviously, the intent here is to forward the argument arg from the factory function to T's constructor. Ideally, as far as arg is concerned, everything should behave just as if the factory function weren't there and the constructor were called directly in the client code: perfect forwarding. The code above fails miserably at that: it introduces an extra call by value, which is particularly bad if the constructor takes its argument by reference.
+很明显，此函数的目的是将参数传递到T的构造函数。理想情况下，我们希望此处就像没有工厂函数一样，客户代码直接调用构造函数，即“完美传递”。上面的代码并没有实现完美传递，其调用链中有一步的参数是按值传递的，当构造函数需要传入引用参数时问题非常严重。
 
-The most common solution, chosen e.g. by boost::bind, is to let the outer function take the argument by reference:
+最常用的解决方案是使最外层的函数传入引用参数，boost::bind就是采用这种方法：
 
 ``` C++
 template<typename T, typename Arg> 
@@ -413,14 +409,14 @@ shared_ptr<T> factory(Arg& arg)
 } 
 ```
 
-That's better, but not perfect. The problem is that now, the factory function cannot be called on rvalues:
+这种方法能够解决部分问题，但是还不够完美。此处的问题是，工厂函数不能传入右值：
 
 ``` C++
 factory<X>(hoo()); // error if hoo returns by value
 factory<X>(41); // error
 ```
 
-This can be fixed by providing an overload which takes its argument by const reference:
+提供一个传入const引用参数的重载函数即可解决这个问题：
 
 ``` C++
 template<typename T, typename Arg> 
@@ -430,14 +426,15 @@ shared_ptr<T> factory(Arg const & arg)
 } 
 ```
 
-There are two problems with this approach. Firstly, if factory had not one, but several arguments, you would have to provide overloads for all combinations of non-const and const reference for the various arguments. Thus, the solution scales extremely poorly to functions with several arguments.
+但是这样又引出了两个问题：
+* 第一，如果工厂函数的参数不止一个，那么我们需要为所有的参数类型组合提供重载函数。从而，当支持的参数个数增加时，此方法就无法扩展了。
+* 第二，这种传递参数的方式不够完美，它不支持移动语义，因为工厂函数中传入T的构造函数的参数为左值。其结果是，即使对于那些支持移动语义的构造函数，我们也无法在工厂函数中使用移动语义。
 
-Secondly, this kind of forwarding is less than perfect because it blocks out move semantics: the argument of the constructor of T in the body of factory is an lvalue. Therefore, move semantics can never happen even if it would without the wrapping function.
-It turns out that rvalue references can be used to solve both these problems. They make it possible to achieve truly perfect forwarding without the use of overloads. In order to understand how, we need to look at two more rules for rvalue references. 
+我们可以使用右值引用解决这两个问题。通过使用右值引用我们可以实现真正的完美传递，而不需要采用函数重载。为了究其原因，下面我们要介绍右值引用的两条规则。
 
 # 完美传递：问题求解
 
-The first of the remaining two rules for rvalue references affects old-style lvalue references as well. Recall that in pre-11 C++, it was not allowed to take a reference to a reference: something like A& & would cause a compile error. C++11, by contrast, introduces the following reference collapsing rules:
+第一条规则也会影响到左值引用。回想在C++11之前的标准中，不允许取一个引用的引用，如`A& &`形式的代码将会编译失败。而在C++11中，加入了如下的引用折叠规则：
 
 ``` C++
 A& & becomes A&
@@ -446,19 +443,19 @@ A&& & becomes A&
 A&& && becomes A&&
 ```
 
-Secondly, there is a special template argument deduction rule for function templates that take an argument by rvalue reference to a template argument:
+第二条规则，即对模板函数的右值引用参数的特殊的类型推导规则：
 
 ``` C++
 template<typename T>
 void foo(T&&);
 ```
 
-Here, the following apply:
+应用此规则：
 
-* When foo is called on an lvalue of type A, then T resolves to A& and hence, by the reference collapsing rules above, the argument type effectively becomes A&.
-* When foo is called on an rvalue of type A, then T resolves to A, and hence the argument type becomes A&&. 
+* 当函数foo传入类型为A的左值参数，则T解析为A&，按照上面的引用折叠规则，参数最终转换为A&
+* 当函数foo传入类型为A的右值参数，则T解析为A，从而参数最终转换为A&&
 
-Given these rules, we can now use rvalue references to solve the perfect forwarding problem as set forth in the previous section. Here's what the solution looks like:
+有了这两条规则，我们现在可以使用右值引用来解决完美传递的问题了。下面的代码解决了完美传递问题：
 
 ``` C++
 template<typename T, typename Arg> 
@@ -468,7 +465,7 @@ shared_ptr<T> factory(Arg&& arg)
 } 
 ```
 
-where std::forward is defined as follows:
+其中std::forward定义为：
 
 ``` C++
 template<class S>
@@ -478,14 +475,14 @@ S&& forward(typename remove_reference<S>::type& a) noexcept
 } 
 ```
 
-(Don't pay attention to the noexcept keyword for now. It lets the compiler know, for certain optimization purposes, that this function will never throw an exception. We'll come back to it in Section 9.) To see how the code above achieves perfect forwarding, we will discuss separately what happens when our factory function gets called on lvalues and rvalues. Let A and X be types. Suppose first that factory<A> is called on an lvalue of type X:
+（此时可以暂时忽略noexept关键字，此关键字告诉编译器本函数不会抛出异常，这对某些编译器优化非常有帮助，我们将在第9节详细介绍）为了弄明白到底是如何实现完美传递的，我们分别讨论传入左值参数和右值参数的情况。我们假设A和X为类型，factory<A>函数传入类型为X的左值：
 
 ``` C++
 X x;
 factory<A>(x);
 ```
 
-Then, by the special template deduction rule stated above, factory's template argument Arg resolves to X&. Therefore, the compiler will create the following instantiations of factory and std::forward:
+那么，按照特殊类型推导规则，factory的模板参数解析为X&。因此，编译器生成的factory函数和std::forward函数为：
 
 ``` C++
 shared_ptr<A> factory(X& && arg)
@@ -499,7 +496,7 @@ X& && forward(remove_reference<X&>::type& a) noexcept
 } 
 ```
 
-After evaluating the remove_reference and applying the reference collapsing rules, this becomes:
+对remove_reference求值和应用引用折叠规则之后，上面的函数转换为：
 
 ``` C++
 shared_ptr<A> factory(X& arg)
@@ -513,16 +510,16 @@ X& std::forward(X& a)
 } 
 ```
 
-This is certainly perfect forwarding for lvalues: the argument arg of the factory function gets passed on to A's constructor through two levels of indirection, both by old-fashioned lvalue reference.
+这就是对于左值参数的完美传递，即传入factory函数的参数通过了两层间接调用而传入了A的构造函数，保持了左值引用的方式。
 
-Next, suppose that factory<A> is called on an rvalue of type X:
+下面让我们假设factory<A>传入参数为X类型的右值：
 
 ``` C++
 X foo();
 factory<A>(foo());
 ```
 
-Then, again by the special template deduction rule stated above, factory's template argument Arg resolves to X. Therefore, the compiler will now create the following function template instantiations:
+同样，通过特殊类型推导规则，factory的模板参数解析为X。因此，编译器生成如下的函数：
 
 ``` C++
 shared_ptr<A> factory(X&& arg)
@@ -536,13 +533,13 @@ X&& forward(X& a) noexcept
 } 
 ```
 
-This is indeed perfect forwarding for rvalues: the argument of the factory function gets passed on to A's constructor through two levels of indirection, both by reference. Moreover, A's constructor sees as its argument an expression that is declared as an rvalue reference and does not have a name. By the no-name rule, such a thing is an rvalue. Therefore, A's constructor gets called on an rvalue. This means that the forwarding preserves any move semantics that would have taken place if the factory wrapper were not present.
+这对于右值参数来说也是完美传递的，即传入factory函数的右值参数通过了两层间接调用，保持了右值引用的方式。此外，A的构造函数只知道其传入参数声明为右值引用类型，并且没有名字。根据上面的没有名字的规则，这种参数为右值参数。因此，A的构造函数传入的是右值。即是说，此处的参数传递保持了调用链中的移动语义。
 
-It is perhaps worth noting that the preservation of move semantics is in fact the only purpose of std::forward in this context. Without the use of std::forward, everything would work quite nicely, except that A's constructor would always see as its argument something that has a name, and such a thing is an lvalue. Another way of putting this is to say that std::forward's purpose is to forward the information whether at the call site, the wrapper saw an lvalue or an rvalue.
+值得注意的是，保持移动语义是此处使用std::forward的唯一目的。如果不使用std::forward，那么一切将工作正常，只是A的构造函数传入参数有名字，因此它是一个左值。换句话说std::forward的目的是传递参数在初始调用处是左值还是右值的信息。
 
-If you want to dig a little deeper for extra credit, ask yourself this question: why is the remove_reference in the definition of std::forward needed? The answer is, it is not really needed at all. If you use just S& instead of remove_reference<S>::type& in the defintion of std::forward, you can repeat the case distinction above to convince yourself that perfect forwarding still works just fine. However, it works fine only as long as we explicitly specify Arg as the template argument of std::forward. The purpose of the remove_reference in the definition of std::forward is to force us to do so.
+如果我们继续深究，那么请思考这个问题：为什么std::forward的定义中需要使用remove_reference？答案是，不使用它也行。如果简单地用S&代替`remove_reference<S>::type&`，那么我们依样画葫芦应用上面描述的规则可以得知完美传递也能正常工作。但是，完美传递需要我们明确指定std::forward的参数类型才能正常工作。那么remove_reference的目的就是强制让我们指定参数类型。
 
-Rejoice. We're almost done. It only remains to look at the implementation of std::move. Remember, the purpose of std::move is to pass its argument right through by reference and make it bind like an rvalue. Here's the implementation:
+庆祝一下吧！我们基本上介绍完了。剩下的就是看看std::move的实现了。记住，std::move的目的是将传入的引用参数转换成右值。下面是具体实现：
 
 ``` C++
 template<class T> 
@@ -554,14 +551,14 @@ std::move(T&& a) noexcept
 } 
 ```
 
-Suppose that we call std::move on an lvalue of type X:
+假设我们传入std::move的参数为X类型的左值：
 
 ``` C++
 X x;
 std::move(x);
 ```
 
-By the new special template deduction rule, the template argument T will resolve to X&. Therefore, what the compiler ends up instantiating is
+按照特殊类型推导规则，模板参数T解析为X&。编译器为此生成的函数为：
 
 ``` C++
 typename remove_reference<X&>::type&&
@@ -572,7 +569,7 @@ std::move(X& && a) noexcept
 } 
 ```
 
-After evaluating the remove_reference and applying the new reference collapsing rules, this becomes
+对remove_reference求值以及应用引用折叠规则之后，函数转换为：
 
 ``` C++
 X&& std::move(X& a) noexcept
@@ -581,18 +578,44 @@ X&& std::move(X& a) noexcept
 } 
 ```
 
-That does the job: our lvalue x will bind to the lvalue reference that is the argument type, and the function passes it right through, turning it into an unnamed rvalue reference.
+这样就实现了我们的目标：传入的参数x将绑定到左值引用，而std::move将其转换为匿名的右值引用。
 
-I leave it to you to convince yourself that std::move actually works fine when called on an rvalue. But then you may want to skip that: why would anybody want to call std::move on an rvalue, when its only purpose is to turn things into rvalues? Also, you have probably noticed by now that instead of
+请读者自己推导一下传入参数为右值引用的情况。还是要顺便提一下：既然我们对于右值参数调用std::move的唯一目的是将其转换为右值，那么为什么还要调用std::move呢？同样，我们注意到除了调用：
 
 ``` C++
 std::move(x);
 ```
 
-you could just as well write
+我们其实可以直接调用：
 
 ``` C++
 static_cast<X&&>(x);
 ```
 
-However, std::move is strongly preferred because it is more expressive. 
+无论如何，我们强烈推荐使用std::move，因为它能更好地表达我们的意图。
+
+# 右值引用和异常处理
+
+Normally, when you develop software in C++, it is your choice whether you want to pay attention to exception safety, or to use exceptions at all in your code. Rvalue references are a bit different in this regard. When you overload the copy constructor and the copy assignment operator of a class for the sake of move semantics, it is very much recommended that you do the following:
+
+* Strive to write your overloads in such a way that they cannot throw exceptions. That is often trivial, because move semantics typically do no more than exchange pointers and resource handles between two objects.
+* If you succeeded in not throwing exceptions from your overloads, then make sure to advertise that fact using the new noexcept keyword.
+
+If you don't do both of these things, then there is at least one very common situation where your move semantics will not be applied despite the fact that you would very much expect it: when an std::vector gets resized, you certainly want move semantics to happen when the existing elements of your vector are being relocated to the new memory block. But that won't happen unless both of 1. and 2. above are satisfied.
+The reasons for this behavior are rather complex. For the full story, see Dave Abrahams' blog entry on the subject. Note that the blog entry was written before the solution using noexcept was introduced. The blog entry describes the problem; to understand how noexcept is used to solve the problem, follow the link under "update #2" at the top of the blog entry. 
+
+# 隐式移动的情况
+
+At one point during the (often complex and controversial) discussion of rvalue references, the Standard Committee decided that move constructors and move assignment operators, that is, rvalue reference overloads for copy constructors and copy assignment operators, should be generated by the compiler when not provided by the user. This seems like a natural and plausible thing to request, considering that the compiler has always done the exact same thing for ordinary copy constructors and copy assignment operators. In August of 2010, Scott Meyers posted a message on comp.lang.c++ in which he explained how compiler-generated move constructors can break existing code in a rather serious way. Dave Abrahams has summarized the problem in this blog entry.
+
+The committee then decided that this was indeed cause for alarm, and it restricted the automatic generation of move constructors and move assignment operators in such a way that it is much less likely, though not impossible, for existing code to break. The committee's decision is summarized in this blog post by Herb Sutter.
+
+The issue of implicitly moving remained controversial all the way up to the finalization of the Standard (see e.g. this blog post by Dave Abrahams and the ensuing discussion). In an ironic twist of fate, the only reason why the committee considered implicit move in the first place was as an attempt to resolve the issue with rvalue references and exceptions as mentioned in Section 9. This problem was subsequently solved in a more satisfactory way via the new noexcept keyword. Had the noexcept solution been found just a few months earlier, implicit move may have never seen the light of day. Oh well, so it goes.
+
+Ok, that's it, the whole story on rvalue references. As you can see, the benefits are considerable. The details are gory. As a C++ professional, you will have to understand these details. Otherwise, you have given up on fully understanding the central tool of your trade. You can take solace, though, in the thought that in your day-to-day programming, you will only have to remember three things about rvalue references:
+
+* By overloading a function like this: `void foo(X& x); void foo(X&& x);` you can branch at compile time on the condition "is foo being called on an lvalue or an rvalue?" The primary (and for all practical purposes, the only) application of that is to overload the copy constructor and copy assignment operator of a class for the sake of implementing move semantics. If and when you do that, make sure to pay attention to exception handling, and use the new noexcept keyword as much as you can.
+     
+* `std::move` turns its argument into an rvalue.
+     
+* `std::forward` allows you to achieve perfect forwarding if you use it exactly as shown in the factory function example in Section 8. 
