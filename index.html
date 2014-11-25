@@ -69,6 +69,54 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/15/cpp-rvalue-references-explained/">C++右值引用剖析</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-11-15T15:03:14"> Sat 15 November 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/yi-wen.html">译文</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/cpp.html">cpp</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><div class="toc">
+<ul>
+<li><a href="#_1">引言</a></li>
+<li><a href="#_2">移动语义</a></li>
+<li><a href="#_3">右值引用</a></li>
+<li><a href="#_4">强制移动语义</a></li>
+<li><a href="#_5">右值引用本身是右值吗？</a></li>
+<li><a href="#_6">移动语义和编译器优化</a></li>
+<li><a href="#_7">完美传递：问题定义</a></li>
+<li><a href="#_8">完美传递：问题求解</a></li>
+<li><a href="#_9">右值引用和异常处理</a></li>
+<li><a href="#_10">关于隐式移动</a></li>
+</ul>
+</div>
+<h1 id="_1">引言</h1>
+<p>右值引用是C++标准中新加入的功能。它有点难以理解，初次接触的时候让人弄不清设计它的目的是什么、用来解决什么问题。因此本文不会直接介绍右值引用，而是先介绍它用来解决什么问题，然后展示右值引用如何解决问题。这样，关于右值引用的定义就更容易理解、更加自然。</p>
+<p>右值引用至少要解决两个问题：</p>
+<ul>
+<li>实现移动语义</li>
+<li>完美传递</li>
+</ul>
+<p>如果你对这两个问题还不了解，没有关系，本文接下来将详细介绍之。让我们先来介绍移动语义。但是正式开始之前，我们先来重温一下在C++中左值和右值都是什么。要想给出一个严格的定义还真不是那么容易，但是下面的解释对于本文应该足够了。</p>
+<p>早期C语言中关于左值和右值的原始定义是这样的：左值就是可能出现在赋值语句左边或者右边的表达式，而右值就是只能出现在赋值语句右边的表达式。例如：</p>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span></span>
+<span class="code-line"><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">43</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">// a and b are ...</span></span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/11/15/cpp-rvalue-references-explained/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2014/11/11/perfect-forwarding-and-universal-references/">完美传递和通用引用</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -747,6 +795,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/11/15/cpp-rvalue-references-explained/">
+                                C++右值引用剖析
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/11/11/perfect-forwarding-and-universal-references/">
                                 完美传递和通用引用
                             </a>
@@ -766,11 +819,6 @@
                                 GotW-90&nbsp;智能指针在工厂模式中的应用
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/10/30/smart-pointers/">
-                                GotW-89&nbsp;智能指针
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -783,7 +831,7 @@
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
-                                <i class="fa fa-folder-open fa-lg"></i> 译文 (6)
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (7)
                             </a>
                         </li>
                     </ul>
