@@ -1,0 +1,84 @@
+Title: sicp 2.1.3
+Slug: sicp-2-1-4
+Date: 2014-12-05 21:44:34
+Modified: 2014-12-05 21:44:34
+Category: blog
+Tags: sicp
+Status: draft
+
+# 习题解答
+
+## 练习2.7
+
+``` Scheme
+(define (make-interval lower upper)
+  (cons lower upper))
+
+(define (lower-bound interval)
+  (car interval))
+
+(define (upper-bound i)
+  (cdr interval))
+``
+
+## 练习2.8
+
+``` Scheme
+(define (sub-interval x y)
+  (add-interval x
+                (make-interval
+                 (- 0 (upper-bound y))
+                 (- 0 (lower-bound y)))))
+
+```
+
+## 练习2.9
+对于两个区间a和b，我们可以表示为：
+```
+upper_a = lower_1 + 2 * width_1
+upper_b = lower_2 + 2 * width_2
+```
+那么对于区间的加减运算：
+```
+upper_a + upper_b =>
+(lower_1 + 2 * width_1) + (lower_2 + 2 * width_2) =>
+lower_1 + lower_2 + 2 * (width_1 + width_2)
+```
+令
+```
+lower_3 = lower_1 + lower_2
+width_3 = width_1 + width_2
+```
+则和区间表示为
+```
+(lower_1 + lower_2) => lower
+(lower_1 + lower_2 + 2 * (width_1 + width_2)) => upper
+```
+通过观察可知，和区间的宽度为被加区间的函数（取和）。
+
+
+## 练习2.10
+
+``` Scheme
+(define (div-interval x y)
+  (if (<= (* (upper-bound y)
+            (lower-bound y)) 0)
+      (error "div-interval error")
+      (mul-interval x
+                    (make-interval (/ 1.0 (upper-bound y))
+                                   (/ 1.0 (lower-bound y))))))
+```
+
+
+## 练习2.12
+
+``` Scheme
+(define (make-center-percent center percent)
+  (cons center percent))
+
+(define (percent interval)
+  (cdr interval))
+
+(define (center interval)
+  (car interval))
+```
