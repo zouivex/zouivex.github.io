@@ -2,7 +2,7 @@ Title: sicp 2.1.4
 Slug: sicp-2-1-4
 Date: 2014-12-05 21:44:34
 Modified: 2014-12-05 21:44:34
-Category: blog
+Category: sicp
 Tags: sicp
 
 # 习题解答
