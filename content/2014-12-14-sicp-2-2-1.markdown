@@ -1,0 +1,163 @@
+Title: sicp 2.2.1
+Slug: sicp-2-2-1
+Date: 2014-12-14 16:18:12
+Modified: 2014-12-14 16:18:12
+Category: sicp
+Tags: scheme
+
+# 习题解答
+
+## 练习2.17
+``` Scheme
+(define (last-pair l)
+  (if (null? (cdr l))
+      l
+      (last-pair (cdr l))))
+```
+
+## 练习2.18
+
+按照题目描述，可以写出reverse函数的迭代版本和递归版本：
+``` Scheme
+(define (reverse-iter l)
+  (define (iter items result)
+    (if (null? items)
+        result
+        (iter (cdr items)
+              (cons (car items) result))))
+  (iter l '()))
+
+(define (reverse l)
+  (if (null? l)
+      '()
+      (append
+       (reverse (cdr l))
+       (list (car l)))))
+```
+
+## 练习2.19
+``` Scheme
+(define (no-more? coin-values)
+  (null? coin-values))
+
+(define (first-denomination coin-values)
+  (car coin-values))
+
+(define (except-first-denomination coin-values)
+  (cdr coin-values))
+```
+
+## 练习2.20
+``` Scheme
+(define (same-parity? a b)
+  (or
+   (and (even? a) (even? b))
+   (and (odd? a) (odd? b))))
+
+(define (same-parity a . b)
+  (define (filter l)
+    (if (null? l)
+        '()
+        (let ((c (car l)))
+          (if (same-parity? a c)
+              (cons c (filter (cdr l)))
+              (filter (cdr l))))))
+  (cons a (filter b)))
+```
+
+## 练习2.21
+``` Scheme
+(define (square-list items)
+  (if (null? items)
+      '()
+      (cons (square (car items))
+            (square-list (cdr items)))))
+
+(define (square-list items)
+  (map square items))
+```
+
+## 练习2.22
+
+问题出在`cons (square (car things)) answer)`上。每次将结果cons到list的前端，因而结果是一个`square-list`的逆向列表。而如果简单地调换一下cons的顺序，并不能解决问题。此处应该将用`append`代替`cons`。
+
+## 练习2.23
+``` Scheme
+(define (for-each proc items)
+  (if (null? items)
+      '()
+      (begin (proc (car items))
+             (for-each proc (cdr items)))))
+```
+
+## 练习2.25
+假设我们需要从表x中取出7，car和cdr的组合如下：
+``` Scheme
+(cdr (car (cdr x)))
+(car (car x))
+(car (cdr (car (cdr (cdr (cdr (cdr (cdr x))))))))
+```
+
+## 练习2.26
+
+* `(append x y)`的结果为`(1 2 3 4 5 6 )`
+* `(cons x y)`的结果为`((1 2 3) 4 5 6)`
+* `(list x y)`的结果为`((1 2 3) (4 5 6))`
+
+## 练习2.27
+``` Scheme
+(define (deep-reverse l)
+  (cond ((null? l) '())
+        ((not (pair? l)) l)
+        (else (append (deep-reverse (cdr l))
+                      (list (deep-reverse (car l)))))))
+```
+
+## 练习2.28
+``` Scheme
+(define (fringe t)
+  (cond ((null? t) '())
+        ((not (pair? t)) (list t))
+        (else (append (fringe (car t))
+                    (fringe (cdr t))))))
+```
+
+## 练习2.30
+
+直接定义：
+``` Scheme
+(define (square-tree t)
+  (cond ((null? t) '())
+        ((not (pair? t)) (square t))
+        (else
+         (cons (square-tree (car t))
+               (square-tree (cdr t))))))
+```
+使用map定义：
+```Scheme
+(define (square-tree t)
+  (map (lambda(sub-tree)
+         (if (pair? sub-tree)
+             (square-tree1 sub-tree)
+             (square sub-tree)))
+       t))
+```
+
+## 练习2.31
+``` Scheme
+(define (tree-map proc tree)
+  (map (lambda(sub-tree)
+         (if (pair? sub-tree)
+             (tree-map proc sub-tree)
+             (proc sub-tree)))
+       tree))
+```
+
+## 练习2.32
+``` Scheme
+(define (subsets s)
+  (if (null? s)
+      (list '())
+      (let ((rest (subsets (cdr s))))
+        (append rest (map (lambda(r) (cons (car s) r)) rest)))))
+```
