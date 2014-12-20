@@ -1,0 +1,117 @@
+Title: sicp 2.2.3
+Slug: sicp-2-2-3
+Date: 2014-12-20 14:14:32
+Modified: 2014-12-20 14:14:32
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.33
+``` Scheme
+(define (map p sequence)
+  (accumulate (lambda (x y) (cons (p x) y)) '() sequence))
+
+(define (append seq1 seq2)
+  (accumulate cons seq2 seq1))
+
+(define (length seq)
+  (accumulate (lambda (x y)
+               (+ 1 y) )
+              0
+              seq))
+```
+
+## 练习2.34
+``` Scheme
+(define (horner-eval x coefficient-sequence)
+  (accumulate (lambda (this-coeff higher-terms)
+                (+ (* x higher-terms) this-coeff))
+              0
+              coefficient-sequence))
+```
+
+## 练习2.35
+``` Scheme
+(define (count-leaves t)
+  (accumulate
+   (lambda (x y)
+     (+ (if (pair? x)
+            (count-leaves x)
+            1)
+        y))
+   0
+   t))
+```
+
+## 练习2.36
+``` Scheme
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+      '()
+      (cons (accumulate op init (map car seqs))
+            (accumulate-n op init (map cdr seqs)))))
+```
+
+## 练习2.37
+``` Scheme
+(define (matrix-*-vector m v)
+  (map (lambda(row) (dot-product row v)) m))
+
+(define (transpose m)
+  (accumulate-n cons '() m))
+
+(define (matrix-*-matrix m n)
+  (let ((cols (transpose n)))
+    (map (lambda(row) (matrix-*-vector cols row)) m)))
+```
+
+## 练习2.38
+
+* `(fold-right / 1 (list 1 2 3))` 的值是 3/2
+* `(fold-left / 1 (list 1 2 3))` 的值是 1/6
+* `(fold-right list nil (list 1 2 3))` 的值是 `(1 (2 (3 ())))`
+* `(fold-left list nil (list 1 2 3))` 的值是 `(((() 1) 2) 3)`
+
+如果要求某个op同时保证fold-left和fold-right对任何序列都产生同样的结果，op至少应该满足交换律。
+
+## 练习2.39
+``` Scheme
+(define (reverse seq)
+  (fold-right (lambda (x y) (append y (list x))) '() seq))
+
+(define (reverse seq)
+  (fold-left (lambda (x y) (cons y x)) '() seq))
+```
+
+## 练习2.40
+``` Scheme
+(define (unique-pairs n)
+  (flatmap (lambda (i)
+             (map (lambda (j) (list i j))
+                  (enum-range 1 (- i 1))))
+           (enum-range 1 n)))
+```
+
+## 练习2.41
+``` Scheme
+(define (unique-triples n)
+  (flatmap
+   (lambda (i)
+     (flatmap
+      (lambda (j)
+        (map (lambda (k)
+               (list i j k))
+             (enum-range 1 (- j 1))))
+      (enum-range 1 (- i 1))))
+   (enum-range 1 n)))
+
+(define (sum seq)
+  (accumulate + 0 seq))
+
+(define (triples-sum-s s n)
+  (filter
+   (lambda (triple)
+     (= (sum triple) s))
+   (unique-triples n)))
+```

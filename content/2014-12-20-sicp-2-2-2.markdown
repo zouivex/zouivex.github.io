@@ -1,0 +1,81 @@
+Title: sicp 2.2.2
+Slug: sicp-2-2-2
+Date: 2014-12-20 10:14:36
+Modified: 2014-12-20 10:14:36
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.25
+
+假设我们需要从表x中取出7，car和cdr的组合如下：
+``` Scheme
+(cdr (car (cdr x)))
+(car (car x))
+(car (cdr (car (cdr (cdr (cdr (cdr (cdr x))))))))
+```
+
+## 练习2.26
+
+* `(append x y)`的结果为`(1 2 3 4 5 6 )`
+* `(cons x y)`的结果为`((1 2 3) 4 5 6)`
+* `(list x y)`的结果为`((1 2 3) (4 5 6))`
+
+## 练习2.27
+``` Scheme
+(define (deep-reverse l)
+  (cond ((null? l) '())
+        ((not (pair? l)) l)
+        (else (append (deep-reverse (cdr l))
+                      (list (deep-reverse (car l)))))))
+```
+
+## 练习2.28
+``` Scheme
+(define (fringe t)
+  (cond ((null? t) '())
+        ((not (pair? t)) (list t))
+        (else (append (fringe (car t))
+                    (fringe (cdr t))))))
+```
+
+## 练习2.30
+
+直接定义：
+``` Scheme
+(define (square-tree t)
+  (cond ((null? t) '())
+        ((not (pair? t)) (square t))
+        (else
+         (cons (square-tree (car t))
+               (square-tree (cdr t))))))
+```
+使用map定义：
+```Scheme
+(define (square-tree t)
+  (map (lambda(sub-tree)
+         (if (pair? sub-tree)
+             (square-tree1 sub-tree)
+             (square sub-tree)))
+       t))
+```
+
+## 练习2.31
+``` Scheme
+(define (tree-map proc tree)
+  (map (lambda(sub-tree)
+         (if (pair? sub-tree)
+             (tree-map proc sub-tree)
+             (proc sub-tree)))
+       tree))
+```
+
+## 练习2.32
+``` Scheme
+(define (subsets s)
+  (if (null? s)
+      (list '())
+      (let ((rest (subsets (cdr s))))
+        (append rest (map (lambda(r) (cons (car s) r)) rest)))))
+```
