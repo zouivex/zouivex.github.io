@@ -70,6 +70,82 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">sicp&nbsp;2.2.3</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-12-20T14:14:32"> Sat 20 December 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">Scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><h1 id="_1">习题解答</h1>
+<h2 id="233">练习2.33</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">map</span> <span class="n">p</span> <span class="n">sequence</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">accumulate</span> <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span> <span class="n">y</span><span class="p">)</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">p</span> <span class="n">x</span><span class="p">)</span> <span class="n">y</span><span class="p">))</span> <span class="err">&#39;</span><span class="p">()</span> <span class="n">sequence</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">append</span> <span class="n">seq1</span> <span class="n">seq2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">accumulate</span> <span class="n">cons</span> <span class="n">seq2</span> <span class="n">seq1</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">length</span> <span class="n">seq</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">accumulate</span> <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="o">+</span> <span class="mi">1</span> <span class="n">y</span><span class="p">)</span> <span class="p">)</span></span>
+<span class="code-line">              <span class="mi">0</span></span>
+<span class="code-line">              <span class="n">seq</span><span class="p">))</span></span>
+</pre></div>
+
+
+<h2 id="234">练习2.34</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">horner</span><span class="o">-</span><span class="n">eval</span> <span class="n">x</span> <span class="n">coefficient</span><span class="o">-</span><span class="n">sequence</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">accumulate</span> <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">this</span><span class="o">-</span><span class="n">coeff</span> <span class="n">higher</span><span class="o">-</span><span class="n">terms</span><span class="p">)</span></span>
+<span class="code-line">                <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">x ...</span></span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-2/">sicp&nbsp;2.2.2</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-12-20T10:14:36"> Sat 20 December 2014</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">Scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><h1 id="_1">习题解答</h1>
+<h2 id="225">练习2.25</h2>
+<p>假设我们需要从表x中取出7，car和cdr的组合如下：</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">cdr</span> <span class="p">(</span><span class="n">car</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">x</span><span class="p">)))</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">car</span> <span class="p">(</span><span class="n">car</span> <span class="n">x</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="n">car</span> <span class="p">(</span><span class="n">cdr</span> <span class="p">(</span><span class="n">car</span> <span class="p">(</span><span class="n">cdr</span> <span class="p">(</span><span class="n">cdr</span> <span class="p">(</span><span class="n">cdr</span> <span class="p">(</span><span class="n">cdr</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">x</span><span class="p">))))))))</span></span>
+</pre></div>
+
+
+<h2 id="226">练习2.26</h2>
+<ul>
+<li><code>(append x y)</code>的结果为<code>(1 2 3 4 5 6 )</code></li>
+<li><code>(cons x y)</code>的结果为<code>((1 2 3) 4 5 6)</code></li>
+<li><code>(list x y)</code>的结果为<code>((1 2 3 ...</code></li></ul>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-2/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2014/12/14/sicp-2-2-1/">sicp&nbsp;2.2.1</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -512,6 +588,16 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
+                                sicp&nbsp;2.2.3
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-2/">
+                                sicp&nbsp;2.2.2
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/12/14/sicp-2-2-1/">
                                 sicp&nbsp;2.2.1
                             </a>
@@ -526,16 +612,6 @@
                                 sicp&nbsp;2.1.2
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/10/28/sicp-2.1.1/">
-                                sicp&nbsp;2.1.1
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/10/20/sicp-1-3-4/">
-                                sicp&nbsp;1.3.4
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -543,7 +619,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (12)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (14)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -568,7 +644,7 @@
                         </li>
                         <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                scheme
+                                Scheme
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
