@@ -1,0 +1,35 @@
+Title: sicp 2.3.1
+Slug: sicp-2-3-1
+Date: 2014-12-22 21:07:19
+Modified: 2014-12-22 21:07:19
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.53
+
+* `(list 'a 'b 'c)`求值结果为`(a b c)`
+* `(list (list 'george))`求值结果为`((george))`
+* `(car '((x1 x2) (y1 y2)))`求值结果为`(x1 x2)`
+* `(cadr '((x1 x2) (y1 y2)))`求值结果为`(y1 y2)`
+* `(pair? (car '(a short list)))`求值结果为`#f`
+* `(memq 'red '((red shoes) (blue socks)))`求值结果为`#f`
+* `(memq 'red '(red shoes blue socks))`求值结果为`(red shoes blue socks)`
+
+## 练习2.54
+``` Scheme
+(define (my-equal? a b)
+  (if (and (not (null? a))
+           (not (null? b)))
+      (if (eq? (car a) (car b))
+          (my-equal? (cdr a) (cdr b))
+          #f)
+      (if (and (null? a) (null? b))
+          #t
+          #f)))
+```
+
+## 练习2.55
+
+在Scheme中`'`等价於`quote`，则`(car ''abracadabra)`等价于`(car quote quoteabracadabra)`，即`quote`。
