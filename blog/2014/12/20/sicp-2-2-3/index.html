@@ -201,6 +201,56 @@
 <span class="code-line">     <span class="p">(</span><span class="o">=</span> <span class="p">(</span><span class="n">sum</span> <span class="n">triple</span><span class="p">)</span> <span class="n">s</span><span class="p">))</span></span>
 <span class="code-line">   <span class="p">(</span><span class="n">unique</span><span class="o">-</span><span class="n">triples</span> <span class="n">n</span><span class="p">)))</span></span>
 </pre></div>
+
+
+<h2 id="242">练习2.42</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">position</span> <span class="n">row</span> <span class="n">col</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">row</span> <span class="n">col</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">col</span> <span class="n">p</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">p</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">row</span> <span class="n">p</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">p</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">equal</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">equal</span><span class="o">?</span> <span class="n">a</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="n">empty</span><span class="o">-</span><span class="n">board</span> <span class="err">&#39;</span><span class="p">())</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">adjoin</span><span class="o">-</span><span class="n">position</span> <span class="n">row</span> <span class="n">col</span> <span class="n">positions</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">append</span> <span class="n">positions</span> <span class="p">(</span><span class="n">list</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">position</span> <span class="n">row</span> <span class="n">col</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">attack</span><span class="o">?</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">col</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">col</span> <span class="n">b</span><span class="p">))</span> <span class="err">#</span><span class="n">t</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">row</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">row</span> <span class="n">b</span><span class="p">))</span> <span class="err">#</span><span class="n">t</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">col</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">col</span> <span class="n">b</span><span class="p">)))</span></span>
+<span class="code-line">            <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">-</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">row</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">position</span><span class="o">-</span><span class="n">row</span> <span class="n">b</span><span class="p">))))</span> <span class="err">#</span><span class="n">t</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="err">#</span><span class="n">f</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">safe</span><span class="o">?</span> <span class="n">k</span> <span class="n">positions</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">kth</span><span class="o">-</span><span class="n">position</span> <span class="p">(</span><span class="n">list</span><span class="o">-</span><span class="n">ref</span> <span class="n">positions</span> <span class="p">(</span><span class="o">-</span> <span class="n">k</span> <span class="mi">1</span><span class="p">))))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">pos</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">i</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">          <span class="err">#</span><span class="n">t</span></span>
+<span class="code-line">          <span class="p">(</span><span class="n">and</span> <span class="p">(</span><span class="n">not</span> <span class="p">(</span><span class="n">attack</span><span class="o">?</span> <span class="n">kth</span><span class="o">-</span><span class="n">position</span> <span class="p">(</span><span class="n">car</span> <span class="n">pos</span><span class="p">)))</span></span>
+<span class="code-line">               <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="o">-</span> <span class="n">i</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">pos</span><span class="p">)))))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="n">iter</span> <span class="n">k</span> <span class="n">positions</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">queens</span> <span class="n">borad</span><span class="o">-</span><span class="n">size</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">queen</span><span class="o">-</span><span class="n">cols</span> <span class="n">k</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">k</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">list</span> <span class="n">empty</span><span class="o">-</span><span class="n">board</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="n">filter</span></span>
+<span class="code-line">         <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">positions</span><span class="p">)</span> <span class="p">(</span><span class="n">safe</span><span class="o">?</span> <span class="n">k</span> <span class="n">positions</span><span class="p">))</span></span>
+<span class="code-line">         <span class="p">(</span><span class="n">flatmap</span></span>
+<span class="code-line">          <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">rest</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">queens</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">(</span><span class="n">map</span> <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">new</span><span class="o">-</span><span class="n">row</span><span class="p">)</span></span>
+<span class="code-line">                   <span class="p">(</span><span class="n">adjoin</span><span class="o">-</span><span class="n">position</span> <span class="n">new</span><span class="o">-</span><span class="n">row</span> <span class="n">k</span> <span class="n">rest</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">queens</span><span class="p">))</span></span>
+<span class="code-line">                 <span class="p">(</span><span class="n">enumerate</span><span class="o">-</span><span class="n">interval</span> <span class="mi">1</span> <span class="n">borad</span><span class="o">-</span><span class="n">size</span><span class="p">)))</span></span>
+<span class="code-line">          <span class="p">(</span><span class="n">queen</span><span class="o">-</span><span class="n">cols</span> <span class="p">(</span><span class="o">-</span> <span class="n">k</span> <span class="mi">1</span><span class="p">))))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="n">queen</span><span class="o">-</span><span class="n">cols</span> <span class="n">borad</span><span class="o">-</span><span class="n">size</span><span class="p">))</span></span>
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr/>
