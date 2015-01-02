@@ -63,3 +63,25 @@ Tags: Scheme
         (caddr p)
         (cons '* (cddr p)))))
 ```
+
+## 练习2.58
+
+a) 只需要修改和式和积式的表现形式： 
+
+``` Scheme
+(define (sum? x)
+  (and (pair? x) (eq? (cadr x) '+)))
+
+(define (addend s) (car s))
+
+(define (augend s) (caddr s))
+
+(define (product? x)
+  (and (pair? x) (eq? (cadr x) '*)))
+
+(define (multiplier p) (car p))
+
+(define (multiplicand p) (caddr p))
+```
+
+b) 标准的代数写法有一个隐含的运算符优先级规则，如果没有显示地使用括号表达求值顺序的话，需要在在程序中体现出来，这需要相当复杂的代码实现。
