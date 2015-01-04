@@ -1,0 +1,99 @@
+Title: sicp-2-3-3
+Slug: sicp-2-3-3
+Date: 2015-01-04 18:42:40
+Modified: 2015-01-04 18:42:40
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.59
+``` Scheme
+(define (union-set set1 set2)
+  (cond ((null? set1) set2)
+        ((null? set2) set1)
+        ((elem-of-set? (car set1) set2)
+         (union-set (cdr set1) set2))
+        (else
+         (cons (car set1)
+               (union-set (cdr set1) set2)))))
+```
+
+## 练习2.60
+``` Scheme
+(define (elem-of-multiset? x set)
+  (cond ((null? set) #f)
+        ((equal? x (car set)) #t)
+        (else (elem-of-set? x (cdr set)))))
+
+(define (adjoin-multiset x set)
+  (cons x set))
+
+(define (union-multiset set1 set2)
+  (append set1 set2))
+
+(define (intersetion-multiset set1 set2)
+  (cond ((or (null? set1) (null? set2)) '())
+        ((elem-of-set? (car set1) set2)
+         (cons (car set1)
+               (intersetion-set (cdr set1) set2)))
+        (else (intersetion-set (cdr set1) set2))))
+```
+
+## 练习2.61
+``` Scheme
+(define (adjoin-set x set)
+  (cond ((null? set) (cons x '()))
+        ((= x (car set)) set)
+        ((< x (car set)) (cons x set))
+        (else
+         (cons (car set)
+               (adjoin-set x (cdr set))))))
+```
+
+## 练习2.62
+``` Scheme
+(define (union-set set1 set2)
+  (cond ((null? set1) set2)
+        ((null? set2) set1)
+        ((= (car set1) (car set2))
+         (cons (car set1)
+               (union-set (cdr set1) (cdr set2))))
+        ((< (car set1) (car set2))
+         (cons (car set1)
+               (union-set (cdr set1) set2)))
+        (else
+         (cons (car set2)
+               (union-set set1 (cdr set2))))))
+```
+
+## 练习2.63
+
+* a) 这两个过程对所有的树会产生同样的结果，即中序遍历的结果。
+* b) 增长速度式相同的。
+
+## 练习2.65
+
+先将用平衡二叉树表示的set转化为排序的表，然后对排序的表调用union和intersection函数，最后将结果转化回平衡二叉树的表示形式：
+``` Scheme
+(define (unios-set-btree s1 s2)
+  (let ((t1 (tree->list-1 s1))
+        (t2 (tree->list-1 s2)))
+    (let ((u (union-set t1 t2)))
+      (list->tree u))))
+
+(define (intersection-set-btree s1 s2)
+  (let ((t1 (tree->list-1 s1))
+        (t2 (tree->list-1 s2)))
+    (let ((i (intersection-set t1 t2)))
+      (list->tree i))))
+```
+
+## 练习2.66
+``` Scheme
+(define (lookup key tree)
+  (cond ((null? tree) #f)
+        ((equal? key (entry tree)) (entry tree))
+        ((< key (entry tree)) (lookup key (left-branch tree)))
+        (else (lookup key (right-branch tree)))))
+```
