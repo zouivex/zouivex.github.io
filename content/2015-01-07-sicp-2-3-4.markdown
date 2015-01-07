@@ -1,0 +1,68 @@
+Title: sicp 2.3.4
+Slug: sicp-2-3-4
+Date: 2015-01-07 21:42:04
+Modified: 2015-01-07 21:42:04
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.67
+``` Scheme
+(define sample-tree
+  (make-code-tree (make-leaf 'A 4)
+                  (make-code-tree
+                   (make-leaf 'B 2)
+                   (make-code-tree (make-leaf 'D 1)
+                                   (make-leaf 'C 1)))))
+
+(define sample-message '(0 1 1 0 0 1 0 1 0 1 1 1 0))
+=>
+(A D A B B C A)
+```
+
+## 练习2.68
+``` Scheme
+(define (member? x ls) (member x ls))
+(define (encode-symbol s tree)
+  (cond ((null? tree) '())
+        ((leaf? tree) '())
+        ((member? s (syms (left-branch tree)))
+         (cons '0 (encode-symbol s (left-branch tree))))
+        ((member? s (syms (right-branch tree)))
+         (cons '1 (encode-symbol s (right-branch tree))))
+        (else (error "bad symbol -- encode-sympol" s))))
+
+(define (encode message tree)
+  (if (null? message)
+      '()
+      (append (encode-symbol (car message) tree)
+              (encode (cdr message) tree))))
+
+(define code '(A D A B B C A))
+(encode code sample-tree)
+=>
+(0 1 1 0 0 1 0 1 0 1 1 1 0)
+```
+
+## 练习2.69
+``` Scheme
+(define (successive-merge pairs-set)
+  (if (= 1 (length pairs-set))
+      (car pairs-set)
+      (successive-merge
+       (adjoin-set
+        (make-code-tree (car pairs-set) (cadr pairs-set))
+        (cddr pairs-set)))))
+```
+
+## 练习2.70
+``` Scheme
+(define table '((A 2) (NA 16) (BOOM 1) (SHA 3) (GET 2) (YIP 9) (JOB 2) (WAH 1)))
+(define huffman (generate-huffman-tree table))
+
+(encode '(GET A JOB SHA NA NA NA NA NA NA NA NA GET A JOB SHA NA NA NA NA NA NA NA NA WAH YIP YIP YIP YIP YIP YIP YIP YIP YIP SHA BOOM) huffman)
+=>
+(1 1 1 1 1 1 1 0 0 1 1 1 1 0 1 1 1 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 1 1 1 1 0 1 1 1 0 0 0 0 0 0 0 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1 0 1 1 0 1 1)
+```
+采用huffman编码一共需要84个二进制位。如果采用定长编码，则每个词需要3个二进制位，总共需要108个二进制位。
