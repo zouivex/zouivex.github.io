@@ -1,0 +1,98 @@
+Title: sicp 2.4
+Slug: sicp-2-4
+Date: 2015-01-27 21:24:35
+Modified: 2015-01-27 21:24:35
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.73
+
+a) 题目中的`(deriv exp var)`过程的意思是根据传人的`exp`的操作符查找相应的运算过程，然后apply到变量`var`上。因为谓词`number?`和`same-variable`已经是基础过程了，所以无法加入到数据导向的分派中。
+
+b) 将和式和积式的求导过程安装到数据导向分派的表格中：
+
+``` Scheme
+(define (augend ops)
+  (if (null? ops)
+      (error "Ops is null")
+      (car ops)))
+
+(define (addend ops)
+  (cond ((> (length ops) 2)
+         (cons '+ (cdr ops)))
+        ((= (length ops) 2)
+         (cadr ops))
+        (else
+         (error "Invalid number of ops!"))))
+
+(put 'deriv '+
+     (lambda (ops var)
+       (make-sum (deriv (augend ops) var)
+                 (deriv (addend ops) var))))
+
+(define (multiplier ops)
+  (if (null? ops)
+      (error "Invalid number of ops!")
+      (car ops)))
+
+(define (multiplicand ops)
+  (cond ((> (length ops) 2)
+         (cons '* (cdr ops)))
+        ((= (length ops) 2)
+         (cadr ops))
+        (else
+         (error "Invalid number of ops!"))))
+
+(put 'deriv '*
+     (lambda (ops var)
+       (make-sum
+        (make-product (multiplier ops)
+                      (deriv (multiplicand ops) var))
+        (make-product (deriv (multiplier ops) var)
+                      (multiplicand ops)))))
+```
+
+c) 添加乘幂的求导规则：
+
+``` Scheme
+(define (base exp)
+  (car exp))
+
+(define (exponent exp)
+  (cadr exp))
+
+(define (make-exponentiation base exponent)
+  (cond ((=number? exponent 0) 1)
+        ((=number? exponent 1) base)
+        (else
+         (list '** base exponent))))
+
+(put 'deriv '**
+     (lambda (ops var)
+       (make-product
+        (make-product
+         (exponent ops)
+         (make-exponentiation (base ops)
+                              (- (exponent ops) 1)))
+        (deriv (base ops) var))))
+```
+
+d) 需要按相反的次序存取数据导向表。
+
+## 练习2.75
+
+``` Scheme
+(define (make-from-mag-ang r a)
+  (define (dispatch op)
+    (cond ((eq? op 'real-part)
+           (* r (cos a)))
+          ((eq? op 'imag-part)
+           (* r (sin a)))
+          ((eq? op 'magnitude) r)
+          ((eq? op 'angle) a)
+          (else
+           (error "Unknown op" op))))
+  dispatch)
+```
