@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-24T22:14:17"> Fri 24 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-24T22:14:17+08:00"> Fri 24 October 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -184,21 +184,21 @@
 <p>功能分支通常只存在于开发库，而不存在于<code>origin</code>库。</p>
 <h3 id="_5">创建功能分支</h3>
 <p>当开始开发新功能时，从<code>develop</code>分支创建新的功能分支：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">myfeature</span> <span class="n">develop</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">a</span> <span class="n">new</span> <span class="n">branch</span> <span class="s">&quot;myfeature&quot;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout -b myfeature develop</span>
+<span class="code-line">Switched to a new branch <span class="s2">&quot;myfeature&quot;</span></span>
 </pre></div>
 
 
 <h3 id="develop">功能完成后集成回<code>develop</code>分支</h3>
 <p>功能开发完成后，将功能分支合并回<code>develop</code>分支，并将它们加入下一个发布版本：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">develop</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">develop</span><span class="err">&#39;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ff</span> <span class="n">myfeature</span></span>
-<span class="code-line"><span class="n">Updating</span> <span class="n">ea1b82a</span><span class="p">.</span><span class="mf">.05e9557</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">Summary</span> <span class="n">of</span> <span class="n">changes</span><span class="p">)</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">myfeature</span></span>
-<span class="code-line"><span class="n">Deleted</span> <span class="n">branch</span> <span class="n">myfeature</span> <span class="p">(</span><span class="n">was</span> <span class="mf">05e9557</span><span class="p">).</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">develop</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout develop</span>
+<span class="code-line">Switched to branch <span class="s1">&#39;develop&#39;</span></span>
+<span class="code-line"><span class="nv">$ </span>git merge --no-ff myfeature</span>
+<span class="code-line">Updating ea1b82a..05e9557</span>
+<span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
+<span class="code-line"><span class="nv">$ </span>git branch -d myfeature</span>
+<span class="code-line">Deleted branch myfeature <span class="o">(</span>was 05e9557<span class="o">)</span>.</span>
+<span class="code-line"><span class="nv">$ </span>git push origin develop</span>
 </pre></div>
 
 
@@ -233,13 +233,13 @@
 <p>在发布分支创建之时才能决定下一个版本的版本号。此时<code>develop</code>分支反映下一个版本中的所有修改，但是依然还不清楚下一个版本最终会是0.3还是0.1。在创建发布分支时，根据项目的版本号分配规则决定下一个版本号。</p>
 <h3 id="_7">创建发布分支</h3>
 <p>发布分支从<code>develop</code>分支创建而来。例如，当前生产版本为1.1.5，马上就有一个大的版本发布。<code>develop</code>分支为下一个版本的所有修改已经完成，我们决定下一个版本号为1.2（不是1.1.6或2.0）。所以我们创建一个发布分支并且命名为下一个即将发布的版本号：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span> <span class="n">develop</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">a</span> <span class="n">new</span> <span class="n">branch</span> <span class="s">&quot;release-1.2&quot;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">bump</span><span class="o">-</span><span class="n">version</span><span class="p">.</span><span class="n">sh</span> <span class="mf">1.2</span></span>
-<span class="code-line"><span class="n">Files</span> <span class="n">modified</span> <span class="n">successfully</span><span class="p">,</span> <span class="n">version</span> <span class="n">bumped</span> <span class="n">to</span> <span class="mf">1.2</span><span class="p">.</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;Bumped version number to 1.2&quot;</span></span>
-<span class="code-line"><span class="p">[</span><span class="n">release</span><span class="o">-</span><span class="mf">1.2</span> <span class="mi">74</span><span class="n">d9424</span><span class="p">]</span> <span class="n">Bumped</span> <span class="n">version</span> <span class="n">number</span> <span class="n">to</span> <span class="mf">1.2</span></span>
-<span class="code-line"><span class="mi">1</span> <span class="n">files</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">1</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">),</span> <span class="mi">1</span> <span class="n">deletions</span><span class="p">(</span><span class="o">-</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout -b release-1.2 develop</span>
+<span class="code-line">Switched to a new branch <span class="s2">&quot;release-1.2&quot;</span></span>
+<span class="code-line"><span class="nv">$ </span>./bump-version.sh 1.2</span>
+<span class="code-line">Files modified successfully, version bumped to 1.2.</span>
+<span class="code-line"><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Bumped version number to 1.2&quot;</span></span>
+<span class="code-line"><span class="o">[</span>release-1.2 74d9424<span class="o">]</span> Bumped version number to 1.2</span>
+<span class="code-line"><span class="m">1</span> files changed, <span class="m">1</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletions<span class="o">(</span>-<span class="o">)</span></span>
 </pre></div>
 
 
@@ -248,29 +248,29 @@
 <h3 id="_8">完成发布分支</h3>
 <p>当发布分支中的代码准备好发布时，需要采取一些行动。首先，将发布分支合并到<code>master</code>分支（记住，任何一次到<code>master</code>分支的提交都是一个新的版本）。其次，这些到<code>master</code>分支的提交必须打上标记以便于在将来通过历史版本引用。最后，发布分支中的改动需要合并回<code>develop</code>分支，确保新发布的版本包含这些修改。</p>
 <p>前两个步骤在Git中的命令：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">master</span><span class="err">&#39;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ff</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span></span>
-<span class="code-line"><span class="n">Merge</span> <span class="n">made</span> <span class="n">by</span> <span class="n">recursive</span><span class="p">.</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">Summary</span> <span class="n">of</span> <span class="n">changes</span><span class="p">)</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">tag</span> <span class="o">-</span><span class="n">a</span> <span class="mf">1.2</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout master</span>
+<span class="code-line">Switched to branch <span class="s1">&#39;master&#39;</span></span>
+<span class="code-line"><span class="nv">$ </span>git merge --no-ff release-1.2</span>
+<span class="code-line">Merge made by recursive.</span>
+<span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
+<span class="code-line"><span class="nv">$ </span>git tag -a 1.2</span>
 </pre></div>
 
 
 <p>此刻发布完成，并且作好标记便将来引用。</p>
 <p>发布版本中的修改需要合并回<code>develop</code>分支，Git命令为：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">develop</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">develop</span><span class="err">&#39;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ff</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span></span>
-<span class="code-line"><span class="n">Merge</span> <span class="n">made</span> <span class="n">by</span> <span class="n">recursive</span><span class="p">.</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">Summary</span> <span class="n">of</span> <span class="n">changes</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout develop</span>
+<span class="code-line">Switched to branch <span class="s1">&#39;develop&#39;</span></span>
+<span class="code-line"><span class="nv">$ </span>git merge --no-ff release-1.2</span>
+<span class="code-line">Merge made by recursive.</span>
+<span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
 </pre></div>
 
 
 <p>此时进行合并发生冲突还可以接受（只是有可能产生冲突，因为我们修改了版本号）。如果发生冲突，解决冲突并提交。</p>
 <p>现在新版本的发布真的完成了，发布分支功成身退，因为我们不再需要它们了：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span></span>
-<span class="code-line"><span class="n">Deleted</span> <span class="n">branch</span> <span class="n">release</span><span class="o">-</span><span class="mf">1.2</span> <span class="p">(</span><span class="n">was</span> <span class="n">ff452fe</span><span class="p">).</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git branch -d release-1.2</span>
+<span class="code-line">Deleted branch release-1.2 <span class="o">(</span>was ff452fe<span class="o">)</span>.</span>
 </pre></div>
 
 
@@ -300,48 +300,48 @@
 <p>此处的要点是工作在<code>develop</code>分支的项目组成员可以继续工作，而其他人可以同时准备一个针对生产版本的快速修改。</p>
 <h3 id="_10">创建热修复分支</h3>
 <p>热修复分支从<code>master</code>分支创建而来。例如当前正在运行生产系统版本为1.2，由于一个bug导致系统问题。但是此时<code>develop</code>分支中的修改还不稳定，我们可以创建一个热修复分支来修复此问题：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span> <span class="n">master</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">a</span> <span class="n">new</span> <span class="n">branch</span> <span class="s">&quot;hotfix-1.2.1&quot;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">bump</span><span class="o">-</span><span class="n">version</span><span class="p">.</span><span class="n">sh</span> <span class="mf">1.2.1</span></span>
-<span class="code-line"><span class="n">Files</span> <span class="n">modified</span> <span class="n">successfully</span><span class="p">,</span> <span class="n">version</span> <span class="n">bumped</span> <span class="n">to</span> <span class="mf">1.2.1</span><span class="p">.</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;Bumped version number to 1.2.1&quot;</span></span>
-<span class="code-line"><span class="p">[</span><span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span> <span class="mf">41e61</span><span class="n">bb</span><span class="p">]</span> <span class="n">Bumped</span> <span class="n">version</span> <span class="n">number</span> <span class="n">to</span> <span class="mf">1.2.1</span></span>
-<span class="code-line"><span class="mi">1</span> <span class="n">files</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">1</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">),</span> <span class="mi">1</span> <span class="n">deletions</span><span class="p">(</span><span class="o">-</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout -b hotfix-1.2.1 master</span>
+<span class="code-line">Switched to a new branch <span class="s2">&quot;hotfix-1.2.1&quot;</span></span>
+<span class="code-line"><span class="nv">$ </span>./bump-version.sh 1.2.1</span>
+<span class="code-line">Files modified successfully, version bumped to 1.2.1.</span>
+<span class="code-line"><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Bumped version number to 1.2.1&quot;</span></span>
+<span class="code-line"><span class="o">[</span>hotfix-1.2.1 41e61bb<span class="o">]</span> Bumped version number to 1.2.1</span>
+<span class="code-line"><span class="m">1</span> files changed, <span class="m">1</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletions<span class="o">(</span>-<span class="o">)</span></span>
 </pre></div>
 
 
 <p>别忘了在创建分支时替换版本号。然后，修复bug并且分一次或多次提交修复：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;Fixed severe production problem&quot;</span></span>
-<span class="code-line"><span class="p">[</span><span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span> <span class="n">abbe5d6</span><span class="p">]</span> <span class="n">Fixed</span> <span class="n">severe</span> <span class="n">production</span> <span class="n">problem</span></span>
-<span class="code-line"><span class="mi">5</span> <span class="n">files</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">32</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">),</span> <span class="mi">17</span> <span class="n">deletions</span><span class="p">(</span><span class="o">-</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git commit -m <span class="s2">&quot;Fixed severe production problem&quot;</span></span>
+<span class="code-line"><span class="o">[</span>hotfix-1.2.1 abbe5d6<span class="o">]</span> Fixed severe production problem</span>
+<span class="code-line"><span class="m">5</span> files changed, <span class="m">32</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">17</span> deletions<span class="o">(</span>-<span class="o">)</span></span>
 </pre></div>
 
 
 <h3 id="_11">完成热修复分支</h3>
 <p>修复完成之后，代码修改需要合并回<code>master</code>分支，同时还需要合并回<code>develop</code>分支，这样确保代码修改同时也被包含到下一个发布版本。这与完成发布分支的方式类似。</p>
 <p>首先，更新<code>master</code>分支并且标记版本号。</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">master</span><span class="err">&#39;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ff</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span></span>
-<span class="code-line"><span class="n">Merge</span> <span class="n">made</span> <span class="n">by</span> <span class="n">recursive</span><span class="p">.</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">Summary</span> <span class="n">of</span> <span class="n">changes</span><span class="p">)</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">tag</span> <span class="o">-</span><span class="n">a</span> <span class="mf">1.2.1</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout master</span>
+<span class="code-line">Switched to branch <span class="s1">&#39;master&#39;</span></span>
+<span class="code-line"><span class="nv">$ </span>git merge --no-ff hotfix-1.2.1</span>
+<span class="code-line">Merge made by recursive.</span>
+<span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
+<span class="code-line"><span class="nv">$ </span>git tag -a 1.2.1</span>
 </pre></div>
 
 
 <p>接着，将所有修改也合并到<code>develop</code>分支：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">develop</span></span>
-<span class="code-line"><span class="n">Switched</span> <span class="n">to</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">develop</span><span class="err">&#39;</span></span>
-<span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">merge</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ff</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span></span>
-<span class="code-line"><span class="n">Merge</span> <span class="n">made</span> <span class="n">by</span> <span class="n">recursive</span><span class="p">.</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">Summary</span> <span class="n">of</span> <span class="n">changes</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout develop</span>
+<span class="code-line">Switched to branch <span class="s1">&#39;develop&#39;</span></span>
+<span class="code-line"><span class="nv">$ </span>git merge --no-ff hotfix-1.2.1</span>
+<span class="code-line">Merge made by recursive.</span>
+<span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
 </pre></div>
 
 
 <p>也有一个例外，当存在发布分支时，热修复分支中的修改需要合并回发布分支而不是<code>develop</code>分支。将代码修改合并回发布分支，这样在发布分支完成之后代码修改最终会被自然合并回<code>develop</code>分支。如果<code>develop</code>分支急切需要这些修改，等不到发布分支完成，也可以同时安全地合并这些代码修改到<code>develop</code>分支。</p>
 <p>最后，删除临时的热修复分支：</p>
-<div class="highlight"><pre><span class="code-line"><span class="err">$</span> <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">d</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span></span>
-<span class="code-line"><span class="n">Deleted</span> <span class="n">branch</span> <span class="n">hotfix</span><span class="o">-</span><span class="mf">1.2.1</span> <span class="p">(</span><span class="n">was</span> <span class="n">abbe5d6</span><span class="p">).</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git branch -d hotfix-1.2.1</span>
+<span class="code-line">Deleted branch hotfix-1.2.1 <span class="o">(</span>was abbe5d6<span class="o">)</span>.</span>
 </pre></div>
 
 
@@ -394,13 +394,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -413,11 +418,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -425,7 +425,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -448,7 +448,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

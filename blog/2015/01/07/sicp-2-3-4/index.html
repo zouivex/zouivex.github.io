@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="Scheme" />
-        <meta name="description" content="习题解答 练习2.67 (define sample-tree (make-code-tree (make-leaf &#39;A 4) (make-code-tree (make-leaf &#39;B 2) (make-code-tree (make-leaf &#39;D 1) (make-leaf &#39;C 1))))) (define sample-message &#39;(0 1 1 0 0 1 0 1 0 1 1 1 0)) =&gt; (A D A ..." />
+        <meta name="description" content="习题解答 练习2.67 (define sample-tree (make-code-tree (make-leaf &#39;A 4) (make-code-tree (make-leaf &#39;B 2) (make-code-tree (make-leaf &#39;D 1) (make-leaf &#39;C 1))))) (define sample-message &#39;(0 1 1 0 0 1 0 1 0 1 1 1 0)) =&gt; (A D A B B C A) 练习2.68 (define (member? x ls) (member x ..." />
 
     <!-- Enable latex plugin -->
 
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-07T21:42:04"> Wed 07 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-07T21:42:04+08:00"> Wed 07 January 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,60 +96,60 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="267">练习2.67</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="n">sample</span><span class="o">-</span><span class="n">tree</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">tree</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">leaf</span> <span class="err">&#39;</span><span class="n">A</span> <span class="mi">4</span><span class="p">)</span></span>
-<span class="code-line">                  <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">tree</span></span>
-<span class="code-line">                   <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">leaf</span> <span class="err">&#39;</span><span class="n">B</span> <span class="mi">2</span><span class="p">)</span></span>
-<span class="code-line">                   <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">tree</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">leaf</span> <span class="err">&#39;</span><span class="n">D</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">                                   <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">leaf</span> <span class="err">&#39;</span><span class="n">C</span> <span class="mi">1</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">sample-tree</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">make-code-tree</span> <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;A</span> <span class="mi">4</span><span class="p">)</span></span>
+<span class="code-line">                  <span class="p">(</span><span class="nf">make-code-tree</span></span>
+<span class="code-line">                   <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;B</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">                   <span class="p">(</span><span class="nf">make-code-tree</span> <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;D</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">                                   <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;C</span> <span class="mi">1</span><span class="p">)))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="n">sample</span><span class="o">-</span><span class="n">message</span> <span class="err">&#39;</span><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">))</span></span>
-<span class="code-line"><span class="o">=&gt;</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">A</span> <span class="n">D</span> <span class="n">A</span> <span class="n">B</span> <span class="n">B</span> <span class="n">C</span> <span class="n">A</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">sample-message</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">))</span></span>
+<span class="code-line"><span class="nv">=&gt;</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">A</span> <span class="nv">D</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">B</span> <span class="nv">C</span> <span class="nv">A</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h2 id="268">练习2.68</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">member</span><span class="o">?</span> <span class="n">x</span> <span class="n">ls</span><span class="p">)</span> <span class="p">(</span><span class="n">member</span> <span class="n">x</span> <span class="n">ls</span><span class="p">))</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">encode</span><span class="o">-</span><span class="n">symbol</span> <span class="n">s</span> <span class="n">tree</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">tree</span><span class="p">)</span> <span class="err">&#39;</span><span class="p">())</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">leaf</span><span class="o">?</span> <span class="n">tree</span><span class="p">)</span> <span class="err">&#39;</span><span class="p">())</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">member</span><span class="o">?</span> <span class="n">s</span> <span class="p">(</span><span class="n">syms</span> <span class="p">(</span><span class="n">left</span><span class="o">-</span><span class="n">branch</span> <span class="n">tree</span><span class="p">)))</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="err">&#39;</span><span class="mi">0</span> <span class="p">(</span><span class="n">encode</span><span class="o">-</span><span class="n">symbol</span> <span class="n">s</span> <span class="p">(</span><span class="n">left</span><span class="o">-</span><span class="n">branch</span> <span class="n">tree</span><span class="p">))))</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">member</span><span class="o">?</span> <span class="n">s</span> <span class="p">(</span><span class="n">syms</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">branch</span> <span class="n">tree</span><span class="p">)))</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="err">&#39;</span><span class="mi">1</span> <span class="p">(</span><span class="n">encode</span><span class="o">-</span><span class="n">symbol</span> <span class="n">s</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">branch</span> <span class="n">tree</span><span class="p">))))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">error</span> <span class="s">&quot;bad symbol -- encode-sympol&quot;</span> <span class="n">s</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">member?</span> <span class="nv">x</span> <span class="nv">ls</span><span class="p">)</span> <span class="p">(</span><span class="nb">member </span><span class="nv">x</span> <span class="nv">ls</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">encode-symbol</span> <span class="nv">s</span> <span class="nv">tree</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">tree</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">leaf?</span> <span class="nv">tree</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">member?</span> <span class="nv">s</span> <span class="p">(</span><span class="nf">syms</span> <span class="p">(</span><span class="nf">left-branch</span> <span class="nv">tree</span><span class="p">)))</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;0</span> <span class="p">(</span><span class="nf">encode-symbol</span> <span class="nv">s</span> <span class="p">(</span><span class="nf">left-branch</span> <span class="nv">tree</span><span class="p">))))</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">member?</span> <span class="nv">s</span> <span class="p">(</span><span class="nf">syms</span> <span class="p">(</span><span class="nf">right-branch</span> <span class="nv">tree</span><span class="p">)))</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;1</span> <span class="p">(</span><span class="nf">encode-symbol</span> <span class="nv">s</span> <span class="p">(</span><span class="nf">right-branch</span> <span class="nv">tree</span><span class="p">))))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">error</span> <span class="s">&quot;bad symbol -- encode-sympol&quot;</span> <span class="nv">s</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">encode</span> <span class="n">message</span> <span class="n">tree</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">message</span><span class="p">)</span></span>
-<span class="code-line">      <span class="err">&#39;</span><span class="p">()</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">append</span> <span class="p">(</span><span class="n">encode</span><span class="o">-</span><span class="n">symbol</span> <span class="p">(</span><span class="n">car</span> <span class="n">message</span><span class="p">)</span> <span class="n">tree</span><span class="p">)</span></span>
-<span class="code-line">              <span class="p">(</span><span class="n">encode</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">message</span><span class="p">)</span> <span class="n">tree</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">encode</span> <span class="nv">message</span> <span class="nv">tree</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">message</span><span class="p">)</span></span>
+<span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">append </span><span class="p">(</span><span class="nf">encode-symbol</span> <span class="p">(</span><span class="nb">car </span><span class="nv">message</span><span class="p">)</span> <span class="nv">tree</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nf">encode</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">message</span><span class="p">)</span> <span class="nv">tree</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="n">code</span> <span class="err">&#39;</span><span class="p">(</span><span class="n">A</span> <span class="n">D</span> <span class="n">A</span> <span class="n">B</span> <span class="n">B</span> <span class="n">C</span> <span class="n">A</span><span class="p">))</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">encode</span> <span class="n">code</span> <span class="n">sample</span><span class="o">-</span><span class="n">tree</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">code</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">A</span> <span class="nv">D</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">B</span> <span class="nv">C</span> <span class="nv">A</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">encode</span> <span class="nv">code</span> <span class="nv">sample-tree</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">=&gt;</span></span>
 <span class="code-line"><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h2 id="269">练习2.69</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">successive</span><span class="o">-</span><span class="n">merge</span> <span class="n">pairs</span><span class="o">-</span><span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="mi">1</span> <span class="p">(</span><span class="n">length</span> <span class="n">pairs</span><span class="o">-</span><span class="n">set</span><span class="p">))</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">car</span> <span class="n">pairs</span><span class="o">-</span><span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">successive</span><span class="o">-</span><span class="n">merge</span></span>
-<span class="code-line">       <span class="p">(</span><span class="n">adjoin</span><span class="o">-</span><span class="n">set</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">tree</span> <span class="p">(</span><span class="n">car</span> <span class="n">pairs</span><span class="o">-</span><span class="n">set</span><span class="p">)</span> <span class="p">(</span><span class="n">cadr</span> <span class="n">pairs</span><span class="o">-</span><span class="n">set</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">cddr</span> <span class="n">pairs</span><span class="o">-</span><span class="n">set</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">successive-merge</span> <span class="nv">pairs-set</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="mi">1</span> <span class="p">(</span><span class="nb">length </span><span class="nv">pairs-set</span><span class="p">))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">car </span><span class="nv">pairs-set</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">successive-merge</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nf">adjoin-set</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">make-code-tree</span> <span class="p">(</span><span class="nb">car </span><span class="nv">pairs-set</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">pairs-set</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nb">cddr </span><span class="nv">pairs-set</span><span class="p">)))))</span></span>
 </pre></div>
 
 
 <h2 id="270">练习2.70</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="n">table</span> <span class="err">&#39;</span><span class="p">((</span><span class="n">A</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">NA</span> <span class="mi">16</span><span class="p">)</span> <span class="p">(</span><span class="n">BOOM</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">SHA</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="n">GET</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">YIP</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="n">JOB</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">WAH</span> <span class="mi">1</span><span class="p">)))</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="n">huffman</span> <span class="p">(</span><span class="n">generate</span><span class="o">-</span><span class="n">huffman</span><span class="o">-</span><span class="n">tree</span> <span class="n">table</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">table</span> <span class="o">&#39;</span><span class="p">((</span><span class="nf">A</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">NA</span> <span class="mi">16</span><span class="p">)</span> <span class="p">(</span><span class="nf">BOOM</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nf">SHA</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="nf">GET</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">YIP</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="nf">JOB</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">WAH</span> <span class="mi">1</span><span class="p">)))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">huffman</span> <span class="p">(</span><span class="nf">generate-huffman-tree</span> <span class="nv">table</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">encode</span> <span class="err">&#39;</span><span class="p">(</span><span class="n">GET</span> <span class="n">A</span> <span class="n">JOB</span> <span class="n">SHA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">GET</span> <span class="n">A</span> <span class="n">JOB</span> <span class="n">SHA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">NA</span> <span class="n">WAH</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">YIP</span> <span class="n">SHA</span> <span class="n">BOOM</span><span class="p">)</span> <span class="n">huffman</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">encode</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">GET</span> <span class="nv">A</span> <span class="nv">JOB</span> <span class="nv">SHA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">GET</span> <span class="nv">A</span> <span class="nv">JOB</span> <span class="nv">SHA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">WAH</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">SHA</span> <span class="nv">BOOM</span><span class="p">)</span> <span class="nv">huffman</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">=&gt;</span></span>
 <span class="code-line"><span class="p">(</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span></span>
 </pre></div>
 
@@ -199,13 +199,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -218,11 +223,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -230,7 +230,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -253,7 +253,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

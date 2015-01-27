@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="scheme" />
-        <meta name="description" content="习题解答 练习2.17 (define (last-pair l) (if (null? (cdr l)) l (last-pair (cdr l)))) 练习2.18 按照题目描述，可以写出reverse函数的迭代版本和递归版本： (define (reverse-iter l) (define (iter items result) (if (null? items) result (iter (cdr items) (cons (car items) result)))) (iter l &#39;())) (define (reverse l) (if (null? l) &#39;() (append (reverse (cdr ..." />
+        <meta name="description" content="习题解答 练习2.17 (define (last-pair l) (if (null? (cdr l)) l (last-pair (cdr l)))) 练习2.18 按照题目描述，可以写出reverse函数的迭代版本和递归版本： (define (reverse-iter l) (define (iter items result) (if (null? items) result (iter (cdr items) (cons (car items) result)))) (iter l &#39;())) (define (reverse l) (if (null? l) &#39;() (append (reverse (cdr l)) (list (car ..." />
 
     <!-- Enable latex plugin -->
 
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-14T16:18:12"> Sun 14 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-14T16:18:12+08:00"> Sun 14 December 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,82 +96,82 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="217">练习2.17</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">last</span><span class="o">-</span><span class="n">pair</span> <span class="n">l</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">l</span><span class="p">))</span></span>
-<span class="code-line">      <span class="n">l</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">last</span><span class="o">-</span><span class="n">pair</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">l</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">last-pair</span> <span class="nv">l</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))</span></span>
+<span class="code-line">      <span class="nv">l</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">last-pair</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))))</span></span>
 </pre></div>
 
 
 <h2 id="218">练习2.18</h2>
 <p>按照题目描述，可以写出reverse函数的迭代版本和递归版本：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">reverse</span><span class="o">-</span><span class="n">iter</span> <span class="n">l</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">items</span> <span class="n">result</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">result</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">              <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">items</span><span class="p">)</span> <span class="n">result</span><span class="p">))))</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">iter</span> <span class="n">l</span> <span class="err">&#39;</span><span class="p">()))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reverse-iter</span> <span class="nv">l</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">items</span> <span class="nv">result</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">        <span class="nv">result</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">iter</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">items</span><span class="p">)</span> <span class="nv">result</span><span class="p">))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">iter</span> <span class="nv">l</span> <span class="o">&#39;</span><span class="p">()))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">reverse</span> <span class="n">l</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">l</span><span class="p">)</span></span>
-<span class="code-line">      <span class="err">&#39;</span><span class="p">()</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">append</span></span>
-<span class="code-line">       <span class="p">(</span><span class="n">reverse</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">l</span><span class="p">))</span></span>
-<span class="code-line">       <span class="p">(</span><span class="n">list</span> <span class="p">(</span><span class="n">car</span> <span class="n">l</span><span class="p">)))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">reverse </span><span class="nv">l</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">l</span><span class="p">)</span></span>
+<span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">append</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nb">reverse </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nb">list </span><span class="p">(</span><span class="nb">car </span><span class="nv">l</span><span class="p">)))))</span></span>
 </pre></div>
 
 
 <h2 id="219">练习2.19</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">no</span><span class="o">-</span><span class="n">more</span><span class="o">?</span> <span class="n">coin</span><span class="o">-</span><span class="n">values</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">coin</span><span class="o">-</span><span class="n">values</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">no-more?</span> <span class="nv">coin-values</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">null? </span><span class="nv">coin-values</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">first</span><span class="o">-</span><span class="n">denomination</span> <span class="n">coin</span><span class="o">-</span><span class="n">values</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">coin</span><span class="o">-</span><span class="n">values</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">first-denomination</span> <span class="nv">coin-values</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">coin-values</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">except</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">denomination</span> <span class="n">coin</span><span class="o">-</span><span class="n">values</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">coin</span><span class="o">-</span><span class="n">values</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">except-first-denomination</span> <span class="nv">coin-values</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cdr </span><span class="nv">coin-values</span><span class="p">))</span></span>
 </pre></div>
 
 
 <h2 id="220">练习2.20</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">same</span><span class="o">-</span><span class="n">parity</span><span class="o">?</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">or</span></span>
-<span class="code-line">   <span class="p">(</span><span class="n">and</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="n">b</span><span class="p">))</span></span>
-<span class="code-line">   <span class="p">(</span><span class="n">and</span> <span class="p">(</span><span class="n">odd</span><span class="o">?</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">odd</span><span class="o">?</span> <span class="n">b</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">same-parity?</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">or</span></span>
+<span class="code-line">   <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">even? </span><span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nb">even? </span><span class="nv">b</span><span class="p">))</span></span>
+<span class="code-line">   <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">odd? </span><span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nb">odd? </span><span class="nv">b</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">same</span><span class="o">-</span><span class="n">parity</span> <span class="n">a</span> <span class="p">.</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">filter</span> <span class="n">l</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">l</span><span class="p">)</span></span>
-<span class="code-line">        <span class="err">&#39;</span><span class="p">()</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">c</span> <span class="p">(</span><span class="n">car</span> <span class="n">l</span><span class="p">)))</span></span>
-<span class="code-line">          <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">same</span><span class="o">-</span><span class="n">parity</span><span class="o">?</span> <span class="n">a</span> <span class="n">c</span><span class="p">)</span></span>
-<span class="code-line">              <span class="p">(</span><span class="n">cons</span> <span class="n">c</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">l</span><span class="p">)))</span></span>
-<span class="code-line">              <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">l</span><span class="p">))))))</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">a</span> <span class="p">(</span><span class="n">filter</span> <span class="n">b</span><span class="p">)))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">same-parity</span> <span class="nv">a</span> <span class="o">.</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">filter</span> <span class="nv">l</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">l</span><span class="p">)</span></span>
+<span class="code-line">        <span class="o">&#39;</span><span class="p">()</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">c</span> <span class="p">(</span><span class="nb">car </span><span class="nv">l</span><span class="p">)))</span></span>
+<span class="code-line">          <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">same-parity?</span> <span class="nv">a</span> <span class="nv">c</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">cons </span><span class="nv">c</span> <span class="p">(</span><span class="nf">filter</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">)))</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nf">filter</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">a</span> <span class="p">(</span><span class="nf">filter</span> <span class="nv">b</span><span class="p">)))</span></span>
 </pre></div>
 
 
 <h2 id="221">练习2.21</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">square</span><span class="o">-</span><span class="n">list</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">      <span class="err">&#39;</span><span class="p">()</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">square</span> <span class="p">(</span><span class="n">car</span> <span class="n">items</span><span class="p">))</span></span>
-<span class="code-line">            <span class="p">(</span><span class="n">square</span><span class="o">-</span><span class="n">list</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">items</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-list</span> <span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nb">car </span><span class="nv">items</span><span class="p">))</span></span>
+<span class="code-line">            <span class="p">(</span><span class="nf">square-list</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">items</span><span class="p">)))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">square</span><span class="o">-</span><span class="n">list</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">map</span> <span class="n">square</span> <span class="n">items</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-list</span> <span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">map </span><span class="nv">square</span> <span class="nv">items</span><span class="p">))</span></span>
 </pre></div>
 
 
 <h2 id="222">练习2.22</h2>
 <p>问题出在<code>cons (square (car things)) answer)</code>上。每次将结果cons到list的前端，因而结果是一个<code>square-list</code>的逆向列表。而如果简单地调换一下cons的顺序，并不能解决问题。此处应该将用<code>append</code>代替<code>cons</code>。</p>
 <h2 id="223">练习2.23</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="k">for</span><span class="o">-</span><span class="n">each</span> <span class="n">proc</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">items</span><span class="p">)</span></span>
-<span class="code-line">      <span class="err">&#39;</span><span class="p">()</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">begin</span> <span class="p">(</span><span class="n">proc</span> <span class="p">(</span><span class="n">car</span> <span class="n">items</span><span class="p">))</span></span>
-<span class="code-line">             <span class="p">(</span><span class="k">for</span><span class="o">-</span><span class="n">each</span> <span class="n">proc</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">items</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">for-each </span><span class="nv">proc</span> <span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
+<span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
+<span class="code-line">      <span class="p">(</span><span class="k">begin </span><span class="p">(</span><span class="nf">proc</span> <span class="p">(</span><span class="nb">car </span><span class="nv">items</span><span class="p">))</span></span>
+<span class="code-line">             <span class="p">(</span><span class="nb">for-each </span><span class="nv">proc</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">items</span><span class="p">)))))</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -217,13 +217,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -236,11 +241,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -248,7 +248,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -271,7 +271,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

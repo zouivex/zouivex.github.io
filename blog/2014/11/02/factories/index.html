@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47"> Sun 02 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47+08:00"> Sun 02 November 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -117,7 +117,7 @@
 <p>第一，返回裸指针在默认情况下是不安全的，因为函数的默认行为是泄漏widget对象：</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// Example 1: Leak by default. Really, this is just so 20th-century...</span></span>
 <span class="code-line"><span class="c1">//</span></span>
-<span class="code-line"><span class="n">widget</span><span class="o">*</span> <span class="n">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
+<span class="code-line"><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="o">:::</span></span>
 <span class="code-line"></span>
@@ -157,13 +157,13 @@
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Accept as a unique_ptr (by default)</span></span>
-<span class="code-line"><span class="n">auto</span> <span class="n">up</span> <span class="o">=</span> <span class="n">load_widget</span><span class="p">(</span><span class="mh">1</span><span class="p">);</span></span>
+<span class="code-line"><span class="k">auto</span> <span class="n">up</span> <span class="o">=</span> <span class="n">load_widget</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Accept as a shared_ptr (if desired)</span></span>
-<span class="code-line"><span class="n">auto</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span> <span class="n">load_widget</span><span class="p">(</span><span class="mh">2</span><span class="p">)</span> <span class="p">};</span></span>
+<span class="code-line"><span class="k">auto</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span> <span class="n">load_widget</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">};</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Accept as your own smart pointer (if desired)</span></span>
-<span class="code-line"><span class="n">auto</span> <span class="n">msp</span> <span class="o">=</span> <span class="n">my</span><span class="o">::</span><span class="n">smart_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span> <span class="n">load_widget</span><span class="p">(</span><span class="mh">3</span><span class="p">).</span><span class="k">release</span><span class="p">()</span> <span class="p">};</span></span>
+<span class="code-line"><span class="k">auto</span> <span class="n">msp</span> <span class="o">=</span> <span class="n">my</span><span class="o">::</span><span class="n">smart_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span> <span class="n">load_widget</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="n">release</span><span class="p">()</span> <span class="p">};</span></span>
 </pre></div>
 
 
@@ -188,8 +188,8 @@
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Obsolete calling code (note: NOT exception-safe)</span></span>
 <span class="code-line"><span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">load_gadgets</span><span class="p">();</span></span>
-<span class="code-line"><span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">use</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span></span>
-<span class="code-line"><span class="n">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="code-line"><span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">use</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span></span>
+<span class="code-line"><span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
 </pre></div>
 
 
@@ -203,8 +203,8 @@
 <span class="code-line"><span class="p">}</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Calling code (exception-safe)</span></span>
-<span class="code-line"><span class="n">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">load_gadgets</span><span class="p">();</span></span>
-<span class="code-line"><span class="k">use</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line"><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">load_gadgets</span><span class="p">();</span></span>
+<span class="code-line"><span class="n">use</span><span class="p">(</span><span class="n">v</span><span class="p">);</span></span>
 </pre></div>
 
 
@@ -212,7 +212,7 @@
 <p>可能还有一种情况，函数返回指针，那就是用空指针表示创建对象失败。一般情况下，载入widget对象失败时抛出异常要更好一些。然而，如果载入widget对象失败被看作是一种正常的情况的话，则返回<code>optional&lt;widget&gt;</code>对象，如果没有其它类型的错误，所有错误都可以用空<code>optional&lt;widget&gt;</code>对象表达时，将工厂函数声明为<code>noexcept</code>：</p>
 <div class="highlight"><pre><span class="code-line"><span class="c1">// Example 4(c): Alternative if not returning an object is normal</span></span>
 <span class="code-line"><span class="c1">//</span></span>
-<span class="code-line"><span class="n">optional</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;&gt;</span> <span class="n">load_gadgets</span><span class="p">()</span> <span class="n">noexcept</span> <span class="p">{</span></span>
+<span class="code-line"><span class="n">optional</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;&gt;</span> <span class="n">load_gadgets</span><span class="p">()</span> <span class="k">noexcept</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span> <span class="n">ret</span><span class="p">;</span></span>
 <span class="code-line">    <span class="c1">// ... populate ret ...</span></span>
 <span class="code-line">    <span class="k">if</span><span class="p">(</span> <span class="n">success</span> <span class="p">)</span>            <span class="c1">// return vector (might be empty)</span></span>
@@ -222,8 +222,8 @@
 <span class="code-line"><span class="p">}</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Calling code (exception-safe)</span></span>
-<span class="code-line"><span class="n">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">load_gadgets</span><span class="p">();</span></span>
-<span class="code-line"><span class="k">if</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">use</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">);</span></span>
+<span class="code-line"><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">load_gadgets</span><span class="p">();</span></span>
+<span class="code-line"><span class="k">if</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="n">use</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">);</span></span>
 </pre></div>
 
 
@@ -232,7 +232,7 @@
 </blockquote>
 <h1 id="_4">尾声</h1>
 <p>注意到上面代码最后一行的<code>if(v)</code>测试没有？它调用了<code>optional&lt;T&gt;</code>对象的一个功能强大的<code>bool</code>操作符函数。为什么<code>bool</code>操作符功能这么强大？其中一个原因是它应用了很多C++的功能。下面的代码就是它的声明，请思考它能让我们安全地实现什么功能（包括编译期）？</p>
-<div class="highlight"><pre><span class="code-line"><span class="nx">constexpr</span> <span class="nx">explicit</span> <span class="nx">optional</span><span class="o">&lt;</span><span class="nb">T</span><span class="o">&gt;</span><span class="p">::</span><span class="nl">operator</span> <span class="nx">bool</span><span class="p">()</span> <span class="nx">const</span> <span class="nx">noexcept</span><span class="p">;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">constexpr</span> <span class="k">explicit</span> <span class="n">optional</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span> <span class="kt">bool</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -278,13 +278,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -297,11 +302,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -309,7 +309,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -332,7 +332,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

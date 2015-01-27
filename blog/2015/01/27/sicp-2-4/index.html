@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh"
+>
+<head>
+    <title>sicp 2.4 - 九哥的部落</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="http://blog.zouxu.com.cn/favicon.png" rel="icon">
+
+<link rel="canonical" href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+
+        <meta name="author" content="九哥" />
+        <meta name="keywords" content="Scheme" />
+        <meta name="description" content="习题解答 练习2.73 a) 题目中的(deriv exp var)过程的意思是根据传人的exp的操作符查找相应的运算过程，然后apply到变量var上。因为谓词number?和same-variable已经是基础过程了，所以无法加入到数据导向的分派中。 b) 将和式和积式的求导过程安装到数据导向分派的表格中： (define (augend ops) (if (null? ops) (error &#34;Ops is null&#34;) (car ops))) (define (addend ops) (cond ((&gt; (length ops) 2) (cons &#39;+ (cdr ops))) ((= (length ops) 2) (cadr ops)) (else ..." />
+
+    <!-- Enable latex plugin -->
+
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.zouxu.com.cn/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.zouxu.com.cn/theme/css/pygments/vs.css" rel="stylesheet">
+        <link href="http://blog.zouxu.com.cn/theme/css/typogrify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.zouxu.com.cn/theme/css/style.css" type="text/css"/>
+
+        <link href="http://blog.zouxu.com.cn/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="九哥的部落 ATOM Feed"/>
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.zouxu.com.cn/" class="navbar-brand">
+九哥的部落            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://blog.zouxu.com.cn/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">文章存档</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/"
+                       rel="bookmark"
+                       title="Permalink to sicp 2.4">
+                        sicp&nbsp;2.4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-01-27T21:24:35+08:00"> Tue 27 January 2015</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">Scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h1 id="_1">习题解答</h1>
+<h2 id="273">练习2.73</h2>
+<p>a) 题目中的<code>(deriv exp var)</code>过程的意思是根据传人的<code>exp</code>的操作符查找相应的运算过程，然后apply到变量<code>var</code>上。因为谓词<code>number?</code>和<code>same-variable</code>已经是基础过程了，所以无法加入到数据导向的分派中。</p>
+<p>b)&nbsp;将和式和积式的求导过程安装到数据导向分派的表格中：</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">augend</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Ops is null&quot;</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">car </span><span class="nv">ops</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">addend</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">&gt; </span><span class="p">(</span><span class="nb">length </span><span class="nv">ops</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;+</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">ops</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="p">(</span><span class="nb">length </span><span class="nv">ops</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cadr </span><span class="nv">ops</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Invalid number of ops!&quot;</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;deriv</span> <span class="ss">&#39;+</span></span>
+<span class="code-line">     <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">ops</span> <span class="nv">var</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nf">make-sum</span> <span class="p">(</span><span class="nf">deriv</span> <span class="p">(</span><span class="nf">augend</span> <span class="nv">ops</span><span class="p">)</span> <span class="nv">var</span><span class="p">)</span></span>
+<span class="code-line">                 <span class="p">(</span><span class="nf">deriv</span> <span class="p">(</span><span class="nf">addend</span> <span class="nv">ops</span><span class="p">)</span> <span class="nv">var</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">multiplier</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Invalid number of ops!&quot;</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">car </span><span class="nv">ops</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">multiplicand</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">&gt; </span><span class="p">(</span><span class="nb">length </span><span class="nv">ops</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;*</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">ops</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="p">(</span><span class="nb">length </span><span class="nv">ops</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cadr </span><span class="nv">ops</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Invalid number of ops!&quot;</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;deriv</span> <span class="ss">&#39;*</span></span>
+<span class="code-line">     <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">ops</span> <span class="nv">var</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nf">make-sum</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">make-product</span> <span class="p">(</span><span class="nf">multiplier</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">                      <span class="p">(</span><span class="nf">deriv</span> <span class="p">(</span><span class="nf">multiplicand</span> <span class="nv">ops</span><span class="p">)</span> <span class="nv">var</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">make-product</span> <span class="p">(</span><span class="nf">deriv</span> <span class="p">(</span><span class="nf">multiplier</span> <span class="nv">ops</span><span class="p">)</span> <span class="nv">var</span><span class="p">)</span></span>
+<span class="code-line">                      <span class="p">(</span><span class="nf">multiplicand</span> <span class="nv">ops</span><span class="p">)))))</span></span>
+</pre></div>
+
+
+<p>c)&nbsp;添加乘幂的求导规则：</p>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">base</span> <span class="nv">exp</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">exp</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">exponent</span> <span class="nv">exp</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-exponentiation</span> <span class="nv">base</span> <span class="nv">exponent</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">=number?</span> <span class="nv">exponent</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">=number?</span> <span class="nv">exponent</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">base</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;**</span> <span class="nv">base</span> <span class="nv">exponent</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;deriv</span> <span class="ss">&#39;**</span></span>
+<span class="code-line">     <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">ops</span> <span class="nv">var</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nf">make-product</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">make-product</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">exponent</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">make-exponentiation</span> <span class="p">(</span><span class="nf">base</span> <span class="nv">ops</span><span class="p">)</span></span>
+<span class="code-line">                              <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nf">exponent</span> <span class="nv">ops</span><span class="p">)</span> <span class="mi">1</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">deriv</span> <span class="p">(</span><span class="nf">base</span> <span class="nv">ops</span><span class="p">)</span> <span class="nv">var</span><span class="p">))))</span></span>
+</pre></div>
+
+
+<p>d)&nbsp;需要按相反的次序存取数据导向表。</p>
+<h2 id="275">练习2.75</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-from-mag-ang</span> <span class="nv">r</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">dispatch</span> <span class="nv">op</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">eq? </span><span class="nv">op</span> <span class="ss">&#39;real-part</span><span class="p">)</span></span>
+<span class="code-line">           <span class="p">(</span><span class="nb">* </span><span class="nv">r</span> <span class="p">(</span><span class="nb">cos </span><span class="nv">a</span><span class="p">)))</span></span>
+<span class="code-line">          <span class="p">((</span><span class="nb">eq? </span><span class="nv">op</span> <span class="ss">&#39;imag-part</span><span class="p">)</span></span>
+<span class="code-line">           <span class="p">(</span><span class="nb">* </span><span class="nv">r</span> <span class="p">(</span><span class="nb">sin </span><span class="nv">a</span><span class="p">)))</span></span>
+<span class="code-line">          <span class="p">((</span><span class="nb">eq? </span><span class="nv">op</span> <span class="ss">&#39;magnitude</span><span class="p">)</span> <span class="nv">r</span><span class="p">)</span></span>
+<span class="code-line">          <span class="p">((</span><span class="nb">eq? </span><span class="nv">op</span> <span class="ss">&#39;angle</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">          <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">           <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unknown op&quot;</span> <span class="nv">op</span><span class="p">))))</span></span>
+<span class="code-line">  <span class="nv">dispatch</span><span class="p">)</span></span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>评论</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'sicp-2-4';
+                var disqus_url = 'http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/';
+
+            var disqus_config = function () {
+                this.language = "zh";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+            
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
+                    <ul class="list-group" id="recentposts">
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
+                                sicp&nbsp;2.3.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
+                                sicp-2-3-3
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/02/sicp-2-3-2/">
+                                sicp&nbsp;2.3.2
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2014/12/22/sicp-2-3-1/">
+                                sicp&nbsp;2.3.1
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">分类</span></h4></a>
+                    <ul class="list-group" id="categories">
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/category/sicp.html">
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/category/yi-wen.html">
+                                <i class="fa fa-folder-open fa-lg"></i> 译文 (7)
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
+                    <ul class="list-group list-inline tagcloud" id="tags">
+                        <li class="list-group-item tag-2">
+                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
+                                cpp
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/git.html">
+                                git
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-1">
+                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
+                                Scheme
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
+                                sicp
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
+                                tools
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
+                                unittest
+                            </a>
+                        </li>
+                    </ul>
+                </li>    
+            
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">社交网络</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://github.com/zouivex"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                    <li class="list-group-item"><a href="https://cn.linkedin.com/in/zouivex"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+                    <li class="list-group-item"><a href="https://plus.google.com/u/0/104327320364152471669/"><i class="fa fa-google-plus-square fa-lg"></i> google plus</a></li>
+                    <li class="list-group-item"><a href="http://blog.zouxu.com.cn/feeds/all.atom.xml"><i class="fa fa-rss-square fa-lg"></i> rss</a></li>
+                  </ul>
+                </li>
+
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 九哥
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.zouxu.com.cn/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.zouxu.com.cn/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.zouxu.com.cn/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+</body>
+</html>

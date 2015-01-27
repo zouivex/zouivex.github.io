@@ -2,7 +2,7 @@
 <html lang="zh"
 >
 <head>
-    <title>sicp 2.3.3 - 九哥的部落</title>
+    <title>sicp-2-3-3 - 九哥的部落</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="Scheme" />
-        <meta name="description" content="习题解答 练习2.59 (define (union-set set1 set2) (cond ((null? set1) set2) ((null? set2) set1) ((elem-of-set? (car set1) set2) (union-set (cdr set1) set2)) (else (cons (car set1) (union-set (cdr set1) set2))))) 练习2.60 (define (elem-of-multiset? x set) (cond ((null? set) #f) ((equal? x (car ..." />
+        <meta name="description" content="习题解答 练习2.59 (define (union-set set1 set2) (cond ((null? set1) set2) ((null? set2) set1) ((elem-of-set? (car set1) set2) (union-set (cdr set1) set2)) (else (cons (car set1) (union-set (cdr set1) set2))))) 练习2.60 (define (elem-of-multiset? x set) (cond ((null? set) #f) ((equal? x (car set)) #t) (else (elem-of-set? x (cdr set ..." />
 
     <!-- Enable latex plugin -->
 
@@ -71,8 +71,8 @@
                 <h1>
                     <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/"
                        rel="bookmark"
-                       title="Permalink to sicp 2.3.3">
-                        sicp&nbsp;2.3.3
+                       title="Permalink to sicp-2-3-3">
+                        sicp-2-3-3
                     </a>
                 </h1>
             </header>
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-04T18:42:40"> Sun 04 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-04T18:42:40+08:00"> Sun 04 January 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,62 +96,62 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="259">练习2.59</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="n">set1</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">set2</span><span class="p">)</span> <span class="n">set1</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">elem</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">set</span><span class="o">?</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">         <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">null? </span><span class="nv">set2</span><span class="p">)</span> <span class="nv">set1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">elem-of-set?</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">union-set</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="nf">union-set</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)))))</span></span>
 </pre></div>
 
 
 <h2 id="260">练习2.60</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">elem</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">multiset</span><span class="o">?</span> <span class="n">x</span> <span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">set</span><span class="p">)</span> <span class="err">#</span><span class="n">f</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">equal</span><span class="o">?</span> <span class="n">x</span> <span class="p">(</span><span class="n">car</span> <span class="n">set</span><span class="p">))</span> <span class="err">#</span><span class="n">t</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">elem</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">set</span><span class="o">?</span> <span class="n">x</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">elem-of-multiset?</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set</span><span class="p">)</span> <span class="no">#f</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">equal? </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="no">#t</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">elem-of-set?</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set</span><span class="p">)))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">adjoin</span><span class="o">-</span><span class="n">multiset</span> <span class="n">x</span> <span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">x</span> <span class="n">set</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">adjoin-multiset</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">set</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">multiset</span> <span class="n">set1</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">append</span> <span class="n">set1</span> <span class="n">set2</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-multiset</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">append </span><span class="nv">set1</span> <span class="nv">set2</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">intersetion</span><span class="o">-</span><span class="n">multiset</span> <span class="n">set1</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">or</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">set1</span><span class="p">)</span> <span class="p">(</span><span class="n">null</span><span class="o">?</span> <span class="n">set2</span><span class="p">))</span> <span class="err">&#39;</span><span class="p">())</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">elem</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">set</span><span class="o">?</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="n">intersetion</span><span class="o">-</span><span class="n">set</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">intersetion</span><span class="o">-</span><span class="n">set</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">intersetion-multiset</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="k">or </span><span class="p">(</span><span class="nb">null? </span><span class="nv">set1</span><span class="p">)</span> <span class="p">(</span><span class="nb">null? </span><span class="nv">set2</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">())</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">elem-of-set?</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="nf">intersetion-set</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">intersetion-set</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">))))</span></span>
 </pre></div>
 
 
 <h2 id="261">练习2.61</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">adjoin</span><span class="o">-</span><span class="n">set</span> <span class="n">x</span> <span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">set</span><span class="p">)</span> <span class="p">(</span><span class="n">cons</span> <span class="n">x</span> <span class="err">&#39;</span><span class="p">()))</span></span>
-<span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="n">x</span> <span class="p">(</span><span class="n">car</span> <span class="n">set</span><span class="p">))</span> <span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="o">&lt;</span> <span class="n">x</span> <span class="p">(</span><span class="n">car</span> <span class="n">set</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="n">x</span> <span class="n">set</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">set</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="n">adjoin</span><span class="o">-</span><span class="n">set</span> <span class="n">x</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set</span><span class="p">))))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">adjoin-set</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="o">&#39;</span><span class="p">()))</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="nv">set</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">&lt; </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">set</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="nf">adjoin-set</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set</span><span class="p">))))))</span></span>
 </pre></div>
 
 
 <h2 id="262">练习2.62</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="n">set1</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">set2</span><span class="p">)</span> <span class="n">set1</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="o">=</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span> <span class="p">(</span><span class="n">car</span> <span class="n">set2</span><span class="p">))</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set1</span><span class="p">)</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set2</span><span class="p">))))</span></span>
-<span class="code-line">        <span class="p">((</span><span class="o">&lt;</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span> <span class="p">(</span><span class="n">car</span> <span class="n">set2</span><span class="p">))</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">set1</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set1</span><span class="p">)</span> <span class="n">set2</span><span class="p">)))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">car</span> <span class="n">set2</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="n">set1</span> <span class="p">(</span><span class="n">cdr</span> <span class="n">set2</span><span class="p">))))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">null? </span><span class="nv">set2</span><span class="p">)</span> <span class="nv">set1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set2</span><span class="p">))</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="nf">union-set</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set1</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set2</span><span class="p">))))</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">&lt; </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set2</span><span class="p">))</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="nf">union-set</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">car </span><span class="nv">set2</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set2</span><span class="p">))))))</span></span>
 </pre></div>
 
 
@@ -162,26 +162,26 @@
 </ul>
 <h2 id="265">练习2.65</h2>
 <p>先将用平衡二叉树表示的set转化为排序的表，然后对排序的表调用union和intersection函数，最后将结果转化回平衡二叉树的表示形式：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">unios</span><span class="o">-</span><span class="n">set</span><span class="o">-</span><span class="n">btree</span> <span class="n">s1</span> <span class="n">s2</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">t1</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">list</span><span class="o">-</span><span class="mi">1</span> <span class="n">s1</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">t2</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">list</span><span class="o">-</span><span class="mi">1</span> <span class="n">s2</span><span class="p">)))</span></span>
-<span class="code-line">    <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">u</span> <span class="p">(</span><span class="k">union</span><span class="o">-</span><span class="n">set</span> <span class="n">t1</span> <span class="n">t2</span><span class="p">)))</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">list</span><span class="o">-&gt;</span><span class="n">tree</span> <span class="n">u</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unios-set-btree</span> <span class="nv">s1</span> <span class="nv">s2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">t1</span> <span class="p">(</span><span class="nf">tree-&gt;list-1</span> <span class="nv">s1</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">t2</span> <span class="p">(</span><span class="nf">tree-&gt;list-1</span> <span class="nv">s2</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">u</span> <span class="p">(</span><span class="nf">union-set</span> <span class="nv">t1</span> <span class="nv">t2</span><span class="p">)))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">list-&gt;tree</span> <span class="nv">u</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">intersection</span><span class="o">-</span><span class="n">set</span><span class="o">-</span><span class="n">btree</span> <span class="n">s1</span> <span class="n">s2</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">t1</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">list</span><span class="o">-</span><span class="mi">1</span> <span class="n">s1</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">t2</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">list</span><span class="o">-</span><span class="mi">1</span> <span class="n">s2</span><span class="p">)))</span></span>
-<span class="code-line">    <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">i</span> <span class="p">(</span><span class="n">intersection</span><span class="o">-</span><span class="n">set</span> <span class="n">t1</span> <span class="n">t2</span><span class="p">)))</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">list</span><span class="o">-&gt;</span><span class="n">tree</span> <span class="n">i</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">intersection-set-btree</span> <span class="nv">s1</span> <span class="nv">s2</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">t1</span> <span class="p">(</span><span class="nf">tree-&gt;list-1</span> <span class="nv">s1</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">t2</span> <span class="p">(</span><span class="nf">tree-&gt;list-1</span> <span class="nv">s2</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">i</span> <span class="p">(</span><span class="nf">intersection-set</span> <span class="nv">t1</span> <span class="nv">t2</span><span class="p">)))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">list-&gt;tree</span> <span class="nv">i</span><span class="p">))))</span></span>
 </pre></div>
 
 
 <h2 id="266">练习2.66</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">lookup</span> <span class="n">key</span> <span class="n">tree</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">null</span><span class="o">?</span> <span class="n">tree</span><span class="p">)</span> <span class="err">#</span><span class="n">f</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">equal</span><span class="o">?</span> <span class="n">key</span> <span class="p">(</span><span class="n">entry</span> <span class="n">tree</span><span class="p">))</span> <span class="p">(</span><span class="n">entry</span> <span class="n">tree</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">((</span><span class="o">&lt;</span> <span class="n">key</span> <span class="p">(</span><span class="n">entry</span> <span class="n">tree</span><span class="p">))</span> <span class="p">(</span><span class="n">lookup</span> <span class="n">key</span> <span class="p">(</span><span class="n">left</span><span class="o">-</span><span class="n">branch</span> <span class="n">tree</span><span class="p">)))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">lookup</span> <span class="n">key</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">branch</span> <span class="n">tree</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lookup</span> <span class="nv">key</span> <span class="nv">tree</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">tree</span><span class="p">)</span> <span class="no">#f</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">equal? </span><span class="nv">key</span> <span class="p">(</span><span class="nf">entry</span> <span class="nv">tree</span><span class="p">))</span> <span class="p">(</span><span class="nf">entry</span> <span class="nv">tree</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">&lt; </span><span class="nv">key</span> <span class="p">(</span><span class="nf">entry</span> <span class="nv">tree</span><span class="p">))</span> <span class="p">(</span><span class="nf">lookup</span> <span class="nv">key</span> <span class="p">(</span><span class="nf">left-branch</span> <span class="nv">tree</span><span class="p">)))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">lookup</span> <span class="nv">key</span> <span class="p">(</span><span class="nf">right-branch</span> <span class="nv">tree</span><span class="p">)))))</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -227,13 +227,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -246,11 +251,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -258,7 +258,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -281,7 +281,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

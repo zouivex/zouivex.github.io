@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-09T23:07:31"> Thu 09 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-09T23:07:31+08:00"> Thu 09 October 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -281,17 +281,17 @@
 
 <p>第一行声明测试的名字，第二行包含必要的头文件，第4-6行定义测试案例（<code>BOOST_AUTO_TEST_CASE</code>宏定义一个名字为<code>simple_test</code>的测试案例，案例中包含一个断言：2+2=4，断言采用<code>BOOST_CHECK_EQUAL</code>进行检查）。</p>
 <p>编译执行该程序，屏幕上会打印如下内容（Boost.Test也可将结果输出为多种不同的格式，并且可以通过Execution&nbsp;Monitor的选项控制结果的详略程度）：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span></span>
+<div class="highlight"><pre><span class="code-line">Running 1 test case...</span>
 <span class="code-line"></span>
-<span class="code-line"><span class="o">***</span> <span class="n">No</span> <span class="n">errors</span> <span class="n">detected</span></span>
+<span class="code-line">*** No errors detected</span>
 </pre></div>
 
 
 <p>如果出现错误，测试框架会在屏幕上输出如下信息：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span></span>
-<span class="code-line"><span class="n">test</span><span class="o">-</span><span class="n">simple</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;simple_test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="n">failed</span> <span class="p">[</span><span class="mi">4</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">]</span></span>
+<div class="highlight"><pre><span class="code-line">Running 1 test case...</span>
+<span class="code-line">test-simple.cpp(5): error in &quot;simple_test&quot;: check 2+2 == 5 failed [4 != 5]</span>
 <span class="code-line"></span>
-<span class="code-line"><span class="o">***</span> <span class="mi">1</span> <span class="n">failure</span> <span class="n">detected</span> <span class="n">in</span> <span class="n">test</span> <span class="n">suite</span> <span class="s">&quot;Simple testcases&quot;</span></span>
+<span class="code-line">*** 1 failure detected in test suite &quot;Simple testcases&quot;</span>
 </pre></div>
 
 
@@ -358,12 +358,12 @@
 
 
 <p>第一个检查只会报告说检查失败：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">test</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="n">failed</span></span>
+<div class="highlight"><pre><span class="code-line">test.cpp(4): error in &quot;test&quot;: check i == j failed</span>
 </pre></div>
 
 
 <p>而第二个检查会报告为什么检查失败以及实际的值：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">test</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">:</span> <span class="n">error</span> <span class="n">in</span> <span class="s">&quot;test&quot;</span><span class="o">:</span> <span class="n">check</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="n">failed</span> <span class="p">[</span><span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">]</span></span>
+<div class="highlight"><pre><span class="code-line">test.cpp(5): error in &quot;test&quot;: check i == j failed [2 != 1]</span>
 </pre></div>
 
 
@@ -381,12 +381,12 @@
 <p>Boost.Test中的Fixture通常实现为一个类或者结构体，在其构造函数中初始化数据，在其析构函数函数中清理数据。例如：</p>
 <div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">MyFixture</span> <span class="p">{</span></span>
 <span class="code-line">  <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="n">i</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">;</span></span>
+<span class="code-line">    <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span></span>
 <span class="code-line">    <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="code-line">  <span class="p">}</span></span>
 <span class="code-line"></span>
 <span class="code-line">  <span class="o">~</span> <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="n">delete</span> <span class="n">i</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">delete</span> <span class="n">i</span><span class="p">;</span></span>
 <span class="code-line">  <span class="p">}</span></span>
 <span class="code-line"></span>
 <span class="code-line">  <span class="kt">int</span><span class="o">*</span> <span class="n">i</span><span class="p">;</span></span>
@@ -484,29 +484,29 @@
 </li>
 </ul>
 <p>让我们来看看实际例子。使用Mock测试框架，需要包含头文件<code>gmock/gmock.h</code>：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c">#include &lt;gmock/gmock.h&gt;</span></span>
-<span class="code-line"><span class="c">#include &lt;string&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="cp">#include &lt;gmock/gmock.h&gt;</span></span>
+<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="c">#define BOOST_TEST_MODULE Mock example</span></span>
-<span class="code-line"><span class="c">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Mock example</span></span>
+<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
 </pre></div>
 
 
 <p>编写需Mock的虚拟类，使<code>Google Mock</code>框架能重载虚拟类：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">class</span> <span class="n">PropHolder</span> <span class="p">{</span></span>
-<span class="code-line"><span class="nl">public:</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">PropHolder</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">PropHolder</span><span class="p">()</span>  <span class="p">{</span> <span class="p">}</span></span>
-<span class="code-line">    <span class="n">virtual</span> <span class="o">~</span><span class="n">PropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
+<span class="code-line">    <span class="k">virtual</span> <span class="o">~</span><span class="n">PropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line"></span>
-<span class="code-line">    <span class="n">virtual</span> <span class="kt">void</span> <span class="n">SetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">    <span class="n">virtual</span> <span class="kt">int</span> <span class="n">GetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">SetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">GetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
 <p><code>PropHolder</code>类被其它类的函数使用，一般采用存储基类对象引用的方式：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">class</span> <span class="n">TestClass</span> <span class="p">{</span></span>
-<span class="code-line"><span class="nl">public:</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">TestClass</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">TestClass</span><span class="p">(</span><span class="n">PropHolder</span><span class="o">&amp;</span> <span class="n">ph</span><span class="p">)</span> <span class="o">:</span> <span class="n">fPropHolder</span><span class="p">(</span><span class="n">ph</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line">    <span class="kt">void</span> <span class="n">doCalc</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="n">fPropHolder</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span></span>
@@ -514,17 +514,17 @@
 <span class="code-line">        <span class="p">}</span> <span class="k">else</span></span>
 <span class="code-line">            <span class="n">fPropHolder</span><span class="p">.</span><span class="n">SetProperty</span><span class="p">(</span><span class="s">&quot;test2&quot;</span><span class="p">,</span> <span class="mi">785</span><span class="p">);</span></span>
 <span class="code-line">    <span class="p">}</span></span>
-<span class="code-line"><span class="nl">private:</span></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">PropHolder</span><span class="o">&amp;</span> <span class="n">fPropHolder</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
 <p>然后创建Mock类，继承自<code>PropHolder</code>，使用宏实现相应的“桩”。<code>Google mock</code>提供了几个宏（<code>MOCK_METHODN</code>，<code>MOCK_CONST_METHODN</code>)，这些宏名字最后那个<code>N</code>应该与Mock函数的参数个数匹配。这些宏的第一个参数是需要Mock的函数的名字，第二个参数是函数的签名：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">class</span> <span class="n">MockPropHolder</span> <span class="o">:</span> <span class="n">public</span> <span class="n">PropHolder</span> <span class="p">{</span></span>
-<span class="code-line"><span class="nl">public:</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">MockPropHolder</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PropHolder</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">MockPropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
-<span class="code-line">    <span class="n">virtual</span> <span class="o">~</span><span class="n">MockPropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
+<span class="code-line">    <span class="k">virtual</span> <span class="o">~</span><span class="n">MockPropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">MOCK_METHOD2</span><span class="p">(</span><span class="n">SetProperty</span><span class="p">,</span> <span class="kt">void</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">));</span></span>
 <span class="code-line">    <span class="n">MOCK_METHOD1</span><span class="p">(</span><span class="n">GetProperty</span><span class="p">,</span> <span class="kt">int</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">));</span></span>
@@ -534,7 +534,7 @@
 
 <p>现在我们可以在我们的测试程序中使用<code>Mock</code>类了。先创建<code>Mock</code>类的一个实例<code>mholder</code>，并设置期望。第一个期望是：函数<code>GetProperty</code>以参数<code>"test"</code>调用一次，<code>Mock</code>对象的函数应该返回101。第二个期望是：函数<code>SetProperty</code>以参数<code>"test2"</code>和<code>555</code>调用。设置好以上期望之后，我们创建<code>TestClass</code>的实例，将<code>Mock</code>对象作为参数传入。最后一行的函数<code>doCalc</code>调用<code>PropHolder</code>类的成员函数：</p>
 <div class="highlight"><pre><span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test_gmock</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="n">using</span> <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">Return</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">using</span> <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">Return</span><span class="p">;</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">MockPropHolder</span> <span class="n">mholder</span><span class="p">;</span></span>
 <span class="code-line">    <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mholder</span><span class="p">,</span> <span class="n">GetProperty</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">))).</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">101</span><span class="p">));</span></span>
@@ -560,9 +560,9 @@
 
 
 <p>正确编译上面的代码还需要链接另外的库：<code>gmock</code>和<code>gtest</code>。然后我们可以运行测试程序、获取测试结果。如果一切工作正常，并且结果与预期一致，那么我们会看到如下消息：</p>
-<div class="highlight"><pre><span class="code-line">  <span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">...</span></span>
+<div class="highlight"><pre><span class="code-line">  Running 1 test case...</span>
 <span class="code-line"></span>
-<span class="code-line">  <span class="o">***</span> <span class="n">No</span> <span class="n">errors</span> <span class="n">detected</span></span>
+<span class="code-line">  *** No errors detected</span>
 </pre></div>
 
 
@@ -667,13 +667,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -686,11 +691,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -698,7 +698,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -721,7 +721,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

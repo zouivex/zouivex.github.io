@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-23T22:21:05"> Tue 23 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-23T22:21:05+08:00"> Tue 23 September 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -106,92 +106,92 @@
 <p>由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。</p>
 <h1 id="_2">习题解答</h1>
 <h2 id="129">练习1.29</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">      <span class="mi">0</span></span>
-<span class="code-line">      <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b</span><span class="p">))))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">integral</span> <span class="n">f</span> <span class="n">a</span> <span class="n">b</span> <span class="n">n</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">h</span> <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">-</span> <span class="n">b</span> <span class="n">a</span><span class="p">)</span> <span class="n">n</span><span class="p">)))</span></span>
-<span class="code-line">    <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">term</span> <span class="n">k</span><span class="p">)</span></span>
-<span class="code-line">      <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">f</span> <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="p">(</span><span class="o">*</span> <span class="n">k</span> <span class="n">h</span><span class="p">)))</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">or</span> <span class="p">(</span><span class="o">=</span> <span class="mi">0</span> <span class="n">k</span><span class="p">)</span> <span class="p">(</span><span class="o">=</span> <span class="n">n</span> <span class="n">k</span><span class="p">))</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">((</span><span class="n">odd</span><span class="o">?</span> <span class="n">k</span><span class="p">)</span> <span class="mi">4</span><span class="p">)</span></span>
-<span class="code-line">               <span class="p">(</span><span class="k">else</span> <span class="mi">2</span><span class="p">))))</span></span>
-<span class="code-line">    <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="o">/</span> <span class="n">h</span> <span class="mf">3.0</span><span class="p">)</span> <span class="p">(</span><span class="n">sum</span> <span class="n">simpson</span><span class="o">-</span><span class="n">term</span> <span class="mi">0</span> <span class="p">(</span><span class="n">lambda</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="mi">1</span><span class="p">))</span> <span class="n">n</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">simpson-integral</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">n</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">h</span> <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">- </span><span class="nv">b</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">simpson-term</span> <span class="nv">k</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">a</span> <span class="p">(</span><span class="nb">* </span><span class="nv">k</span> <span class="nv">h</span><span class="p">)))</span></span>
+<span class="code-line">         <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="k">or </span><span class="p">(</span><span class="nb">= </span><span class="mi">0</span> <span class="nv">k</span><span class="p">)</span> <span class="p">(</span><span class="nb">= </span><span class="nv">n</span> <span class="nv">k</span><span class="p">))</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">((</span><span class="nb">odd? </span><span class="nv">k</span><span class="p">)</span> <span class="mi">4</span><span class="p">)</span></span>
+<span class="code-line">               <span class="p">(</span><span class="k">else </span><span class="mi">2</span><span class="p">))))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nb">/ </span><span class="nv">h</span> <span class="mf">3.0</span><span class="p">)</span> <span class="p">(</span><span class="nf">sum</span> <span class="nv">simpson-term</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="mi">1</span><span class="p">))</span> <span class="nv">n</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">integral</span> <span class="n">cube</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">100</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span> <span class="mf">0.25</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">simpson</span><span class="o">-</span><span class="n">integral</span> <span class="n">cube</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1000</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span> <span class="mf">0.25</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">simpson-integral</span> <span class="nv">cube</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">100</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">=&gt; </span><span class="mf">0.25</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">simpson-integral</span> <span class="nv">cube</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1000</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">=&gt; </span><span class="mf">0.25</span></span>
 </pre></div>
 
 
 <p>练习1.30</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="n">result</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">result</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">              <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span> <span class="n">result</span><span class="p">))))</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="mi">0</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">a</span> <span class="nv">result</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">        <span class="nv">result</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">iter</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">result</span><span class="p">))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">iter</span> <span class="nv">a</span> <span class="mi">0</span><span class="p">))</span></span>
 </pre></div>
 
 
 <h2 id="131">练习1.31</h2>
 <p>product过程的递归实现:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">      <span class="mi">1</span></span>
-<span class="code-line">      <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b</span><span class="p">))))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">))))</span></span>
 </pre></div>
 
 
 <p>用product定义factorial:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">factorial</span> <span class="n">n</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">product</span> <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">x</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">factorial</span> <span class="nv">n</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">product</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span></span>
 <span class="code-line">           <span class="mi">1</span></span>
-<span class="code-line">           <span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="mi">1</span><span class="p">))</span></span>
-<span class="code-line">           <span class="n">n</span><span class="p">))</span></span>
+<span class="code-line">           <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="mi">1</span><span class="p">))</span></span>
+<span class="code-line">           <span class="nv">n</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>product过程的迭代实现:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">i</span> <span class="n">result</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">i</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">result</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">next</span> <span class="n">i</span><span class="p">)</span></span>
-<span class="code-line">              <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">term</span> <span class="n">i</span><span class="p">)</span> <span class="n">result</span><span class="p">))))</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="mi">1</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">i</span> <span class="nv">result</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">i</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">        <span class="nv">result</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">iter</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">i</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">term</span> <span class="nv">i</span><span class="p">)</span> <span class="nv">result</span><span class="p">))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">iter</span> <span class="nv">a</span> <span class="mi">1</span><span class="p">))</span></span>
 </pre></div>
 
 
 <h2 id="132">练习1.32</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">;</span><span class="err">递归版本</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">accumulate</span> <span class="n">combiner</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">      <span class="n">null</span><span class="o">-</span><span class="n">value</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">combiner</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">                <span class="p">(</span><span class="n">accumulate</span> <span class="n">combiner</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span> <span class="n">term</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span> <span class="n">next</span> <span class="n">b</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="c1">;递归版本</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">accumulate</span> <span class="nv">combiner</span> <span class="nv">null-value</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">      <span class="nv">null-value</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">combiner</span> <span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">                <span class="p">(</span><span class="nf">accumulate</span> <span class="nv">combiner</span> <span class="nv">null-value</span> <span class="nv">term</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">;</span><span class="err">迭代版本</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">accumulate</span> <span class="n">combiner</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="n">result</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">        <span class="n">result</span></span>
-<span class="code-line">        <span class="p">(</span><span class="n">iter</span> <span class="p">(</span><span class="n">next</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">              <span class="p">(</span><span class="n">combiner</span> <span class="p">(</span><span class="n">term</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">                        <span class="n">result</span><span class="p">))))</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">iter</span> <span class="n">a</span> <span class="n">null</span><span class="o">-</span><span class="n">value</span><span class="p">))</span></span>
+<span class="code-line"><span class="c1">;迭代版本</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">accumulate</span> <span class="nv">combiner</span> <span class="nv">null-value</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">a</span> <span class="nv">result</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">        <span class="nv">result</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">iter</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nf">combiner</span> <span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">                        <span class="nv">result</span><span class="p">))))</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">iter</span> <span class="nv">a</span> <span class="nv">null-value</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sum</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">accumulate</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span> <span class="nv">+</span> <span class="mi">0</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">product</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">accumulate</span> <span class="o">*</span> <span class="mi">1</span> <span class="n">term</span> <span class="n">a</span> <span class="n">next</span> <span class="n">b</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span> <span class="nv">*</span> <span class="mi">1</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">))</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -237,13 +237,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -256,11 +261,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -268,7 +268,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -291,7 +291,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

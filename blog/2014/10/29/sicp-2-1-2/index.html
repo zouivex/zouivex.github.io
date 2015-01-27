@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="scheme" />
-        <meta name="description" content="习题解答 练习2.2 实现方式非常直接，按照题目中的描述写出Scheme代码即可： (define (make-point x y) (cons x y)) (define (x-point p) (car p)) (define (y-point p) (cdr p)) (define (make-segement x y) (cons x y)) (define (start-segement s) (car s)) (define (end-segement s) (cdr s)) (define (average x ..." />
+        <meta name="description" content="习题解答 练习2.2 实现方式非常直接，按照题目中的描述写出Scheme代码即可： (define (make-point x y) (cons x y)) (define (x-point p) (car p)) (define (y-point p) (cdr p)) (define (make-segement x y) (cons x y)) (define (start-segement s) (car s)) (define (end-segement s) (cdr s)) (define (average x y) (/ (+ x y) 2)) (define (midpoint-segment ..." />
 
     <!-- Enable latex plugin -->
 
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-29T22:02:21"> Wed 29 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-29T22:02:21+08:00"> Wed 29 October 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -97,51 +97,51 @@
                 <h1 id="_1">习题解答</h1>
 <h2 id="22">练习2.2</h2>
 <p>实现方式非常直接，按照题目中的描述写出<code>Scheme</code>代码即可：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">point</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">x</span> <span class="n">y</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-point</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">point</span> <span class="n">p</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">p</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">x-point</span> <span class="nv">p</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">p</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">point</span> <span class="n">p</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">p</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">y-point</span> <span class="nv">p</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cdr </span><span class="nv">p</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">segement</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">x</span> <span class="n">y</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-segement</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">segement</span> <span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">start-segement</span> <span class="nv">s</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">s</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">segement</span> <span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">s</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">end-segement</span> <span class="nv">s</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cdr </span><span class="nv">s</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">average</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="o">/</span> <span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">average</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">midpoint</span><span class="o">-</span><span class="n">segment</span> <span class="n">s</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">average</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">segement</span> <span class="n">s</span><span class="p">))</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">segement</span> <span class="n">s</span><span class="p">)))</span></span>
-<span class="code-line">              <span class="p">(</span><span class="n">average</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">segement</span> <span class="n">s</span><span class="p">))</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">point</span> <span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">segement</span> <span class="n">s</span><span class="p">)))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">midpoint-segment</span> <span class="nv">s</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">make-point</span> <span class="p">(</span><span class="nf">average</span> <span class="p">(</span><span class="nf">x-point</span> <span class="p">(</span><span class="nf">start-segement</span> <span class="nv">s</span><span class="p">))</span> <span class="p">(</span><span class="nf">x-point</span> <span class="p">(</span><span class="nf">end-segement</span> <span class="nv">s</span><span class="p">)))</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nf">average</span> <span class="p">(</span><span class="nf">y-point</span> <span class="p">(</span><span class="nf">start-segement</span> <span class="nv">s</span><span class="p">))</span> <span class="p">(</span><span class="nf">y-point</span> <span class="p">(</span><span class="nf">end-segement</span> <span class="nv">s</span><span class="p">)))))</span></span>
 </pre></div>
 
 
 <h2 id="23">练习2.3</h2>
 <p>第一种方式，可以采用<code>height</code>和<code>width</code>序对表示矩形， <code>height</code>和<code>width</code>分别可以用练习2.2中实现的线段来表示：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">rect</span> <span class="n">w</span> <span class="n">h</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">w</span> <span class="n">h</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-rect</span> <span class="nv">w</span> <span class="nv">h</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">w</span> <span class="nv">h</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">width</span> <span class="n">rect</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">rect</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">width</span> <span class="nv">rect</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">rect</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">height</span> <span class="n">rect</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">rect</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">height</span> <span class="nv">rect</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cdr </span><span class="nv">rect</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">area</span> <span class="n">rect</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="n">rect</span><span class="p">)</span></span>
-<span class="code-line">     <span class="p">(</span><span class="n">height</span> <span class="n">rect</span><span class="p">)))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">area</span> <span class="nv">rect</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">width</span> <span class="nv">rect</span><span class="p">)</span></span>
+<span class="code-line">     <span class="p">(</span><span class="nf">height</span> <span class="nv">rect</span><span class="p">)))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">perimeter</span> <span class="n">rect</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="p">(</span><span class="n">width</span> <span class="n">rect</span><span class="p">))</span></span>
-<span class="code-line">     <span class="p">(</span><span class="o">*</span> <span class="mi">2</span> <span class="p">(</span><span class="n">height</span> <span class="n">rect</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">perimeter</span> <span class="nv">rect</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="p">(</span><span class="nf">width</span> <span class="nv">rect</span><span class="p">))</span></span>
+<span class="code-line">     <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="p">(</span><span class="nf">height</span> <span class="nv">rect</span><span class="p">))))</span></span>
 </pre></div>
 
 
@@ -190,13 +190,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -209,11 +214,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -221,7 +221,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -244,7 +244,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

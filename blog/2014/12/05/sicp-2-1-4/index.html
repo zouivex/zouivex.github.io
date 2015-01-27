@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="sicp" />
-        <meta name="description" content="习题解答 练习2.7 (define (make-interval lower upper) (cons lower upper)) (define (lower-bound interval) (car interval)) (define (upper-bound i) (cdr interval)) 练习2.8 (define (sub-interval x y) (add-interval x (make-interval (- 0 (upper-bound y)) (- 0 (lower-bound y))))) 练习2.9 对于两个区间a和b，我们可以表示为： upper_a = lower_1 + 2 ..." />
+        <meta name="description" content="习题解答 练习2.7 (define (make-interval lower upper) (cons lower upper)) (define (lower-bound interval) (car interval)) (define (upper-bound i) (cdr interval)) 练习2.8 (define (sub-interval x y) (add-interval x (make-interval (- 0 (upper-bound y)) (- 0 (lower-bound y))))) 练习2.9 对于两个区间a和b，我们可以表示为： upper_a = lower_1 + 2 * width_1 upper_b = lower_2 + 2 * width_2 那么对于区间的加减运算： upper_a + upper_b ..." />
 
     <!-- Enable latex plugin -->
 
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-05T21:44:34"> Fri 05 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-05T21:44:34+08:00"> Fri 05 December 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,73 +96,73 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="27">练习2.7</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">interval</span> <span class="n">lower</span> <span class="n">upper</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">lower</span> <span class="n">upper</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-interval</span> <span class="nv">lower</span> <span class="nv">upper</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">lower</span> <span class="nv">upper</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">lower</span><span class="o">-</span><span class="n">bound</span> <span class="n">interval</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">interval</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">interval</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">interval</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">upper</span><span class="o">-</span><span class="n">bound</span> <span class="n">i</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">interval</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">i</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cdr </span><span class="nv">interval</span><span class="p">))</span></span>
 </pre></div>
 
 
 <h2 id="28">练习2.8</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">sub</span><span class="o">-</span><span class="n">interval</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">add</span><span class="o">-</span><span class="n">interval</span> <span class="n">x</span></span>
-<span class="code-line">                <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">interval</span></span>
-<span class="code-line">                 <span class="p">(</span><span class="o">-</span> <span class="mi">0</span> <span class="p">(</span><span class="n">upper</span><span class="o">-</span><span class="n">bound</span> <span class="n">y</span><span class="p">))</span></span>
-<span class="code-line">                 <span class="p">(</span><span class="o">-</span> <span class="mi">0</span> <span class="p">(</span><span class="n">lower</span><span class="o">-</span><span class="n">bound</span> <span class="n">y</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sub-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">add-interval</span> <span class="nv">x</span></span>
+<span class="code-line">                <span class="p">(</span><span class="nf">make-interval</span></span>
+<span class="code-line">                 <span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">y</span><span class="p">))</span></span>
+<span class="code-line">                 <span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">y</span><span class="p">)))))</span></span>
 </pre></div>
 
 
 <h2 id="29">练习2.9</h2>
 <p>对于两个区间a和b，我们可以表示为：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">upper_a</span> <span class="o">=</span> <span class="n">lower_1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width_1</span></span>
-<span class="code-line"><span class="n">upper_b</span> <span class="o">=</span> <span class="n">lower_2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width_2</span></span>
+<div class="highlight"><pre><span class="code-line">upper_a = lower_1 + 2 * width_1</span>
+<span class="code-line">upper_b = lower_2 + 2 * width_2</span>
 </pre></div>
 
 
 <p>那么对于区间的加减运算：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">upper_a</span> <span class="o">+</span> <span class="n">upper_b</span> <span class="o">=&gt;</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">lower_1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width_1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">lower_2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">width_2</span><span class="p">)</span> <span class="o">=&gt;</span></span>
-<span class="code-line"><span class="n">lower_1</span> <span class="o">+</span> <span class="n">lower_2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">width_1</span> <span class="o">+</span> <span class="n">width_2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line">upper_a + upper_b =&gt;</span>
+<span class="code-line">(lower_1 + 2 * width_1) + (lower_2 + 2 * width_2) =&gt;</span>
+<span class="code-line">lower_1 + lower_2 + 2 * (width_1 + width_2)</span>
 </pre></div>
 
 
 <p>令</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">lower_3</span> <span class="o">=</span> <span class="n">lower_1</span> <span class="o">+</span> <span class="n">lower_2</span></span>
-<span class="code-line"><span class="n">width_3</span> <span class="o">=</span> <span class="n">width_1</span> <span class="o">+</span> <span class="n">width_2</span></span>
+<div class="highlight"><pre><span class="code-line">lower_3 = lower_1 + lower_2</span>
+<span class="code-line">width_3 = width_1 + width_2</span>
 </pre></div>
 
 
 <p>则和区间表示为</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">lower_1</span> <span class="o">+</span> <span class="n">lower_2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">lower</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">lower_1</span> <span class="o">+</span> <span class="n">lower_2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">width_1</span> <span class="o">+</span> <span class="n">width_2</span><span class="p">))</span> <span class="o">=&gt;</span> <span class="n">upper</span></span>
+<div class="highlight"><pre><span class="code-line">(lower_1 + lower_2) =&gt; lower</span>
+<span class="code-line">(lower_1 + lower_2 + 2 * (width_1 + width_2)) =&gt; upper</span>
 </pre></div>
 
 
 <p>通过观察可知，和区间的宽度为被加区间的函数（取和）。</p>
 <h2 id="210">练习2.10</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">div</span><span class="o">-</span><span class="n">interval</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&lt;=</span> <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">upper</span><span class="o">-</span><span class="n">bound</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">            <span class="p">(</span><span class="n">lower</span><span class="o">-</span><span class="n">bound</span> <span class="n">y</span><span class="p">))</span> <span class="mi">0</span><span class="p">)</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">error</span> <span class="s">&quot;div-interval error&quot;</span><span class="p">)</span></span>
-<span class="code-line">      <span class="p">(</span><span class="n">mul</span><span class="o">-</span><span class="n">interval</span> <span class="n">x</span></span>
-<span class="code-line">                    <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">interval</span> <span class="p">(</span><span class="o">/</span> <span class="mf">1.0</span> <span class="p">(</span><span class="n">upper</span><span class="o">-</span><span class="n">bound</span> <span class="n">y</span><span class="p">))</span></span>
-<span class="code-line">                                   <span class="p">(</span><span class="o">/</span> <span class="mf">1.0</span> <span class="p">(</span><span class="n">lower</span><span class="o">-</span><span class="n">bound</span> <span class="n">y</span><span class="p">))))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">div-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt;= </span><span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">            <span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">y</span><span class="p">))</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;div-interval error&quot;</span><span class="p">)</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nf">mul-interval</span> <span class="nv">x</span></span>
+<span class="code-line">                    <span class="p">(</span><span class="nf">make-interval</span> <span class="p">(</span><span class="nb">/ </span><span class="mf">1.0</span> <span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">y</span><span class="p">))</span></span>
+<span class="code-line">                                   <span class="p">(</span><span class="nb">/ </span><span class="mf">1.0</span> <span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">y</span><span class="p">))))))</span></span>
 </pre></div>
 
 
 <h2 id="212">练习2.12</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">center</span><span class="o">-</span><span class="n">percent</span> <span class="n">center</span> <span class="n">percent</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cons</span> <span class="n">center</span> <span class="n">percent</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-center-percent</span> <span class="nv">center</span> <span class="nv">percent</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">center</span> <span class="nv">percent</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">percent</span> <span class="n">interval</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cdr</span> <span class="n">interval</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">percent</span> <span class="nv">interval</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">cdr </span><span class="nv">interval</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">center</span> <span class="n">interval</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">car</span> <span class="n">interval</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">center</span> <span class="nv">interval</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">interval</span><span class="p">))</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -208,13 +208,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -227,11 +232,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -239,7 +239,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -262,7 +262,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

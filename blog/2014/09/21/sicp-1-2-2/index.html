@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-21T20:37:33"> Sun 21 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-21T20:37:33+08:00"> Sun 21 September 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -100,50 +100,50 @@
 <h2 id="120">练习1.20</h2>
 <p>由于scheme语言不是normal order的。我么只能通过手工通过代换模型展开计算(gcd 206&nbsp;40)的计算过程。</p>
 <p>我们可以trace打印出applicative order模式下计算(gcd 206&nbsp;40)的计算过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">206</span> <span class="mi">40</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">40</span> <span class="mi">6</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">6</span> <span class="mi">4</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">4</span> <span class="mi">2</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">gcd</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="mi">2</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">206</span> <span class="mi">40</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">40</span> <span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">6</span> <span class="mi">4</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">4</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">2</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="mi">2</span></span>
 </pre></div>
 
 
 <h2 id="121">练习1.21</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">smallest</span><span class="o">-</span><span class="n">divisor</span> <span class="mi">199</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span> <span class="mi">199</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">smallest</span><span class="o">-</span><span class="n">divisor</span> <span class="mi">1999</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span> <span class="mi">1999</span></span>
-<span class="code-line"><span class="p">(</span><span class="n">smallest</span><span class="o">-</span><span class="n">divisor</span> <span class="mi">19999</span><span class="p">)</span></span>
-<span class="code-line"><span class="o">=&gt;</span> <span class="mi">7</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">smallest-divisor</span> <span class="mi">199</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">=&gt; </span><span class="mi">199</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">smallest-divisor</span> <span class="mi">1999</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">=&gt; </span><span class="mi">1999</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">smallest-divisor</span> <span class="mi">19999</span><span class="p">)</span></span>
+<span class="code-line"><span class="k">=&gt; </span><span class="mi">7</span></span>
 </pre></div>
 
 
 <h2 id="122">练习1.22</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">search</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">primes</span> <span class="n">a</span>  <span class="n">b</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">&gt;</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="err">&#39;</span><span class="n">end</span><span class="p">)</span></span>
-<span class="code-line">          <span class="p">((</span><span class="n">odd</span><span class="o">?</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">           <span class="p">(</span><span class="n">begin</span> <span class="p">(</span><span class="n">timed</span><span class="o">-</span><span class="n">prime</span><span class="o">-</span><span class="n">test</span> <span class="n">a</span><span class="p">)</span></span>
-<span class="code-line">                  <span class="p">(</span><span class="n">search</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">primes</span> <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="mi">1</span><span class="p">)</span> <span class="n">b</span><span class="p">)))</span></span>
-<span class="code-line">          <span class="p">(</span><span class="k">else</span></span>
-<span class="code-line">           <span class="p">(</span><span class="n">search</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">primes</span> <span class="p">(</span><span class="o">+</span> <span class="n">a</span> <span class="mi">1</span><span class="p">)</span> <span class="n">b</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">search-for-primes</span> <span class="nv">a</span>  <span class="nv">b</span><span class="p">)</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="ss">&#39;end</span><span class="p">)</span></span>
+<span class="code-line">          <span class="p">((</span><span class="nb">odd? </span><span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">           <span class="p">(</span><span class="k">begin </span><span class="p">(</span><span class="nf">timed-prime-test</span> <span class="nv">a</span><span class="p">)</span></span>
+<span class="code-line">                  <span class="p">(</span><span class="nf">search-for-primes</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">a</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">b</span><span class="p">)))</span></span>
+<span class="code-line">          <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">           <span class="p">(</span><span class="nf">search-for-primes</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">a</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">b</span><span class="p">))</span></span>
 </pre></div>
 
 
 <h2 id="123">练习1.23</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">divides</span><span class="o">?</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="p">(</span><span class="o">=</span> <span class="p">(</span><span class="n">remainder</span> <span class="n">b</span> <span class="n">a</span><span class="p">)</span> <span class="mi">0</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">divides?</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">remainder </span><span class="nv">b</span> <span class="nv">a</span><span class="p">)</span> <span class="mi">0</span><span class="p">))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">next</span> <span class="n">n</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">n</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">next</span> <span class="nv">n</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span></span>
 <span class="code-line">      <span class="mi">3</span></span>
-<span class="code-line">      <span class="p">(</span><span class="o">+</span> <span class="n">n</span> <span class="mi">2</span><span class="p">)))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">+ </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">find</span><span class="o">-</span><span class="n">divisor</span> <span class="n">n</span> <span class="n">test</span><span class="o">-</span><span class="n">divisor</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">square</span> <span class="n">test</span><span class="o">-</span><span class="n">divisor</span><span class="p">)</span> <span class="n">n</span><span class="p">)</span> <span class="n">n</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">divides</span><span class="o">?</span> <span class="n">test</span><span class="o">-</span><span class="n">divisor</span> <span class="n">n</span><span class="p">)</span> <span class="n">test</span><span class="o">-</span><span class="n">divisor</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">find</span><span class="o">-</span><span class="n">divisor</span> <span class="n">n</span> <span class="p">(</span><span class="n">next</span> <span class="n">test</span><span class="o">-</span><span class="n">divisor</span><span class="p">)))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">find-divisor</span> <span class="nv">n</span> <span class="nv">test-divisor</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">&gt; </span><span class="p">(</span><span class="nf">square</span> <span class="nv">test-divisor</span><span class="p">)</span> <span class="nv">n</span><span class="p">)</span> <span class="nv">n</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nf">divides?</span> <span class="nv">test-divisor</span> <span class="nv">n</span><span class="p">)</span> <span class="nv">test-divisor</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">find-divisor</span> <span class="nv">n</span> <span class="p">(</span><span class="nf">next</span> <span class="nv">test-divisor</span><span class="p">)))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">smallest</span><span class="o">-</span><span class="n">divisor</span> <span class="n">n</span><span class="p">)</span> <span class="p">(</span><span class="n">find</span><span class="o">-</span><span class="n">divisor</span> <span class="n">n</span> <span class="mi">2</span><span class="p">))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">smallest-divisor</span> <span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf">find-divisor</span> <span class="nv">n</span> <span class="mi">2</span><span class="p">))</span></span>
 </pre></div>
 
 
@@ -151,97 +151,97 @@
 <p>(expmod base exp&nbsp;m)计算的是base取exp次幂，然后再对m求模。Alyssa建议的算法是先求出base的exp次幂，然后求模。这种方法的正确性取决于scheme解释器的实现方式。如果scheme解释器没有实现大整数处理，那么就有可能导致整数溢出，从而计算出错误的结果。就算是scheme解释器实现了大整数处理，这种方法也会比作者提供的算法效率低。</p>
 <h2 id="126">练习1.26</h2>
 <p>Louis&nbsp;Reasoner的实现:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">expmod</span> <span class="n">base</span> <span class="n">exp</span> <span class="n">m</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="o">=</span> <span class="n">exp</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line">        <span class="p">((</span><span class="n">even</span><span class="o">?</span> <span class="n">exp</span><span class="p">)</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">remainder</span> <span class="p">(</span><span class="o">*</span> <span class="p">(</span><span class="n">expmod</span> <span class="n">base</span> <span class="p">(</span><span class="o">/</span> <span class="n">exp</span> <span class="mi">2</span><span class="p">)</span> <span class="n">m</span><span class="p">)</span></span>
-<span class="code-line">                       <span class="p">(</span><span class="n">expmod</span> <span class="n">base</span> <span class="p">(</span><span class="o">/</span> <span class="n">exp</span> <span class="mi">2</span><span class="p">)</span> <span class="n">m</span><span class="p">))</span></span>
-<span class="code-line">                    <span class="n">m</span><span class="p">))</span></span>
-<span class="code-line">        <span class="p">(</span><span class="k">else</span></span>
-<span class="code-line">         <span class="p">(</span><span class="n">remainder</span> <span class="p">(</span><span class="o">*</span> <span class="n">base</span> <span class="p">(</span><span class="n">expmod</span> <span class="n">base</span> <span class="p">(</span><span class="o">-</span> <span class="n">exp</span> <span class="mi">1</span><span class="p">)</span> <span class="n">m</span><span class="p">))</span></span>
-<span class="code-line">                    <span class="n">m</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">expmod</span> <span class="nv">base</span> <span class="nv">exp</span> <span class="nv">m</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">= </span><span class="nv">exp</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">even? </span><span class="nv">exp</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">remainder </span><span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">expmod</span> <span class="nv">base</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">exp</span> <span class="mi">2</span><span class="p">)</span> <span class="nv">m</span><span class="p">)</span></span>
+<span class="code-line">                       <span class="p">(</span><span class="nf">expmod</span> <span class="nv">base</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">exp</span> <span class="mi">2</span><span class="p">)</span> <span class="nv">m</span><span class="p">))</span></span>
+<span class="code-line">                    <span class="nv">m</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">remainder </span><span class="p">(</span><span class="nb">* </span><span class="nv">base</span> <span class="p">(</span><span class="nf">expmod</span> <span class="nv">base</span> <span class="p">(</span><span class="nb">- </span><span class="nv">exp</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">m</span><span class="p">))</span></span>
+<span class="code-line">                    <span class="nv">m</span><span class="p">))))</span></span>
 </pre></div>
 
 
 <p>可以通过trace打印出Louis Reasoner实现的expmod计算(expmod 3 7&nbsp;5)的过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">7</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">7</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">6</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">t</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">3</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">2</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">t</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">3</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">3</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">4</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="mi">2</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">3</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">2</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">t</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">3</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">3</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">4</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="mi">2</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="mi">4</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="mi">2</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">7</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">7</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#t</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#t</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">4</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">2</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#t</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">4</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">2</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="mi">4</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="mi">2</span></span>
 </pre></div>
 
 
 <p>根据sicp作者在本节给出的实现计算(expmod 3 7&nbsp;5)的过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="nl">trace:</span> <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">7</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">7</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">6</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">t</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">3</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">2</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">t</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">even</span><span class="o">?</span> <span class="mi">1</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">#</span><span class="n">f</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">1</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">3</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">square</span> <span class="mi">3</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">9</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="mi">4</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="mi">2</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="p">(</span><span class="n">square</span> <span class="mi">2</span><span class="p">)</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="o">|</span>  <span class="mi">4</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="o">|</span>  <span class="mi">4</span></span>
-<span class="code-line"><span class="nl">trace:</span> <span class="mi">2</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">7</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">7</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">6</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">6</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#t</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#t</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nb">even? </span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="no">#f</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">expmod</span> <span class="mi">3</span> <span class="mi">0</span> <span class="mi">5</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">1</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">3</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">square</span> <span class="mi">3</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">9</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">4</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">2</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="p">(</span><span class="nf">square</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="nv">|</span>  <span class="mi">4</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="nv">|</span>  <span class="mi">4</span></span>
+<span class="code-line"><span class="nv">trace:</span> <span class="mi">2</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -287,13 +287,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -306,11 +311,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -318,7 +318,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -341,7 +341,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

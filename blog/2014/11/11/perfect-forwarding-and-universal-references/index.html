@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="cpp" />
-        <meta name="description" content="C++11的许多新功能的目的是为了提升性能，容器类中的emplace系列方法就是其中之一。例如std::vector就有与push_back方法类似的emplace_back方法，以及与insert方法类似的emplace方法。 下面简单地展示这些新方法带来的好处： class MyKlass { public: MyKlass(int ii_, float ff_) {...} private: {...} }; some function { std::vector&lt;MyKlass&gt; v; v.push_back(MyKlass(2, 3.14f)); v.emplace_back(2, 3.14f); } 跟踪MyKlass类构造函数和析构函数的执行过程 ..." />
+        <meta name="description" content="C++11的许多新功能的目的是为了提升性能，容器类中的emplace系列方法就是其中之一。例如std::vector就有与push_back方法类似的emplace_back方法，以及与insert方法类似的emplace方法。 下面简单地展示这些新方法带来的好处： class MyKlass { public: MyKlass(int ii_, float ff_) {...} private: {...} }; some function { std::vector&lt;MyKlass&gt; v; v.push_back(MyKlass(2, 3.14f)); v.emplace_back(2, 3.14f); } 跟踪MyKlass类构造函数和析构函数的执行过程，可以看到push_back ..." />
 
     <!-- Enable latex plugin -->
 
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-11T21:35:40"> Tue 11 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-11T21:35:40+08:00"> Tue 11 November 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,19 +96,19 @@
                 </div>
                 <p>C++11的许多新功能的目的是为了提升性能，容器类中的<code>emplace</code>系列方法就是其中之一。例如<code>std::vector</code>就有与<code>push_back</code>方法类似的<code>emplace_back</code>方法，以及与<code>insert</code>方法类似的<code>emplace</code>方法。</p>
 <p>下面简单地展示这些新方法带来的好处：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nb">class</span> <span class="nx">MyKlass</span> <span class="p">{</span></span>
-<span class="code-line"><span class="k">public</span><span class="p">:</span></span>
-<span class="code-line">  <span class="nx">MyKlass</span><span class="p">(</span><span class="nx">int</span> <span class="nx">ii_</span><span class="p">,</span> <span class="nx">float</span> <span class="nx">ff_</span><span class="p">)</span> <span class="p">{</span><span class="nx">...</span><span class="p">}</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">MyKlass</span> <span class="p">{</span></span>
+<span class="code-line"><span class="k">public</span><span class="o">:</span></span>
+<span class="code-line">  <span class="n">MyKlass</span><span class="p">(</span><span class="kt">int</span> <span class="n">ii_</span><span class="p">,</span> <span class="kt">float</span> <span class="n">ff_</span><span class="p">)</span> <span class="p">{...}</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="k">private</span><span class="p">:</span></span>
-<span class="code-line">  <span class="p">{</span><span class="nx">...</span><span class="p">}</span></span>
+<span class="code-line"><span class="k">private</span><span class="o">:</span></span>
+<span class="code-line">  <span class="p">{...}</span></span>
 <span class="code-line"><span class="p">};</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="nx">some</span> <span class="nx">function</span> <span class="p">{</span></span>
-<span class="code-line">  <span class="nx">std</span><span class="p">::</span><span class="nl">vector</span><span class="o">&lt;</span><span class="nx">MyKlass</span><span class="o">&gt;</span> <span class="nx">v</span><span class="p">;</span></span>
+<span class="code-line"><span class="n">some</span> <span class="n">function</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">MyKlass</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span></span>
 <span class="code-line"></span>
-<span class="code-line">  <span class="nx">v.push_back</span><span class="p">(</span><span class="nx">MyKlass</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="nb">f</span><span class="p">));</span></span>
-<span class="code-line">  <span class="nx">v.emplace_back</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14</span><span class="nb">f</span><span class="p">);</span></span>
+<span class="code-line">  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MyKlass</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14f</span><span class="p">));</span></span>
+<span class="code-line">  <span class="n">v</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14f</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
@@ -127,7 +127,7 @@
 <p>上面讨论过的<code>emplace_back</code>方法就是此问题的一个实际例子。<code>vector&lt;T&gt;::emplace_back</code>将其参数传递到类型T的构造函数，而不关心T的具体类型是什么。</p>
 <p>下面，我将展示一些代码实例，介绍如何在C++11之前的标准中实现此功能。为了简单起见，在此先不讨论可变参数模板，并且假设我们需要传递两个参数。</p>
 <p>第一感，我们可以这样实现：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="kr">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span> <span class="n">e2</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
@@ -136,7 +136,7 @@
 
 <p>很明显，上面的代码在<code>func</code>函数传递引用参数时有问题，因为wrapper函数是按值传递参数的。如果func修改了其引用参数，此修改并不能传达到wrapper的调用函数中（参数修改只影响wrapper函数的一份拷贝）。</p>
 <p>那好，我们可以修改wrapper使其也传递引用参数。这样不会对func函数按值传递参数造成影响，因为此时在wrpper中调用func函数会对传入的参数进行复制。</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="kr">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
@@ -154,16 +154,16 @@
 
 <p>并且将引用参数限定为<code>const</code>也不能解决问题，因为对func函数传入非<code>const</code>的引用参数是很正当的要求。</p>
 <p>剩下的唯一解决方案就是一些库所采用的暴力方法了：即为<code>const</code>和非<code>const</code>引用参数分别实现重载函数：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="kr">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>                <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="kr">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="k">const</span> <span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>          <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="kr">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>          <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="kr">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="k">const</span> <span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>    <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span></span>
 </pre></div>
 
@@ -172,7 +172,7 @@
 <h1 id="_2">引用折叠及右值引用的类型推导</h1>
 <p>在解释C++11如何解决完美传递问题之前，我们需要先解释C++中两条新增加的规则。</p>
 <p>其中引用折叠规则比较容易解释，所以先介绍它。在之前的C++中取引用的引用是非法的。但是，在模板和类型推导中时常需要用到此规则：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">baz</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line">  <span class="n">T</span><span class="o">&amp;</span> <span class="n">k</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">}</span></span>
@@ -188,7 +188,7 @@
 <p>在模板具现化时，T被显式设置为<code>int&amp;</code>。那么内部的k的类型是什么呢？编译器看到的类型是<code>int&amp; &amp;</code>，但是这种形式程序员在代码中并不能直接写出来，所以编译器简单地将其推导为引用类型。事实上，在C++11之前，此行为并没有标准化，但是许多编译器支持这种行为，因为这样的代码在模板元编程中时常出现。C++11加入了右值引用类型，那么对引用累加的情况进行定义就非常重要了（比如，<code>int&amp;&amp; &amp;</code>表示什么类型？）。</p>
 <p>这就是引用折叠规则。规则非常简单，即永远以&amp;为准。所以&amp; &amp;折叠为&amp;，&amp;&amp; &amp;以及&amp; &amp;&amp;也折叠为&amp;。折叠为&amp;&amp;的唯一的情况是&amp;&amp;&nbsp;&amp;&amp;。可以将此规则想象成逻辑或的关系，&amp;为1，&amp;&amp;为0。 </p>
 <p>另一个新加进C++11中的与本文相关规则是对于右值引用的类型推导规则<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>。例如下面这个模板函数：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">func</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
@@ -212,17 +212,17 @@
 <p>你可能觉得这个规则很奇葩，因为它就是那么奇葩。但是想想这个规则是用来解决完美传递问题的，就开始有那么点意思了。</p>
 <h1 id="stdforward">使用<code>std::forward</code>解决完美传递问题</h1>
 <p>让我们回到wrapper模板函数吧。在C++11中应该这样实现：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nx">template</span> <span class="o">&lt;</span><span class="nb">typename</span> <span class="nx">T1</span><span class="p">,</span> <span class="nb">typename</span> <span class="nx">T2</span><span class="o">&gt;</span></span>
-<span class="code-line"><span class="bp">void</span> <span class="nx">wrapper</span><span class="p">(</span><span class="nx">T1</span><span class="o">&amp;&amp;</span> <span class="nx">e1</span><span class="p">,</span> <span class="nx">T2</span><span class="o">&amp;&amp;</span> <span class="nx">e2</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="nx">func</span><span class="p">(</span><span class="nb">forward</span><span class="o">&lt;</span><span class="nx">T1</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">e1</span><span class="p">),</span> <span class="nb">forward</span><span class="o">&lt;</span><span class="nx">T2</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">e2</span><span class="p">));</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;&amp;</span> <span class="n">e2</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">func</span><span class="p">(</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">e1</span><span class="p">),</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">T2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">e2</span><span class="p">));</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>下面是<code>forward</code>的实现<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup>:</p>
-<div class="highlight"><pre><span class="code-line"><span class="nx">template</span><span class="o">&lt;</span><span class="nb">class</span> <span class="nb">T</span><span class="o">&gt;</span></span>
-<span class="code-line"><span class="nb">T</span><span class="o">&amp;&amp;</span> <span class="nb">forward</span><span class="p">(</span><span class="nb">typename</span> <span class="nx">std</span><span class="p">::</span><span class="nl">remove_reference</span><span class="o">&lt;</span><span class="nb">T</span><span class="o">&gt;</span><span class="p">::</span><span class="nl">type</span><span class="o">&amp;</span> <span class="nb">t</span><span class="p">)</span> <span class="nx">noexcept</span> <span class="p">{</span></span>
-<span class="code-line">  <span class="k">return</span> <span class="nx">static_cast</span><span class="o">&lt;</span><span class="nb">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="nb">t</span><span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_reference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span></span>
+<span class="code-line">  <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
@@ -235,15 +235,15 @@
 
 
 <p>我们来分析第一个参数是怎么传递的（第二个参数也类似）：ii是一个左值，根据推导规则，T1被推导为<code>int&amp;</code>，此时函数调用为<code>func(forward&lt;int&amp;&gt;(e1), ...)</code>，从而，<code>forward</code>函数使用<code>int&amp;</code>具现化，那么具现化后的函数为：</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span><span class="o">&amp;</span> <span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span> <span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span><span class="o">&amp;</span> <span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span> <span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
 <p>然后应用引用折叠规则：</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
@@ -255,8 +255,8 @@
 
 
 <p>此时参数为右值，所以T1推导为<code>int</code>，具体的函数调用为<code>func(forward&lt;int&gt;(e1), ...)</code>，因此<code>forward</code>函数以<code>int</code>进行具现化，最终的函数为：</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span><span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="kt">int</span><span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
@@ -271,10 +271,10 @@
 <h1 id="_3">完美传递的实际例子</h1>
 <p>完美传递非常有用，因为它打开了一扇通往高阶函数编程的大门。那些需要以函数作为参数或者返回值的函数称为高阶函数。如果没有完美传递这个特性，高阶函数的实现就非常累赘，因为缺少一种向封装的函数传递参数的便捷方式。此处我们提到的“函数”其实也包括类，因为类的构造函数也是一种函数。</p>
 <p>在本文的开始，我介绍了容器类的<code>emplace_back</code>方法。此外还有一个使用完美传递的函数就是<code>make_unique</code>：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nx">template</span><span class="o">&lt;</span><span class="nb">typename</span> <span class="nb">T</span><span class="p">,</span> <span class="nx">typename...</span> <span class="nx">Args</span><span class="o">&gt;</span></span>
-<span class="code-line"><span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nb">T</span><span class="o">&gt;</span> <span class="nx">make_unique</span><span class="p">(</span><span class="nx">Args</span><span class="o">&amp;&amp;</span><span class="nx">...</span> <span class="nx">args</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span></span>
+<span class="code-line"><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span></span>
 <span class="code-line"><span class="p">{</span></span>
-<span class="code-line">    <span class="k">return</span> <span class="nx">unique_ptr</span><span class="o">&lt;</span><span class="nb">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nb">new</span> <span class="nb">T</span><span class="p">(</span><span class="nx">std</span><span class="p">::</span><span class="nl">forward</span><span class="o">&lt;</span><span class="nx">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span><span class="nx">...</span><span class="p">));</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...));</span></span>
 <span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
@@ -349,13 +349,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -368,11 +373,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -380,7 +380,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -403,7 +403,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>

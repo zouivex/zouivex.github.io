@@ -15,7 +15,7 @@
 
         <meta name="author" content="九哥" />
         <meta name="keywords" content="scheme" />
-        <meta name="description" content="导读 在开始之前我们先来熟悉两个概念： 基本数据对象 程序设计语言原生支持的数据对象，比如整数、浮点数、字符串等等。 复合数据对象 通过对基本数据对象进行封装、组合构成的新的数据对象。 我们熟悉的面向对象语言中有”类“的概念，“类”就是数据抽象的一种方式。通过构成一种抽象级别更高的对象，能够帮助我们更深入地进行设计，而不用纠结于底层的基本数据对象的组织方式。这是编程语言逐渐由低级语言向高级语言进化的必然结果。 本章将介绍在Scheme语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过cons，car，cdr操作构造复合数据对象。 习题解答 练习2.1 (define (gcd x y) (if (= y 0) x (gcd y (remainder x y)))) (define (make-rat n ..." />
+        <meta name="description" content="导读 在开始之前我们先来熟悉两个概念： 基本数据对象 程序设计语言原生支持的数据对象，比如整数、浮点数、字符串等等。 复合数据对象 通过对基本数据对象进行封装、组合构成的新的数据对象。 我们熟悉的面向对象语言中有”类“的概念，“类”就是数据抽象的一种方式。通过构成一种抽象级别更高的对象，能够帮助我们更深入地进行设计，而不用纠结于底层的基本数据对象的组织方式。这是编程语言逐渐由低级语言向高级语言进化的必然结果。 本章将介绍在Scheme语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过cons，car，cdr操作构造复合数据对象。 习题解答 练习2.1 (define (gcd x y) (if (= y 0) x (gcd y (remainder x y)))) (define (make-rat n d ..." />
 
     <!-- Enable latex plugin -->
 
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-28T21:48:20"> Tue 28 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-28T21:48:20+08:00"> Tue 28 October 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -114,17 +114,17 @@
 <p>本章将介绍在<code>Scheme</code>语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过<code>cons</code>，<code>car</code>，<code>cdr</code>操作构造复合数据对象。</p>
 <h1 id="_2">习题解答</h1>
 <h2 id="21">练习2.1</h2>
-<div class="highlight"><pre><span class="code-line"> <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">gcd</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span></span>
-<span class="code-line">   <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">=</span> <span class="n">y</span> <span class="mi">0</span><span class="p">)</span></span>
-<span class="code-line">       <span class="n">x</span></span>
-<span class="code-line">       <span class="p">(</span><span class="n">gcd</span> <span class="n">y</span> <span class="p">(</span><span class="n">remainder</span> <span class="n">x</span> <span class="n">y</span><span class="p">))))</span></span>
+<div class="highlight"><pre><span class="code-line"> <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">gcd </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">y</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">       <span class="nv">x</span></span>
+<span class="code-line">       <span class="p">(</span><span class="nb">gcd </span><span class="nv">y</span> <span class="p">(</span><span class="nb">remainder </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"> <span class="p">(</span><span class="n">define</span> <span class="p">(</span><span class="n">make</span><span class="o">-</span><span class="n">rat</span> <span class="n">n</span> <span class="n">d</span><span class="p">)</span></span>
-<span class="code-line">   <span class="p">(</span><span class="n">let</span> <span class="p">((</span><span class="n">g</span> <span class="p">(</span><span class="n">gcd</span> <span class="n">n</span> <span class="n">d</span><span class="p">)))</span></span>
-<span class="code-line">     <span class="p">(</span><span class="n">cond</span> <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">))</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">))))</span></span>
-<span class="code-line">           <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="o">&gt;</span> <span class="n">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">)))</span></span>
-<span class="code-line">           <span class="p">((</span><span class="n">and</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="n">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="o">-</span> <span class="mi">0</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">)))</span> <span class="p">(</span><span class="n">abs</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">))))</span></span>
-<span class="code-line">            <span class="p">(</span><span class="k">else</span> <span class="p">(</span><span class="n">cons</span> <span class="p">(</span><span class="o">/</span> <span class="n">n</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="o">/</span> <span class="n">d</span> <span class="n">g</span><span class="p">))))))</span></span>
+<span class="code-line"> <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-rat</span> <span class="nv">n</span> <span class="nv">d</span><span class="p">)</span></span>
+<span class="code-line">   <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">g</span> <span class="p">(</span><span class="nb">gcd </span><span class="nv">n</span> <span class="nv">d</span><span class="p">)))</span></span>
+<span class="code-line">     <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="k">and </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt; </span><span class="nv">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">abs </span><span class="p">(</span><span class="nb">/ </span><span class="nv">n</span> <span class="nv">g</span><span class="p">))</span> <span class="p">(</span><span class="nb">abs </span><span class="p">(</span><span class="nb">/ </span><span class="nv">d</span> <span class="nv">g</span><span class="p">))))</span></span>
+<span class="code-line">           <span class="p">((</span><span class="k">and </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nb">&gt; </span><span class="nv">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">/ </span><span class="nv">n</span> <span class="nv">g</span><span class="p">)</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">d</span> <span class="nv">g</span><span class="p">)))</span></span>
+<span class="code-line">           <span class="p">((</span><span class="k">and </span><span class="p">(</span><span class="nb">&gt;= </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nb">&lt; </span><span class="nv">d</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="p">(</span><span class="nb">abs </span><span class="p">(</span><span class="nb">/ </span><span class="nv">n</span> <span class="nv">g</span><span class="p">)))</span> <span class="p">(</span><span class="nb">abs </span><span class="p">(</span><span class="nb">/ </span><span class="nv">d</span> <span class="nv">g</span><span class="p">))))</span></span>
+<span class="code-line">            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">/ </span><span class="nv">n</span> <span class="nv">g</span><span class="p">)</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">d</span> <span class="nv">g</span><span class="p">))))))</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -170,13 +170,18 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
+                                sicp&nbsp;2.4
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">
                                 sicp&nbsp;2.3.4
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/04/sicp-2-3-3/">
-                                sicp&nbsp;2.3.3
+                                sicp-2-3-3
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -189,11 +194,6 @@
                                 sicp&nbsp;2.3.1
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/20/sicp-2-2-3/">
-                                sicp&nbsp;2.2.3
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -201,7 +201,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (18)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
                             </a>
                         </li>
                         <li class="list-group-item">
@@ -224,7 +224,7 @@
                                 git
                             </a>
                         </li>
-                        <li class="list-group-item tag-0">
+                        <li class="list-group-item tag-1">
                             <a href="http://blog.zouxu.com.cn/tag/scheme.html">
                                 Scheme
                             </a>
