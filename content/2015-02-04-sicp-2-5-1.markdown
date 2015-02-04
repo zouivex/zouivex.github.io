@@ -1,0 +1,72 @@
+Title: sicp 2.5.1
+Slug: sicp-2-5-1
+Date: 2015-02-04 20:19:54
+Modified: 2015-02-04 20:19:54
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.77
+
+开始时z的值为`(complex (rectangular (3 4)))`。第一次调用时，apply-generic会根据标签`complex`将其分派为过程调用`(magnitude '(rectangular (3 4))`。第二次调用时，apply-generic会根据标签`rectangular`将其分派为`rectangular`包中所定义的`magnitude`过程。
+
+## 练习2.78
+
+``` Scheme
+(define (attach-tag type-tag contents)
+  (if (number? contents)
+      contents
+      (cons type-tag contents)))
+
+(define (type-tag data)
+  (cond ((number? data) 'scheme-number)
+        ((pair? data) (car data))
+        (else (error "Bad tagged datum -- TYPE-TAG" data))))
+
+(define (contents data)
+  (cond ((number? data) data)
+        ((pair? data) (cdr data))
+        (else (error "Bad tagged dataum -- TYPE-TAG" data))))
+```
+
+## 练习2.79
+
+``` Scheme
+(put 'equ? '(scheme-number scheme-number)
+       (lambda (x y)
+         (= x y)))
+
+(put 'equ? '(rational rational)
+       (lambda (x y)
+         (and (= (numer x) (numer y))
+              (= (denom x) (denom y)))))
+
+(put 'equ? '(complex complex)
+       (lambda (z1 z2)
+         (and (= (real-part z1) (real-part z2))
+              (= (imag-part z1) (imag-part z2)))))
+
+(define (equ? x y)
+  (apply-generic 'equ? x y))
+```
+
+## 练习2.80
+
+``` Scheme
+(put '=zero? '(scheme-number)
+       (lambda (x)
+         (= x 0)))
+
+(put '=zero? '(rational)
+       (lambda (x)
+         (= (numer x) 0)))
+
+(put '=zero? '(complex)
+       (lambda (x)
+         (and (= (real-part x) 0)
+              (= (imag-part x) 0))))
+
+(define (=zero? x)
+  (apply-generic '=zero? x))
+```
