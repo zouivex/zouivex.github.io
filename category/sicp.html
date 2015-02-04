@@ -70,6 +70,40 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/">sicp&nbsp;2.5.1</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-02-04T20:19:54+08:00"> Wed 04 February 2015</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">Scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><h1 id="_1">习题解答</h1>
+<h2 id="277">练习2.77</h2>
+<p>开始时z的值为<code>(complex (rectangular (3 4)))</code>。第一次调用时，apply-generic会根据标签<code>complex</code>将其分派为过程调用<code>(magnitude '(rectangular (3 4))</code>。第二次调用时，apply-generic会根据标签<code>rectangular</code>将其分派为<code>rectangular</code>包中所定义的<code>magnitude</code>过程。</p>
+<h2 id="278">练习2.78</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">attach-tag</span> <span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">number? </span><span class="nv">contents</span><span class="p">)</span></span>
+<span class="code-line">      <span class="nv">contents</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">cons </span><span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">type-tag</span> <span class="nv">data</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">number? </span><span class="nv">data</span><span class="p">)</span> <span class="ss">&#39;scheme-number</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">pair? </span><span class="nv">data</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">data</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">error ...</span></span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">sicp&nbsp;2.4</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -833,6 +867,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/">
+                                sicp&nbsp;2.5.1
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/01/27/sicp-2-4/">
                                 sicp&nbsp;2.4
                             </a>
@@ -852,11 +891,6 @@
                                 sicp&nbsp;2.3.2
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2014/12/22/sicp-2-3-1/">
-                                sicp&nbsp;2.3.1
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -864,7 +898,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (19)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (20)
                             </a>
                         </li>
                         <li class="list-group-item">

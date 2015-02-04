@@ -2,7 +2,7 @@
 <html lang="zh"
 >
 <head>
-    <title>sicp 2.1.3 - 九哥的部落</title>
+    <title>sicp 2.5.1 - 九哥的部落</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,11 +11,11 @@
 
     <link href="http://blog.zouxu.com.cn/favicon.png" rel="icon">
 
-<link rel="canonical" href="http://blog.zouxu.com.cn/blog/2014/11/10/sicp-2-1-3/">
+<link rel="canonical" href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/">
 
         <meta name="author" content="九哥" />
-        <meta name="keywords" content="scheme" />
-        <meta name="description" content="习题解答 练习2.4 cdr应该这样定义: (define (cdr z) (z (lambda (p q) q))) 练习2.5 (define (cons a b) (* (exp 2 a) (exp 3 b))) (define (car z) (log2 (mod z 3)) (define (cdr z) (log3 (mod z 2))) 练习2.6 (define zero (lambda(f) (lambda(x) x))) (define (add-1 n ..." />
+        <meta name="keywords" content="Scheme" />
+        <meta name="description" content="习题解答 练习2.77 开始时z的值为(complex (rectangular (3 4)))。第一次调用时，apply-generic会根据标签complex将其分派为过程调用(magnitude &#39;(rectangular (3 4))。第二次调用时，apply-generic会根据标签rectangular将其分派为rectangular包中所定义的magnitude过程。 练习2.78 (define (attach-tag type-tag contents) (if (number? contents) contents (cons type-tag contents))) (define (type-tag data) (cond ((number? data) &#39;scheme-number) ((pair? data) (car data)) (else (error ..." />
 
     <!-- Enable latex plugin -->
 
@@ -69,10 +69,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://blog.zouxu.com.cn/blog/2014/11/10/sicp-2-1-3/"
+                    <a href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/"
                        rel="bookmark"
-                       title="Permalink to sicp 2.1.3">
-                        sicp&nbsp;2.1.3
+                       title="Permalink to sicp 2.5.1">
+                        sicp&nbsp;2.5.1
                     </a>
                 </h1>
             </header>
@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-10T20:36:21+08:00"> Mon 10 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-02-04T20:19:54+08:00"> Wed 04 February 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -90,49 +90,67 @@
 
 
 <span class="label label-default">标签</span>
-	<a href="http://blog.zouxu.com.cn/tag/scheme.html">scheme</a>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">Scheme</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <h1 id="_1">习题解答</h1>
-<h2 id="24">练习2.4</h2>
-<p>cdr应该这样定义:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">z</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="nf">z</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">p</span> <span class="nv">q</span><span class="p">)</span> <span class="nv">q</span><span class="p">)))</span></span>
+<h2 id="277">练习2.77</h2>
+<p>开始时z的值为<code>(complex (rectangular (3 4)))</code>。第一次调用时，apply-generic会根据标签<code>complex</code>将其分派为过程调用<code>(magnitude '(rectangular (3 4))</code>。第二次调用时，apply-generic会根据标签<code>rectangular</code>将其分派为<code>rectangular</code>包中所定义的<code>magnitude</code>过程。</p>
+<h2 id="278">练习2.78</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">attach-tag</span> <span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">number? </span><span class="nv">contents</span><span class="p">)</span></span>
+<span class="code-line">      <span class="nv">contents</span></span>
+<span class="code-line">      <span class="p">(</span><span class="nb">cons </span><span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">type-tag</span> <span class="nv">data</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">number? </span><span class="nv">data</span><span class="p">)</span> <span class="ss">&#39;scheme-number</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">pair? </span><span class="nv">data</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">data</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Bad tagged datum -- TYPE-TAG&quot;</span> <span class="nv">data</span><span class="p">))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">contents</span> <span class="nv">data</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">number? </span><span class="nv">data</span><span class="p">)</span> <span class="nv">data</span><span class="p">)</span></span>
+<span class="code-line">        <span class="p">((</span><span class="nb">pair? </span><span class="nv">data</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">data</span><span class="p">))</span></span>
+<span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Bad tagged dataum -- TYPE-TAG&quot;</span> <span class="nv">data</span><span class="p">))))</span></span>
 </pre></div>
 
 
-<h2 id="25">练习2.5</h2>
-<div class="highlight"><pre><span class="code-line">(define (cons a b)</span>
-<span class="code-line">    (* (exp 2 a)</span>
-<span class="code-line">       (exp 3 b)))</span>
+<h2 id="279">练习2.79</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;equ?</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">scheme-number</span> <span class="nv">scheme-number</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)))</span></span>
 <span class="code-line"></span>
-<span class="code-line">(define (car z)</span>
-<span class="code-line">    (log2 (mod z 3))</span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;equ?</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">rational</span> <span class="nv">rational</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">numer</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">numer</span> <span class="nv">y</span><span class="p">))</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">denom</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">denom</span> <span class="nv">y</span><span class="p">)))))</span></span>
 <span class="code-line"></span>
-<span class="code-line">(define (cdr z)</span>
-<span class="code-line">    (log3 (mod z 2)))</span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;equ?</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">complex</span> <span class="nv">complex</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">z1</span> <span class="nv">z2</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">real-part </span><span class="nv">z1</span><span class="p">)</span> <span class="p">(</span><span class="nb">real-part </span><span class="nv">z2</span><span class="p">))</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">imag-part </span><span class="nv">z1</span><span class="p">)</span> <span class="p">(</span><span class="nb">imag-part </span><span class="nv">z2</span><span class="p">)))))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">equ?</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">apply-generic</span> <span class="ss">&#39;equ?</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">))</span></span>
 </pre></div>
 
 
-<h2 id="26">练习2.6</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">zero</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)))</span></span>
+<h2 id="280">练习2.80</h2>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;=zero?</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">scheme-number</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">0</span><span class="p">)))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">add-1</span> <span class="nv">n</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">n</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">x</span><span class="p">))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;=zero?</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">rational</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">numer</span> <span class="nv">x</span><span class="p">)</span> <span class="mi">0</span><span class="p">)))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">one</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)))</span></span>
+<span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;=zero?</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">complex</span><span class="p">)</span></span>
+<span class="code-line">       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
+<span class="code-line">         <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">real-part </span><span class="nv">x</span><span class="p">)</span> <span class="mi">0</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">imag-part </span><span class="nv">x</span><span class="p">)</span> <span class="mi">0</span><span class="p">))))</span></span>
 <span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">two</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))))</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">add</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
-<span class="code-line">  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span></span>
-<span class="code-line">    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
-<span class="code-line">      <span class="p">((</span><span class="nf">a</span> <span class="nv">f</span><span class="p">)</span> <span class="p">((</span><span class="nf">b</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">x</span><span class="p">)))))</span></span>
+<span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">=zero?</span> <span class="nv">x</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="nf">apply-generic</span> <span class="ss">&#39;=zero?</span> <span class="nv">x</span><span class="p">))</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -145,8 +163,8 @@
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'httpzouivexgithubio'; // required: replace example with your forum shortname
 
-                    var disqus_identifier = 'sicp-2-1-3';
-                var disqus_url = 'http://blog.zouxu.com.cn/blog/2014/11/10/sicp-2-1-3/';
+                    var disqus_identifier = 'sicp-2-5-1';
+                var disqus_url = 'http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/';
 
             var disqus_config = function () {
                 this.language = "zh";
