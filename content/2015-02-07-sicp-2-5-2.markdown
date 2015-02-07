@@ -1,0 +1,214 @@
+Title: sicp 2.5.2
+Slug: sicp-2-5-2
+Date: 2015-02-07 15:30:41
+Modified: 2015-02-07 15:30:41
+Category: sicp
+Tags: Scheme
+
+# 习题解答
+
+## 练习2.81
+
+* a) 查看`apply-generic`的源代码可知，如果某种类型的操作在表格中没有定义，而强制转换为自己的类型的操作有定义，此时系统会一直调用此类型强制转换操作，即此时有一个无穷递归。
+* b) Louis其实没有解决问题。
+* c) 下面是修改后的`apply-generic`过程，它不会试着强制两个同样类型的参数:
+
+``` Scheme
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (if (= (length args) 2)
+              (let ((type1 (car type-tags))
+                    (type2 (cadr type-tags))
+                    (a1 (car args))
+                    (a2 (cadr args)))
+                (if (not (eq? type1 type2))
+                    (let ((t1->t2 (get-coercion type1 type2))
+                          (t2->t1 (get-coercion type2 type1)))
+                      (cond (t1->t2
+                             (apply-generic op (t1->t2 a1) a2))
+                            (t2->t1
+                             (apply-generic op a1 (t2->t1 a2)))
+                            (else
+                             (error "No method for these types"
+                                    (list op type-tags)))))
+                    (error "No method for these types"
+                    (list op type-tags))))
+              (error "No method for these types"
+                     (list op type-tags)))))))
+```
+
+## 练习2.82
+
+``` Scheme
+(define (apply-generic op . args)
+  (define (can-coerce-into? types target-type)
+    (andmap 
+      (lambda (type)
+        (or
+          (equal? type target-type)
+          (get-coercion type target-type)))
+      types))
+      
+  (define (find-coercion-target types)
+    (ormap
+      (lambda (target-type)
+        (if (can-coerce-into? types target-type)
+          target-type
+          #f))
+      types))
+      
+  (define (coerce-all args target-type)
+    (map 
+      (lambda (arg)
+        (let ((arg-type (type-tag arg)))
+          (if (equal? arg-type target-type)
+            arg
+            ((get-coercion arg-type target-type) arg))))
+      args))
+      
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))
+      
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+        (apply proc (map contents args))
+        (let ((target-type (find-coercion-target type-tags)))
+          (if target-type
+            (apply
+              apply-generic
+              (append 
+                (list op)
+                (coerce-all args target-type)))
+            (no-method type-tags)))))))
+```
+
+## 练习2.83
+
+``` Scheme
+;; Into integer package
+(define (integer->rational n)
+  (make-rational n 1))
+
+(put 'raise '(integer)
+  (lambda (i) (integer->rational i)))
+
+;; Into rational package
+(define (rational->real r)
+  (make-real
+    (exact->inexact
+      (/ (numer r) (denom r)))))
+
+(put 'raise '(rational)
+  (lambda (r) (rational->real r)))
+
+;; Into real package
+(define (real->complex r)
+  (make-complex-from-real-imag r 0))
+
+(put 'raise '(real)
+  (lambda (r) (real->complex r)))
+
+(define (raise x)
+  (apply-generic 'raise x))
+```
+
+## 练习2.84
+
+``` Scheme
+(define (apply-generic-r op . args)
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))      
+  (define (raise-into s t)
+    "Tries to raise s into the type of t. On success, 
+    returns the raised s. Otherwise, returns #f" 
+    (let ((s-type (type-tag s))
+          (t-type (type-tag t)))
+      (cond 
+        ((equal? s-type t-type) s)
+        ((get 'raise (list s-type))
+          (raise-into ((get 'raise (list s-type)) (contents s)) t))
+        (t #f))))
+
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (if (= (length args) 2)
+            (let ((o1 (car args))
+                  (o2 (cadr args)))
+              (cond 
+                ((raise-into o1 o2)
+                  (apply-generic-r op (raise-into o1 o2) o2))
+                ((raise-into o2 o1)
+                  (apply-generic-r op o2 (raise-into o2 o1)))
+                (t (no-method type-tags))))
+            (no-method type-tags))))))
+```
+
+## 练习2.85
+
+``` Scheme
+(put 'project '(rational)
+    (lambda (r) 
+      (make-scheme-number
+        (floor (/ (numer r) (denom r))))))
+
+(put 'project '(real)
+    (lambda (r) 
+      (let ((scheme-rat 
+              (rationalize 
+                (inexact->exact r) 1/100)))
+        (make-rational
+          (numerator scheme-rat)
+          (denominator scheme-rat)))))
+
+(put 'project '(complex)
+    (lambda (c) (make-real (real-part c))))
+
+(define (drop num)
+  (let ((project-proc 
+          (get 'project (list (type-tag num)))))
+    (if project-proc
+      (let ((dropped (project-proc (contents num))))
+        (if (equ? num (raise dropped))
+          (drop dropped)
+          num))
+      num)))
+
+(define (apply-generic-r op . args)
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))      
+
+(define (raise-into s t)
+    "Tries to raise s into the type of t. On success, 
+    returns the raised s. Otherwise, returns #f" 
+    (let ((s-type (type-tag s))
+          (t-type (type-tag t)))
+      (cond 
+        ((equal? s-type t-type) s)
+        ((get 'raise (list s-type))
+          (raise-into ((get 'raise (list s-type)) (contents s)) t))
+        (t #f))))
+
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (drop (apply proc (map contents args)))
+          (if (= (length args) 2)
+            (let ((o1 (car args))
+                  (o2 (cadr args)))
+              (cond 
+                ((raise-into o1 o2)
+                  (apply-generic-r op (raise-into o1 o2) o2))
+                ((raise-into o2 o1)
+                  (apply-generic-r op o2 (raise-into o2 o1)))
+                (t (no-method type-tags))))
+            (no-method type-tags))))))
+```
