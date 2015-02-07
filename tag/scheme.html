@@ -70,6 +70,42 @@
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2015/02/07/sicp-2-5-2/">sicp&nbsp;2.5.2</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">日期</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-02-07T15:30:41+08:00"> Sat 07 February 2015</time>
+    </span>
+
+        <span class="label label-default">分类</span>
+        <a href="http://blog.zouxu.com.cn/category/sicp.html">sicp</a>
+
+
+<span class="label label-default">标签</span>
+	<a href="http://blog.zouxu.com.cn/tag/scheme.html">Scheme</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><h1 id="_1">习题解答</h1>
+<h2 id="281">练习2.81</h2>
+<ul>
+<li>a) 查看<code>apply-generic</code>的源代码可知，如果某种类型的操作在表格中没有定义，而强制转换为自己的类型的操作有定义，此时系统会一直调用此类型强制转换操作，即此时有一个无穷递归。</li>
+<li>b)&nbsp;Louis其实没有解决问题。</li>
+<li>c) 下面是修改后的<code>apply-generic</code>过程，它不会试着强制两个同样类型的参数:</li>
+</ul>
+<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
+<span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">type-tags</span> <span class="p">(</span><span class="nb">map </span><span class="nv">type-tag</span> <span class="nv">args</span><span class="p">)))</span></span>
+<span class="code-line">    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">proc</span> <span class="p">(</span><span class="nf">get</span> <span class="nv">op</span> <span class="nv">type-tags</span><span class="p">)))</span></span>
+<span class="code-line">      <span class="p">(</span><span class="k">if </span><span class="nv">proc</span></span>
+<span class="code-line">          <span class="p">(</span><span class="nb">apply </span><span class="nv">proc</span> <span class="p">(</span><span class="nb">map </span><span class="nv">contents</span> <span class="nv">args</span><span class="p">))</span></span>
+<span class="code-line">          <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">length </span><span class="nv">args</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span></span>
+<span class="code-line">              <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">type1</span> <span class="p">(</span><span class="nb">car </span><span class="nv">type-tags</span><span class="p">))</span></span>
+<span class="code-line">                    <span class="p">(</span><span class="nf">type2</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">type-tags ...</span></span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2015/02/07/sicp-2-5-2/">继续阅读...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/">sicp&nbsp;2.5.1</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
@@ -815,6 +851,11 @@
                 <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">近期文章</span></h4>
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
+                            <a href="http://blog.zouxu.com.cn/blog/2015/02/07/sicp-2-5-2/">
+                                sicp&nbsp;2.5.2
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2015/02/04/sicp-2-5-1/">
                                 sicp&nbsp;2.5.1
                             </a>
@@ -834,11 +875,6 @@
                                 sicp-2-3-3
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="http://blog.zouxu.com.cn/blog/2015/01/02/sicp-2-3-2/">
-                                sicp&nbsp;2.3.2
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -846,7 +882,7 @@
                     <ul class="list-group" id="categories">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/category/sicp.html">
-                                <i class="fa fa-folder-open fa-lg"></i> sicp (20)
+                                <i class="fa fa-folder-open fa-lg"></i> sicp (21)
                             </a>
                         </li>
                         <li class="list-group-item">
