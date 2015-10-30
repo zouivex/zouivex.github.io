@@ -1,4 +1,4 @@
-Title: 介绍一种广泛使用git workflow
+Title: 介绍一种广泛使用的git workflow
 Slug: a-successful-git-branching-model
 Date: 2014-10-24 22:14:17
 Modified: 2014-10-24 22:14:17
@@ -8,7 +8,7 @@ Tags: git, tools
 [TOC]
 
 本文展示了一种工作流模型，此模型从一年前就开始在我所有项目（工作项目和私人项目）中非常成功地采用。
-我早就想写一篇介绍文章，但是直到现在才抽出时间完整写出本文。再此不会深入描述具体项目的细节，
+我早就想写一篇介绍文章，但是直到现在才抽出时间完整写出本文。本文不会深入描述具体项目的细节，
 仅仅介绍branch的策略和发布管理。
 
 ![git branch model]({filename}/images/git-model.png)
@@ -27,7 +27,7 @@ Git和那些集中式源代码管理系统相比其优势和劣势请参看此[�
 在第三章就开始介绍merge和branch（被认为是基础功能）。
 
 由于merge和branch非常简单并且可以重复进行，因此再也不会让人像以前（在Subversion时代）那样感到恐惧。
-版本控制工具理所应当比其它工具更能帮助开发者进行merge/branch操作。
+版本控制工具理所应当为merge/branch操作提供比其他工具强大的功能。
 
 对工具进行介绍之后，让我们开始介绍开发工作模型。下面要介绍的工作模型是项目组所有成员进行软件开发过程管理所采取的工作流程的集合。
 
@@ -60,7 +60,7 @@ Git和那些集中式源代码管理系统相比其优势和劣势请参看此[�
 
 `origin/develop`branch作为源代码的开发branch，其HEAD反映的是最新的可提交到下一版本的代码修改，所以我们称之为“集成branch”。每日自动构建总是在此branch进行。
 
-当`develop`branch中的代码达到稳定状态并且准备好发布的时候，其中的所有修改都应该merge回`master`branch，并且标记一个发布版本号。具体操作在之后会进行讨论。
+当`develop`branch中的代码达到稳定状态并且准备好发布的时候，其中的所有修改都应该merge回`master`branch，并且tag一个发布版本号。具体操作在之后会进行讨论。
 
 因此，每次代码修改merge回`master`branch时，从定义上来说就是一个新的版本。我们倾向于严格执行merge回`master`branch的操作，因此理论上来说每次提交代码到`master`branch时，我们都可以使用Git hook脚本自动构建并且发布新版本。
 
@@ -174,7 +174,7 @@ $ git commit -a -m "Bumped version number to 1.2"
 ### 结束发布branch
 
 当发布branch中的代码准备好发布时，需要采取一些行动。首先，merge发布branch到`master`branch（记住，任何一次到`master`branch的提交都是一个新的版本）。
-其次，这些到`master`branch的commit必须打上标记以便于在将来通过历史版本引用。最后，发布branch中的改动需要merge回`develop`branch，确保新发布的版本包含这些修改。
+其次，这些到`master`branch的commit必须打上tag以便于在将来通过历史版本引用。最后，发布branch中的改动需要merge回`develop`branch，确保新发布的版本包含这些修改。
 
 下面是前两个步骤的Git命令：
 ```
@@ -186,7 +186,7 @@ Merge made by recursive.
 $ git tag -a 1.2
 ```
 
-此刻发布完成，并且作好标记以便将来引用。
+此刻发布完成，并且作好tag以便将来引用。
 
 发布版本中的修改需要merge回`develop`branch，Git命令为：
 
@@ -253,7 +253,7 @@ $ git commit -m "Fixed severe production problem"
 修复完成之后，代码修改需要merge回`master`branch，同时还需要merge回`develop`branch，这样确保代码修改同时也被包含到下一个发布版本。
 这与完成发布branch的方式类似。
 
-首先，更新`master`branch并且标记版本号。
+首先，更新`master`branch并且tag版本号。
 
 ```
 $ git checkout master
@@ -288,7 +288,7 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
 # 总结
 
 本文开始处引用的"全图"虽然与本文描述的branch模型相比没有太大差别，但是它在我们的项目中非常有用。
-此图展示了一种优美的心智模型，非常易于理解，并且让项目组成员之间对branch和发布流程产生相同的理解。
+此图展示了一种优美的思维模型，非常易于理解，并且让项目组成员之间对branch和发布流程产生相同的理解。
 
 [此处](http://nvie.com/files/Git-branching-model.pdf)提供有高质量的PDF版本，请将其打印出来并挂到公司的墙壁上以便时时参考。
 
