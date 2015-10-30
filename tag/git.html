@@ -70,7 +70,7 @@
         <div class="col-sm-9">
 
             <article>
-                <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">一种成功的git分支模型</a></h2>
+                <h2><a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">介绍一种广泛使用的git&nbsp;workflow</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">日期</span>
@@ -91,36 +91,40 @@
                 <div class="summary"><div class="toc">
 <ul>
 <li><a href="#git">为何使用git?</a></li>
-<li><a href="#_1">物理去中心化，逻辑中心化</a></li>
-<li><a href="#_2">主要分支</a></li>
-<li><a href="#_3">辅助分支</a><ul>
-<li><a href="#_4">功能分支</a><ul>
-<li><a href="#_5">创建功能分支</a></li>
-<li><a href="#develop">功能完成后集成回develop分支</a></li>
+<li><a href="#_1">逻辑上中央式，物理上分布式</a></li>
+<li><a href="#branch">主要branch</a></li>
+<li><a href="#branch_1">辅助branch</a><ul>
+<li><a href="#branch_2">功能branch</a><ul>
+<li><a href="#branch_3">创建功能branch</a></li>
+<li><a href="#developbranch">功能完成后集成回developbranch</a></li>
 </ul>
 </li>
-<li><a href="#_6">发布分支</a><ul>
-<li><a href="#_7">创建发布分支</a></li>
-<li><a href="#_8">完成发布分支</a></li>
+<li><a href="#branch_4">发布branch</a><ul>
+<li><a href="#branch_5">创建发布branch</a></li>
+<li><a href="#branch_6">结束发布branch</a></li>
 </ul>
 </li>
-<li><a href="#_9">热修复分支</a><ul>
-<li><a href="#_10">创建热修复分支</a></li>
-<li><a href="#_11">完成热修复分支</a></li>
+<li><a href="#branch_7">快速修复branch</a><ul>
+<li><a href="#branch_8">创建快速修复branch</a></li>
+<li><a href="#branch_9">结束快速修复branch</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_12">总结</a></li>
-<li><a href="#_13">翻译说明</a></li>
+<li><a href="#_2">总结</a></li>
+<li><a href="#_3">翻译说明</a></li>
 </ul>
 </div>
-<p>本文展示了一种开发模型，此模型从一年前就开始在我所有项目（工作项目和私人项目）中非常成功地采用。我早就想写一篇介绍文章，但是直到现在才抽出时间从头到尾写出本文。本文不会深入描述具体项目的细节，仅仅介绍分支策略和发布管理。</p>
+<p>本文展示了一种工作流模型，此模型从一年前就开始在我所有项目（工作项目和私人项目）中非常成功地采用。
+我早就想写一篇介绍文章，但是直到现在才抽出时间完整写出本文。本文不会深入描述具体项目的细节，&nbsp;仅仅介绍branch的策略和发布管理。</p>
 <p><img alt="git branch model" src="http://blog.zouxu.com.cn/images/git-model.png" /></p>
 <p>下面集中介绍如何采用Git作为源代码的版本管理工具。</p>
 <h1 id="git">为何使用git?</h1>
-<p>Git和那些集中式源代码管理系统相比其优势和劣势请参看此<a href="http://git.or.cz/gitwiki/GitSvnComparsion">网页</a>。关于这个问题有很多论战。作为开发人员，我认为当前Git比其它工具都要优秀。Git确确实实改变了开发人员合并和分支的思考方式。在之前<span class="caps">CVS</span>/Subversion的时代，合并/分支一直以来都被认为是件可怕的事情（“前方合并冲突伤人，请勿靠近！”）因此需要节制进行。</p>
-<p>相反，在Git中合并/分支非常廉价和简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。例如，在<span class="caps">CVS</span>/Subversion<a href="http://svnbook.red-bean.com/">书籍 ...</a></p>
+<p>Git和那些集中式源代码管理系统相比其优势和劣势请参看此<a href="http://git.or.cz/gitwiki/GitSvnComparsion">网页</a>。
+关于这个问题有很多论战。作为开发人员，我认为当前Git比其它工具都要优秀。Git确确实实改变了开发人员merge和branch的思考方式。
+在之前<span class="caps">CVS</span>/Subversion的时代，merge/branch一直以来都被认为是件可怕的事情（“前方merge冲突伤人，请勿靠近！”）因此不能随便进行。</p>
+<p>相反，在Git中merge/branch资源消耗少同时非常简单，因此被认为是日常工作流程的核心一环，而且事实确实如此。
+例如，在<span class="caps">CVS</span>/Subversion<a href="http://svnbook.red-bean.com/">书籍 ...</a></p>
                     <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">继续阅读...</a>
                 </div>
             </article>
@@ -137,7 +141,7 @@
                     <ul class="list-group" id="recentposts">
                         <li class="list-group-item">
                             <a href="http://blog.zouxu.com.cn/blog/2014/10/24/a-successful-git-branching-model/">
-                                一种成功的git分支模型
+                                介绍一种广泛使用的git&nbsp;workflow
                             </a>
                         </li>
                     </ul>
