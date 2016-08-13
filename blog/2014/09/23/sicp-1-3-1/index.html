@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-23T22:21:05+08:00"> Tue 23 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-23T22:21:05+08:00"> 二 23 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -106,7 +106,7 @@
 <p>由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。</p>
 <h1 id="_2">习题解答</h1>
 <h2 id="129">练习1.29</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">      <span class="mi">0</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
@@ -129,7 +129,7 @@
 
 
 <p>练习1.30</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">a</span> <span class="nv">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">result</span></span>
@@ -141,7 +141,7 @@
 
 <h2 id="131">练习1.31</h2>
 <p>product过程的递归实现:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">      <span class="mi">1</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
@@ -150,7 +150,7 @@
 
 
 <p>用product定义factorial:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">factorial</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">factorial</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">product</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span></span>
 <span class="code-line">           <span class="mi">1</span></span>
 <span class="code-line">           <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="mi">1</span><span class="p">))</span></span>
@@ -159,7 +159,7 @@
 
 
 <p>product过程的迭代实现:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">product</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">i</span> <span class="nv">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">i</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">result</span></span>
@@ -170,7 +170,7 @@
 
 
 <h2 id="132">练习1.32</h2>
-<div class="highlight"><pre><span class="code-line"><span class="c1">;递归版本</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">;递归版本</span></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">accumulate</span> <span class="nv">combiner</span> <span class="nv">null-value</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">      <span class="nv">null-value</span></span>
@@ -281,36 +281,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

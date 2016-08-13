@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-04T18:42:40+08:00"> Sun 04 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-04T18:42:40+08:00"> 日 04 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,7 +96,7 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="259">练习2.59</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">null? </span><span class="nv">set2</span><span class="p">)</span> <span class="nv">set1</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nf">elem-of-set?</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
@@ -108,7 +108,7 @@
 
 
 <h2 id="260">练习2.60</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">elem-of-multiset?</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">elem-of-multiset?</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set</span><span class="p">)</span> <span class="no">#f</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">equal? </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="no">#t</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">elem-of-set?</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set</span><span class="p">)))))</span></span>
@@ -129,7 +129,7 @@
 
 
 <h2 id="261">练习2.61</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">adjoin-set</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">adjoin-set</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="o">&#39;</span><span class="p">()))</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="nv">set</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">&lt; </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">set</span><span class="p">))</span></span>
@@ -140,7 +140,7 @@
 
 
 <h2 id="262">练习2.62</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">null? </span><span class="nv">set2</span><span class="p">)</span> <span class="nv">set1</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set2</span><span class="p">))</span></span>
@@ -162,7 +162,7 @@
 </ul>
 <h2 id="265">练习2.65</h2>
 <p>先将用平衡二叉树表示的set转化为排序的表，然后对排序的表调用union和intersection函数，最后将结果转化回平衡二叉树的表示形式：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unios-set-btree</span> <span class="nv">s1</span> <span class="nv">s2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unios-set-btree</span> <span class="nv">s1</span> <span class="nv">s2</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">t1</span> <span class="p">(</span><span class="nf">tree-&gt;list-1</span> <span class="nv">s1</span><span class="p">))</span></span>
 <span class="code-line">        <span class="p">(</span><span class="nf">t2</span> <span class="p">(</span><span class="nf">tree-&gt;list-1</span> <span class="nv">s2</span><span class="p">)))</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">u</span> <span class="p">(</span><span class="nf">union-set</span> <span class="nv">t1</span> <span class="nv">t2</span><span class="p">)))</span></span>
@@ -177,7 +177,7 @@
 
 
 <h2 id="266">练习2.66</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lookup</span> <span class="nv">key</span> <span class="nv">tree</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lookup</span> <span class="nv">key</span> <span class="nv">tree</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">tree</span><span class="p">)</span> <span class="no">#f</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">equal? </span><span class="nv">key</span> <span class="p">(</span><span class="nf">entry</span> <span class="nv">tree</span><span class="p">))</span> <span class="p">(</span><span class="nf">entry</span> <span class="nv">tree</span><span class="p">))</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">&lt; </span><span class="nv">key</span> <span class="p">(</span><span class="nf">entry</span> <span class="nv">tree</span><span class="p">))</span> <span class="p">(</span><span class="nf">lookup</span> <span class="nv">key</span> <span class="p">(</span><span class="nf">left-branch</span> <span class="nv">tree</span><span class="p">)))</span></span>
@@ -271,36 +271,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

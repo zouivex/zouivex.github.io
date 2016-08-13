@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-20T21:46:00+08:00"> Mon 20 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-20T21:46:00+08:00"> 一 20 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -99,7 +99,7 @@
 <h1 id="_2">习题解答</h1>
 <h2 id="140">练习1.40</h2>
 <p>本题的解答很直接，将方程用<code>Scheme</code>语言描述出来即可：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cubic</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cubic</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">a</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">b</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">c</span><span class="p">)))</span></span>
 </pre></div>
@@ -107,21 +107,21 @@
 
 <h2 id="141">练习1.41</h2>
 <p><code>double</code>的定义如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">double</span> <span class="nv">g</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">double</span> <span class="nv">g</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">g</span> <span class="p">(</span><span class="nf">g</span> <span class="nv">x</span><span class="p">))</span> <span class="p">))</span></span>
 </pre></div>
 
 
 <p><code>(((double (double double)) inc) 5)</code>的求值结果为<code>21</code>。</p>
 <h2 id="142">练习1.42</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">compose</span> <span class="nv">f</span> <span class="nv">g</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">compose</span> <span class="nv">f</span> <span class="nv">g</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">g</span> <span class="nv">x</span><span class="p">))))</span></span>
 </pre></div>
 
 
 <h2 id="143">练习1.43</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">repeated</span> <span class="nv">f</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">repeated</span> <span class="nv">f</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">i</span> <span class="nv">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">i</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">result</span></span>
@@ -132,7 +132,7 @@
 
 <h2 id="144">练习1.44</h2>
 <p>平滑函数定义如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">smooth</span> <span class="nv">f</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">smooth</span> <span class="nv">f</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">x</span> <span class="nv">dx</span><span class="p">))</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="nv">dx</span><span class="p">)))</span></span>
 <span class="code-line">       <span class="mi">3</span><span class="p">)))</span></span>
@@ -140,7 +140,7 @@
 
 
 <p>采用前例中实现的<code>repeated</code>函数实现给定函数的<code>n</code>次平滑函数：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">nth-smooth</span> <span class="nv">f</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">nth-smooth</span> <span class="nv">f</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">((</span><span class="nf">repeated</span> <span class="nv">smooth</span> <span class="nv">n</span><span class="p">)</span> <span class="nv">f</span><span class="p">))</span></span>
 </pre></div>
             </div>
@@ -231,36 +231,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-05T20:21:31+08:00"> Wed 05 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-05T20:21:31+08:00"> 三 05 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -99,7 +99,7 @@
 <ol>
 <li>下面函数声明的性能如何？请解释。</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
 </pre></div>
 
 
@@ -111,7 +111,7 @@
 <p>你的同事写了一个函数使用<code>widget</code>类型作为输入参数，他有以下几种基本的参数选择（此处忽略<code>const</code>）：</p>
 </li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="n">a</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="n">a</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">&amp;</span> <span class="p">);</span>              <span class="p">(</span><span class="n">b</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="n">c</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="n">d</span><span class="p">)</span></span>
@@ -123,7 +123,7 @@
 <p>它们都适合在什么情况下使用？解释你的答案，同时解释是否应该为参数类型加上<code>const</code>。其实还有其它的参数传递方式，但是我们只考虑上面提到的几种。</p>
 <h1 id="_2">解答</h1>
 <h2 id="_3">下面函数声明的性能如何？请解释。</h2>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
 </pre></div>
 
 
@@ -145,7 +145,7 @@
 <p>如果你要问：“难道裸指针没有弊端吗？”，非常好，我们在下面一节会讨论这个问题。</p>
 <h2 id="_5">此处列出的智能指针参数使用方法都在什么情况下适用？</h2>
 <h3 id="ab">(a)和(b)&nbsp;以指针或者引用的方式传递参数</h3>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="n">a</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="n">a</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">&amp;</span> <span class="p">);</span>              <span class="p">(</span><span class="n">b</span><span class="p">)</span></span>
 </pre></div>
 
@@ -154,7 +154,7 @@
 <p>可以使用非占用性的裸指针和引用来指向生命期超出指针或者引用生命期的对象，将它们作为参数传递时的就是这种情况。由于结构化生命期管理，在默认情况下，传递给函数f的参数比f的调用生命期长，这对于将非占用性的指针和引用作为合适的参数类型非常有用（更别提非常有效率了）。</p>
 <p>通过指针或者引用传入一个widget对象，与调用函数如何管理对象的生命期是独立开的。大部分情况下，我们不希望绑定到单一的生命期管理策略，例如要求对象必须使用某种特定的智能指针才能使用，因为这种限制通常是不必要的。一般来说，如果希望表达空（即无widget）的概念时，使用指针，其他情况推荐使用引用，如果对象只作为输入，那么加上<code>const</code>，写成<code>const widget*</code>或者<code>const widget&amp;</code>。</p>
 <h3 id="c-unique_ptrsink">(c) 按值传递<code>unique_ptr</code>表达sink语义</h3>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="n">c</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="n">c</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -162,7 +162,7 @@
 <p>按值传递<code>unique_ptr</code>将对象及其所有权从调用者转移给被调用者。和(c)类似的函数会将对象的所有权从调用者转移走，要么将对象销毁，要么将对象继续传递到其他地方。</p>
 <p>注意，与下面几种方式不同的是，按值传递<code>unique_ptr</code>实际上并没有限制传入的对象的类型。原因为何？因为任何指针类型都可以显式地转换为<code>unique_ptr</code>。如果我们在此不使用<code>unique_ptr</code>，我们还是得表达&#8221;sink&#8221;语义，只不过必须采用更脆弱的方式，比如使用占用性的裸指针（真可怕！），或者在注释中描述此语义。使用(c)方式要更好，因为这样在代码中表达了语义，并且要求调用者显式地转移对象的所有权。</p>
 <p>请思考此方式的主要替代方式：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Smelly 20th-century alternative</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Smelly 20th-century alternative</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="nf">bad_sink</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="n">p</span> <span class="p">);</span>  <span class="c1">// will destroy p; PLEASE READ THIS COMMENT</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Sweet self-documenting self-enforcing modern version (c)</span></span>
@@ -171,7 +171,7 @@
 
 
 <p>可以看到(c)方式要好很多：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Older calling code that calls the new good_sink is safer, because</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Older calling code that calls the new good_sink is safer, because</span></span>
 <span class="code-line"><span class="c1">// it&#39;s clearer in the calling code that ownership transfer is going on</span></span>
 <span class="code-line"><span class="c1">// (this older code has an owning * which we shouldn&#39;t do in new code)</span></span>
 <span class="code-line"><span class="c1">//</span></span>
@@ -199,7 +199,7 @@
 </blockquote>
 <p>因为被调函数将拥有对象的所有权，所以通常参数没有const限定，此处使用const就不恰当了。</p>
 <h3 id="d-unique_ptruniue_ptr">(d) 按引用传递<code>unique_ptr</code>是为了传入、传出<code>uniue_ptr</code>类型的参数</h3>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="n">d</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="n">d</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -213,7 +213,7 @@
 </blockquote>
 <p>此处采用<code>widget*</code>的原因是它没有改变对象可以为空的语义。如果你动了使用<code>const shared_ptr&lt;widget&gt;&amp;</code>的心思，那么其实和使用<code>widget*</code>表达的是同样的意思。如果还知道对象不可能为空，那么当然应该使用<code>widget&amp;</code>。</p>
 <h3 id="e-shared_ptr">(e) 按值传递<code>shared_ptr</code>表明共享所有权</h3>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="n">e</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -223,7 +223,7 @@
 </blockquote>
 <p>其他情况下，请使用裸指针和引用传递参数，因为这样避免函数将传入参数的类型限制为<code>shared_ptr</code>。</p>
 <h3 id="f-shared_ptrshared_ptr">(f) 按引用传递<code>shared_ptr</code>对于传入、传出<code>shared_ptr</code>类型的参数非常有用</h3>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="n">f</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="n">f</span><span class="p">)</span></span>
 </pre></div>
 
 
@@ -320,36 +320,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

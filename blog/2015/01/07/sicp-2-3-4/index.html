@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-07T21:42:04+08:00"> Wed 07 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-07T21:42:04+08:00"> 三 07 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,7 +96,7 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="267">练习2.67</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">sample-tree</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">sample-tree</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">make-code-tree</span> <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;A</span> <span class="mi">4</span><span class="p">)</span></span>
 <span class="code-line">                  <span class="p">(</span><span class="nf">make-code-tree</span></span>
 <span class="code-line">                   <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;B</span> <span class="mi">2</span><span class="p">)</span></span>
@@ -110,7 +110,7 @@
 
 
 <h2 id="268">练习2.68</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">member?</span> <span class="nv">x</span> <span class="nv">ls</span><span class="p">)</span> <span class="p">(</span><span class="nb">member </span><span class="nv">x</span> <span class="nv">ls</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">member?</span> <span class="nv">x</span> <span class="nv">ls</span><span class="p">)</span> <span class="p">(</span><span class="nb">member </span><span class="nv">x</span> <span class="nv">ls</span><span class="p">))</span></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">encode-symbol</span> <span class="nv">s</span> <span class="nv">tree</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">tree</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nf">leaf?</span> <span class="nv">tree</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
@@ -134,7 +134,7 @@
 
 
 <h2 id="269">练习2.69</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">successive-merge</span> <span class="nv">pairs-set</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">successive-merge</span> <span class="nv">pairs-set</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="mi">1</span> <span class="p">(</span><span class="nb">length </span><span class="nv">pairs-set</span><span class="p">))</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">car </span><span class="nv">pairs-set</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nf">successive-merge</span></span>
@@ -145,7 +145,7 @@
 
 
 <h2 id="270">练习2.70</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">table</span> <span class="o">&#39;</span><span class="p">((</span><span class="nf">A</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">NA</span> <span class="mi">16</span><span class="p">)</span> <span class="p">(</span><span class="nf">BOOM</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nf">SHA</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="nf">GET</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">YIP</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="nf">JOB</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">WAH</span> <span class="mi">1</span><span class="p">)))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">table</span> <span class="o">&#39;</span><span class="p">((</span><span class="nf">A</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">NA</span> <span class="mi">16</span><span class="p">)</span> <span class="p">(</span><span class="nf">BOOM</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nf">SHA</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="nf">GET</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">YIP</span> <span class="mi">9</span><span class="p">)</span> <span class="p">(</span><span class="nf">JOB</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="nf">WAH</span> <span class="mi">1</span><span class="p">)))</span></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">huffman</span> <span class="p">(</span><span class="nf">generate-huffman-tree</span> <span class="nv">table</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="nf">encode</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">GET</span> <span class="nv">A</span> <span class="nv">JOB</span> <span class="nv">SHA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">GET</span> <span class="nv">A</span> <span class="nv">JOB</span> <span class="nv">SHA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">NA</span> <span class="nv">WAH</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">YIP</span> <span class="nv">SHA</span> <span class="nv">BOOM</span><span class="p">)</span> <span class="nv">huffman</span><span class="p">)</span></span>
@@ -243,36 +243,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

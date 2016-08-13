@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-08T20:50:08+08:00"> Wed 08 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-08T20:50:08+08:00"> 三 08 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -97,34 +97,34 @@
                 <h1 id="_1">习题解答</h1>
 <h2 id="134">练习1.34</h2>
 <p>采用替换模型进行分析:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">g</span><span class="p">)</span> <span class="p">(</span><span class="nf">g</span> <span class="mi">2</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">g</span><span class="p">)</span> <span class="p">(</span><span class="nf">g</span> <span class="mi">2</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>如果需要求值:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>采用替换模型替换为:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">f</span> <span class="mi">2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">f</span> <span class="mi">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>进一步替换为:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="mi">2</span> <span class="mi">2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="mi">2</span> <span class="mi">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>由于2不是一个可以调用的过程，最终求值(f&nbsp;f)会导致运行时错误。</p>
 <h2 id="135">练习1.35</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">fixed-point</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">)))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">fixed-point</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">)))</span></span>
 <span class="code-line">             <span class="mf">1.0</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h2 id="136">练习1.36</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fixed-point</span> <span class="nv">f</span> <span class="nv">first-guest</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fixed-point</span> <span class="nv">f</span> <span class="nv">first-guest</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">close-enough?</span> <span class="nv">v1</span> <span class="nv">v2</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nb">&lt; </span><span class="p">(</span><span class="nb">abs </span><span class="p">(</span><span class="nb">- </span><span class="nv">v1</span> <span class="nv">v2</span><span class="p">))</span> <span class="nv">tolerance</span><span class="p">))</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">try</span> <span class="nv">guess</span><span class="p">)</span></span>
@@ -140,7 +140,7 @@
 
 
 <h2 id="137">练习1.37</h2>
-<div class="highlight"><pre><span class="code-line"><span class="c1">;; Recursive version</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">;; Recursive version</span></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cont-frac</span> <span class="nv">n</span> <span class="nv">d</span> <span class="nv">k</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frac</span> <span class="nv">i</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">i</span> <span class="nv">k</span><span class="p">)</span></span>
@@ -161,7 +161,7 @@
 
 <h2 id="138">练习1.38</h2>
 <p>本题需要使用到上题实现的<code>cont-frac</code>函数：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">D</span> <span class="nv">i</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">D</span> <span class="nv">i</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="mi">0</span> <span class="p">(</span><span class="nb">remainder </span><span class="p">(</span><span class="nb">+ </span><span class="nv">i</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span><span class="p">))</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">* </span><span class="mf">2.0</span> <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="nv">i</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span><span class="p">))</span></span>
 <span class="code-line">      <span class="mf">1.0</span><span class="p">))</span></span>
@@ -174,7 +174,7 @@
 
 
 <h2 id="139">练习1.39</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">d</span> <span class="nv">k</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">d</span> <span class="nv">k</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">* </span><span class="nv">k</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">tan-cf</span> <span class="nv">x</span> <span class="nv">k</span><span class="p">)</span></span>
@@ -274,36 +274,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

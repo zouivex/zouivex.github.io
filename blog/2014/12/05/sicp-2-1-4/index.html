@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-05T21:44:34+08:00"> Fri 05 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-05T21:44:34+08:00"> 五 05 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,7 +96,7 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="27">练习2.7</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-interval</span> <span class="nv">lower</span> <span class="nv">upper</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-interval</span> <span class="nv">lower</span> <span class="nv">upper</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">lower</span> <span class="nv">upper</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">interval</span><span class="p">)</span></span>
@@ -108,7 +108,7 @@
 
 
 <h2 id="28">练习2.8</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sub-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sub-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">add-interval</span> <span class="nv">x</span></span>
 <span class="code-line">                <span class="p">(</span><span class="nf">make-interval</span></span>
 <span class="code-line">                 <span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">y</span><span class="p">))</span></span>
@@ -118,33 +118,33 @@
 
 <h2 id="29">练习2.9</h2>
 <p>对于两个区间a和b，我们可以表示为：</p>
-<div class="highlight"><pre><span class="code-line">upper_a = lower_1 + 2 * width_1</span>
+<div class="highlight"><pre><span class="code-line"><span></span>upper_a = lower_1 + 2 * width_1</span>
 <span class="code-line">upper_b = lower_2 + 2 * width_2</span>
 </pre></div>
 
 
 <p>那么对于区间的加减运算：</p>
-<div class="highlight"><pre><span class="code-line">upper_a + upper_b =&gt;</span>
+<div class="highlight"><pre><span class="code-line"><span></span>upper_a + upper_b =&gt;</span>
 <span class="code-line">(lower_1 + 2 * width_1) + (lower_2 + 2 * width_2) =&gt;</span>
 <span class="code-line">lower_1 + lower_2 + 2 * (width_1 + width_2)</span>
 </pre></div>
 
 
 <p>令</p>
-<div class="highlight"><pre><span class="code-line">lower_3 = lower_1 + lower_2</span>
+<div class="highlight"><pre><span class="code-line"><span></span>lower_3 = lower_1 + lower_2</span>
 <span class="code-line">width_3 = width_1 + width_2</span>
 </pre></div>
 
 
 <p>则和区间表示为</p>
-<div class="highlight"><pre><span class="code-line">(lower_1 + lower_2) =&gt; lower</span>
+<div class="highlight"><pre><span class="code-line"><span></span>(lower_1 + lower_2) =&gt; lower</span>
 <span class="code-line">(lower_1 + lower_2 + 2 * (width_1 + width_2)) =&gt; upper</span>
 </pre></div>
 
 
 <p>通过观察可知，和区间的宽度为被加区间的函数（取和）。</p>
 <h2 id="210">练习2.10</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">div-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">div-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt;= </span><span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">            <span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">y</span><span class="p">))</span> <span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;div-interval error&quot;</span><span class="p">)</span></span>
@@ -155,7 +155,7 @@
 
 
 <h2 id="212">练习2.12</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-center-percent</span> <span class="nv">center</span> <span class="nv">percent</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-center-percent</span> <span class="nv">center</span> <span class="nv">percent</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">center</span> <span class="nv">percent</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">percent</span> <span class="nv">interval</span><span class="p">)</span></span>
@@ -252,36 +252,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

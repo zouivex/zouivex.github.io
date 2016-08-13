@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-14T10:51:40+08:00"> Sun 14 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-14T10:51:40+08:00"> 日 14 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -100,7 +100,7 @@
 <h1 id="_2">习题解答</h1>
 <h2 id="19">练习1.9</h2>
 <p>第一个过程是递归的。我们可以通过trace查看(plus 4&nbsp;5)的递归调用过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="p">(</span><span class="nf">dec</span> <span class="mi">4</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="mi">3</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="p">(</span><span class="nf">plus</span> <span class="mi">3</span> <span class="mi">5</span><span class="p">)</span></span>
@@ -126,7 +126,7 @@
 
 
 <p>第二个过程是迭代的。下面是(plus 4&nbsp;5)的迭代调用过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">plus</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="p">(</span><span class="nf">dec</span> <span class="mi">4</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="mi">3</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="p">(</span><span class="nf">inc</span> <span class="mi">5</span><span class="p">)</span></span>
@@ -152,7 +152,7 @@
 
 
 <h2 id="111">练习1.11</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">3</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">n</span></span>
 <span class="code-line">        <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))</span></span>
@@ -162,7 +162,7 @@
 
 
 <h2 id="112">练习1.12</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">pascal-triangle</span> <span class="nv">row</span> <span class="nv">col</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">pascal-triangle</span> <span class="nv">row</span> <span class="nv">col</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">= </span><span class="nv">row</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="nv">row</span> <span class="nv">col</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">= </span><span class="nv">col</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span></span>
@@ -176,7 +176,7 @@
 <ol>
 <li>在求值(sine&nbsp;12.15)时，p将被使用5次.</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">sine</span> <span class="mf">12.15</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">sine</span> <span class="mf">12.15</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="p">(</span><span class="nb">abs </span><span class="mf">12.15</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="mf">12.15</span></span>
 <span class="code-line"><span class="nv">|</span>  <span class="p">(</span><span class="nf">sine</span> <span class="mf">4.05</span><span class="p">)</span></span>
@@ -222,7 +222,7 @@
 <li>求值(sine&nbsp;a)时，空间增长的阶为O(n)，计算时间增长的阶为O(log(n)).</li>
 </ol>
 <h2 id="116">练习1.16</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fast-expt-iter</span> <span class="nv">b</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fast-expt-iter</span> <span class="nv">b</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">i</span> <span class="nv">a</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">i</span> <span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">a</span></span>
@@ -234,7 +234,7 @@
 
 
 <h2 id="117">练习1.17</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fast-product</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fast-product</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">b</span> <span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">      <span class="nv">a</span></span>
 <span class="code-line">      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">even? </span><span class="nv">b</span><span class="p">)</span></span>
@@ -244,7 +244,7 @@
 
 
 <h2 id="118">练习1.18</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fast-product-iter</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fast-product-iter</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">i</span> <span class="nv">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">i</span> <span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">result</span></span>
@@ -256,7 +256,7 @@
 
 
 <h2 id="119">练习1.19</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fib-iter</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">p</span> <span class="nv">q</span> <span class="nv">count</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fib-iter</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">p</span> <span class="nv">q</span> <span class="nv">count</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">= </span><span class="nv">count</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">even? </span><span class="nv">count</span><span class="p">)</span></span>
 <span class="code-line">         <span class="p">(</span><span class="nf">fib-iter</span> <span class="nv">a</span></span>
@@ -361,36 +361,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

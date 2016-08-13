@@ -75,7 +75,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-02-07T15:30:41+08:00"> Sat 07 February 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-02-07T15:30:41+08:00"> 六 07 二月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -93,7 +93,7 @@
 <li>b)&nbsp;Louis其实没有解决问题。</li>
 <li>c) 下面是修改后的<code>apply-generic</code>过程，它不会试着强制两个同样类型的参数:</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">type-tags</span> <span class="p">(</span><span class="nb">map </span><span class="nv">type-tag</span> <span class="nv">args</span><span class="p">)))</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">proc</span> <span class="p">(</span><span class="nf">get</span> <span class="nv">op</span> <span class="nv">type-tags</span><span class="p">)))</span></span>
 <span class="code-line">      <span class="p">(</span><span class="k">if </span><span class="nv">proc</span></span>
@@ -111,7 +111,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-02-04T20:19:54+08:00"> Wed 04 February 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-02-04T20:19:54+08:00"> 三 04 二月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -126,7 +126,7 @@
 <h2 id="277">练习2.77</h2>
 <p>开始时z的值为<code>(complex (rectangular (3 4)))</code>。第一次调用时，apply-generic会根据标签<code>complex</code>将其分派为过程调用<code>(magnitude '(rectangular (3 4))</code>。第二次调用时，apply-generic会根据标签<code>rectangular</code>将其分派为<code>rectangular</code>包中所定义的<code>magnitude</code>过程。</p>
 <h2 id="278">练习2.78</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">attach-tag</span> <span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">attach-tag</span> <span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">number? </span><span class="nv">contents</span><span class="p">)</span></span>
 <span class="code-line">      <span class="nv">contents</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">cons </span><span class="nv">type-tag</span> <span class="nv">contents</span><span class="p">)))</span></span>
@@ -145,7 +145,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-27T21:24:35+08:00"> Tue 27 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-27T21:24:35+08:00"> 二 27 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -160,7 +160,7 @@
 <h2 id="273">练习2.73</h2>
 <p>a) 题目中的<code>(deriv exp var)</code>过程的意思是根据传人的<code>exp</code>的操作符查找相应的运算过程，然后apply到变量<code>var</code>上。因为谓词<code>number?</code>和<code>same-variable</code>已经是基础过程了，所以无法加入到数据导向的分派中。</p>
 <p>b)&nbsp;将和式和积式的求导过程安装到数据导向分派的表格中：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">augend</span> <span class="nv">ops</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">augend</span> <span class="nv">ops</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">ops</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Ops is null&quot;</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">car </span><span class="nv">ops</span><span class="p">)))</span></span>
@@ -181,7 +181,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-07T21:42:04+08:00"> Wed 07 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-07T21:42:04+08:00"> 三 07 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -194,7 +194,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="267">练习2.67</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">sample-tree</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">sample-tree</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">make-code-tree</span> <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;A</span> <span class="mi">4</span><span class="p">)</span></span>
 <span class="code-line">                  <span class="p">(</span><span class="nf">make-code-tree</span></span>
 <span class="code-line">                   <span class="p">(</span><span class="nf">make-leaf</span> <span class="ss">&#39;B</span> <span class="mi">2</span><span class="p">)</span></span>
@@ -208,7 +208,7 @@
 
 
 <h2 id="268">练习2.68</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">member?</span> <span class="nv">x</span> <span class="nv">ls</span><span class="p">)</span> <span class="p">(</span><span class="nb">member </span><span class="nv">x ...</span></span></pre></div>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">member?</span> <span class="nv">x</span> <span class="nv">ls</span><span class="p">)</span> <span class="p">(</span><span class="nb">member </span><span class="nv">x ...</span></span></pre></div>
                     <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2015/01/07/sicp-2-3-4/">继续阅读...</a>
                 </div>
             </article>
@@ -219,7 +219,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-04T18:42:40+08:00"> Sun 04 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-04T18:42:40+08:00"> 日 04 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -232,7 +232,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="259">练习2.59</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">union-set</span> <span class="nv">set1</span> <span class="nv">set2</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">null? </span><span class="nv">set2</span><span class="p">)</span> <span class="nv">set1</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nf">elem-of-set?</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set1</span><span class="p">)</span> <span class="nv">set2</span><span class="p">)</span></span>
@@ -244,7 +244,7 @@
 
 
 <h2 id="260">练习2.60</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">elem-of-multiset?</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">elem-of-multiset?</span> <span class="nv">x</span> <span class="nv">set</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">set</span><span class="p">)</span> <span class="no">#f</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">equal? </span><span class="nv">x</span> <span class="p">(</span><span class="nb">car </span><span class="nv">set</span><span class="p">))</span> <span class="no">#t</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">elem-of-set?</span> <span class="nv">x</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">set ...</span></span></pre></div>
@@ -258,7 +258,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-02T21:11:21+08:00"> Fri 02 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-02T21:11:21+08:00"> 五 02 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -271,7 +271,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="256">练习2.56</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">exponentiation?</span> <span class="nv">exp</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">exponentiation?</span> <span class="nv">exp</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">eq? </span><span class="p">(</span><span class="nb">car </span><span class="nv">exp</span><span class="p">)</span> <span class="ss">&#39;**</span><span class="p">)))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">base</span> <span class="nv">exp</span><span class="p">)</span></span>
@@ -300,7 +300,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-22T21:07:19+08:00"> Mon 22 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-22T21:07:19+08:00"> 一 22 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -331,7 +331,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-20T14:14:32+08:00"> Sat 20 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-20T14:14:32+08:00"> 六 20 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -344,7 +344,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="233">练习2.33</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">map </span><span class="nv">p</span> <span class="nv">sequence</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">map </span><span class="nv">p</span> <span class="nv">sequence</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">p</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">sequence</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">append </span><span class="nv">seq1</span> <span class="nv">seq2</span><span class="p">)</span></span>
@@ -359,7 +359,7 @@
 
 
 <h2 id="234">练习2.34</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">horner-eval</span> <span class="nv">x</span> <span class="nv">coefficient-sequence</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">horner-eval</span> <span class="nv">x</span> <span class="nv">coefficient-sequence</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">this-coeff</span> <span class="nv">higher-terms</span><span class="p">)</span></span>
 <span class="code-line">                <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">higher-terms</span><span class="p">)</span> <span class="nv">this-coeff</span><span class="p">))</span></span>
 <span class="code-line">              <span class="mi">0</span></span>
@@ -374,7 +374,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-20T10:14:36+08:00"> Sat 20 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-20T10:14:36+08:00"> 六 20 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -388,7 +388,7 @@
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="225">练习2.25</h2>
 <p>假设我们需要从表x中取出7，car和cdr的组合如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))</span></span>
 <span class="code-line"><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">car </span><span class="nv">x</span><span class="p">))</span></span>
 <span class="code-line"><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">))))))))</span></span>
 </pre></div>
@@ -409,7 +409,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-14T16:18:12+08:00"> Sun 14 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-14T16:18:12+08:00"> 日 14 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -422,7 +422,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="217">练习2.17</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">last-pair</span> <span class="nv">l</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">last-pair</span> <span class="nv">l</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))</span></span>
 <span class="code-line">      <span class="nv">l</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nf">last-pair</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))))</span></span>
@@ -431,7 +431,7 @@
 
 <h2 id="218">练习2.18</h2>
 <p>按照题目描述，可以写出reverse函数的迭代版本和递归版本：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reverse-iter</span> <span class="nv">l</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reverse-iter</span> <span class="nv">l</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">items</span> <span class="nv">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">result</span></span>
@@ -455,7 +455,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-05T21:44:34+08:00"> Fri 05 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-05T21:44:34+08:00"> 五 05 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -468,7 +468,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="27">练习2.7</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-interval</span> <span class="nv">lower</span> <span class="nv">upper</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-interval</span> <span class="nv">lower</span> <span class="nv">upper</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">lower</span> <span class="nv">upper</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lower-bound</span> <span class="nv">interval</span><span class="p">)</span></span>
@@ -480,7 +480,7 @@
 
 
 <h2 id="28">练习2.8</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sub-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sub-interval</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">add-interval</span> <span class="nv">x</span></span>
 <span class="code-line">                <span class="p">(</span><span class="nf">make-interval</span></span>
 <span class="code-line">                 <span class="p">(</span><span class="nb">- </span><span class="mi">0</span> <span class="p">(</span><span class="nf">upper-bound</span> <span class="nv">y</span><span class="p">))</span></span>
@@ -490,13 +490,13 @@
 
 <h2 id="29">练习2.9</h2>
 <p>对于两个区间a和b，我们可以表示为：</p>
-<div class="highlight"><pre><span class="code-line">upper_a = lower_1 + 2 * width_1</span>
+<div class="highlight"><pre><span class="code-line"><span></span>upper_a = lower_1 + 2 * width_1</span>
 <span class="code-line">upper_b = lower_2 + 2 * width_2</span>
 </pre></div>
 
 
 <p>那么对于区间的加减运算：</p>
-<div class="highlight"><pre><span class="code-line">upper_a + upper_b ...</span></pre></div>
+<div class="highlight"><pre><span class="code-line"><span></span>upper_a + upper_b ...</span></pre></div>
                     <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/12/05/sicp-2-1-4/">继续阅读...</a>
                 </div>
             </article>
@@ -507,7 +507,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-10T20:36:21+08:00"> Mon 10 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-10T20:36:21+08:00"> 一 10 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -521,13 +521,13 @@
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="24">练习2.4</h2>
 <p>cdr应该这样定义:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">z</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">z</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nf">z</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">p</span> <span class="nv">q</span><span class="p">)</span> <span class="nv">q</span><span class="p">)))</span></span>
 </pre></div>
 
 
 <h2 id="25">练习2.5</h2>
-<div class="highlight"><pre><span class="code-line">(define (cons a b)</span>
+<div class="highlight"><pre><span class="code-line"><span></span>(define (cons a b)</span>
 <span class="code-line">    (* (exp 2 a)</span>
 <span class="code-line">       (exp 3 b)))</span>
 <span class="code-line"></span>
@@ -540,7 +540,7 @@
 
 
 <h2 id="26">练习2.6</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="nv">zero</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">zero</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">add-1</span> <span class="nv">n ...</span></span></pre></div>
                     <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/11/10/sicp-2-1-3/">继续阅读...</a>
@@ -553,7 +553,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-29T22:02:21+08:00"> Wed 29 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-29T22:02:21+08:00"> 三 29 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -567,7 +567,7 @@
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="22">练习2.2</h2>
 <p>实现方式非常直接，按照题目中的描述写出<code>Scheme</code>代码即可：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-point</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-point</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">x-point</span> <span class="nv">p</span><span class="p">)</span></span>
@@ -599,7 +599,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-28T21:48:20+08:00"> Tue 28 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-28T21:48:20+08:00"> 二 28 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -630,7 +630,7 @@
 <p>本章将介绍在<code>Scheme</code>语言中如何进行数据抽象，进而介绍一种称为”数据导向的程序设计“的编程技术。具体来说就是如何通过<code>cons</code>，<code>car</code>，<code>cdr</code>操作构造复合数据对象。</p>
 <h1 id="_2">习题解答</h1>
 <h2 id="21">练习2.1</h2>
-<div class="highlight"><pre><span class="code-line"> <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">gcd </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span> <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">gcd </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">   <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">y</span> <span class="mi">0</span><span class="p">)</span></span>
 <span class="code-line">       <span class="nv">x</span></span>
 <span class="code-line">       <span class="p">(</span><span class="nb">gcd </span><span class="nv">y</span> <span class="p">(</span><span class="nb">remainder </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))))</span></span>
@@ -646,7 +646,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-20T21:46:00+08:00"> Mon 20 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-20T21:46:00+08:00"> 一 20 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -662,7 +662,7 @@
 <h1 id="_2">习题解答</h1>
 <h2 id="140">练习1.40</h2>
 <p>本题的解答很直接，将方程用<code>Scheme</code>语言描述出来即可：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cubic</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cubic</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">a</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">b</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">c</span><span class="p">)))</span></span>
 </pre></div>
@@ -670,7 +670,7 @@
 
 <h2 id="141">练习1.41</h2>
 <p><code>double</code>的定义如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">double</span> <span class="nv">g</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">double</span> <span class="nv">g</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">g</span> <span class="p">(</span><span class="nf">g</span> <span class="nv">x</span><span class="p">))</span> <span class="p">))</span></span>
 </pre></div>
 
@@ -686,7 +686,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-08T20:50:08+08:00"> Wed 08 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-08T20:50:08+08:00"> 三 08 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -700,34 +700,34 @@
                 <div class="summary"><h1 id="_1">习题解答</h1>
 <h2 id="134">练习1.34</h2>
 <p>采用替换模型进行分析:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">g</span><span class="p">)</span> <span class="p">(</span><span class="nf">g</span> <span class="mi">2</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">g</span><span class="p">)</span> <span class="p">(</span><span class="nf">g</span> <span class="mi">2</span><span class="p">))</span></span>
 </pre></div>
 
 
 <p>如果需要求值:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>采用替换模型替换为:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">f</span> <span class="mi">2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">f</span> <span class="mi">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>进一步替换为:</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="mi">2</span> <span class="mi">2</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="mi">2</span> <span class="mi">2</span><span class="p">)</span></span>
 </pre></div>
 
 
 <p>由于2不是一个可以调用的过程，最终求值(f&nbsp;f)会导致运行时错误。</p>
 <h2 id="135">练习1.35</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">fixed-point</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">)))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">fixed-point</span> <span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">)))</span></span>
 <span class="code-line">             <span class="mf">1.0</span><span class="p">)</span></span>
 </pre></div>
 
 
 <h2 id="136">练习1.36</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fixed-point</span> <span class="nv">f</span> <span class="nv">first-guest</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fixed-point</span> <span class="nv">f</span> <span class="nv">first-guest</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">close-enough?</span> <span class="nv">v1</span> <span class="nv">v2</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nb">&lt; </span><span class="p">(</span><span class="nb">abs </span><span class="p">(</span><span class="nb">- </span><span class="nv">v1</span> <span class="nv">v2</span><span class="p">))</span> <span class="nv">tolerance</span><span class="p">))</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">try</span> <span class="nv">guess ...</span></span></pre></div>
@@ -741,7 +741,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-23T22:21:05+08:00"> Tue 23 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-23T22:21:05+08:00"> 二 23 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -764,7 +764,7 @@
 <p>由此可见，本书采用的scheme是函数式语言，而c/c++/java等不是函数式语言。本节展示了如何将函数作为参数传递，同时也展示了将函数作为参数传递的巨大威力。</p>
 <h1 id="_2">习题解答</h1>
 <h2 id="129">练习1.29</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum</span> <span class="nv">term</span> <span class="nv">a</span> <span class="nv">next</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">      <span class="mi">0</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">term</span> <span class="nv">a</span><span class="p">)</span></span>
@@ -779,7 +779,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-21T20:37:33+08:00"> Sun 21 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-21T20:37:33+08:00"> 日 21 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -796,7 +796,7 @@
 <h2 id="120">练习1.20</h2>
 <p>由于scheme语言不是normal order的。我么只能通过手工通过代换模型展开计算(gcd 206&nbsp;40)的计算过程。</p>
 <p>我们可以trace打印出applicative order模式下计算(gcd 206&nbsp;40)的计算过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">206</span> <span class="mi">40</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">206</span> <span class="mi">40</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">40</span> <span class="mi">6</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">6</span> <span class="mi">4</span><span class="p">)</span></span>
 <span class="code-line"><span class="nv">trace:</span> <span class="p">(</span><span class="nb">gcd </span><span class="mi">4</span> <span class="mi">2</span><span class="p">)</span></span>
@@ -816,7 +816,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-14T10:51:40+08:00"> Sun 14 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-14T10:51:40+08:00"> 日 14 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -833,7 +833,7 @@
 <h1 id="_2">习题解答</h1>
 <h2 id="19">练习1.9</h2>
 <p>第一个过程是递归的。我们可以通过trace查看(plus 4&nbsp;5)的递归调用过程。</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">plus</span> <span class="mi">4</span> <span class="mi">5 ...</span></span></pre></div>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">plus</span> <span class="mi">4</span> <span class="mi">5 ...</span></span></pre></div>
                     <a class="btn btn-default btn-xs" href="http://blog.zouxu.com.cn/blog/2014/09/14/sicp-1-2-1/">继续阅读...</a>
                 </div>
             </article>
@@ -844,7 +844,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-09T21:00:21+08:00"> Tue 09 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-09T21:00:21+08:00"> 二 09 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -874,7 +874,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-08T21:11:38+08:00"> Mon 08 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-08T21:11:38+08:00"> 一 08 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -947,36 +947,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

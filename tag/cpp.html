@@ -75,7 +75,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-15T15:03:14+08:00"> Sat 15 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-15T15:03:14+08:00"> 六 15 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -109,7 +109,7 @@
 </ul>
 <p>如果你对这两个问题还不了解，没有关系，本文接下来将详细介绍之。让我们先来介绍移动语义。但是正式开始之前，我们先来重温一下在C++中左值和右值都是什么。要想给出一个严格的定义还真不是那么容易，但是下面的解释对于本文应该足够了。</p>
 <p>早期C语言中关于左值和右值的原始定义是这样的：左值就是可能出现在赋值语句左边或者右边的表达式，而右值就是只能出现在赋值语句右边的表达式。例如：</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">43</span><span class="p">;</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// a and b are ...</span></span></pre></div>
@@ -123,7 +123,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-11T21:35:40+08:00"> Tue 11 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-11T21:35:40+08:00"> 二 11 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -136,7 +136,7 @@
 </footer><!-- /.post-info -->                    </div>
                 <div class="summary"><p>C++11的许多新功能的目的是为了提升性能，容器类中的<code>emplace</code>系列方法就是其中之一。例如<code>std::vector</code>就有与<code>push_back</code>方法类似的<code>emplace_back</code>方法，以及与<code>insert</code>方法类似的<code>emplace</code>方法。</p>
 <p>下面简单地展示这些新方法带来的好处：</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">MyKlass</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">class</span> <span class="nc">MyKlass</span> <span class="p">{</span></span>
 <span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">  <span class="n">MyKlass</span><span class="p">(</span><span class="kt">int</span> <span class="n">ii_</span><span class="p">,</span> <span class="kt">float</span> <span class="n">ff_</span><span class="p">)</span> <span class="p">{...}</span></span>
 <span class="code-line"></span>
@@ -164,7 +164,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-05T20:21:31+08:00"> Wed 05 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-05T20:21:31+08:00"> 三 05 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -180,7 +180,7 @@
 <ol>
 <li>下面函数声明的性能如何？请解释。</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span></span>
 </pre></div>
 
 
@@ -192,7 +192,7 @@
 <p>你的同事写了一个函数使用<code>widget</code>类型作为输入参数，他有以下几种基本的参数选择（此处忽略<code>const</code>）：</p>
 </li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="n">a</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">*</span> <span class="p">);</span>              <span class="p">(</span><span class="n">a</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">widget</span><span class="o">&amp;</span> <span class="p">);</span>              <span class="p">(</span><span class="n">b</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="p">);</span>   <span class="p">(</span><span class="n">c</span><span class="p">)</span></span>
 <span class="code-line"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;&amp;</span> <span class="p">);</span>  <span class="p">(</span><span class="n">d</span><span class="p">)</span></span>
@@ -212,7 +212,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47+08:00"> Sun 02 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47+08:00"> 日 02 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -226,7 +226,7 @@
                 <div class="summary"><p>工厂函数该返回什么类型的值，为什么？</p>
 <h1 id="_1">问题</h1>
 <p>你最近开始参与一个新项目，在浏览代码库时，发现工厂函数的声明如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
 </pre></div>
 
 
@@ -251,7 +251,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-30T21:22:04+08:00"> Thu 30 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-30T21:22:04+08:00"> 四 30 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -285,7 +285,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-09T23:07:31+08:00"> Thu 09 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-09T23:07:31+08:00"> 四 09 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -397,36 +397,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

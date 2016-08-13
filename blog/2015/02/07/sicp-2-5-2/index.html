@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-02-07T15:30:41+08:00"> Sat 07 February 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-02-07T15:30:41+08:00"> 六 07 二月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -101,7 +101,7 @@
 <li>b)&nbsp;Louis其实没有解决问题。</li>
 <li>c) 下面是修改后的<code>apply-generic</code>过程，它不会试着强制两个同样类型的参数:</li>
 </ul>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">type-tags</span> <span class="p">(</span><span class="nb">map </span><span class="nv">type-tag</span> <span class="nv">args</span><span class="p">)))</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">proc</span> <span class="p">(</span><span class="nf">get</span> <span class="nv">op</span> <span class="nv">type-tags</span><span class="p">)))</span></span>
 <span class="code-line">      <span class="p">(</span><span class="k">if </span><span class="nv">proc</span></span>
@@ -129,7 +129,7 @@
 
 
 <h2 id="282">练习2.82</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">can-coerce-into?</span> <span class="nv">types</span> <span class="nv">target-type</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nf">andmap</span> </span>
 <span class="code-line">      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">type</span><span class="p">)</span></span>
@@ -175,7 +175,7 @@
 
 
 <h2 id="283">练习2.83</h2>
-<div class="highlight"><pre><span class="code-line"><span class="c1">;; Into integer package</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">;; Into integer package</span></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">integer-&gt;rational</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">make-rational</span> <span class="nv">n</span> <span class="mi">1</span><span class="p">))</span></span>
 <span class="code-line"></span>
@@ -204,7 +204,7 @@
 
 
 <h2 id="284">练习2.84</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic-r</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-generic-r</span> <span class="nv">op</span> <span class="o">.</span> <span class="nv">args</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">no-method</span> <span class="nv">type-tags</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;No method for these types&quot;</span> </span>
 <span class="code-line">      <span class="p">(</span><span class="nb">list </span><span class="nv">op</span> <span class="nv">type-tags</span><span class="p">)))</span>      </span>
@@ -237,7 +237,7 @@
 
 
 <h2 id="285">练习2.85</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;project</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">rational</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nf">put</span> <span class="ss">&#39;project</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">rational</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">r</span><span class="p">)</span> </span>
 <span class="code-line">      <span class="p">(</span><span class="nf">make-scheme-number</span></span>
 <span class="code-line">        <span class="p">(</span><span class="nb">floor </span><span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nf">numer</span> <span class="nv">r</span><span class="p">)</span> <span class="p">(</span><span class="nf">denom</span> <span class="nv">r</span><span class="p">))))))</span></span>
@@ -383,36 +383,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-14T16:18:12+08:00"> Sun 14 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-14T16:18:12+08:00"> 日 14 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,7 +96,7 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="217">练习2.17</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">last-pair</span> <span class="nv">l</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">last-pair</span> <span class="nv">l</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))</span></span>
 <span class="code-line">      <span class="nv">l</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nf">last-pair</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))))</span></span>
@@ -105,7 +105,7 @@
 
 <h2 id="218">练习2.18</h2>
 <p>按照题目描述，可以写出reverse函数的迭代版本和递归版本：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reverse-iter</span> <span class="nv">l</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reverse-iter</span> <span class="nv">l</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter</span> <span class="nv">items</span> <span class="nv">result</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
 <span class="code-line">        <span class="nv">result</span></span>
@@ -123,7 +123,7 @@
 
 
 <h2 id="219">练习2.19</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">no-more?</span> <span class="nv">coin-values</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">no-more?</span> <span class="nv">coin-values</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">null? </span><span class="nv">coin-values</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">first-denomination</span> <span class="nv">coin-values</span><span class="p">)</span></span>
@@ -135,7 +135,7 @@
 
 
 <h2 id="220">练习2.20</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">same-parity?</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">same-parity?</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">or</span></span>
 <span class="code-line">   <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">even? </span><span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nb">even? </span><span class="nv">b</span><span class="p">))</span></span>
 <span class="code-line">   <span class="p">(</span><span class="k">and </span><span class="p">(</span><span class="nb">odd? </span><span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nb">odd? </span><span class="nv">b</span><span class="p">))))</span></span>
@@ -153,7 +153,7 @@
 
 
 <h2 id="221">练习2.21</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-list</span> <span class="nv">items</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-list</span> <span class="nv">items</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
 <span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nb">car </span><span class="nv">items</span><span class="p">))</span></span>
@@ -167,7 +167,7 @@
 <h2 id="222">练习2.22</h2>
 <p>问题出在<code>cons (square (car things)) answer)</code>上。每次将结果cons到list的前端，因而结果是一个<code>square-list</code>的逆向列表。而如果简单地调换一下cons的顺序，并不能解决问题。此处应该将用<code>append</code>代替<code>cons</code>。</p>
 <h2 id="223">练习2.23</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">for-each </span><span class="nv">proc</span> <span class="nv">items</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">for-each </span><span class="nv">proc</span> <span class="nv">items</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">items</span><span class="p">)</span></span>
 <span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
 <span class="code-line">      <span class="p">(</span><span class="k">begin </span><span class="p">(</span><span class="nf">proc</span> <span class="p">(</span><span class="nb">car </span><span class="nv">items</span><span class="p">))</span></span>
@@ -261,36 +261,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

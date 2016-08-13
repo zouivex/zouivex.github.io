@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47+08:00"> Sun 02 November 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-11-02T12:06:47+08:00"> 日 02 十一月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -97,7 +97,7 @@
                 <p>工厂函数该返回什么类型的值，为什么？</p>
 <h1 id="_1">问题</h1>
 <p>你最近开始参与一个新项目，在浏览代码库时，发现工厂函数的声明如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
 </pre></div>
 
 
@@ -115,7 +115,7 @@
 <p>由于调用函数独享或者共享所有权，它必须在对象不再需要时执行一些操作。如果是独享所有权的情况，调用函数必须负责销毁对象，如果是共享所有权的情况，调用函数必须负责递减引用计数。</p>
 <p>不幸的是，返回<code>widget*</code>指针有两个大问题。</p>
 <p>第一，返回裸指针在默认情况下是不安全的，因为函数的默认行为是泄漏widget对象：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 1: Leak by default. Really, this is just so 20th-century...</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 1: Leak by default. Really, this is just so 20th-century...</span></span>
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"><span class="n">widget</span><span class="o">*</span> <span class="nf">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
 <span class="code-line"></span>
@@ -137,7 +137,7 @@
 </blockquote>
 <p>这样解决了两个问题：安全性，自说明的文档。</p>
 <p>首先，看看这样如何解决上面代码中的安全问题：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2: Clean up by default. Much better...</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 2: Clean up by default. Much better...</span></span>
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span> <span class="n">load_widget</span><span class="p">(</span> <span class="n">widget</span><span class="o">::</span><span class="n">id</span> <span class="n">desired</span> <span class="p">);</span></span>
 <span class="code-line"></span>
@@ -153,7 +153,7 @@
 <p>其次，这样的代码能够自动说明其意图，返回一个<code>unique_ptr</code>的函数清楚表明该函数是一个纯source函数，而返回一个<code>shared_ptr</code>的函数则清楚表明函数共享对象的所有权或者拥有观察者。</p>
 <p>最后，为什么在不需要共享所有权时首选使用<code>unique_ptr</code>？因为使用<code>unique_ptr</code>对于性能和正确性来说都是正确的做法，在GotW89中还提到这样还给了调用函数选用其它智能指针的自由。</p>
 <p>返回<code>unique_ptr</code>表达了返回单一所有权的意图，这是标准的纯&#8221;source&#8221;工厂函数。<code>unique_ptr</code>在性能方面无与伦比，因为move一个对象的开销就和move/copy裸指针差不多。如果调用函数希望能够通过<code>shared_ptr</code>管理对象的生命期，可以很容易地将<code>unique_ptr</code>通过move操作转换为<code>shared_ptr</code>。在此没有必要使用<code>std::move</code>，因为编译器已经知道返回值是一个临时对象。如果调用函数使用其它任意的方法来管理对象生命期，可以简单地通过调用<code>.release()</code>将其转换为自定义的智能指针或者其它的对象生命期管理方法。这个特性非常有用，但是<code>shared_ptr</code>不可能做到。下面是具体的代码：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2, continued</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 2, continued</span></span>
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="c1">// Accept as a unique_ptr (by default)</span></span>
@@ -178,7 +178,7 @@
 <h2 id="widget_1">如果<code>widget</code>不是多态类型，那么推荐的返回类型是什么？请解释。</h2>
 <p>如果widget不是多态类型，通常意味着这是一个可以复制的值对象或者是只能移动的对象，此时工厂函数应该按值返回widget对象。到底返回什么样类型的值呢？</p>
 <p>在C++98中，程序员往往以返回指针的方式返回一个大的对象以避免复制对象造成的开销：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 4(a): Obsolete convention: return a * just to avoid a copy</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 4(a): Obsolete convention: return a * just to avoid a copy</span></span>
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"><span class="cm">/*BAD*/</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;*</span> <span class="n">load_gadgets</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;*</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span><span class="p">();</span></span>
@@ -194,7 +194,7 @@
 
 
 <p>上面的代码有我们第一条中讨论过的所有使用上和安全上的问题。在现代C++种，一般情况下应该直接返回对象，因为将对象传递到调用函数只不过会触发一个移动操作，而不会触发深拷贝。</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 4(b): Default recommendation: return the value</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 4(b): Default recommendation: return the value</span></span>
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"><span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span> <span class="n">load_gadgets</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span> <span class="n">ret</span><span class="p">;</span></span>
@@ -210,7 +210,7 @@
 
 <p>大部分情况下，可以按值返回可移动的对象。如果返回指针的唯一目的是避免复制的话，那么按值返回对象才是正确的做法。</p>
 <p>可能还有一种情况，函数返回指针，那就是用空指针表示创建对象失败。一般情况下，载入widget对象失败时抛出异常要更好一些。然而，如果载入widget对象失败被看作是一种正常的情况的话，则返回<code>optional&lt;widget&gt;</code>对象，如果没有其它类型的错误，所有错误都可以用空<code>optional&lt;widget&gt;</code>对象表达时，将工厂函数声明为<code>noexcept</code>：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 4(c): Alternative if not returning an object is normal</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 4(c): Alternative if not returning an object is normal</span></span>
 <span class="code-line"><span class="c1">//</span></span>
 <span class="code-line"><span class="n">optional</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;&gt;</span> <span class="n">load_gadgets</span><span class="p">()</span> <span class="k">noexcept</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span> <span class="n">ret</span><span class="p">;</span></span>
@@ -232,7 +232,7 @@
 </blockquote>
 <h1 id="_4">尾声</h1>
 <p>注意到上面代码最后一行的<code>if(v)</code>测试没有？它调用了<code>optional&lt;T&gt;</code>对象的一个功能强大的<code>bool</code>操作符函数。为什么<code>bool</code>操作符功能这么强大？其中一个原因是它应用了很多C++的功能。下面的代码就是它的声明，请思考它能让我们安全地实现什么功能（包括编译期）？</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">constexpr</span> <span class="k">explicit</span> <span class="n">optional</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span> <span class="kt">bool</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">constexpr</span> <span class="k">explicit</span> <span class="n">optional</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span> <span class="kt">bool</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span></span>
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -322,36 +322,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

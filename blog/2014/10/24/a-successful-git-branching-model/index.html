@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-24T22:14:17+08:00"> Fri 24 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-24T22:14:17+08:00"> 五 24 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -193,21 +193,21 @@
 <p>功能branch通常只存在于开发人员的本地库，而不存在于<code>origin</code>库。</p>
 <h3 id="branch_3">创建功能branch</h3>
 <p>当开始开发新功能时，从<code>develop</code>branch创建新的功能branch：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout -b myfeature develop</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout -b myfeature develop</span>
 <span class="code-line">Switched to a new branch <span class="s2">&quot;myfeature&quot;</span></span>
 </pre></div>
 
 
 <h3 id="developbranch">功能完成后集成回<code>develop</code>branch</h3>
 <p>功能开发完成后，功能branch需要merge回<code>develop</code>branch，并将它们加入下一个发布版本：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout develop</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout develop</span>
 <span class="code-line">Switched to branch <span class="s1">&#39;develop&#39;</span></span>
-<span class="code-line"><span class="nv">$ </span>git merge --no-ff myfeature</span>
+<span class="code-line">$ git merge --no-ff myfeature</span>
 <span class="code-line">Updating ea1b82a..05e9557</span>
 <span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
-<span class="code-line"><span class="nv">$ </span>git branch -d myfeature</span>
+<span class="code-line">$ git branch -d myfeature</span>
 <span class="code-line">Deleted branch myfeature <span class="o">(</span>was 05e9557<span class="o">)</span>.</span>
-<span class="code-line"><span class="nv">$ </span>git push origin develop</span>
+<span class="code-line">$ git push origin develop</span>
 </pre></div>
 
 
@@ -246,11 +246,11 @@
 <p>在发布branch创建之时才能决定下一个版本的版本号。此时<code>develop</code>branch能够反映下一个版本中的所有修改，但是依然还不清楚下一个版本最终会是0.3还是0.1。&nbsp;所以需要在创建发布branch时，根据项目的版本号分配规则决定下一个版本号。</p>
 <h3 id="branch_5">创建发布branch</h3>
 <p>发布branch从<code>develop</code>branch创建而来。例如，当前生产版本为1.1.5，如果马上有一个大的版本发布，<code>develop</code>branch中下一个版本的所有修改已经完成，&nbsp;我们决定下一个版本号为1.2（不是1.1.6或2.0），则我们创建一个发布branch并且命名为下一个即将发布的版本号：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout -b release-1.2 develop</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout -b release-1.2 develop</span>
 <span class="code-line">Switched to a new branch <span class="s2">&quot;release-1.2&quot;</span></span>
-<span class="code-line"><span class="nv">$ </span>./bump-version.sh 1.2</span>
+<span class="code-line">$ ./bump-version.sh 1.2</span>
 <span class="code-line">Files modified successfully, version bumped to 1.2.</span>
-<span class="code-line"><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Bumped version number to 1.2&quot;</span></span>
+<span class="code-line">$ git commit -a -m <span class="s2">&quot;Bumped version number to 1.2&quot;</span></span>
 <span class="code-line"><span class="o">[</span>release-1.2 74d9424<span class="o">]</span> Bumped version number to 1.2</span>
 <span class="code-line"><span class="m">1</span> files changed, <span class="m">1</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletions<span class="o">(</span>-<span class="o">)</span></span>
 </pre></div>
@@ -263,20 +263,20 @@
 <p>当发布branch中的代码准备好发布时，需要采取一些行动。首先，merge发布branch到<code>master</code>branch（记住，任何一次到<code>master</code>branch的提交都是一个新的版本）。
 其次，这些到<code>master</code>branch的commit必须打上tag以便于在将来通过历史版本引用。最后，发布branch中的改动需要merge回<code>develop</code>branch，确保新发布的版本包含这些修改。</p>
 <p>下面是前两个步骤的Git命令：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout master</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout master</span>
 <span class="code-line">Switched to branch <span class="s1">&#39;master&#39;</span></span>
-<span class="code-line"><span class="nv">$ </span>git merge --no-ff release-1.2</span>
+<span class="code-line">$ git merge --no-ff release-1.2</span>
 <span class="code-line">Merge made by recursive.</span>
 <span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
-<span class="code-line"><span class="nv">$ </span>git tag -a 1.2</span>
+<span class="code-line">$ git tag -a 1.2</span>
 </pre></div>
 
 
 <p>此刻发布完成，并且作好tag以便将来引用。</p>
 <p>发布版本中的修改需要merge回<code>develop</code>branch，Git命令为：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout develop</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout develop</span>
 <span class="code-line">Switched to branch <span class="s1">&#39;develop&#39;</span></span>
-<span class="code-line"><span class="nv">$ </span>git merge --no-ff release-1.2</span>
+<span class="code-line">$ git merge --no-ff release-1.2</span>
 <span class="code-line">Merge made by recursive.</span>
 <span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
 </pre></div>
@@ -284,7 +284,7 @@
 
 <p>此时进行merge发生冲突还可以接受（其实只是有可能产生冲突，因为我们修改了版本号）。如果发生冲突，解决冲突并commit。</p>
 <p>现在新版本的发布真的完成了，发布branch功成身退，因为我们不再需要了：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git branch -d release-1.2</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git branch -d release-1.2</span>
 <span class="code-line">Deleted branch release-1.2 <span class="o">(</span>was ff452fe<span class="o">)</span>.</span>
 </pre></div>
 
@@ -319,18 +319,18 @@
 <h3 id="branch_8">创建快速修复branch</h3>
 <p>快速修复branch从<code>master</code>branch创建而来。例如当前正在运行生产系统版本为1.2，由于一个bug导致系统问题。
 但是此时<code>develop</code>branch中的修改还不稳定，我们可以创建一个快速修复branch来修复此问题：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout -b hotfix-1.2.1 master</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout -b hotfix-1.2.1 master</span>
 <span class="code-line">Switched to a new branch <span class="s2">&quot;hotfix-1.2.1&quot;</span></span>
-<span class="code-line"><span class="nv">$ </span>./bump-version.sh 1.2.1</span>
+<span class="code-line">$ ./bump-version.sh 1.2.1</span>
 <span class="code-line">Files modified successfully, version bumped to 1.2.1.</span>
-<span class="code-line"><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Bumped version number to 1.2.1&quot;</span></span>
+<span class="code-line">$ git commit -a -m <span class="s2">&quot;Bumped version number to 1.2.1&quot;</span></span>
 <span class="code-line"><span class="o">[</span>hotfix-1.2.1 41e61bb<span class="o">]</span> Bumped version number to 1.2.1</span>
 <span class="code-line"><span class="m">1</span> files changed, <span class="m">1</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletions<span class="o">(</span>-<span class="o">)</span></span>
 </pre></div>
 
 
 <p>别忘了在创建branch时替换版本号。然后，修复bug并且分一次或多次提交修复：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git commit -m <span class="s2">&quot;Fixed severe production problem&quot;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git commit -m <span class="s2">&quot;Fixed severe production problem&quot;</span></span>
 <span class="code-line"><span class="o">[</span>hotfix-1.2.1 abbe5d6<span class="o">]</span> Fixed severe production problem</span>
 <span class="code-line"><span class="m">5</span> files changed, <span class="m">32</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">17</span> deletions<span class="o">(</span>-<span class="o">)</span></span>
 </pre></div>
@@ -339,19 +339,19 @@
 <h3 id="branch_9">结束快速修复branch</h3>
 <p>修复完成之后，代码修改需要merge回<code>master</code>branch，同时还需要merge回<code>develop</code>branch，这样确保代码修改同时也被包含到下一个发布版本。&nbsp;这与完成发布branch的方式类似。</p>
 <p>首先，更新<code>master</code>branch并且tag版本号。</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout master</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout master</span>
 <span class="code-line">Switched to branch <span class="s1">&#39;master&#39;</span></span>
-<span class="code-line"><span class="nv">$ </span>git merge --no-ff hotfix-1.2.1</span>
+<span class="code-line">$ git merge --no-ff hotfix-1.2.1</span>
 <span class="code-line">Merge made by recursive.</span>
 <span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
-<span class="code-line"><span class="nv">$ </span>git tag -a 1.2.1</span>
+<span class="code-line">$ git tag -a 1.2.1</span>
 </pre></div>
 
 
 <p>接着，将所有修改也merge到<code>develop</code>branch：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git checkout develop</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git checkout develop</span>
 <span class="code-line">Switched to branch <span class="s1">&#39;develop&#39;</span></span>
-<span class="code-line"><span class="nv">$ </span>git merge --no-ff hotfix-1.2.1</span>
+<span class="code-line">$ git merge --no-ff hotfix-1.2.1</span>
 <span class="code-line">Merge made by recursive.</span>
 <span class="code-line"><span class="o">(</span>Summary of changes<span class="o">)</span></span>
 </pre></div>
@@ -361,7 +361,7 @@
 将代码修改merge回发布branch，这样在发布branch完成之后代码修改最终自然会merge回<code>develop</code>branch。
 如果<code>develop</code>branch急切需要这些修改，等不到发布branch完成，也可以同时安全地merge这些代码改动到<code>develop</code>branch。</p>
 <p>最后，删除临时的快速修复branch：</p>
-<div class="highlight"><pre><span class="code-line"><span class="nv">$ </span>git branch -d hotfix-1.2.1</span>
+<div class="highlight"><pre><span class="code-line"><span></span>$ git branch -d hotfix-1.2.1</span>
 <span class="code-line">Deleted branch hotfix-1.2.1 <span class="o">(</span>was abbe5d6<span class="o">)</span>.</span>
 </pre></div>
 
@@ -459,36 +459,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

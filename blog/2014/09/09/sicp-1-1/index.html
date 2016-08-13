@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-09T21:00:21+08:00"> Tue 09 September 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-09T21:00:21+08:00"> 二 09 九月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -105,13 +105,13 @@
 <p>在此有必要介绍一下当前比较流行的Scheme版本。我个人比较推荐guile。guile是gnu/linux上的标配，所以比较容易获取。<span class="caps">IDE</span>的话推荐使用emacs，对于初学者我建议采用prelude配置，prelude已经预设配置好了scheme的开发环境。还要注意一点就是书上使用的Scheme的版本相对较老。所以在做练习的时候要注意对书上的代码做一些微调（如true改为#t, false改为#f,&nbsp;nil改为&#8217;()等）。详情可以参阅guile的帮助文档。</p>
 <h1 id="_2">习题解答</h1>
 <h2 id="12">练习1.2</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="mi">5</span> <span class="mi">4</span> <span class="p">(</span><span class="nb">- </span><span class="mi">2</span> <span class="p">(</span><span class="nb">- </span><span class="mi">3</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">6</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">4</span> <span class="mi">5</span><span class="p">)))))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="mi">5</span> <span class="mi">4</span> <span class="p">(</span><span class="nb">- </span><span class="mi">2</span> <span class="p">(</span><span class="nb">- </span><span class="mi">3</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">6</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">4</span> <span class="mi">5</span><span class="p">)))))</span></span>
 <span class="code-line">   <span class="p">(</span><span class="nb">* </span><span class="mi">3</span> <span class="p">(</span><span class="nb">- </span><span class="mi">6</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="mi">-2</span> <span class="mi">7</span><span class="p">)))</span></span>
 </pre></div>
 
 
 <h2 id="13">练习1.3</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum-of-two-larger-nums</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sum-of-two-larger-nums</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="k">and </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span> <span class="p">(</span><span class="nf">a</span> <span class="nv">c</span><span class="p">))</span> <span class="p">(</span><span class="nf">sum-of-squares</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">))</span></span>
 <span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">sum-of-squares</span> <span class="nv">a</span> <span class="p">(</span><span class="nb">max </span><span class="nv">b</span> <span class="nv">c</span><span class="p">)))))</span></span>
 </pre></div>
@@ -124,7 +124,7 @@
 <h2 id="16">练习1.6</h2>
 <p>解答本题需要理解&#8221;Special Form&#8221;和&#8221;Procedure&#8221;的区别。在Scheme语言中，所有的procedure都有一致的求值规则，special&nbsp;form则有自己特别的求值规则。按照Scheme语言的表达式求值规则，求值一个表达式，需要先求值其子表达式。对于if的求值规则是先求值判别式，如果为true则求值then子句，如果为false则求值else子句。如果按照题目中所说，将if实现为一个procedure，由于这是一个procedure，无论判别式值是什么，解释器都会求值then子句和else子句，该递归函数会进入一个死循环。</p>
 <h2 id="17">练习1.7</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">x</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">x</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">average</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span></span>
@@ -147,7 +147,7 @@
 
 
 <h2 id="18">练习1.8</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">x</span><span class="p">))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">x</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">improve</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">/ </span><span class="nv">x</span> <span class="p">(</span><span class="nf">square</span> <span class="nv">y</span><span class="p">))</span> <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">y</span><span class="p">))</span> <span class="mi">3</span><span class="p">))</span></span>
@@ -252,36 +252,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

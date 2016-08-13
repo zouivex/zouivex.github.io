@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-01-27T21:24:35+08:00"> Tue 27 January 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-01-27T21:24:35+08:00"> 二 27 一月 2015</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -98,7 +98,7 @@
 <h2 id="273">练习2.73</h2>
 <p>a) 题目中的<code>(deriv exp var)</code>过程的意思是根据传人的<code>exp</code>的操作符查找相应的运算过程，然后apply到变量<code>var</code>上。因为谓词<code>number?</code>和<code>same-variable</code>已经是基础过程了，所以无法加入到数据导向的分派中。</p>
 <p>b)&nbsp;将和式和积式的求导过程安装到数据导向分派的表格中：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">augend</span> <span class="nv">ops</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">augend</span> <span class="nv">ops</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">ops</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Ops is null&quot;</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">car </span><span class="nv">ops</span><span class="p">)))</span></span>
@@ -140,7 +140,7 @@
 
 
 <p>c)&nbsp;添加乘幂的求导规则：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">base</span> <span class="nv">exp</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">base</span> <span class="nv">exp</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">car </span><span class="nv">exp</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">exponent</span> <span class="nv">exp</span><span class="p">)</span></span>
@@ -165,7 +165,7 @@
 
 <p>d)&nbsp;需要按相反的次序存取数据导向表。</p>
 <h2 id="275">练习2.75</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-from-mag-ang</span> <span class="nv">r</span> <span class="nv">a</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-from-mag-ang</span> <span class="nv">r</span> <span class="nv">a</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">dispatch</span> <span class="nv">op</span><span class="p">)</span></span>
 <span class="code-line">    <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">eq? </span><span class="nv">op</span> <span class="ss">&#39;real-part</span><span class="p">)</span></span>
 <span class="code-line">           <span class="p">(</span><span class="nb">* </span><span class="nv">r</span> <span class="p">(</span><span class="nb">cos </span><span class="nv">a</span><span class="p">)))</span></span>
@@ -265,36 +265,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

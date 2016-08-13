@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-30T21:22:04+08:00"> Thu 30 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-30T21:22:04+08:00"> 四 30 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -130,7 +130,7 @@
 <li>“弱引用计数”，用来跟踪当前正在观察共享对象的<code>weak_ptr</code>的个数。存放管理信息的控制块在最后一个弱引用释放之后被销毁并回收内存，如果共享对象的内存尚未回收，那么回收内存。</li>
 </ul>
 <p>如果使用<code>new</code>表达式独立分配对象，然后将其传递给<code>shared_ptr</code>，那么<code>shared_ptr</code>的实现没有其它选择，只能独立分配控制块。参见下面例子和例图：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2(a): Separate allocation</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 2(a): Separate allocation</span></span>
 <span class="code-line"><span class="k">auto</span> <span class="n">sp1</span> <span class="o">=</span> <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span> <span class="k">new</span> <span class="n">widget</span><span class="p">{}</span> <span class="p">};</span></span>
 <span class="code-line"><span class="k">auto</span> <span class="n">sp2</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span></span>
 </pre></div>
@@ -138,7 +138,7 @@
 
 <p><img alt="shared_ptr_memory_layout1" src="http://blog.zouxu.com.cn/images/shared_ptr_memory_layout1.png" /></p>
 <p>在此最好避免分别分配对象和控制块。如果使用<code>make_shared</code>一次性分配对象和<code>shared_ptr</code>本身，那么编译器能够将它们合并到同一分配中。参见下面例子和例图：</p>
-<div class="highlight"><pre><span class="code-line"><span class="c1">// Example 2(b): Single allocation</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Example 2(b): Single allocation</span></span>
 <span class="code-line"><span class="k">auto</span> <span class="n">sp1</span> <span class="o">=</span> <span class="n">make_shared</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">();</span></span>
 <span class="code-line"><span class="k">auto</span> <span class="n">sp2</span> <span class="o">=</span> <span class="n">sp1</span><span class="p">;</span></span>
 </pre></div>
@@ -162,7 +162,7 @@
 <p>准则：&nbsp;不要使用new，delete操作符直接持有裸指针，除非在某些特殊情况下需要操作封装在底层的数据结构的裸指针。</p>
 </blockquote>
 <p>第二，可以避免使用new操作符导致的众所周知的异常安全问题，参见以下的例子：</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">void</span> <span class="nf">sink</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">void</span> <span class="nf">sink</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span> <span class="p">);</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="n">sink</span><span class="p">(</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">{</span><span class="k">new</span> <span class="n">widget</span><span class="p">{}},</span></span>
 <span class="code-line">      <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span><span class="p">{</span><span class="k">new</span> <span class="n">gadget</span><span class="p">{}}</span> <span class="p">);</span> <span class="c1">// Q1: do you see the problem?</span></span>
@@ -170,14 +170,14 @@
 
 
 <p>简单来说，如果先分配和构造widget对象，在分配和构造时抛出一个异常，那么widget对象发生内存泄漏。你或许会这样想：“用<code>make_unique&lt;widget&gt;()</code>替换<code>new widget{}</code>，可以解决这个问题，是吗？”。请参考下面的代码：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">sink</span><span class="p">(</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">(),</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">sink</span><span class="p">(</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">(),</span></span>
 <span class="code-line">      <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span><span class="p">{</span><span class="k">new</span> <span class="n">gadget</span><span class="p">{}}</span> <span class="p">);</span> <span class="c1">// Q2: is this better?</span></span>
 </pre></div>
 
 
 <p>不对，因为C++对于函数参数的求值顺序是未定义的，所以先创建widget对象和先创建gadget对象都有可能。如果先创建gadget对象，然后执行<code>make_unique&lt;widget&gt;</code>时抛出异常，那么同样有内存泄漏问题发生。</p>
 <p>但是只是修改其中一个参数使用<code>make_unique</code>并不能解决问题，如果将两个参数都修改为<code>make_unique</code>能够完整地解决这个问题：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">sink</span><span class="p">(</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span> <span class="c1">// exception-safe</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">sink</span><span class="p">(</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">widget</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">gadget</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">);</span> <span class="c1">// exception-safe</span></span>
 </pre></div>
 
 
@@ -276,36 +276,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

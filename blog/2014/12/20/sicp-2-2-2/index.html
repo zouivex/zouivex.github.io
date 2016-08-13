@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-20T10:14:36+08:00"> Sat 20 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-20T10:14:36+08:00"> 六 20 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -97,7 +97,7 @@
                 <h1 id="_1">习题解答</h1>
 <h2 id="225">练习2.25</h2>
 <p>假设我们需要从表x中取出7，car和cdr的组合如下：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))</span></span>
 <span class="code-line"><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">car </span><span class="nv">x</span><span class="p">))</span></span>
 <span class="code-line"><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">))))))))</span></span>
 </pre></div>
@@ -110,7 +110,7 @@
 <li><code>(list x y)</code>的结果为<code>((1 2 3) (4 5 6))</code></li>
 </ul>
 <h2 id="227">练习2.27</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">deep-reverse</span> <span class="nv">l</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">deep-reverse</span> <span class="nv">l</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">l</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">not </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">l</span><span class="p">))</span> <span class="nv">l</span><span class="p">)</span></span>
 <span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nb">append </span><span class="p">(</span><span class="nf">deep-reverse</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))</span></span>
@@ -119,7 +119,7 @@
 
 
 <h2 id="228">练习2.28</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fringe</span> <span class="nv">t</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fringe</span> <span class="nv">t</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">t</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">not </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">t</span><span class="p">))</span> <span class="p">(</span><span class="nb">list </span><span class="nv">t</span><span class="p">))</span></span>
 <span class="code-line">        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nb">append </span><span class="p">(</span><span class="nf">fringe</span> <span class="p">(</span><span class="nb">car </span><span class="nv">t</span><span class="p">))</span></span>
@@ -129,7 +129,7 @@
 
 <h2 id="230">练习2.30</h2>
 <p>直接定义：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-tree</span> <span class="nv">t</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-tree</span> <span class="nv">t</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">t</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">())</span></span>
 <span class="code-line">        <span class="p">((</span><span class="nb">not </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">t</span><span class="p">))</span> <span class="p">(</span><span class="nf">square</span> <span class="nv">t</span><span class="p">))</span></span>
 <span class="code-line">        <span class="p">(</span><span class="nf">else</span></span>
@@ -139,7 +139,7 @@
 
 
 <p>使用map定义：</p>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-tree</span> <span class="nv">t</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">square-tree</span> <span class="nv">t</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">sub-tree</span><span class="p">)</span></span>
 <span class="code-line">         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">sub-tree</span><span class="p">)</span></span>
 <span class="code-line">             <span class="p">(</span><span class="nf">square-tree1</span> <span class="nv">sub-tree</span><span class="p">)</span></span>
@@ -149,7 +149,7 @@
 
 
 <h2 id="231">练习2.31</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">tree-map</span> <span class="nv">proc</span> <span class="nv">tree</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">tree-map</span> <span class="nv">proc</span> <span class="nv">tree</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">sub-tree</span><span class="p">)</span></span>
 <span class="code-line">         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">sub-tree</span><span class="p">)</span></span>
 <span class="code-line">             <span class="p">(</span><span class="nf">tree-map</span> <span class="nv">proc</span> <span class="nv">sub-tree</span><span class="p">)</span></span>
@@ -159,7 +159,7 @@
 
 
 <h2 id="232">练习2.32</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">subsets</span> <span class="nv">s</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">subsets</span> <span class="nv">s</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">s</span><span class="p">)</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">list </span><span class="o">&#39;</span><span class="p">())</span></span>
 <span class="code-line">      <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">rest</span> <span class="p">(</span><span class="nf">subsets</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">s</span><span class="p">))))</span></span>
@@ -253,36 +253,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

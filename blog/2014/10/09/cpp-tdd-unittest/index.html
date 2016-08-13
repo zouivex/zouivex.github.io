@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-09T23:07:31+08:00"> Thu 09 October 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-09T23:07:31+08:00"> 四 09 十月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -270,8 +270,8 @@
 <p>对于简单的单元测试，Boost.Test非常简单易用，只需包含必要的头文件，然后编写单元测试案例（或组织成测试套件），然后编译，将其与boost_unit_test_framework库链接（boost_unit_test_framework库包含负责配置和执行测试案例的main函数）。</p>
 <h2 id="_8">最简单的测试程序</h2>
 <p>这是一个最简单的测试程序，定义了一个测试案例：</p>
-<div class="highlight"><pre><span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Simple testcases</span></span>
-<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="cp">#define BOOST_TEST_MODULE Simple testcases</span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span><span class="cp"></span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">simple_test</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line">  <span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span></span>
@@ -281,14 +281,14 @@
 
 <p>第一行声明测试的名字，第二行包含必要的头文件，第4-6行定义测试案例（<code>BOOST_AUTO_TEST_CASE</code>宏定义一个名字为<code>simple_test</code>的测试案例，案例中包含一个断言：2+2=4，断言采用<code>BOOST_CHECK_EQUAL</code>进行检查）。</p>
 <p>编译执行该程序，屏幕上会打印如下内容（Boost.Test也可将结果输出为多种不同的格式，并且可以通过Execution&nbsp;Monitor的选项控制结果的详略程度）：</p>
-<div class="highlight"><pre><span class="code-line">Running 1 test case...</span>
+<div class="highlight"><pre><span class="code-line"><span></span>Running 1 test case...</span>
 <span class="code-line"></span>
 <span class="code-line">*** No errors detected</span>
 </pre></div>
 
 
 <p>如果出现错误，测试框架会在屏幕上输出如下信息：</p>
-<div class="highlight"><pre><span class="code-line">Running 1 test case...</span>
+<div class="highlight"><pre><span class="code-line"><span></span>Running 1 test case...</span>
 <span class="code-line">test-simple.cpp(5): error in &quot;simple_test&quot;: check 2+2 == 5 failed [4 != 5]</span>
 <span class="code-line"></span>
 <span class="code-line">*** 1 failure detected in test suite &quot;Simple testcases&quot;</span>
@@ -299,8 +299,8 @@
 <h2 id="_9">使用测试套件</h2>
 <p>当测试程序中包含大量的测试案例时，管理测试案例非常困难。Boost.Test支持将测试案例组合成测试套件，这样管理大量测试案例就非常容易了。测试套件同时还有其它优点，如为所有测试案例定义共同的Fixture，以及通过命令行选项选择执行一部分测试案例。</p>
 <p>测试套件的用法非常简单，只需将测试套件的所有测试案例写在<code>BOOST_AUTO_TEST_SUITE</code>宏（以测试套件名为参数）和<code>BOOST_AUTO_TEST_SUITE_END</code>宏之间即可：</p>
-<div class="highlight"><pre><span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Simple testcases 2</span></span>
-<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="cp">#define BOOST_TEST_MODULE Simple testcases 2</span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span><span class="cp"></span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="n">BOOST_AUTO_TEST_SUITE</span><span class="p">(</span><span class="n">suite1</span><span class="p">)</span></span>
 <span class="code-line"></span>
@@ -341,7 +341,7 @@
 </ul>
 <p>检查器宏的基本形式是<code>BOOST_&lt;level&gt;[_check]</code>，只接收一个参数。唯一的例外是<code>BOOST_ERROR</code>宏和<code>BOOST_FAIL</code>宏，它们用来生成显式的错误。这是Bosst.Test检查器的<a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/testing-tools/reference.html">完整列表</a>。</p>
 <p>基本的宏（<code>BOOST_WARN</code>、<code>BOOST_CHECK</code>以及<code>BOOST_REQUIRE</code>）只接受一个参数，即所检查的表达式，例如：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">BOOST_WARN</span><span class="p">(</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">short</span><span class="p">)</span> <span class="p">);</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">BOOST_WARN</span><span class="p">(</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">short</span><span class="p">)</span> <span class="p">);</span></span>
 <span class="code-line"><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">);</span></span>
 <span class="code-line"><span class="n">BOOST_REQUIRE</span><span class="p">(</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="p">);</span></span>
 </pre></div>
@@ -349,7 +349,7 @@
 
 <p>如果检查没有通过，Boost.Test会报告检查在源代码中的行数以及所给定的条件。用户也可用<code>BOOST_&lt;level&gt;_MESSAGE</code>宏报告自定义的消息。</p>
 <p>在需要进行比较时，最好使用特殊的宏，如<code>BOOST_&lt;level&gt;_EQUAL</code>，<code>BOOST_&lt;level&gt;_NE</code>，<code>BOOST_&lt;level&gt;_GT</code>，等等。这些特殊宏的好处是它们会同时显示期望值和实际值，而不是只显示一句简单的失败消息（此功能也适用于用<code>BOOST_&lt;level&gt;_PREDICATE</code>宏定义的比较函数）。以下面的代码为例：</p>
-<div class="highlight"><pre><span class="code-line"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span></span>
 <span class="code-line"><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="n">BOOST_CHECK</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="p">);</span></span>
@@ -358,12 +358,12 @@
 
 
 <p>第一个检查只会报告说检查失败：</p>
-<div class="highlight"><pre><span class="code-line">test.cpp(4): error in &quot;test&quot;: check i == j failed</span>
+<div class="highlight"><pre><span class="code-line"><span></span>test.cpp(4): error in &quot;test&quot;: check i == j failed</span>
 </pre></div>
 
 
 <p>而第二个检查会报告为什么检查失败以及实际的值：</p>
-<div class="highlight"><pre><span class="code-line">test.cpp(5): error in &quot;test&quot;: check i == j failed [2 != 1]</span>
+<div class="highlight"><pre><span class="code-line"><span></span>test.cpp(5): error in &quot;test&quot;: check i == j failed [2 != 1]</span>
 </pre></div>
 
 
@@ -379,7 +379,7 @@
 <h2 id="fixture">Fixture</h2>
 <p>Fixture是一类特殊的对象，用以设置和清除单元测试执行所需的数据和资源。分离Fixture和实际的测试代码能够简化单元测试，使不同的测试案例和测试套件共用一份初始化代码。</p>
 <p>Boost.Test中的Fixture通常实现为一个类或者结构体，在其构造函数中初始化数据，在其析构函数函数中清理数据。例如：</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">MyFixture</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">struct</span> <span class="n">MyFixture</span> <span class="p">{</span></span>
 <span class="code-line">  <span class="n">MyFixture</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span></span>
 <span class="code-line">    <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
@@ -395,7 +395,7 @@
 
 
 <p>可以这样使用<code>MyFixture</code>类：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_case1</span> <span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span> <span class="n">test_case1</span> <span class="p">)</span></span>
 <span class="code-line"><span class="p">{</span></span>
 <span class="code-line">  <span class="n">MyFixture</span> <span class="n">f</span><span class="p">;</span></span>
 <span class="code-line">  <span class="c1">// do something with f.i</span></span>
@@ -404,8 +404,8 @@
 
 
 <p>Boost.Test同时提供了特殊的宏以简化Fixture的使用。使用Fixture配置测试案例可以用<code>BOOST_FIXTURE_TEST_CASE</code>宏代替<code>BOOST_AUTO_TEST_CASE</code>宏，唯一的不同之处在于<code>BOOST_FIXTURE_TEST_CASE</code>宏有第二个参数（即Fixture对象），Fixture对象自动创建并传递给测试案例。使用宏比直接使用Fixture对象还有额外的优势，即用户能够直接访问Fixture对象的公有和保护成员，例如：</p>
-<div class="highlight"><pre><span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Test-case fixture example</span></span>
-<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="cp">#define BOOST_TEST_MODULE Test-case fixture example</span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span><span class="cp"></span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="k">struct</span> <span class="n">F</span> <span class="p">{</span></span>
 <span class="code-line">  <span class="n">F</span><span class="p">()</span> <span class="o">:</span> <span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{}</span></span>
@@ -484,28 +484,28 @@
 </li>
 </ul>
 <p>让我们来看看实际例子。使用Mock测试框架，需要包含头文件<code>gmock/gmock.h</code>：</p>
-<div class="highlight"><pre><span class="code-line"><span class="cp">#include &lt;gmock/gmock.h&gt;</span></span>
-<span class="code-line"><span class="cp">#include &lt;string&gt;</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="cp">#include</span> <span class="cpf">&lt;gmock/gmock.h&gt;</span><span class="cp"></span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="cp">#define BOOST_TEST_MODULE Mock example</span></span>
-<span class="code-line"><span class="cp">#include &lt;boost/test/unit_test.hpp&gt;</span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span><span class="cp"></span></span>
 </pre></div>
 
 
 <p>编写需Mock的虚拟类，使<code>Google Mock</code>框架能重载虚拟类：</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">PropHolder</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">class</span> <span class="nc">PropHolder</span> <span class="p">{</span></span>
 <span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">PropHolder</span><span class="p">()</span>  <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line">    <span class="k">virtual</span> <span class="o">~</span><span class="n">PropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">SetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="code-line">    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">GetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">GetProperty</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="code-line"><span class="p">};</span></span>
 </pre></div>
 
 
 <p><code>PropHolder</code>类被其它类的函数使用，一般采用存储基类对象引用的方式：</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">TestClass</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">class</span> <span class="nc">TestClass</span> <span class="p">{</span></span>
 <span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">TestClass</span><span class="p">(</span><span class="n">PropHolder</span><span class="o">&amp;</span> <span class="n">ph</span><span class="p">)</span> <span class="o">:</span> <span class="n">fPropHolder</span><span class="p">(</span><span class="n">ph</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line">    <span class="kt">void</span> <span class="n">doCalc</span><span class="p">()</span> <span class="p">{</span></span>
@@ -521,7 +521,7 @@
 
 
 <p>然后创建Mock类，继承自<code>PropHolder</code>，使用宏实现相应的“桩”。<code>Google mock</code>提供了几个宏（<code>MOCK_METHODN</code>，<code>MOCK_CONST_METHODN</code>)，这些宏名字最后那个<code>N</code>应该与Mock函数的参数个数匹配。这些宏的第一个参数是需要Mock的函数的名字，第二个参数是函数的签名：</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">class</span> <span class="nc">MockPropHolder</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PropHolder</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">class</span> <span class="nc">MockPropHolder</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PropHolder</span> <span class="p">{</span></span>
 <span class="code-line"><span class="k">public</span><span class="o">:</span></span>
 <span class="code-line">    <span class="n">MockPropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
 <span class="code-line">    <span class="k">virtual</span> <span class="o">~</span><span class="n">MockPropHolder</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span></span>
@@ -533,7 +533,7 @@
 
 
 <p>现在我们可以在我们的测试程序中使用<code>Mock</code>类了。先创建<code>Mock</code>类的一个实例<code>mholder</code>，并设置期望。第一个期望是：函数<code>GetProperty</code>以参数<code>"test"</code>调用一次，<code>Mock</code>对象的函数应该返回101。第二个期望是：函数<code>SetProperty</code>以参数<code>"test2"</code>和<code>555</code>调用。设置好以上期望之后，我们创建<code>TestClass</code>的实例，将<code>Mock</code>对象作为参数传入。最后一行的函数<code>doCalc</code>调用<code>PropHolder</code>类的成员函数：</p>
-<div class="highlight"><pre><span class="code-line"><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test_gmock</span><span class="p">)</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">BOOST_AUTO_TEST_CASE</span><span class="p">(</span><span class="n">test_gmock</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="k">using</span> <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">Return</span><span class="p">;</span></span>
 <span class="code-line"></span>
 <span class="code-line">    <span class="n">MockPropHolder</span> <span class="n">mholder</span><span class="p">;</span></span>
@@ -547,7 +547,7 @@
 
 
 <p><code>Google Mock</code>不光可以和<code>Google C++ Testing framework</code>配合使用，也可以和其它框架配合使用，所以我们需要增加代码以使它和<code>Boost.Test</code>正确配合。我们可以使用全局的<code>Fixture</code>对象完成这个任务：</p>
-<div class="highlight"><pre><span class="code-line"><span class="k">struct</span> <span class="n">InitGMock</span> <span class="p">{</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">struct</span> <span class="n">InitGMock</span> <span class="p">{</span></span>
 <span class="code-line">    <span class="n">InitGMock</span><span class="p">()</span> <span class="p">{</span></span>
 <span class="code-line">        <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">GTEST_FLAG</span><span class="p">(</span><span class="n">throw_on_failure</span><span class="p">)</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span></span>
 <span class="code-line">        <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">InitGoogleMock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">boost</span><span class="o">::</span><span class="n">unit_test</span><span class="o">::</span><span class="n">framework</span><span class="o">::</span><span class="n">master_test_suite</span><span class="p">().</span><span class="n">argc</span><span class="p">,</span></span>
@@ -560,31 +560,31 @@
 
 
 <p>正确编译上面的代码还需要链接另外的库：<code>gmock</code>和<code>gtest</code>。然后我们可以运行测试程序、获取测试结果。如果一切工作正常，并且结果与预期一致，那么我们会看到如下消息：</p>
-<div class="highlight"><pre><span class="code-line">  Running 1 test case...</span>
+<div class="highlight"><pre><span class="code-line"><span></span>  Running 1 test case...</span>
 <span class="code-line"></span>
 <span class="code-line">  *** No errors detected</span>
 </pre></div>
 
 
 <p>要是我们忘记调用<code>t.doCalc()</code>或者调用方式不正确，会输出如下消息：</p>
-<div class="highlight"><pre><span class="code-line">  <span class="nx">Running</span> <span class="mi">1</span> <span class="nx">test</span> <span class="k">case</span><span class="p">...</span></span>
-<span class="code-line">  <span class="nx">test</span><span class="o">-</span><span class="nx">mock</span><span class="p">.</span><span class="nx">cpp</span><span class="o">:</span><span class="mi">62</span><span class="o">:</span> <span class="nx">Failure</span></span>
-<span class="code-line">  <span class="nx">Actual</span> <span class="kd">function</span> <span class="nx">call</span> <span class="nx">count</span> <span class="nx">doesn</span><span class="s1">&#39;t match this expectation.</span></span>
-<span class="code-line"><span class="s1">         Expected: to be called once</span></span>
-<span class="code-line"><span class="s1">           Actual: never called - unsatisfied and active</span></span>
-<span class="code-line"><span class="s1">  test-mock.cpp:63: Failure</span></span>
-<span class="code-line"><span class="s1">  Actual function call count doesn&#39;</span><span class="nx">t</span> <span class="nx">match</span> <span class="k">this</span> <span class="nx">expectation</span><span class="p">.</span></span>
-<span class="code-line">         <span class="nx">Expected</span><span class="o">:</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">called</span> <span class="nx">once</span></span>
-<span class="code-line">           <span class="nx">Actual</span><span class="o">:</span> <span class="nx">never</span> <span class="nx">called</span> <span class="o">-</span> <span class="nx">unsatisfied</span> <span class="nx">and</span> <span class="nx">active</span></span>
-<span class="code-line">  <span class="nx">terminate</span> <span class="nx">called</span> <span class="nx">after</span> <span class="nx">throwing</span> <span class="nx">an</span> <span class="nx">instance</span> <span class="nx">of</span> <span class="s1">&#39;testing::GoogleTestFailureException&#39;</span></span>
-<span class="code-line">    <span class="nx">what</span><span class="p">()</span><span class="o">:</span>  <span class="err">/home/ott/projects/lang-exp/cpp/testing/test-mock.cpp:63: Failure</span></span>
-<span class="code-line">  <span class="nx">Actual</span> <span class="kd">function</span> <span class="nx">call</span> <span class="nx">count</span> <span class="nx">doesn</span><span class="err">&#39;</span><span class="nx">t</span> <span class="nx">match</span> <span class="k">this</span> <span class="nx">expectation</span><span class="p">.</span></span>
-<span class="code-line">         <span class="nx">Expected</span><span class="o">:</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">called</span> <span class="nx">once</span></span>
-<span class="code-line">           <span class="nx">Actual</span><span class="o">:</span> <span class="nx">never</span> <span class="nx">called</span> <span class="o">-</span> <span class="nx">unsatisfied</span> <span class="nx">and</span> <span class="nx">active</span></span>
-<span class="code-line">  <span class="nx">unknown</span> <span class="nx">location</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="nx">fatal</span> <span class="nx">error</span> <span class="k">in</span> <span class="s2">&quot;test_gmock&quot;</span><span class="o">:</span> <span class="nx">signal</span><span class="o">:</span> <span class="nx">SIGABRT</span> <span class="p">(</span><span class="nx">application</span> <span class="nx">abort</span> <span class="nx">requested</span><span class="p">)</span></span>
-<span class="code-line">  <span class="nx">test</span><span class="o">-</span><span class="nx">mock</span><span class="p">.</span><span class="nx">cpp</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span><span class="o">:</span> <span class="nx">last</span> <span class="nx">checkpoint</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span>  Running 1 test case...</span>
+<span class="code-line">  test-mock.cpp:62: Failure</span>
+<span class="code-line">  Actual function call count doesn&#39;t match this expectation.</span>
+<span class="code-line">         Expected: to be called once</span>
+<span class="code-line">           Actual: never called - unsatisfied and active</span>
+<span class="code-line">  test-mock.cpp:63: Failure</span>
+<span class="code-line">  Actual function call count doesn&#39;t match this expectation.</span>
+<span class="code-line">         Expected: to be called once</span>
+<span class="code-line">           Actual: never called - unsatisfied and active</span>
+<span class="code-line">  terminate called after throwing an instance of &#39;testing::GoogleTestFailureException&#39;</span>
+<span class="code-line">    what():  /home/ott/projects/lang-exp/cpp/testing/test-mock.cpp:63: Failure</span>
+<span class="code-line">  Actual function call count doesn&#39;t match this expectation.</span>
+<span class="code-line">         Expected: to be called once</span>
+<span class="code-line">           Actual: never called - unsatisfied and active</span>
+<span class="code-line">  unknown location(0): fatal error in &quot;test_gmock&quot;: signal: SIGABRT (application abort requested)</span>
+<span class="code-line">  test-mock.cpp(65): last checkpoint</span>
 <span class="code-line"></span>
-<span class="code-line">  <span class="o">***</span> <span class="mi">1</span> <span class="nx">failure</span> <span class="nx">detected</span> <span class="k">in</span> <span class="nx">test</span> <span class="nx">suite</span> <span class="s2">&quot;Mock example&quot;</span></span>
+<span class="code-line">  *** 1 failure detected in test suite &quot;Mock example&quot;</span>
 </pre></div>
 
 
@@ -711,36 +711,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             

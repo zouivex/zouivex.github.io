@@ -82,7 +82,7 @@
 <footer class="post-info">
     <span class="label label-default">日期</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-12-20T14:14:32+08:00"> Sat 20 December 2014</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-12-20T14:14:32+08:00"> 六 20 十二月 2014</time>
     </span>
 
         <span class="label label-default">分类</span>
@@ -96,7 +96,7 @@
                 </div>
                 <h1 id="_1">习题解答</h1>
 <h2 id="233">练习2.33</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">map </span><span class="nv">p</span> <span class="nv">sequence</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">map </span><span class="nv">p</span> <span class="nv">sequence</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">p</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">y</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">sequence</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">append </span><span class="nv">seq1</span> <span class="nv">seq2</span><span class="p">)</span></span>
@@ -111,7 +111,7 @@
 
 
 <h2 id="234">练习2.34</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">horner-eval</span> <span class="nv">x</span> <span class="nv">coefficient-sequence</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">horner-eval</span> <span class="nv">x</span> <span class="nv">coefficient-sequence</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">this-coeff</span> <span class="nv">higher-terms</span><span class="p">)</span></span>
 <span class="code-line">                <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">higher-terms</span><span class="p">)</span> <span class="nv">this-coeff</span><span class="p">))</span></span>
 <span class="code-line">              <span class="mi">0</span></span>
@@ -120,7 +120,7 @@
 
 
 <h2 id="235">练习2.35</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">count-leaves</span> <span class="nv">t</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">count-leaves</span> <span class="nv">t</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">accumulate</span></span>
 <span class="code-line">   <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span></span>
 <span class="code-line">     <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">x</span><span class="p">)</span></span>
@@ -133,7 +133,7 @@
 
 
 <h2 id="236">练习2.36</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">accumulate-n</span> <span class="nv">op</span> <span class="nv">init</span> <span class="nv">seqs</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">accumulate-n</span> <span class="nv">op</span> <span class="nv">init</span> <span class="nv">seqs</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="p">(</span><span class="nb">car </span><span class="nv">seqs</span><span class="p">))</span></span>
 <span class="code-line">      <span class="o">&#39;</span><span class="p">()</span></span>
 <span class="code-line">      <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">accumulate</span> <span class="nv">op</span> <span class="nv">init</span> <span class="p">(</span><span class="nb">map </span><span class="nv">car</span> <span class="nv">seqs</span><span class="p">))</span></span>
@@ -142,7 +142,7 @@
 
 
 <h2 id="237">练习2.37</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">matrix-*-vector</span> <span class="nv">m</span> <span class="nv">v</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">matrix-*-vector</span> <span class="nv">m</span> <span class="nv">v</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="nf">lambda</span><span class="p">(</span><span class="nf">row</span><span class="p">)</span> <span class="p">(</span><span class="nf">dot-product</span> <span class="nv">row</span> <span class="nv">v</span><span class="p">))</span> <span class="nv">m</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">transpose</span> <span class="nv">m</span><span class="p">)</span></span>
@@ -163,7 +163,7 @@
 </ul>
 <p>如果要求某个op同时保证fold-left和fold-right对任何序列都产生同样的结果，op至少应该满足交换律。</p>
 <h2 id="239">练习2.39</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">reverse </span><span class="nv">seq</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">reverse </span><span class="nv">seq</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">fold-right</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span> <span class="p">(</span><span class="nb">append </span><span class="nv">y</span> <span class="p">(</span><span class="nb">list </span><span class="nv">x</span><span class="p">)))</span> <span class="o">&#39;</span><span class="p">()</span> <span class="nv">seq</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">reverse </span><span class="nv">seq</span><span class="p">)</span></span>
@@ -172,7 +172,7 @@
 
 
 <h2 id="240">练习2.40</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unique-pairs</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unique-pairs</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">flatmap</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">i</span><span class="p">)</span></span>
 <span class="code-line">             <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">j</span><span class="p">)</span> <span class="p">(</span><span class="nb">list </span><span class="nv">i</span> <span class="nv">j</span><span class="p">))</span></span>
 <span class="code-line">                  <span class="p">(</span><span class="nf">enum-range</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">- </span><span class="nv">i</span> <span class="mi">1</span><span class="p">))))</span></span>
@@ -181,7 +181,7 @@
 
 
 <h2 id="241">练习2.41</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unique-triples</span> <span class="nv">n</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unique-triples</span> <span class="nv">n</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nf">flatmap</span></span>
 <span class="code-line">   <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">i</span><span class="p">)</span></span>
 <span class="code-line">     <span class="p">(</span><span class="nf">flatmap</span></span>
@@ -204,7 +204,7 @@
 
 
 <h2 id="242">练习2.42</h2>
-<div class="highlight"><pre><span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-position</span> <span class="nv">row</span> <span class="nv">col</span><span class="p">)</span></span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-position</span> <span class="nv">row</span> <span class="nv">col</span><span class="p">)</span></span>
 <span class="code-line">  <span class="p">(</span><span class="nb">cons </span><span class="nv">row</span> <span class="nv">col</span><span class="p">))</span></span>
 <span class="code-line"></span>
 <span class="code-line"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">position-col</span> <span class="nv">p</span><span class="p">)</span></span>
@@ -339,36 +339,6 @@
 
                 <li class="list-group-item"><a href="http://blog.zouxu.com.cn/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">标签</span></h4></a>
                     <ul class="list-group list-inline tagcloud" id="tags">
-                        <li class="list-group-item tag-2">
-                            <a href="http://blog.zouxu.com.cn/tag/cpp.html">
-                                cpp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/git.html">
-                                git
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://blog.zouxu.com.cn/tag/scheme.html">
-                                Scheme
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/sicp.html">
-                                sicp
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/tools.html">
-                                tools
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://blog.zouxu.com.cn/tag/unittest.html">
-                                unittest
-                            </a>
-                        </li>
                     </ul>
                 </li>    
             
